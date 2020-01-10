@@ -1,3 +1,33 @@
+/* Header colors*/
+.marine-color {
+    background-color: #0F2043;
+}
+.green-color {
+    background-color:  #79cedc;
+}
+.header1-color {
+    background-color: #00994d;
+}
+
+/* Items, logo, etc */
+.lower {
+    padding-top: 10.2%;
+}
+.nav-link {
+    color: black !important;
+}
+.logo-image {
+    width: 120px; 
+    height: 40px;
+}
+
+/* search bar and button */
+.search-div {
+    display: inline;
+}
+.search-form {
+    min-width: 287px;
+}
 #searchBtn {
     color: black;
     font-weight:  500;
@@ -6,7 +36,13 @@
     /* margin-left: auto;
     margin-right: auto; */
 }
-ç
+
+
+
+
+
+
+
 @media screen and (min-device-width: 620px) and (max-device-width: 800px) {
     /* #index {
         display: flex;
