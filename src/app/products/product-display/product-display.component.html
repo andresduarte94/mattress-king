@@ -1,0 +1,16 @@
+<div class="col-xs-12 col-sm-3 mb-4 mb-sm-0 d-flex justify-content-center">
+    <!-- id="sticky" style="position: fixed"-->
+    <div>
+        <div class="card categories-sidebar">
+            <div class="sidebar-header card-header">
+                <h4 class="text-center">Categorías</h4>
+            </div>
+            <ul class="list-group">
+                <li class="list-group-item p-0" *ngFor="let category of productTypes;"><a
+                        class="nav-link"
+                        [routerLink]="['/products', category.toLowerCase()]">{{ category }}</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<app-product-list class="col-xs-12 col-sm-9" [productsRow]="25" [filter]="filter"></app-product-list>

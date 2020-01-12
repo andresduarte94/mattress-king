@@ -27,8 +27,8 @@
 <!-- Blue header for logo, search bar, cart and login/account -->
 <nav class="navbar navbar-expand-lg navbar-dark marine-color">
     <!-- Logo -->
-    <a class="navbar-brand" href="#">
-        <img class="mb-2 logo-image" src="#">
+    <a class="navbar-brand" routerLink="/home">
+        <img class="mb-2 logo-image" src="assets/images/logo-04.jpg">
     </a>
     <!-- Burguer button for right-side of header -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02"
@@ -52,7 +52,7 @@
         <ul class="navbar-nav ml-auto">
             <!-- Car basket-->
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" routerLink="/home">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                         class="feather feather-shopping-cart">
@@ -95,16 +95,10 @@
     <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="#">Products <span class="sr-only">(current)</span></a>
+                <a class="nav-link" routerLink="/products/">Products</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Sheets</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Beds</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Pillows</a>
+            <li class="nav-item" *ngFor="let category of productTypes;">
+                <a class="nav-link" [routerLink]="['/products', category.toLowerCase()]">{{ category }}</a>
             </li>
         </ul>
     </div>

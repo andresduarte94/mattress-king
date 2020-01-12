@@ -1,25 +1,18 @@
-<div class="container ">
-    <div class="flex-lg-row row d-flex">
-        <div class="col-lg-4 col-md-6 col-12 mb-2">
-            <div class="card mx-auto div-width">
-                <a href="{{ product.amazonLink }}" target="_blank">
-                    <img class="card-img-top" height="250px" src="assets/products/{{ product.imagePath }}.jpg"
-                        alt="Imagen del producto">
-                </a>
-                <div class="card-body">
-                    <p class="card-text">
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <a href="{{ product.amazonLink }}" target="_blank"><strong>{{ product.name | shorten:45}}</strong></a>
-                        </div>
-                        <div>
-                            <strong>{{ product.price }} €</strong>
-                        </div>
-                    </div>
+<div class="card mx-auto" style="max-height: 330px; overflow: hidden;">
+    <a href="{{ product.amazonLink }}" target="_blank">
+        <img class="card-img-top" height="200px" src="assets/products/{{ product.imagePath }}.jpg"
+            alt="Imagen del producto">
+    </a>
+    <div class="card-body">
+        <p class="card-text">
+            <div class="d-flex justify-content-between">
+                <div>
+                    <a href="{{ product.amazonLink }}"
+                        target="_blank"><strong>{{ product.name | shorten:45}}</strong></a>
+                </div>
+                <div>
+                    <strong>{{ product.price }} €</strong>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="col-lg-4 mb-2 div-width">
     </div>
 </div>

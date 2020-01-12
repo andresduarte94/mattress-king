@@ -7,16 +7,35 @@ import { Product } from './product.model';
     providedIn: 'root'
 })
 export class ProductsService {
-  //recipesChanged = new Subject<Product[]>();
+  filterChanged = new Subject<any>();
   private products: Product[] = [];
+  readonly productTypes : string [] = ['Mattresses', 'Beds', 'Sheets', 'Pillows', 'Accessories'];
 
-  getProducts() {
-    return this.products.slice();
+  getProducts(filter?) {
+    let products = this.products.slice();
+    if(!filter) {
+      return products;
+    }
+    
+    products = products.filter(function (product) {
+      return (filter.hasOwnProperty('type')? (product.type == filter.type) : (true)) &&
+             (filter.hasOwnProperty('name')? (RegExp(filter.name, 'i').test(product.name.normalize("NFD").replace(/[\u0300-\u036f]/g, ""))) : (true)) &&
+             (filter.hasOwnProperty('description')? (RegExp(filter.description, 'i').test(product.description.normalize("NFD").replace(/[\u0300-\u036f]/g, ""))) : (true)) &&
+             (filter.hasOwnProperty('score')? (product.score >= filter.score) : (true)) &&
+             (filter.hasOwnProperty('price')? (product.price <= filter.price) : (true));
+    });
+
+    return products;
   }
 
   setProducts(products: Product[]) {
     this.products = products;
     //this.recipesChanged.next(this.products.slice());
+  }
+
+  getProductTypeId(productType: string) {
+    productType = productType.charAt(0).toUpperCase() + productType.slice(1);
+    return this.productTypes.indexOf(productType);
   }
 
   // private recipes: Recipe[] = [

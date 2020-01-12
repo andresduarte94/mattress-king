@@ -15,14 +15,30 @@ import { ProductDetailComponent } from './products/product-detail/product-detail
 import { ProductItemComponent } from './products/product-list/product-item/product-item.component';
 import { SharedModule } from './shared/shared.module';
 
+import { JwPaginationComponent } from 'jw-angular-pagination';
+import { ProductDisplayComponent } from './products/product-display/product-display.component';
+
+
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, MainComponent, ProductsComponent, FooterComponent, BlogComponent, ProductListComponent, ProductDetailComponent, ProductItemComponent],
+  declarations: [
+    AppComponent, 
+    HeaderComponent,
+    MainComponent, 
+    ProductsComponent, 
+    FooterComponent, 
+    BlogComponent, 
+    ProductListComponent, 
+    ProductDetailComponent, 
+    ProductItemComponent,
+    JwPaginationComponent,
+    ProductDisplayComponent
+  ], 
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     SharedModule
-  ],
+    ],
   bootstrap: [AppComponent],
   // providers: [LoggingService]
 })
