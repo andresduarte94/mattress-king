@@ -1,106 +1,106 @@
 <!-- Green header for currency, country, blog and contact-->
-<nav class="navbar navbar-expand-lg navbar-dark header1-color">
-    <div class="collapse navbar-collapse" id="navbarColor01">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Currency <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Country</a>
-            </li>
-        </ul>
-    </div>
-    <div class="collapse navbar-collapse">
-        <ul class="navbar-nav ml-auto">
-            <!-- Blog and Contact -->
-            <li class="nav-item lower">
-                <a class="nav-link" href="#">Blog</a>
-            </li>
-            <li class="nav-item lower">
-                <a class="nav-link" href="#">Contact</a>
-            </li>
-        </ul>
-    </div>
-</nav>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark header1-color">
+        <div class="collapse navbar-collapse" id="navbar-grey">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link text-white" href="#">Currency</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">Country</a>
+                </li>
+            </ul>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ml-auto mb-2">
+                <!-- Blog and Contact -->
+                <li class="nav-item lower">
+                    <a class="nav-link text-info font-weight-bold" href="#">Blog</a>
+                </li>
+                <li class="nav-item lower">
+                    <a class="nav-link text-info font-weight-bold" href="#">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
 <!-- End 1rst header -->
 
 <!-- Blue header for logo, search bar, cart and login/account -->
-<nav class="navbar navbar-expand-lg navbar-dark marine-color">
-    <!-- Logo -->
-    <a class="navbar-brand" routerLink="/home">
-        <img class="mb-2 logo-image" src="assets/images/logo-04.jpg">
-    </a>
-    <!-- Burguer button for right-side of header -->
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02"
-        aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+<header>
+    <nav class="navbar navbar-expand-lg" id="navbar-blue">
+        <!-- Logo -->
+        <a class="navbar-brand" routerLink="/home">
+            <img class="mb-2 logo-image" src="assets/images/logo-04.jpg">
+        </a>
+        <!-- Burguer button for right-side of header -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-blue"
+            aria-controls="navbar-blue" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-    <!-- Search bar with button-->
-    <div class="search-div w-100 mx-auto">
-        <form class="form-inline my-2 mx-auto w-75 search-form">
-            <div class="w-50 ml-4">
-                <input class="form-control w-100" type="search" placeholder="Search" aria-label="Search">
-            </div>
-            <button class="btn btn-secondary ml-4 mr-0" type="submit" id="searchBtn">Search</button>
-        </form>
-    </div>
-    <!-- Search bar with button end-->
-
-    <!-- Right part of 2nd header -->
-    <div class="collapse navbar-collapse" id="navbarColor02">
-        <ul class="navbar-nav ml-auto">
-            <!-- Car basket-->
-            <li class="nav-item">
-                <a class="nav-link" routerLink="/home">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        class="feather feather-shopping-cart">
-                        <circle cx="9" cy="21" r="1"></circle>
-                        <circle cx="20" cy="21" r="1"></circle>
-                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                    </svg>
-                    Cart
-                </a>
-            </li>
-            <!-- Authentication Links -->
-            <li class="nav-item lower">
-                <a class="nav-link" href="#">Login</a>
-            </li>
-            <li class="nav-item lower">
-                <a class="nav-link" href="#">Register</a>
-            </li>
-            <li class="nav-item dropdown lower">
-                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false" v-pre>
-                    name <span class="caret"></span>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Dashboard</a>
-                    <a class="dropdown-item" href="#">
-                        'Logout'
-                    </a>
-                    <form id="logout-form" action="#" method="POST" style="display: none;">
-                    </form>
+        <!-- Search bar with button-->
+        <div class="search-div w-100 mx-auto">
+            <form class="form-inline my-2 mx-auto w-75 search-form">
+                <div class="w-50 ml-4">
+                    <input class="form-control w-100" type="search" placeholder="Search" aria-label="Search">
                 </div>
-            </li>
-        </ul>
+                <button class="btn btn-secondary ml-4 mr-0" type="submit" id="searchBtn">Search</button>
+            </form>
+        </div>
+        <!-- Search bar with button end-->
 
-    </div>
-</nav>
+        <!-- Right part of 2nd header -->
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ml-auto">
+                <!-- Car basket-->
+                <li class="nav-item">
+                    <a class="nav-link text-light" routerLink="/home">
+                        <fa-icon [icon]="faShoppingCart" id="shoppingCart"></fa-icon>
+                        Cart
+                    </a>
+                </li>
+                <!-- Authentication Links -->
+                <li class="nav-item lower">
+                    <a class="nav-link text-light" href="#" id="linkkk">Login</a>
+                </li>
+                <li class="nav-item lower">
+                    <a class="nav-link text-light" href="#">Register</a>
+                </li>
+                <li class="nav-item dropdown lower">
+                    <a id="navbarDropdown" class="nav-link dropdown-toggle text-light" href="#" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        Name <span class="caret"></span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Dashboard</a>
+                        <a class="dropdown-item" href="#">
+                            'Logout'
+                        </a>
+                        <form id="logout-form" action="#" method="POST" style="display: none;">
+                        </form>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</header>
 <!-- End 2nd header-->
 
 <!-- Light blue header for products and its categories-->
-<nav class="navbar navbar-expand-lg navbar-dark green-color">
-    <div class="collapse navbar-collapse" id="navbarColor01">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" routerLink="/products/">Products</a>
-            </li>
-            <li class="nav-item" *ngFor="let category of productTypes;">
-                <a class="nav-link" [routerLink]="['/products', category.toLowerCase()]">{{ category }}</a>
-            </li>
-        </ul>
-    </div>
-</nav>
+<header>
+    <nav class="navbar navbar-expand-lg" id="navbar-light-blue">
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active mr-4">
+                    <a class="nav-link" routerLink="/products/">Products</a>
+                </li>
+                <li class="nav-item mr-4" *ngFor="let category of productTypes;">
+                    <a class="nav-link" [routerLink]="['/products', category.toLowerCase()]">{{ category }}</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
 <!-- End 3rd header-->

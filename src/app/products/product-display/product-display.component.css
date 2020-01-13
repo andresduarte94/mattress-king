@@ -1,3 +1,8 @@
 .categories-sidebar {
     width: 200px;
 }
+
+.col {
+    padding-right: 0;
+    padding-left: 0;
+}

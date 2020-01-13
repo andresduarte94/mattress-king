@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from '../products/products.service';
+import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-header',
@@ -8,6 +9,7 @@ import { ProductsService } from '../products/products.service';
 })
 export class HeaderComponent implements OnInit {
   productTypes: string[];
+  faShoppingCart = faShoppingCart;
 
   constructor(private productsService: ProductsService) { }
 

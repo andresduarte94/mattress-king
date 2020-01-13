@@ -1,0 +1,22 @@
+.marine-color {
+    background-color: #0F2043;
+}
+
+.footer {
+    background-color: #1c2331 ;
+    color: balck;
+}
+
+.hr-color {
+    border: 1px solid #79cedc;
+}
+
+
+[class^="icon-"] {
+    display: inline-block;
+    width: 3em;
+    height: 2em;
+    stroke-width: 0;
+    stroke: currentColor;
+    fill: currentColor;
+}

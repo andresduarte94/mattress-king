@@ -1,27 +1,28 @@
-/* Header colors*/
-.marine-color {
-    background-color: #0F2043;
-}
-.green-color {
-    background-color:  #79cedc;
-}
+/* GREY NAVBAR */
 .header1-color {
-    background-color: #00994d;
+    background-color: #54595E;
+    max-height: 50px;
+    color: darkgray;
 }
 
-/* Items, logo, etc */
+/* BLUE NAVBAR */
+#navbar-blue {
+    background-color: #0F2043;
+}
+
 .lower {
-    padding-top: 10.2%;
+    padding-top: 9.2%;
 }
-.nav-link {
-    color: black !important;
-}
+
 .logo-image {
     width: 120px; 
     height: 60px;
 }
 
-/* search bar and button */
+#shoppingCart {
+    color: darkgray;
+}
+
 .search-div {
     display: inline;
 }
@@ -29,13 +30,30 @@
     min-width: 287px;
 }
 #searchBtn {
-    color: black;
+    color: whitesmoke;
     font-weight:  500;
     border: black;
-    background-color:  #339933;
+    background-color: #54595E; /*#339933;*/
+    border: 1px solid darkgray;
     /* margin-left: auto;
     margin-right: auto; */
 }
+
+/* LIGHT BLUE NAVBAR */
+#navbar-light-blue {
+    background-color:  #79cedc;
+    padding-left: 8%;
+}
+
+#navbar-light-blue a {
+    color: black !important;
+    font-weight: 600;
+}
+
+
+
+
+
 
 
 
