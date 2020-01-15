@@ -3,8 +3,12 @@
     color: balck;
 }
 
-.hr-color {
-    border: 1px solid #79cedc; 
+.deep-purple {
+    border: 1px solid #6351ce;  /* #79cedc*/
+}
+
+.social-footer {
+    background-color: #6351ce;
 }
 
 [class^="icon-"] {
@@ -12,6 +16,7 @@
     stroke-width: 0;
     stroke: currentColor;
     fill: currentColor;
+    margin-right: 0.7em;
 }
 
 .icon-med {
@@ -24,12 +29,15 @@
     height: 1em;
 }
 
+a, p, address {
+    color: #cccccc;
+}
+
 
 /* 
 
 3) Update correct info
 4) Insert svg with JS in assets
-5) check footer classes/style and compare with example (spaces beetween icon and words)
-
+5) HR long line
 
 */

@@ -26,12 +26,14 @@
 .search-div {
     display: inline;
 }
+
 .search-form {
     min-width: 287px;
 }
+
 #searchBtn {
     color: whitesmoke;
-    font-weight:  500;
+    font-weight: 500;
     border: black;
     background-color: #54595E; /*#339933;*/
     border: 1px solid darkgray;
@@ -49,12 +51,6 @@
     color: black !important;
     font-weight: 600;
 }
-
-
-
-
-
-
 
 
 
