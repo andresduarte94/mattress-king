@@ -3,8 +3,9 @@
     color: balck;
 }
 
-.deep-purple {
+.hr-footer {
     border: 1px solid #6351ce;  /* #79cedc*/
+    width: 7em;
 }
 
 .social-footer {
@@ -32,12 +33,3 @@
 a, p, address {
     color: #cccccc;
 }
-
-
-/* 
-
-3) Update correct info
-4) Insert svg with JS in assets
-5) HR long line
-
-*/
