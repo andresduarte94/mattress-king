@@ -32,7 +32,7 @@
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js",
-              "src/externals/import-svg.js"
+              "src/assets/externals/import-svg.js"
             ]
           },
           "configurations": {
