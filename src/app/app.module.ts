@@ -17,9 +17,9 @@ import { SharedModule } from './shared/shared.module';
 
 import { JwPaginationComponent } from 'jw-angular-pagination';
 import { ProductDisplayComponent } from './products/product-display/product-display.component';
-import { PostItemComponent } from './blog/post-item/post-item.component';
 import { PostsListComponent } from './blog/posts-list/posts-list.component';
 import { PostComponent } from './blog/posts-list/post/post.component';
+import { PostItemComponent } from './blog/posts-list/post-item/post-item.component';
 
 
 @NgModule({
@@ -35,9 +35,9 @@ import { PostComponent } from './blog/posts-list/post/post.component';
     ProductItemComponent,
     JwPaginationComponent,
     ProductDisplayComponent,
-    PostItemComponent,
     PostsListComponent,
-    PostComponent
+    PostComponent,
+    PostItemComponent
   ], 
   imports: [
     BrowserModule,

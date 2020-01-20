@@ -5,13 +5,16 @@ import { map, tap, take, exhaustMap } from 'rxjs/operators';
 import { AuthService } from '../auth/auth.service';
 import { Product } from '../products/product.model';
 import { ProductsService } from '../products/products.service';
+import { BlogService } from '../blog/blog.service';
+import { Post } from '../blog/post.model';
 
 @Injectable({ providedIn: 'root' })
 export class DataStorageService {
   constructor(
     private http: HttpClient,
     private authService: AuthService,
-    private productsService: ProductsService
+    private productsService: ProductsService,
+    private blogService: BlogService
   ) {}
 
   fetchProducts() {
@@ -30,6 +33,26 @@ export class DataStorageService {
         }),
         tap(products => {
           this.productsService.setProducts(products);
+        })
+      );
+  }
+
+  fetchPosts() {
+    return this.http
+      .get<Post[]>(
+        'https://mattress-king-10b2e.firebaseio.com/posts.json'
+      )
+      .pipe(
+        map(postsJson => {
+            let posts = [];
+            for(let [i, [fbId, post]] of Object.entries(Object.entries(postsJson))) { 
+                post.id = fbId;
+                posts[i] = post; 
+            };
+            return posts;
+        }),
+        tap(posts => {
+          this.blogService.setPosts(posts);
         })
       );
   }
