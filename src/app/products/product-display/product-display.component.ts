@@ -18,7 +18,7 @@ export class ProductDisplayComponent implements OnInit {
     this.productTypes = this.productsService.productTypes;
     this.activatedRoute.params.subscribe(
       (params: Params) => {
-        if (!params.hasOwnProperty('productType')) {
+        if (!params.hasOwnProperty('productType')  || params.productType == 'all') {
           this.filter = {};
         }
         else {

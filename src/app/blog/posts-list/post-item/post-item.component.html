@@ -1,10 +1,10 @@
 <div class="card mx-auto" style="max-height: 330px; overflow: hidden;">
-    <a [routerLink]="[post.id]">
+    <a [routerLink]="[postIndex]">
         <img class="card-img-top" height="200px" src="assets/posts/{{ post.imagePath }}" alt="Post image">
     </a>
     <div class="card-body">
         <p class="card-text">
-            <a [routerLink]="[post.id]">{{ post.title | shorten:45 }}</a>
+            <a [routerLink]="[postIndex]">{{ post.title | shorten:45 }}</a>
         </p>
         <p class="card-text">
             {{ post.content | shorten:145 }}

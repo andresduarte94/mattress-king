@@ -28,4 +28,10 @@ export class BlogService {
   setPosts(posts: Post[]) {
     this.posts = posts;
   }
+
+  getPostById(postId: number) {
+    return this.posts[postId];
+  }
+
+
 }
