@@ -1,13 +1,14 @@
 <div class="w-100">
     <div class="grid mx-auto">
+
         <!-- Post image, title and author section-->
         <div class="m-2">
-            <div>
+            <div class="mb-4">
                 <h1>{{ post.title }}</h1>
             </div>
             <hr>
-            <div class="row py-4 d-flex align-items-center">
-                <div class="col-md-6 col-lg-7 text-center text-md-left mb-4 mb-md-0">
+            <div class="row d-flex align-items-center">
+                <div class="col-6 col-lg-7 text-left mb-0">
                     <svg class="icon-twitter icon-small">
                         <use xlink:href="#icon-twitter"></use>
                     </svg>
@@ -18,17 +19,28 @@
                         <use xlink:href="#icon-mail"></use>
                     </svg>
                 </div>
+                <div class="col-6 col-lg-5 text-right mb-0">
+                    <a (click)="nextArticle()" class="mb-0 link">NEXT ARTICLE</a>
+                </div>
             </div>
             <hr>
-            <img class="d-block w-100 post-img" src="assets/images/blog-design-inspiration.jpg" alt="Third slide">
+            <img class="d-block w-100 post-img mt-3" src="assets/images/blog-design-inspiration.jpg" alt="Third slide">
             <div>
-                <p>{{ post.author}}</p>
+                <p>{{ post.author }}</p>
             </div>
         </div>
 
         <!-- Post content section-->
         <div class="contain">
-            <p>{{ post.content}}</p>
+            <p>{{ post.content }}</p>
         </div>
     </div>
 </div>
+
+
+<!--
+1) Author section
+2) Beautify text section
+3) Better fonts familys/styles
+4) Blog section -> beautify cards and add articles to banner
+-->

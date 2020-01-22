@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Route, Router } from '@angular/router';
 import { Post } from '../../post.model';
 import { BlogService } from '../../blog.service';
 
@@ -10,15 +10,32 @@ import { BlogService } from '../../blog.service';
 })
 export class PostComponent implements OnInit {
   post: Post;
+  postIndex: number;
+  nextId: number;
 
-  constructor(private activatedRoute: ActivatedRoute, private blogService: BlogService) { }
+  constructor(private activatedRoute: ActivatedRoute, private blogService: BlogService, private router: Router) { }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(
       (params: Params) => {
-        this.post = this.blogService.getPostById(params.postId);
+        this.postIndex = +params.postIndex;
+        this.post = this.blogService.getPostById(this.postIndex);
+        if(typeof this.post === 'undefined') {
+          this.post = this.blogService.getPostById(0);
+        }
       }
     );
+  }
+
+  nextArticle() {
+    var post = this.blogService.getPostById(this.postIndex+1);
+    if(typeof post === 'undefined') {
+      this.nextId = 0;
+    }
+    else {
+      this.nextId = ++this.postIndex;
+    }
+    this.router.navigate(['/blog', this.nextId]);
   }
 
 }
