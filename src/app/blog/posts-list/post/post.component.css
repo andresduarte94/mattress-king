@@ -1,4 +1,35 @@
 .contain {
     margin-right: 14%;
     margin-left: 14%;
+    margin-top: 5%
+}
+
+.grid {
+    max-width: 1030px;
+    align-content: center
+}
+
+.post-img {
+    border-bottom: 3em solid #f9f9f9;
+    border-top: 3em solid #f9f9f9;
+}
+
+
+
+[class^="icon-"] {
+    display: inline-block;
+    stroke-width: 0;
+    stroke: currentColor;
+    fill: currentColor;
+    margin-right: 0.7em;
+}
+
+.icon-med {
+    width: 3em;
+    height: 2em;
+}
+
+.icon-small {
+    width: 1em;
+    height: 1em;
 }

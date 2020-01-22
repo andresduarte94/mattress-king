@@ -1,11 +1,34 @@
-<div class="contain">
-    <div>
-        <h1>{{ post.title }}</h1>
-    </div>
-    
-    <img class="d-block w-100" src="assets/images/blog-design-inspiration.jpg" alt="Third slide">
+<div class="w-100">
+    <div class="grid mx-auto">
+        <!-- Post image, title and author section-->
+        <div class="m-2">
+            <div>
+                <h1>{{ post.title }}</h1>
+            </div>
+            <hr>
+            <div class="row py-4 d-flex align-items-center">
+                <div class="col-md-6 col-lg-7 text-center text-md-left mb-4 mb-md-0">
+                    <svg class="icon-twitter icon-small">
+                        <use xlink:href="#icon-twitter"></use>
+                    </svg>
+                    <svg class="icon-linkedin icon-small">
+                        <use xlink:href="#icon-linkedin"></use>
+                    </svg>
+                    <svg class="icon-mail icon-small">
+                        <use xlink:href="#icon-mail"></use>
+                    </svg>
+                </div>
+            </div>
+            <hr>
+            <img class="d-block w-100 post-img" src="assets/images/blog-design-inspiration.jpg" alt="Third slide">
+            <div>
+                <p>{{ post.author}}</p>
+            </div>
+        </div>
 
-    <div class="contain">
-        <p>{{ post.content}}</p>
+        <!-- Post content section-->
+        <div class="contain">
+            <p>{{ post.content}}</p>
+        </div>
     </div>
 </div>
