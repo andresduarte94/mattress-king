@@ -33,3 +33,13 @@ hr {
     color: #1082c1;
     text-decoration: none;
 }
+
+
+@media (max-width:480px)  { 
+    .contain {
+        margin-right: 4%;
+        margin-left: 4%;
+        margin-top: 5%
+    }
+    
+}
