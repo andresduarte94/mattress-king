@@ -10,8 +10,8 @@
 }
 
 .post-img {
-    border-bottom: 3em solid #f9f9f9;
-    border-top: 3em solid #f9f9f9;
+    border-bottom: 3em solid #F4F4F4;
+    border-top: 3em solid #F4F4F4;
 }
 
 .icon-small {
@@ -32,6 +32,17 @@ hr {
     font-family: proxima-nova, Helvetica Neue, Arial, sans-serif !important;
     color: #1082c1;
     text-decoration: none;
+}
+
+#authorTable {
+    vertical-align: top;
+    text-align: left;
+    display: inline-block;
+
+}
+
+.author-image {
+    width: 80px;
 }
 
 
