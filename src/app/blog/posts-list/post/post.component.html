@@ -25,14 +25,14 @@
             </div>
             <hr>
             <img class="d-block w-100 post-img mt-3" src="assets/images/blog-design-inspiration.jpg" alt="Third slide">
-            <div class="mt-4">
+            <div class="mt-4" id="author">
                 <p>{{ post.author }}</p>
             </div>
         </div>
 
         <!-- Post content section-->
-        <div class="contain">
-            <p>{{ post.content }}</p>
+        <div class="contain" >
+            <p [innerHTML]="post.content"></p>
         </div>
     </div>
 </div>
