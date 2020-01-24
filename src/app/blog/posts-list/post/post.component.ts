@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Route, Router } from '@angular/router';
 import { Post } from '../../post.model';
 import { BlogService } from '../../blog.service';
+import { Author } from '../../author.model';
 
 @Component({
   selector: 'app-post',
@@ -12,6 +13,7 @@ export class PostComponent implements OnInit {
   post: Post;
   postIndex: number;
   nextId: number;
+  author: Author;
 
   constructor(private activatedRoute: ActivatedRoute, private blogService: BlogService, private router: Router) { }
 

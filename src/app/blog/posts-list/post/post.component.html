@@ -1,4 +1,4 @@
-<div class="container align-items-center">
+<div class="container align-items-center test">
     <div class="grid mx-auto">
 
         <!-- Post image, title and author section-->
@@ -25,9 +25,17 @@
             </div>
             <hr>
             <img class="d-block w-100 post-img mt-3" src="assets/images/blog-design-inspiration.jpg" alt="Third slide">
-            <div class="mt-4" id="author">
-                <p>{{ post.author }}</p>
-            </div>
+            
+            <table class="mt-4" id="authorTable">
+                <tr>
+                    <td>
+                        <img class="d-block author-image" src="assets/images/author-sofia.jpg" alt="Author picture">
+                    </td>
+                    <td>
+                        <p>{{ post.author }}</p>
+                    </td>
+                </tr>
+            </table>
         </div>
 
         <!-- Post content section-->

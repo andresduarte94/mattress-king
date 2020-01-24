@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Post } from './post.model';
+import { Author } from './author.model';
  
 @Injectable({
     providedIn: 'root'
@@ -8,6 +9,7 @@ import { Post } from './post.model';
 export class BlogService {
   filterChanged = new Subject<any>();
   private posts: Post[] = [];
+  private authors: Author[] = [];
 
   getPosts(filter?) {
     let posts = this.posts.slice();
@@ -31,6 +33,14 @@ export class BlogService {
 
   getPostById(postId: number) {
     return this.posts[postId];
+  }
+
+  setAuthors(authors: Author[]) {
+    this.authors = authors;
+  }
+
+  getAuthorById(authorId: number) {
+    return this.authors[authorId];
   }
 
 }

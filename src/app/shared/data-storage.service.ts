@@ -7,6 +7,7 @@ import { Product } from '../products/product.model';
 import { ProductsService } from '../products/products.service';
 import { BlogService } from '../blog/blog.service';
 import { Post } from '../blog/post.model';
+import { Author } from '../blog/author.model';
 
 @Injectable({ providedIn: 'root' })
 export class DataStorageService {
@@ -37,6 +38,7 @@ export class DataStorageService {
       );
   }
 
+  //Avoid code replication
   fetchPosts() {
     return this.http
       .get<Post[]>(
@@ -56,6 +58,27 @@ export class DataStorageService {
         })
       );
   }
+
+  fetchAuthors() {
+    return this.http
+      .get<Author[]>(
+        'https://mattress-king-10b2e.firebaseio.com/authors.json'
+      )
+      .pipe(
+        map(authorsJson => {
+            let authors = [];
+            for(let [i, [fbId, author]] of Object.entries(Object.entries(authorsJson))) { 
+              authors[i] = authors; 
+            };
+            return authors;
+        }),
+        tap(authors => {
+          this.blogService.setAuthors(authors);
+        })
+      );
+  }
+
+  
 
 /* 
   storeRecipes() {
