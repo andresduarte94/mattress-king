@@ -45,6 +45,23 @@ hr {
     width: 80px;
 }
 
+.resume {
+    /*padding-right: 10em;*/
+    font-size: 0.87em;
+    font-weight: bold;
+    color: gray
+    
+}
+
+.name {
+    font-weight: bold;
+}
+
+
+.post-info {
+    color: gray;
+    font-size: 0.83em;
+}
 
 @media (max-width:480px)  { 
     .contain {

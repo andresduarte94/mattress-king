@@ -7,22 +7,22 @@ import {
 
 import { DataStorageService } from '../shared/data-storage.service';
 import { BlogService } from './blog.service';
-import { Post } from './post.model';
+import { Author } from './author.model';
 
 @Injectable({ providedIn: 'root' })
-export class PostsResolverService implements Resolve<Post[]> {
+export class AuthorsResolverService implements Resolve<Author[]> {
+
   constructor(
     private dataStorageService: DataStorageService,
     private blogService: BlogService
   ) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    const posts = this.blogService.getPosts();
-    if (posts.length === 0) {
-      return this.dataStorageService.fetchPosts();
+    const authors = this.blogService.getAuthors();
+    if (authors.length === 0) {
+      return this.dataStorageService.fetchAuthors();
     } else {
-      return posts;
+      return authors;
     }
   }
 }
-

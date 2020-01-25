@@ -6,14 +6,15 @@ import { ProductsComponent } from './products/products.component';
 import { BlogComponent } from './blog/blog.component';
 import { PostsResolverService } from './blog/posts-resolver.service';
 import { PostComponent } from './blog/posts-list/post/post.component';
+import { AuthorsResolverService } from './blog/authors-resolver.service';
 
 const appRoutes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full'},
     { path: 'home', component: MainComponent, resolve: [ProductsResolverService]},
     { path: 'products', pathMatch: 'full', redirectTo: '/products/all'}, //delete this and change links
     { path: 'products/:productType', component: ProductsComponent, resolve: [ProductsResolverService]},
-    { path: 'blog', component: BlogComponent, resolve: [PostsResolverService]},
-    { path: 'blog/:postIndex', component: PostComponent, resolve: [PostsResolverService]} 
+    { path: 'blog', component: BlogComponent, resolve: [PostsResolverService, AuthorsResolverService]},
+    { path: 'blog/:postIndex', component: PostComponent, resolve: [PostsResolverService, AuthorsResolverService]} 
 
     
   //{ path: '', redirectTo: '/recipes', pathMatch: 'full' },

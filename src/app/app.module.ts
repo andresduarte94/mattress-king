@@ -20,6 +20,7 @@ import { ProductDisplayComponent } from './products/product-display/product-disp
 import { PostsListComponent } from './blog/posts-list/posts-list.component';
 import { PostComponent } from './blog/posts-list/post/post.component';
 import { PostItemComponent } from './blog/posts-list/post-item/post-item.component';
+import { AuthorsResolverService } from './blog/authors-resolver.service';
 
 
 @NgModule({

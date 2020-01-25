@@ -68,8 +68,9 @@ export class DataStorageService {
         map(authorsJson => {
             let authors = [];
             for(let [i, [fbId, author]] of Object.entries(Object.entries(authorsJson))) { 
-              authors[i] = authors; 
+              authors[i] = author; 
             };
+            console.log(authors)
             return authors;
         }),
         tap(authors => {

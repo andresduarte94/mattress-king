@@ -4,7 +4,9 @@ export class Post {
         public title: string, 
         public content: string, 
         public type: number, 
-        public author: string,
-        public imagePath: string
+        public authorId: number,
+        public imagePath: string,
+        public date: number,
+        public duration: number
         ){}
 }

@@ -14,6 +14,7 @@ export class PostComponent implements OnInit {
   postIndex: number;
   nextId: number;
   author: Author;
+  postFormattedDate: string;
 
   constructor(private activatedRoute: ActivatedRoute, private blogService: BlogService, private router: Router) { }
 
@@ -25,6 +26,9 @@ export class PostComponent implements OnInit {
         if(typeof this.post === 'undefined') {
           this.post = this.blogService.getPostById(0);
         }
+        console.log(this.post);
+        this.author = this.blogService.getAuthorById(this.post.authorId);
+        this.postFormattedDate = new Date(this.post.date*1000).toLocaleString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
       }
     );
   }
