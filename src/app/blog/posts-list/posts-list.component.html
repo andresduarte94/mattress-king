@@ -1,6 +1,6 @@
-<div class="container-fluid">
-    <div class="row">
-        <app-post-item class="col-sm-4 mb-4 col-xs-12" *ngFor="let post of posts; let i = index" [post]="post" [postIndex]="i">
+<div class="container-fluid justify-content-center">
+    <div class="row mc-0 px-0">
+        <app-post-item class="mb-4 col-12 col-md-6 col-xl-4" *ngFor="let post of posts; let i = index" [post]="post" [postIndex]="i">
         </app-post-item>
     </div>
     <div class="row pb-0 pt-3 justify-content-center d-flex">

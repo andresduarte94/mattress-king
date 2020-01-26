@@ -46,11 +46,9 @@ hr {
 }
 
 .resume {
-    /*padding-right: 10em;*/
     font-size: 0.87em;
     font-weight: bold;
     color: gray
-    
 }
 
 .name {
@@ -69,5 +67,4 @@ hr {
         margin-left: 4%;
         margin-top: 5%
     }
-    
 }

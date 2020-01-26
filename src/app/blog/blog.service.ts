@@ -40,7 +40,6 @@ export class BlogService {
   }
 
   setAuthors(authors: Author[]) {
-    console.log(authors);
     this.authors = authors;
   }
 

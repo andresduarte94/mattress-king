@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Post } from './post.model';
+import { BlogService } from './blog.service';
 
 @Component({
   selector: 'app-blog',
@@ -6,10 +8,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./blog.component.css']
 })
 export class BlogComponent implements OnInit {
+  postIndexes: number [] = [1, 4, 5];
+  bannerPosts: Post[] = [];
+  current;
 
-  constructor() { }
+  constructor(private blogService: BlogService) { }
 
   ngOnInit() {
+    this.postIndexes.forEach(postIndex => {
+      this.bannerPosts.push(this.blogService.getPostById(postIndex));      
+    });
   }
 
 }

@@ -1,0 +1,7 @@
+@media screen and (max-width: 420px) {
+    [class*="container-fluid"] {
+        padding: 0;
+        margin-right: 0;
+        margin-left: 0;
+    }  
+}

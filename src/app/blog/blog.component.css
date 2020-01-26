@@ -1,8 +1,21 @@
 .contain {
-    margin-right: 10%;
-    margin-left: 10%;
+    margin-right: 7%;
+    margin-left: 7%;
 }
 
 .banner {
     max-width: 60%;
 }
+
+@media screen and (max-width: 800px) {
+    [class*="contain"] {
+        margin-right: auto;
+        margin-left: auto;
+    }
+    [class*="container-fluid"] {
+        padding: 0;
+        margin-right: 0;
+        margin-left: 0;
+    }
+}
+

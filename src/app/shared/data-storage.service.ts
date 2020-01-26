@@ -70,7 +70,6 @@ export class DataStorageService {
             for(let [i, [fbId, author]] of Object.entries(Object.entries(authorsJson))) { 
               authors[i] = author; 
             };
-            console.log(authors)
             return authors;
         }),
         tap(authors => {
@@ -78,39 +77,4 @@ export class DataStorageService {
         })
       );
   }
-
-  
-
-/* 
-  storeRecipes() {
-    const recipes = this.recipeService.getRecipes();
-    this.http
-      .put(
-        'https://ng-course-recipe-book-65f10.firebaseio.com/recipes.json',
-        recipes
-      )
-      .subscribe(response => {
-        console.log(response);
-      });
-  }
-
-  fetchRecipes() {
-    return this.http
-      .get<Recipe[]>(
-        'https://ng-course-recipe-book-65f10.firebaseio.com/recipes.json'
-      )
-      .pipe(
-        map(recipes => {
-          return recipes.map(recipe => {
-            return {
-              ...recipe,
-              ingredients: recipe.ingredients ? recipe.ingredients : []
-            };
-          });
-        }),
-        tap(recipes => {
-          this.recipeService.setRecipes(recipes);
-        })
-      );
-  } */
 }
