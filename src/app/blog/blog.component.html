@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <div class="row mb-5 justify-content-center contain" style="overflow: hidden; box-sizing: border-box;">
+    <div class="row mb-5 justify-content-center contain banner">
         <div class="col-8 p-0">
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                 <ol class="carousel-indicators">
@@ -28,14 +28,14 @@
                 </a>
             </div>
         </div>
-        <div class="card col-3 p-0" style="overflow: hidden; box-sizing: border-box;" style="overflow: hidden;">
+        <div class="card col-3 p-0" style="overflow: hidden; box-sizing: border-box;">
             <div class="card-body">
                 <h2>{{ bannerPosts[0].title}}</h2>
-                <p class="card-text" [innerHtml]="bannerPosts[0].content" style="overflow: hidden; max-height: 300px;">                    
+                <p class="card-text" [innerHtml]="bannerPosts[0].content | shorten:300">                    
                 </p>
                 <!-- Colored raised button -->
                 <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
-                    Read More&nbsp;>
+                    Read More&nbsp;&nbsp;>
                 </button>
             </div>
         </div>
