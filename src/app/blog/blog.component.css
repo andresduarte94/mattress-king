@@ -3,7 +3,7 @@
     margin-left: 7%;
 }
 
-.banner {
+.banner-image {
     max-height: 500px;
 }
 
@@ -19,3 +19,7 @@
     }
 }
 
+
+@media screen and (max-width: 865px) {
+
+}
