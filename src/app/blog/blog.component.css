@@ -21,5 +21,8 @@
 
 
 @media screen and (max-width: 865px) {
-
+    .banner {
+        padding-left: 3%;
+        padding-right: 3%;
+    }
 }
