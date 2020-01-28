@@ -26,3 +26,17 @@ a {
         width: 290px !important; 
     }
 }
+
+@media screen and (min-width: 380px) and (max-width: 1270px) {
+    [class*="demo-card-square"] {
+        width: 300px !important;
+        margin-right: 0; 
+    }
+}
+
+@media screen and (min-width: 380px) {
+    [class*="upper"] {
+        width: 95% !important;
+
+    }
+}
