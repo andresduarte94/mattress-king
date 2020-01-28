@@ -1,21 +1,17 @@
-<div class="card mx-auto" style="max-height: 330px; overflow: hidden;">
-    <a href="{{ product.amazonLink }}" target="_blank">
-        <img class="card-img-top" height="200px" src="assets/products/{{ product.imagePath }}.jpg"
-            alt="Imagen del producto">
-    </a>
-    <div class="card-body">
-        <div class="d-flex justify-content-between">
-            <div>
-                <p class="card-text">
-                    <a href="{{ product.amazonLink }}"
-                        target="_blank"><strong>{{ product.name | shorten:55}}</strong></a>
-                </p>
-            </div>
-            <div>
-                <p class="card-text">
-                    <strong>{{ product.price }} €</strong>
-                </p>
-            </div>
-        </div>
+<a href="{{ product.amazonLink }}" target="_blank">
+<div class="demo-card-square mdl-card mdl-shadow--2dp mx-auto px-0 mb-4 upper">
+    <div class="mdl-card__title mdl-card--expand">
+            <img class="card-img-top product-img" src="assets/products/{{ product.imagePath }}.jpg" alt="Imagen del producto">
+    </div>
+    <div class="mdl-card__supporting-text mb-4">
+        <h5>
+                <strong>{{ product.name | shorten:75}}</strong>
+        </h5>
+    </div>
+    <div class="mdl-card__actions mdl-card--border">
+        <p class="card-text">
+            <strong>{{ product.price }} €</strong>
+        </p>
     </div>
 </div>
+</a>

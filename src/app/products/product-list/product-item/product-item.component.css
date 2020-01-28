@@ -1,3 +1,28 @@
-.product-item {
-    width: 17rem;
+a {
+    text-decoration: none;
+}
+
+.product-img {
+    height: 200px;
+}
+
+.demo-card-square {
+    max-height: 370px; 
+    overflow: hidden;
+}
+
+.upper {
+    position: relative !important;
+    top: 0 !important;
+    transition: top ease 0.5s !important;
+}
+  
+.upper:hover {
+    top: -10px !important;
+}
+
+@media screen and (max-width: 380px) {
+    [class*="demo-card-square"] {
+        width: 290px !important; 
+    }
 }

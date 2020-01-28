@@ -11,7 +11,6 @@ import { ProductsComponent } from './products/products.component';
 import { FooterComponent } from './footer/footer.component';
 import { BlogComponent } from './blog/blog.component';
 import { ProductListComponent } from './products/product-list/product-list.component';
-import { ProductDetailComponent } from './products/product-detail/product-detail.component';
 import { ProductItemComponent } from './products/product-list/product-item/product-item.component';
 import { SharedModule } from './shared/shared.module';
 
@@ -20,7 +19,6 @@ import { ProductDisplayComponent } from './products/product-display/product-disp
 import { PostsListComponent } from './blog/posts-list/posts-list.component';
 import { PostComponent } from './blog/posts-list/post/post.component';
 import { PostItemComponent } from './blog/posts-list/post-item/post-item.component';
-import { AuthorsResolverService } from './blog/authors-resolver.service';
 
 
 @NgModule({
@@ -32,7 +30,6 @@ import { AuthorsResolverService } from './blog/authors-resolver.service';
     FooterComponent, 
     BlogComponent, 
     ProductListComponent, 
-    ProductDetailComponent, 
     ProductItemComponent,
     JwPaginationComponent,
     ProductDisplayComponent,

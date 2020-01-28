@@ -1,6 +1,9 @@
+a {
+    text-decoration: none;
+}
 
 .demo-card-square.mdl-card {
-    height: 395px;
+    height: 320px;
     width: 380px;  
 }
 
@@ -21,7 +24,17 @@
 }
 
 .mdl-card__supporting-text {
-    height: 200px !important;
+    height: 120px !important;
+}
+
+.upper {
+    position: relative;
+    top: 0;
+    transition: top ease 0.5s;
+}
+  
+.upper:hover {
+    top: -10px;
 }
 
 @media screen and (max-width: 800px) {
@@ -37,6 +50,5 @@
 @media screen and (min-width: 1720px) {
     [class*="demo-card-square"] {
         width: 460px !important; 
-    }
-    
+    }  
 }
