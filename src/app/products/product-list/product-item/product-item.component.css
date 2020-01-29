@@ -21,22 +21,36 @@ a {
     top: -10px !important;
 }
 
-@media screen and (max-width: 380px) {
+@media screen and (max-width: 330px) {
     [class*="demo-card-square"] {
         width: 290px !important; 
     }
 }
 
-@media screen and (min-width: 380px) and (max-width: 1270px) {
+@media screen and (min-width: 330px) and (max-width: 420px) {
     [class*="demo-card-square"] {
-        width: 300px !important;
-        margin-right: 0; 
+        width: 310px !important; 
     }
 }
 
-@media screen and (min-width: 380px) {
-    [class*="upper"] {
-        width: 95% !important;
-
+@media screen and (min-width: 576px) and (max-width: 768px) {
+    [class*="demo-card-square"] {
+        width: 280px !important;
     }
+}
+
+@media screen and (min-width: 768px) and (max-width: 870px) {
+    [class*="demo-card-square"] {
+        width: 250px !important;
+    }
+}
+
+@media screen and (min-width: 870px) and (max-width: 1200) {
+    [class*="demo-card-square"] {
+        width: 280px !important;
+    }
+}
+
+[class*="demo-card-square"] {
+
 }
