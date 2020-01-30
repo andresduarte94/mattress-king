@@ -1,5 +1,6 @@
 .categories-sidebar {
-    width: 200px;
+    width: 230px;
+    max-height: 250px;
 }
 
 .col {

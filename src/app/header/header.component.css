@@ -11,7 +11,7 @@
 }
 
 .lower {
-    padding-top: 9.2%;
+    padding-top: 10.7% !important; /* fix*/
 }
 
 .logo-image {
