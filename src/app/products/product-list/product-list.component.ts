@@ -2,6 +2,7 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Product } from '../product.model';
 import { ProductsService } from '../products.service';
 import { Subscription } from 'rxjs';
+import { Filter } from '../product-display/filter.model';
 
 @Component({
   selector: 'app-product-list',
@@ -25,14 +26,14 @@ export class ProductListComponent implements OnInit, OnDestroy {
     //Set product onInit and on filterChanged subject
     this.updateProducts(this.filter);
     this.productsChanged = this.productsService.filterChanged.subscribe(
-      (filter) => {
+      (filter: Filter) => {
         this.updateProducts(filter);
       }
     )
   }
 
   //Update products based on new filter
-  updateProducts(filter) {
+  updateProducts(filter: Filter) {
     let products = this.productsService.getProducts(filter);
     if(this.productsAmount) {
       products = products.slice(0, this.productsAmount);

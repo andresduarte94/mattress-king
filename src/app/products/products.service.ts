@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
 import { Product } from './product.model';
+import { Filter } from './product-display/filter.model';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ProductsService {
-  filterChanged = new Subject<any>();
+  filterChanged = new Subject<Filter>();
   private products: Product[] = [];
   readonly productTypes : string [] = ['Mattresses', 'Beds', 'Sheets', 'Pillows', 'Accessories'];
 
@@ -17,10 +18,10 @@ export class ProductsService {
       return products;
     }
     
-    products = products.filter(function (product) {
+    products = products.filter(function(product) {
       return (filter.hasOwnProperty('type')? (product.type == filter.type) : (true)) &&
-             (filter.hasOwnProperty('name')? (RegExp(filter.name, 'i').test(product.name.normalize("NFD").replace(/[\u0300-\u036f]/g, ""))) : (true)) &&
-             (filter.hasOwnProperty('description')? (RegExp(filter.description, 'i').test(product.description.normalize("NFD").replace(/[\u0300-\u036f]/g, ""))) : (true)) &&
+             ((filter.hasOwnProperty('name')? (RegExp(filter.name, 'i').test(product.name.normalize("NFD").replace(/[\u0300-\u036f]/g, ""))) : (true)) ||
+             (filter.hasOwnProperty('description')? (RegExp(filter.description, 'i').test(product.description.normalize("NFD").replace(/[\u0300-\u036f]/g, ""))) : (true))) &&
              (filter.hasOwnProperty('score')? (product.score >= filter.score) : (true)) &&
              (filter.hasOwnProperty('price')? (product.price <= filter.price) : (true));
     });
@@ -37,6 +38,17 @@ export class ProductsService {
     productType = productType.charAt(0).toUpperCase() + productType.slice(1);
     return this.productTypes.indexOf(productType);
   }
+
+
+  onFilterChange(filter: Filter) {
+
+  }
+
+
+
+
+
+
 
   // private recipes: Recipe[] = [
   //   new Recipe(

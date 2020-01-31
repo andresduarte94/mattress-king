@@ -41,9 +41,9 @@
 
         <!-- Search bar with button-->
         <div class="search-div w-100 mx-auto">
-            <form class="form-inline my-2 mx-auto w-75 search-form">
+            <form class="form-inline my-2 mx-auto w-75 search-form" (ngSubmit)="onSubmit()" #searchForm="ngForm" >
                 <div class="w-50 ml-4">
-                    <input class="form-control w-100" type="search" placeholder="Search" aria-label="Search">
+                    <input class="form-control w-100" type="search" placeholder="Search" aria-label="Search" ngModel name="search">
                 </div>
                 <button class="btn btn-secondary ml-4 mr-0" type="submit" id="searchBtn">Search</button>
             </form>
