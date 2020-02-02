@@ -20,6 +20,7 @@ import { PostsListComponent } from './blog/posts-list/posts-list.component';
 import { PostComponent } from './blog/posts-list/post/post.component';
 import { PostItemComponent } from './blog/posts-list/post-item/post-item.component';
 import { FormsModule } from '@angular/forms';
+import { BlogBannerComponent } from './blog/blog-banner/blog-banner/blog-banner.component';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { FormsModule } from '@angular/forms';
     ProductDisplayComponent,
     PostsListComponent,
     PostComponent,
-    PostItemComponent
+    PostItemComponent,
+    BlogBannerComponent
   ], 
   imports: [
     BrowserModule,

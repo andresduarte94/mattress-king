@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { Product } from '../product.model';
 import { ProductsService } from '../products.service';
 import { Subscription } from 'rxjs';
@@ -7,16 +7,16 @@ import { Filter } from '../product-display/filter.model';
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.css']
+  styleUrls: ['./product-list.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductListComponent implements OnInit, OnDestroy {
   products : Product[] = [];
-  @Input() filter;
-  @Input('productsRow') productsAmount: number;
+  @Input() filter: Filter;
   productsChanged: Subscription;
 
   //Pagination variables
-  pageSize = 16;
+  pageSize = 12;
   maxPages = 5;
   pageOfProducts: Array<any>;
 
@@ -35,9 +35,6 @@ export class ProductListComponent implements OnInit, OnDestroy {
   //Update products based on new filter
   updateProducts(filter: Filter) {
     let products = this.productsService.getProducts(filter);
-    if(this.productsAmount) {
-      products = products.slice(0, this.productsAmount);
-    }
     this.products = products;
   }
 

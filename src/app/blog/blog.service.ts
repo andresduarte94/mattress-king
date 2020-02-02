@@ -7,7 +7,7 @@ import { Author } from './author.model';
     providedIn: 'root'
 })
 export class BlogService {
-  filterChanged = new Subject<any>();
+  filterPostsChanged = new Subject<any>();
   private posts: Post[] = [];
   private authors: Author[] = [];
 

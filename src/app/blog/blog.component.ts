@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Post } from './post.model';
 import { BlogService } from './blog.service';
-import 'bootstrap';
-import 'popper.js';
-import * as $ from 'jquery';
 
+import * as $ from 'jquery';
+import 'popper.js';
+import 'bootstrap';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-blog',
@@ -12,34 +13,50 @@ import * as $ from 'jquery';
   styleUrls: ['./blog.component.css']
 })
 export class BlogComponent implements OnInit {
-  postIndexes: number [] = [1, 4, 5];
+  postIndexes: number[] = [1, 4, 5];
   bannerPosts: Post[] = [];
   currentPost: Post;
-  i: number = 0;
+  showingIndex: number = 0;
+  carousel: any;
+  nextPost = new Subject();
 
   constructor(private blogService: BlogService) { }
 
   ngOnInit() {
     this.postIndexes.forEach(postIndex => {
-      this.bannerPosts.push(this.blogService.getPostById(postIndex));      
+      this.bannerPosts.push(this.blogService.getPostById(postIndex));
+    })
+    this.currentPost = this.bannerPosts.slice(0, 1)[0];
+    this.nextPost.subscribe((post: Post) => {
+      console.log((new Date().getTime()))
+      this.currentPost = post;
     });
   }
 
   ngAfterViewInit() {
-    (<any>$('.carousel')).carousel({
-      interval: 5000
-    });
 
-    $('#myCarousel').on('slide.bs.carousel', (e) => {
-      if(e.direction == 'right') {
-        this.i++;
-      }
-      if(e.direction == 'left') {
-        this.i--;
-      }
+    this.carousel = (<any>$('.carousel')).carousel({
+      interval: 5000,
+      pause: "hover",
+      touch: true
+    }).carousel('cycle');
 
-      this.currentPost = this.bannerPosts[this.i];
-    } )
+    this.carousel.on('slid.bs.carousel', (e: { direction: string; to: number; }) => {
+      this.showingIndex = e.to;
+      let currentPost = this.bannerPosts.slice(this.showingIndex, this.showingIndex + 1)[0];
+      this.nextPost.next(currentPost);
+    })
   }
 
+  next() {
+    this.carousel.carousel('next');
+  }
+
+  prev() {
+    this.carousel.carousel('prev');
+  }
+
+  selectPost(index: number) {
+    this.carousel.carousel(index);
+  }
 }

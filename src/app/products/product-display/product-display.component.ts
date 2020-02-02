@@ -17,17 +17,32 @@ export class ProductDisplayComponent implements OnInit {
 
   ngOnInit() {
     this.productTypes = this.productsService.productTypes;
+
+    //Params subscription for manual URL and header bar links
     this.activatedRoute.params.subscribe(
       (params: Params) => {
-        if (!params.hasOwnProperty('productType')  || params.productType == 'all') {
+        if (!params.hasOwnProperty('filter') || params.filter == 'all') {
           this.filter = {};
         }
+        else if (params.filter == 'filter') {
+          return;
+        }
         else {
-          this.filter = { type: this.productsService.getProductTypeId(params.productType) };
+          this.filter = { type: this.productsService.getProductTypeId(params.filter) };
         }
         this.productsService.filterChanged.next(this.filter);
       }
     );
+
+    //QueryParams subscription for search bar filter
+    this.activatedRoute.queryParams.subscribe(
+      (queryParams: Params) => {
+        if(queryParams.filterId) {
+            this.filter = JSON.parse(sessionStorage.getItem('filter'));
+            this.productsService.filterChanged.next(this.filter);
+        }
+      }
+    )
   }
 
 
@@ -83,4 +98,3 @@ export class ProductDisplayComponent implements OnInit {
   }
 */
 }
- 

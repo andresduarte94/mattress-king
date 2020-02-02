@@ -12,7 +12,7 @@ const appRoutes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full'},
     { path: 'home', component: MainComponent, resolve: [ProductsResolverService]},
     { path: 'products', pathMatch: 'full', redirectTo: '/products/all'}, //delete this and change links
-    { path: 'products/:productType', component: ProductsComponent, resolve: [ProductsResolverService]},
+    { path: 'products/:filter', component: ProductsComponent, resolve: [ProductsResolverService]},
     { path: 'blog', component: BlogComponent, resolve: [PostsResolverService, AuthorsResolverService]},
     { path: 'blog/:postIndex', component: PostComponent, resolve: [PostsResolverService, AuthorsResolverService]} 
 
@@ -31,7 +31,7 @@ const appRoutes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(appRoutes, { preloadingStrategy: PreloadAllModules, scrollPositionRestoration: 'enabled' })
+    RouterModule.forRoot(appRoutes, { preloadingStrategy: PreloadAllModules, scrollPositionRestoration: 'enabled'})
   ],
   exports: [RouterModule]
 })

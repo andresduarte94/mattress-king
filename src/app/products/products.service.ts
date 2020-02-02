@@ -12,7 +12,7 @@ export class ProductsService {
   private products: Product[] = [];
   readonly productTypes : string [] = ['Mattresses', 'Beds', 'Sheets', 'Pillows', 'Accessories'];
 
-  getProducts(filter?) {
+  getProducts(filter?: Filter) {
     let products = this.products.slice();
     if(!filter) {
       return products;
@@ -22,8 +22,8 @@ export class ProductsService {
       return (filter.hasOwnProperty('type')? (product.type == filter.type) : (true)) &&
              ((filter.hasOwnProperty('name')? (RegExp(filter.name, 'i').test(product.name.normalize("NFD").replace(/[\u0300-\u036f]/g, ""))) : (true)) ||
              (filter.hasOwnProperty('description')? (RegExp(filter.description, 'i').test(product.description.normalize("NFD").replace(/[\u0300-\u036f]/g, ""))) : (true))) &&
-             (filter.hasOwnProperty('score')? (product.score >= filter.score) : (true)) &&
-             (filter.hasOwnProperty('price')? (product.price <= filter.price) : (true));
+             (filter.hasOwnProperty('score')? (product.score >= filter.score) : (true)); //&&
+             //(filter.hasOwnProperty('price')? (product.price <= filter.price) : (true));
     });
 
     return products;
