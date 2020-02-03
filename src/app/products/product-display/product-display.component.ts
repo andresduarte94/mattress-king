@@ -3,6 +3,7 @@ import { ProductsService } from '../products.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Subject } from 'rxjs';
 import { Filter } from './filter.model';
+import { Product } from '../product.model';
 
 @Component({
   selector: 'app-product-display',
@@ -12,6 +13,8 @@ import { Filter } from './filter.model';
 export class ProductDisplayComponent implements OnInit {
   productTypes: string[];
   filter: Filter;
+  products: Product[];
+  sizes;
 
   constructor(private productsService: ProductsService, private activatedRoute: ActivatedRoute) { }
 
@@ -44,6 +47,14 @@ export class ProductDisplayComponent implements OnInit {
       }
     )
   }
+
+  ngOnViewInit() {
+        this.filter.type = 0; // fix hardcode
+        this.sizes = this.productsService.getSizes(this.filter.type);
+console.log('why');
+  }
+
+
 
 
 

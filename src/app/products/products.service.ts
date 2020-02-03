@@ -5,25 +5,25 @@ import { Product } from './product.model';
 import { Filter } from './product-display/filter.model';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class ProductsService {
   filterChanged = new Subject<Filter>();
   private products: Product[] = [];
-  readonly productTypes : string [] = ['Mattresses', 'Beds', 'Sheets', 'Pillows', 'Accessories'];
+  readonly productTypes: string[] = ['Mattresses', 'Beds', 'Sheets', 'Pillows', 'Accessories'];
 
   getProducts(filter?: Filter) {
     let products = this.products.slice();
-    if(!filter) {
+    if (!filter) {
       return products;
     }
-    
-    products = products.filter(function(product) {
-      return (filter.hasOwnProperty('type')? (product.type == filter.type) : (true)) &&
-             ((filter.hasOwnProperty('name')? (RegExp(filter.name, 'i').test(product.name.normalize("NFD").replace(/[\u0300-\u036f]/g, ""))) : (true)) ||
-             (filter.hasOwnProperty('description')? (RegExp(filter.description, 'i').test(product.description.normalize("NFD").replace(/[\u0300-\u036f]/g, ""))) : (true))) &&
-             (filter.hasOwnProperty('score')? (product.score >= filter.score) : (true)); //&&
-             //(filter.hasOwnProperty('price')? (product.price <= filter.price) : (true));
+
+    products = products.filter(function (product) {
+      return (filter.hasOwnProperty('type') ? (product.type == filter.type) : (true)) &&
+        ((filter.hasOwnProperty('name') ? (RegExp(filter.name, 'i').test(product.name.normalize("NFD").replace(/[\u0300-\u036f]/g, ""))) : (true)) ||
+          (filter.hasOwnProperty('description') ? (RegExp(filter.description, 'i').test(product.description.normalize("NFD").replace(/[\u0300-\u036f]/g, ""))) : (true))) &&
+        (filter.hasOwnProperty('score') ? (product.score >= filter.score) : (true)); //&&
+      //(filter.hasOwnProperty('price')? (product.price <= filter.price) : (true));
     });
 
     return products;
@@ -44,6 +44,18 @@ export class ProductsService {
 
   }
 
+  getSizes(type: number) {
+    let filteredProducts: Product[] = this.products.filter((product) => {
+      return (product.type == type);
+    });
+
+    console.log(filteredProducts);
+    return filteredProducts.reduce((sizes, product) => {
+      sizes.push(product.size);
+      return sizes;
+    }, []);
+    
+  }
 
 
 

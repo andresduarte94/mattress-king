@@ -11,17 +11,7 @@
                 </li>
             </ul>
         </div>
-        <div class="collapse navbar-collapse">
-            <ul class="navbar-nav ml-auto mb-2">
-                <!-- Blog and Contact -->
-                <li class="nav-item lower">
-                    <a class="nav-link text-info font-weight-bold" routerLink="blog">Blog</a>
-                </li>
-                <li class="nav-item lower">
-                    <a class="nav-link text-info font-weight-bold" href="#">Contact</a>
-                </li>
-            </ul>
-        </div>
+
     </nav>
 </header>
 <!-- End 1rst header -->
@@ -49,19 +39,29 @@
             </form>
         </div>
         <!-- Search bar with button end-->
-
+        <div class="collapse navbar-collapse p-0 mt-1" id="navbar-blue-drop">
+            <ul class="navbar-nav ml-auto mb-2">
+                <!-- Blog and Contact -->
+                <li class="nav-item lower">
+                    <a class="nav-link text-info font-weight-bold blog" routerLink="blog">Blog</a>
+                </li>
+                <li class="nav-item lower">
+                    <a class="nav-link text-info font-weight-bold blog" href="#">Contact</a>
+                </li>
+            </ul>
+        </div>
         <!-- Right part of 2nd header -->
-        <div class="collapse navbar-collapse" id="navbar-blue-drop">
-            <ul class="navbar-nav ml-auto">
+<!--         <div class="collapse navbar-collapse" id="navbar-blue-drop">
+            <ul class="navbar-nav ml-auto"> -->
                 <!-- Car basket-->
-                <li class="nav-item">
+<!--                 <li class="nav-item">
                     <a class="nav-link text-light" routerLink="/home">
                         <fa-icon [icon]="faShoppingCart" id="shoppingCart"></fa-icon>
                         Cart
                     </a>
-                </li>
+                </li> -->
                 <!-- Authentication Links -->
-                <li class="nav-item lower">
+             <!--    <li class="nav-item lower">
                     <a class="nav-link text-light" href="#" id="linkkk">Login</a>
                 </li>
                 <li class="nav-item lower">
@@ -82,8 +82,7 @@
                     </div>
                 </li>
             </ul>
-
-        </div>
+        </div> -->
     </nav>
 </header>
 <!-- End 2nd header-->
