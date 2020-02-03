@@ -1,6 +1,6 @@
 <div class="mb-5 d-flex justify-content-center col-md-12 col-lg-2 filter-menu">
   <div class="card categories-sidebar">
-   <!--  <div class="sidebar-header card-header">
+    <!--  <div class="sidebar-header card-header">
       <h4 class="text-center">Categories</h4>
     </div>
     <ul class="list-group">
@@ -23,26 +23,49 @@
       <!-- Price range -->
       <div class="form-group">
         <label for="email">Price</label>
-        <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="4" step="2" ngModel
-          name="price" ngModel>
+        <input class="mdl-slider mdl-js-slider" type="range" min="0" max="1000" value="4" step="10" ngModel name="price">
       </div>
       <!-- Sizes -->
-      <div class="form-group">
-        <label class="mdl-checkbox">Sizes:</label>
-        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="size+i" *ngFor="let size of sizes; let i = index;">
-          <input type="checkbox" [id]="size+i" class="mdl-checkbox__input" ngModel [name]="size+i">
-          <span class="mdl-checkbox__label">{{ size }}</span>
+        <label >Sizes:</label>
+        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" [for]="size" *ngFor="let size of sizes; let i = index;">
+          <a (click)="updateSize(size)" class="link"><input type="checkbox" [id]="size" class="mdl-checkbox__input" ngModel [name]="size">
+          <span class="mdl-checkbox__label">{{ size }}</span></a>
         </label>
-      </div>
-      <!-- Scores -->      
+        
+        <a (click)="updateSize(1)" class="link">
+        <label class = "mdl-checkbox mdl-js-checkbox" for = "checkbox1">
+          <input type = "checkbox" id = "checkbox1" 
+             class = "mdl-checkbox__input" checked>
+          <span class = "mdl-checkbox__label">Married</span>
+       </label>
+      </a>
+      <!-- Scores -->
       <div class="form-group">
-        <label> Customer review: </label>
+        <label> Customer reviews: </label>
         <div class="form-check" *ngFor="let score of [1, 2, 3, 4, 5]">
-            <input class="form-check-input" type="radio" name="score" ngModel [value]="score">
-            <label class="form-check-label" for="inlineRadio1">& Up</label>
-        </div>        
+          <!-- <input class="form-check-input" type="radio" name="score" ngModel [value]="score"> -->
+          <!-- Stars -->
+          <a (click)="updateFilter()" class="link">
+          <svg class="icon-star-full icon">
+            <use xlink:href="#icon-star-full"></use>
+          </svg>
+          <svg class="icon-star-full icon">
+            <use xlink:href="#icon-star-full"></use>
+          </svg>
+          <svg class="icon-star-full icon">
+            <use xlink:href="#icon-star-full"></use>
+          </svg>
+          <svg class="icon-star-full icon">
+            <use xlink:href="#icon-star-full"></use>
+          </svg>
+          <svg class="icon-star-full icon">
+            <use xlink:href="#icon-star-full"></use>
+          </svg>
+          &nbsp;& Up
+        </a>
+        </div>
       </div>
-      <!-- Minimum discount -->      
+      <!-- Minimum discount -->
       <div class="form-group">
         <label for="payments">Discount %</label>
         <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="4" step="2" ngModel

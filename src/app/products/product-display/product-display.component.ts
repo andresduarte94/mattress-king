@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProductsService } from '../products.service';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Subject } from 'rxjs';
 import { Filter } from './filter.model';
 import { Product } from '../product.model';
+import { NgForm } from '@angular/forms';
+declare var componentHandler: any;
+
 
 @Component({
   selector: 'app-product-display',
@@ -16,10 +18,12 @@ export class ProductDisplayComponent implements OnInit {
   products: Product[];
   sizes: string[];
   defaultType: number = 0;
+  @ViewChild('filterForm', { static: false }) filterForm: NgForm;
 
   constructor(private productsService: ProductsService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
+    
     this.productTypes = this.productsService.productTypes;
 
     //Params subscription for manual URL and header bar links
@@ -41,29 +45,30 @@ export class ProductDisplayComponent implements OnInit {
     //QueryParams subscription for search bar filter
     this.activatedRoute.queryParams.subscribe(
       (queryParams: Params) => {
-        if(queryParams.filterId) {
-            this.filter = JSON.parse(sessionStorage.getItem('filter'));
-            this.productsService.filterChanged.next(this.filter);
+        if (queryParams.filterId) {
+          this.filter = JSON.parse(sessionStorage.getItem('filter'));
+          this.productsService.filterChanged.next(this.filter);
         }
       }
     )
 
-   //this.filter.type = 0; // fix hardcode
-        this.sizes = this.productsService.getSizes(0);
+    //this.filter.type = 0; // fix hardcode
+    this.sizes = this.productsService.getSizes(0);
+    componentHandler.upgradeAllRegistered();
 
-        // 
   }
 
   ngOnViewInit() {
-        
+
   }
 
+  updateFilter() {
 
+  }
 
-
-
-
-
+  updateSize(size: string) {
+console.log(size)
+  }
 
 
   /* @ViewChild('f', { static: false }) signupForm: NgForm;
