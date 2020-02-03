@@ -14,7 +14,8 @@ export class ProductDisplayComponent implements OnInit {
   productTypes: string[];
   filter: Filter;
   products: Product[];
-  sizes;
+  sizes: string[];
+  defaultType: number = 0;
 
   constructor(private productsService: ProductsService, private activatedRoute: ActivatedRoute) { }
 
@@ -46,12 +47,15 @@ export class ProductDisplayComponent implements OnInit {
         }
       }
     )
+
+   //this.filter.type = 0; // fix hardcode
+        this.sizes = this.productsService.getSizes(0);
+
+        // 
   }
 
   ngOnViewInit() {
-        this.filter.type = 0; // fix hardcode
-        this.sizes = this.productsService.getSizes(this.filter.type);
-console.log('why');
+        
   }
 
 

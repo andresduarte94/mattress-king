@@ -1,9 +1,13 @@
 .categories-sidebar {
     width: 230px;
-    max-height: 450px;
+    max-height: 650px;
 }
 
 .col {
     padding-right: 0;
     padding-left: 0;
+}
+
+.discount {
+    width: 100px;
 }

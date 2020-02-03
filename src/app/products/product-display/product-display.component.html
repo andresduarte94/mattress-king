@@ -1,6 +1,6 @@
 <div class="mb-5 d-flex justify-content-center col-md-12 col-lg-2 filter-menu">
   <div class="card categories-sidebar">
-    <div class="sidebar-header card-header">
+   <!--  <div class="sidebar-header card-header">
       <h4 class="text-center">Categories</h4>
     </div>
     <ul class="list-group">
@@ -9,49 +9,52 @@
           {{ category }}
         </a>
       </li>
-    </ul>
+    </ul> -->
 
-    <form (ngSubmit)="onSubmit()" #filterForm="ngForm">
+    <form (ngSubmit)="onSubmit()" #filterForm="ngForm" class="ml-2 mr-2">
+      <!-- Product type -->
       <div class="form-group">
-        <label for="type">Type</label>
+        <label for="type">Product types</label>
         <select id="type" class="form-control" [ngModel]="defaultType" name="type" required>
-          <option [value]="i" (selected)="selected" *ngFor="let category of productTypes; let i = index;">{{ category }}
+          <option [value]="i" *ngFor="let category of productTypes; let i = index;">{{ category }}
           </option>
         </select>
       </div>
+      <!-- Price range -->
       <div class="form-group">
         <label for="email">Price</label>
-        <input class="mdl-slider mdl-js-slider" type="range" id="price" min="0" max="10" value="4" step="2" ngModel
-          name="price" #price="ngModel">
+        <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="4" step="2" ngModel
+          name="price" ngModel>
       </div>
+      <!-- Sizes -->
       <div class="form-group">
-        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">Sizes:</label>
-        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="size+i" *ngFor="let size of sizes;">
-          <input type="checkbox" id="size" class="mdl-checkbox__input" [(ngModel)]="size">
+        <label class="mdl-checkbox">Sizes:</label>
+        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="size+i" *ngFor="let size of sizes; let i = index;">
+          <input type="checkbox" [id]="size+i" class="mdl-checkbox__input" ngModel [name]="size+i">
           <span class="mdl-checkbox__label">{{ size }}</span>
         </label>
       </div>
-
-
-      
-      <div class="radio" *ngFor="let score of scores">
-        <label>
-          <input type="radio" name="score" ngModel [value]="score" required>
-          {{ score }}
-        </label>
-      </div>
-
+      <!-- Scores -->      
       <div class="form-group">
-        <label for="payments">mindiscount</label>
-        <input type="number" name="mindiscount" class="form-control" [(ngModel)]="answer">
+        <label> Customer review: </label>
+        <div class="form-check" *ngFor="let score of [1, 2, 3, 4, 5]">
+            <input class="form-check-input" type="radio" name="score" ngModel [value]="score">
+            <label class="form-check-label" for="inlineRadio1">& Up</label>
+        </div>        
       </div>
-
+      <!-- Minimum discount -->      
       <div class="form-group">
-        <label for="payments">payments</label>
-        <input type="checkbox" name="payments" class="form-control" [(ngModel)]="payments">
+        <label for="payments">Discount %</label>
+        <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="4" step="2" ngModel
+          name="mindiscount" ngModel>
       </div>
-
-      <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" type="submit">Submit</button>
+      <!-- Payments -->
+      <div class="form-group form-check-inline">
+        <label for="payments">Pay in instalments</label>
+        <input type="checkbox" name="payments" class="form-control" ngModel>
+        <input type="checkbox" name="payments" class="form-control" ngModel>
+        <input type="checkbox" name="payments" class="form-control" ngModel>
+      </div>
     </form>
   </div>
 </div>

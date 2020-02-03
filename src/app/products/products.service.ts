@@ -49,12 +49,15 @@ export class ProductsService {
       return (product.type == type);
     });
 
-    console.log(filteredProducts);
-    return filteredProducts.reduce((sizes, product) => {
+    let sizes = filteredProducts.reduce((sizes, product) => {
       sizes.push(product.size);
       return sizes;
     }, []);
     
+    var seen = {};
+    return sizes.filter(function(size) {
+        return seen.hasOwnProperty(size) ? false : (seen[size] = true);
+    });
   }
 
 
