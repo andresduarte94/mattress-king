@@ -24,6 +24,7 @@
     "@fortawesome/free-brands-svg-icons": "^5.12.0",
     "@fortawesome/free-regular-svg-icons": "^5.12.0",
     "@fortawesome/free-solid-svg-icons": "^5.12.0",
+    "@material/slider": "^4.0.0",
     "@types/jquery": "^3.3.31",
     "@types/nivo-slider": "^3.2.1",
     "bootstrap": "^4.4.1",

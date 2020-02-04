@@ -5,7 +5,7 @@ import { Filter } from './filter.model';
 import { Product } from '../product.model';
 import { NgForm } from '@angular/forms';
 declare var componentHandler: any;
-
+import {MDCSlider} from '@material/slider';
 
 @Component({
   selector: 'app-product-display',
@@ -15,15 +15,18 @@ declare var componentHandler: any;
 export class ProductDisplayComponent implements OnInit {
   productTypes: string[];
   filter: Filter;
-  products: Product[];
-  sizes: string[];
+  products: Product[] = [];
+  sizes: string[] = [];
   defaultType: number = 0;
   @ViewChild('filterForm', { static: false }) filterForm: NgForm;
 
-  constructor(private productsService: ProductsService, private activatedRoute: ActivatedRoute) { }
+  constructor(private productsService: ProductsService, private activatedRoute: ActivatedRoute) {}
 
   ngOnInit() {
-    
+
+    const slider = new MDCSlider(document.querySelector('.mdc-slider'));
+    slider.listen('MDCSlider:change', () => console.log(`Value changed to ${slider.value}`));
+
     this.productTypes = this.productsService.productTypes;
 
     //Params subscription for manual URL and header bar links
@@ -38,7 +41,7 @@ export class ProductDisplayComponent implements OnInit {
         else {
           this.filter = { type: this.productsService.getProductTypeId(params.filter) };
         }
-        this.productsService.filterChanged.next(this.filter);
+        this.updateProducts(this.filter);
       }
     );
 
@@ -47,27 +50,36 @@ export class ProductDisplayComponent implements OnInit {
       (queryParams: Params) => {
         if (queryParams.filterId) {
           this.filter = JSON.parse(sessionStorage.getItem('filter'));
-          this.productsService.filterChanged.next(this.filter);
+          this.updateProducts(this.filter);
         }
       }
     )
 
     //this.filter.type = 0; // fix hardcode
     this.sizes = this.productsService.getSizes(0);
+  }
+
+  ngAfterContentChecked() {
     componentHandler.upgradeAllRegistered();
-
   }
 
-  ngOnViewInit() {
-
+  //Update products based on new filter
+  updateProducts(filter: Filter) {
+    let products = this.productsService.getProducts(filter);
+    this.products = products;
   }
 
-  updateFilter() {
-
+  updateScoreFilter(score: number) {
+    this.filter.minscore = score;
+    this.updateProducts(this.filter);
   }
 
   updateSize(size: string) {
-console.log(size)
+    if (!this.filter.hasOwnProperty('sizes')) {
+      this.filter.sizes = []
+    }
+    this.filter.sizes.push(size);
+    this.updateProducts(this.filter);
   }
 
 

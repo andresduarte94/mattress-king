@@ -22,7 +22,8 @@ export class ProductsService {
       return (filter.hasOwnProperty('type') ? (product.type == filter.type) : (true)) &&
         ((filter.hasOwnProperty('name') ? (RegExp(filter.name, 'i').test(product.name.normalize("NFD").replace(/[\u0300-\u036f]/g, ""))) : (true)) ||
           (filter.hasOwnProperty('description') ? (RegExp(filter.description, 'i').test(product.description.normalize("NFD").replace(/[\u0300-\u036f]/g, ""))) : (true))) &&
-        (filter.hasOwnProperty('score') ? (product.score >= filter.minscore) : (true)); //&&
+        (filter.hasOwnProperty('minscore') ? (product.score >= filter.minscore) : (true)) &&
+        (filter.hasOwnProperty('sizes') ? (filter.sizes.includes(product.size)) : (true));
       //(filter.hasOwnProperty('price')? (product.price <= filter.price) : (true));
     });
 
@@ -53,10 +54,10 @@ export class ProductsService {
       sizes.push(product.size);
       return sizes;
     }, []);
-    
+
     var seen = {};
-    return sizes.filter(function(size) {
-        return seen.hasOwnProperty(size) ? false : (seen[size] = true);
+    return sizes.filter(function (size) {
+      return seen.hasOwnProperty(size) ? false : (seen[size] = true);
     });
   }
 

@@ -4,7 +4,7 @@ export class Filter {
         public name?: string, 
         public description?: string,
         public type?: number,
-        public size?: string[ ], 
+        public sizes?: string[ ], 
         public country?: string,
         public minprice?: number,
         public maxprice?: number,

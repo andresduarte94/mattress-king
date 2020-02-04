@@ -14,71 +14,70 @@
     <form (ngSubmit)="onSubmit()" #filterForm="ngForm" class="ml-2 mr-2">
       <!-- Product type -->
       <div class="form-group">
-        <label for="type">Product types</label>
-        <select id="type" class="form-control" [ngModel]="defaultType" name="type" required>
-          <option [value]="i" *ngFor="let category of productTypes; let i = index;">{{ category }}
+        <label for="type" class="title">Product types</label>
+        <select id="type" class="form-control type" [ngModel]="defaultType" name="type" required>
+          <option class="typesOptions" *ngFor="let category of productTypes; let i = index;">{{ category }}
           </option>
         </select>
       </div>
       <!-- Price range -->
       <div class="form-group">
-        <label for="email">Price</label>
-        <input class="mdl-slider mdl-js-slider" type="range" min="0" max="1000" value="4" step="10" ngModel name="price">
+        <label for="email" class="title">Price</label>
+        <input class="mdl-slider mdl-js-slider" type="range" min="0" max="1000" value="4" step="10" ngModel
+          name="price">
       </div>
       <!-- Sizes -->
-        <label >Sizes:</label>
-        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" [for]="size" *ngFor="let size of sizes; let i = index;">
-          <a (click)="updateSize(size)" class="link"><input type="checkbox" [id]="size" class="mdl-checkbox__input" ngModel [name]="size">
-          <span class="mdl-checkbox__label">{{ size }}</span></a>
+      <div class="form-group">
+        <label class="title">Sizes:</label>
+        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect label" [for]="size"
+          *ngFor="let size of sizes; let i = index;">
+          <input (change)="updateSize(size)" type="checkbox" [id]="size" class="mdl-checkbox__input" ngModel
+            [name]="size">
+          <span class="mdl-checkbox__label">{{ size }}</span>
         </label>
-        
-        <a (click)="updateSize(1)" class="link">
-        <label class = "mdl-checkbox mdl-js-checkbox" for = "checkbox1">
-          <input type = "checkbox" id = "checkbox1" 
-             class = "mdl-checkbox__input" checked>
-          <span class = "mdl-checkbox__label">Married</span>
-       </label>
-      </a>
+      </div>
       <!-- Scores -->
       <div class="form-group">
-        <label> Customer reviews: </label>
-        <div class="form-check" *ngFor="let score of [1, 2, 3, 4, 5]">
+        <label class="title"> Customer reviews: </label>
+        <div class="form-check" *ngFor="let score of [1, 2, 3, 4]">
           <!-- <input class="form-check-input" type="radio" name="score" ngModel [value]="score"> -->
           <!-- Stars -->
-          <a (click)="updateFilter()" class="link">
-          <svg class="icon-star-full icon">
-            <use xlink:href="#icon-star-full"></use>
-          </svg>
-          <svg class="icon-star-full icon">
-            <use xlink:href="#icon-star-full"></use>
-          </svg>
-          <svg class="icon-star-full icon">
-            <use xlink:href="#icon-star-full"></use>
-          </svg>
-          <svg class="icon-star-full icon">
-            <use xlink:href="#icon-star-full"></use>
-          </svg>
-          <svg class="icon-star-full icon">
-            <use xlink:href="#icon-star-full"></use>
-          </svg>
-          &nbsp;& Up
-        </a>
+          <a (click)="updateScoreFilter(score)" class="link label">
+            <svg class="icon-star-full icon">
+              <use xlink:href="#icon-star-full"></use>
+            </svg>
+            <svg class="icon-star-full icon">
+              <use xlink:href="#icon-star-full"></use>
+            </svg>
+            <svg class="icon-star-full icon">
+              <use xlink:href="#icon-star-full"></use>
+            </svg>
+            <svg class="icon-star-full icon">
+              <use xlink:href="#icon-star-full"></use>
+            </svg>
+            <svg class="icon-star-full icon">
+              <use xlink:href="#icon-star-full"></use>
+            </svg>
+            &nbsp;& Up
+          </a>
         </div>
       </div>
       <!-- Minimum discount -->
       <div class="form-group">
-        <label for="payments">Discount %</label>
+        <label for="payments" class="title">Discount %</label>
         <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="4" step="2" ngModel
           name="mindiscount" ngModel>
       </div>
       <!-- Payments -->
       <div class="form-group form-check-inline">
-        <label for="payments">Pay in instalments</label>
+        <label for="payments" class="title">Part payments</label>
+
+        <!-- <label for="payments" class="title">Part payments</label>
         <input type="checkbox" name="payments" class="form-control" ngModel>
         <input type="checkbox" name="payments" class="form-control" ngModel>
-        <input type="checkbox" name="payments" class="form-control" ngModel>
+        <input type="checkbox" name="payments" class="form-control" ngModel> -->
       </div>
     </form>
   </div>
 </div>
-<app-product-list class="col-md-12 col-lg-10" [filter]="filter"></app-product-list>
+<app-product-list class="col-md-12 col-lg-10" [products]="products"></app-product-list>

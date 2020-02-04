@@ -23,7 +23,32 @@
     stroke-width: 0;
     stroke: currentColor;
     fill: currentColor;
-  }
+ }
+
+ .title {
+     font-size: 1.3em;
+     font-weight: bold
+ }
+
+ .label {
+    font-weight: 600;
+    color: #0056b3;
+}
+
+.type {
+    font-size: 1.2em;
+    font-weight: 600;
+    color: #0056b3;
+}
+
+.typesOptions {
+    font-weight: 600;
+    color: #0056b3;
+}
+
+.mdc-slider {
+    width: 300px;
+}
   
   /* ==========================================
   Single-colored icons can be modified like so:
