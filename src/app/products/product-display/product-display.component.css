@@ -32,27 +32,33 @@
 
  .label {
     font-weight: 600;
-    color: #0056b3;
+    color: #35569A;
 }
 
 .type {
     font-size: 1.2em;
     font-weight: 600;
-    color: #0056b3;
+    color: #35569A;
 }
 
 .typesOptions {
     font-weight: 600;
-    color: #0056b3;
+    color: #35569A;
 }
 
 .mdc-slider {
     width: 300px;
 }
 
-.price-slider {
-    color: #0056b3;
+.noUi-connect {
+    background: #6351ce !important;
 }
+/* .noUi-horizontal .noUi-handle, .noUi-vertical .noUi-handle {
+    background: purple !important;
+}
+.noUi-target.noUi-horizontal .noUi-tooltip {
+background-color: purple !important;
+} */
   
   /* ==========================================
   Single-colored icons can be modified like so:

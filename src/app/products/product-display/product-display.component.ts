@@ -1,55 +1,35 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ProductsService } from '../products.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Filter } from './filter.model';
 import { Product } from '../product.model';
-import { NgForm } from '@angular/forms';
-import { NouisliderComponent } from  '../../../../node_modules/ng2-nouislider/ng2-nouislider.component';
+import { FormGroup, FormControl, FormArray } from '@angular/forms';
+import { NouisliderComponent } from '../../../../node_modules/ng2-nouislider/ng2-nouislider.component';
 
 declare var componentHandler: any;
 
 @Component({
   selector: 'app-product-display',
   templateUrl: './product-display.component.html',
-  styleUrls: ['./product-display.component.css']
+  styleUrls: ['./product-display.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ProductDisplayComponent implements OnInit {
+
   productTypes: string[];
   filter: Filter;
   products: Product[] = [];
   sizes: string[] = [];
   defaultType: number = 0;
-  mensualidadesConfig: any = {
-    snap: true,
-    start: [1],
-    range: {
-      'min': 1,
-      '14%': 3,
-      '28%': 6,
-      '42%': 12,
-      '56%': 18,
-      '70%': 24,
-      'max': 30
-    },
-    pips: {
-      mode: 'values',
-      values: [1, 3, 6, 12, 18, 24, 30],
-      density: 4,
-    }
-  }
-  mensualidadesValue = 0;
-  mensualidadesOnChange() {}
-  @ViewChild('someKeyboardSlider2', {'static': false}) someKeyboardSlider2: NouisliderComponent;
+  filterForm: FormGroup;
+  public priceSliderValue: number[] = [0, 800];
+  @ViewChild('priceSlider', { static: false }) priceSlider: NouisliderComponent;
 
-public someKeyboard2: number[] = [1, 3];
-  @ViewChild('filterForm', { static: false }) filterForm: NgForm;
-
-  constructor(private productsService: ProductsService, private activatedRoute: ActivatedRoute) {}
+  constructor(private productsService: ProductsService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    
-
     this.productTypes = this.productsService.productTypes;
+    this.sizes = this.productsService.getSizes(0);
 
     //Params subscription for manual URL and header bar links
     this.activatedRoute.params.subscribe(
@@ -75,64 +55,96 @@ public someKeyboard2: number[] = [1, 3];
           this.updateProducts(this.filter);
         }
       }
-    )
+    );
 
-    //this.filter.type = 0; // fix hardcode
-    this.sizes = this.productsService.getSizes(0);
+    this.createReactiveForm();
+
   }
 
-ngOnViewInit() {
-}
+  createReactiveForm() {
+    console.log(this.priceSliderValue)
+    this.filterForm = new FormGroup({
+      'productType': new FormControl(0),
+      'priceSlider': new FormControl(this.priceSliderValue),
+      'sizes': new FormArray(this.createSizesControl()),
+      'mindiscount': new FormControl(0),
+      'payments': new FormControl(1)
+    });
 
-private someKeyboard2EventHandler = (e: KeyboardEvent) => {
-  console.log("overridden keyboard handler");
-
-  // determine which handle triggered the event
-  let index = parseInt((<HTMLElement>e.target).getAttribute('data-handle'));
-
-  let multiplier: number = 0;
-  let stepSize = 0.1;
-
-  switch ( e.which ) {
-    case 40:  // ArrowDown
-    case 37:  // ArrowLeft
-      multiplier = -2;
-      e.preventDefault();
-      break;
-
-    case 38:  // ArrowUp
-    case 39:  // ArrowRight
-      multiplier = 3;
-      e.preventDefault();
-      break;
-
-    default:
-      break;
+    /* this.filterForm.setValue({
+      'productType': 0,
+      'priceSlider': ,
+      'sizes': [],
+      'mindiscount': 0,
+      'payments': "1"
+    });
+ */
+    this.filterForm.valueChanges.subscribe(
+      (values) => console.log(values)
+    );
   }
 
-  let delta = multiplier * stepSize;
-  let newValue = [].concat(this.someKeyboard2);
-  newValue[index] += delta;
-  this.someKeyboard2 = newValue;
-}
-public someKeyboardConfig2: any = {
-  keyboard: true,
-onKeydown: this.someKeyboard2EventHandler,
-range: {
-  'min': 1,
-  '14%': 3,
-  '28%': 6,
-  '42%': 12,
-  '56%': 18,
-  '70%': 24,
-  'max': 30
-},
-}
+  createSizesControl() {
+    let sizesArray = this.sizes.reduce((sizesArray, size) => {
+      sizesArray.push(new FormControl(size));
+      return sizesArray;
+    }, [])
 
+    return sizesArray;
+  }
 
+  ngOnViewInit() {
+
+  }
 
   ngAfterContentChecked() {
     componentHandler.upgradeAllRegistered();
+  }
+
+  //Price slider configuration
+  private priceSliderEventHandler = (e: KeyboardEvent) => {
+    console.log("overridden keyboard handler");
+    // determine which handle triggered the event
+    let index = parseInt((<HTMLElement>e.target).getAttribute('data-handle'));
+    let multiplier: number = 0;
+    let stepSize = 0.1;
+    switch (e.which) {
+      case 40:  // ArrowDown
+      case 37:  // ArrowLeft
+        multiplier = -2;
+        e.preventDefault();
+        break;
+      case 38:  // ArrowUp
+      case 39:  // ArrowRight
+        multiplier = 3;
+        e.preventDefault();
+        break;
+      default:
+        break;
+    }
+    let delta = multiplier * stepSize;
+    let newValue = [].concat(this.priceSliderValue);
+    newValue[index] += delta;
+    this.priceSliderValue = newValue;
+  }
+
+  public priceSliderConfig: any = {
+    start: this.priceSliderValue,
+    keyboard: true,
+    onKeydown: this.priceSliderEventHandler,
+    connect: [false, true, false],
+    range: {
+      min: 0,
+      '35%': 200,
+      max: 800
+    },
+    step: 10,
+    format: {
+      from: Number,
+      to: (value) => {
+        return Math.ceil(value) + " €";
+      }
+    }
   }
 
   //Update products based on new filter

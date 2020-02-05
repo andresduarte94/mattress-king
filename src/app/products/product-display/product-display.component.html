@@ -11,37 +11,37 @@
       </li>
     </ul> -->
 
-    <form (ngSubmit)="onSubmit()" #filterForm="ngForm" class="ml-2 mr-2">
+    <form [formGroup]="filterForm" (ngSubmit)="onSubmit()" class="ml-2 mr-2">
       <!-- Product type -->
       <div class="form-group">
-        <label for="type" class="title">Product types</label>
-        <select id="type" class="form-control type" [ngModel]="defaultType" name="type" required>
-          <option class="typesOptions" *ngFor="let category of productTypes; let i = index;">{{ category }}
+        <label for="productType" class="title">Product types</label>
+        <select id="productType" class="form-control type" formControlName="productType" required>
+          <option class="typesOptions" *ngFor="let category of productTypes; let i = index;" [value]="i">{{ category }}
           </option>
         </select>
       </div>
       <!-- Price range -->
       <div class="form-group">
         <label for="email" class="title">Price</label>
-        <input class="mdl-slider mdl-js-slider" type="range" min="0" max="1000" value="4" step="10" ngModel
-          name="price">
+        <nouislider class="mt-4" name="priceSlider" [config]="priceSliderConfig" formControlName="priceSlider"
+          [tooltips]="[ true, true ]"></nouislider>
       </div>
-     <div id="slider"></div>
+      <div id="slider"></div>
       <!-- Sizes -->
-      <div class="form-group">
-        <label class="title">Sizes:</label>
-        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect label" [for]="size"
-          *ngFor="let size of sizes; let i = index;">
-          <input (change)="updateSize(size)" type="checkbox" [id]="size" class="mdl-checkbox__input" ngModel
-            [name]="size">
-          <span class="mdl-checkbox__label">{{ size }}</span>
-        </label>
+      <div formArrayName="sizes">
+        <div class="form-group">
+          <label class="title">Sizes:</label>
+          <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect label" [for]="size"
+            *ngFor="let size of sizes; let i = index;">
+            <input type="checkbox" [id]="size" class="mdl-checkbox__input">
+            <span class="mdl-checkbox__label">{{ size }}</span>
+          </label>
+        </div>
       </div>
       <!-- Scores -->
       <div class="form-group">
         <label class="title"> Customer reviews: </label>
         <div class="form-check" *ngFor="let score of [1, 2, 3, 4]">
-          <!-- <input class="form-check-input" type="radio" name="score" ngModel [value]="score"> -->
           <!-- Stars -->
           <a (click)="updateScoreFilter(score)" class="link label">
             <svg class="icon-star-full icon">
@@ -66,24 +66,17 @@
       <!-- Minimum discount -->
       <div class="form-group">
         <label for="payments" class="title">Discount %</label>
-        <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="6" step="2" ngModel
-          name="mindiscount" ngModel>
+        <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="6" step="2"
+          formControlName="mindiscount">
       </div>
       <!-- Payments -->
-      <div class="form-group form-check-inline">
+      <div class="form-group">
         <label for="payments" class="title">Part payments</label>
-
-        <!-- <label for="payments" class="title">Part payments</label>
-        <input type="checkbox" name="payments" class="form-control" ngModel>
-        <input type="checkbox" name="payments" class="form-control" ngModel>
-        <input type="checkbox" name="payments" class="form-control" ngModel> -->
+        <label>
+          <input type="radio" formControlName="payments" value="1">One payment
+          <input type="radio" formControlName="payments" value="4">4 & Up
+        </label>  
       </div>
-      <nouislider class="price-slider" name="slider2" [config]="someKeyboardConfig2" [(ngModel)]="someKeyboard2" [tooltips]="[ true, true ]"></nouislider>
-
-      <div id="plazos_slider">
-        <nouislider name="slider1" style="margin-top:45px;" [config]="mensualidadesConfig" [(ngModel)]="mensualidadesValue" (ngModelChange)="mensualidadesOnChange($event)" [ngModelOptions]="{standalone: true}"></nouislider>
-    </div>
-
     </form>
   </div>
 </div>

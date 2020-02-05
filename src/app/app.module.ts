@@ -19,11 +19,9 @@ import { ProductDisplayComponent } from './products/product-display/product-disp
 import { PostsListComponent } from './blog/posts-list/posts-list.component';
 import { PostComponent } from './blog/posts-list/post/post.component';
 import { PostItemComponent } from './blog/posts-list/post-item/post-item.component';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BlogBannerComponent } from './blog/blog-banner/blog-banner/blog-banner.component';
 import { NouisliderModule } from 'ng2-nouislider';
-
-
 
 @NgModule({
   declarations: [
@@ -47,6 +45,7 @@ import { NouisliderModule } from 'ng2-nouislider';
     HttpClientModule,
     AppRoutingModule,
     SharedModule,
+    ReactiveFormsModule,
     FormsModule,
     NouisliderModule
     ],
