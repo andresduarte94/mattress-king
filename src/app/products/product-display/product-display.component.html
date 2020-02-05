@@ -26,6 +26,7 @@
         <input class="mdl-slider mdl-js-slider" type="range" min="0" max="1000" value="4" step="10" ngModel
           name="price">
       </div>
+     <div id="slider"></div>
       <!-- Sizes -->
       <div class="form-group">
         <label class="title">Sizes:</label>
@@ -65,7 +66,7 @@
       <!-- Minimum discount -->
       <div class="form-group">
         <label for="payments" class="title">Discount %</label>
-        <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="4" step="2" ngModel
+        <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="6" step="2" ngModel
           name="mindiscount" ngModel>
       </div>
       <!-- Payments -->
@@ -77,6 +78,12 @@
         <input type="checkbox" name="payments" class="form-control" ngModel>
         <input type="checkbox" name="payments" class="form-control" ngModel> -->
       </div>
+      <nouislider class="price-slider" name="slider2" [config]="someKeyboardConfig2" [(ngModel)]="someKeyboard2" [tooltips]="[ true, true ]"></nouislider>
+
+      <div id="plazos_slider">
+        <nouislider name="slider1" style="margin-top:45px;" [config]="mensualidadesConfig" [(ngModel)]="mensualidadesValue" (ngModelChange)="mensualidadesOnChange($event)" [ngModelOptions]="{standalone: true}"></nouislider>
+    </div>
+
     </form>
   </div>
 </div>

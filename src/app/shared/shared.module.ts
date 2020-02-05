@@ -6,7 +6,7 @@ import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.compo
 import { PlaceholderDirective } from './placeholder/placeholder.directive';
 import { DropdownDirective } from './dropdown.directive';
 import { ShortenPipe } from './shorten.pipe';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+//import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 //import { LoggingService } from '../logging.service';
 
 @NgModule({
@@ -17,14 +17,14 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     DropdownDirective,
     ShortenPipe
   ],
-  imports: [CommonModule, FontAwesomeModule],
+  imports: [CommonModule, ], //FontAwesomeModule
   exports: [
     AlertComponent,
     LoadingSpinnerComponent,
     PlaceholderDirective,
     DropdownDirective,
     ShortenPipe,
-    FontAwesomeModule,
+    //FontAwesomeModule,
     CommonModule
   ]
   //entryComponents: [AlertComponent],

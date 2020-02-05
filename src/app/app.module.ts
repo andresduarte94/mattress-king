@@ -21,6 +21,8 @@ import { PostComponent } from './blog/posts-list/post/post.component';
 import { PostItemComponent } from './blog/posts-list/post-item/post-item.component';
 import { FormsModule } from '@angular/forms';
 import { BlogBannerComponent } from './blog/blog-banner/blog-banner/blog-banner.component';
+import { NouisliderModule } from 'ng2-nouislider';
+
 
 
 @NgModule({
@@ -46,6 +48,7 @@ import { BlogBannerComponent } from './blog/blog-banner/blog-banner/blog-banner.
     AppRoutingModule,
     SharedModule,
     FormsModule,
+    NouisliderModule
     ],
   bootstrap: [AppComponent],
   // providers: [LoggingService]

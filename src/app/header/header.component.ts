@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProductsService } from '../products/products.service';
-import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+//import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { Filter } from '../products/product-display/filter.model';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
   productTypes: string[];
-  faShoppingCart = faShoppingCart;
+  //faShoppingCart = faShoppingCart;
   filter: Filter = {}; 
   @ViewChild('searchForm', { static: false }) searchForm: NgForm;
 

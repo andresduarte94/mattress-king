@@ -4,8 +4,9 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Filter } from './filter.model';
 import { Product } from '../product.model';
 import { NgForm } from '@angular/forms';
+import { NouisliderComponent } from  '../../../../node_modules/ng2-nouislider/ng2-nouislider.component';
+
 declare var componentHandler: any;
-import {MDCSlider} from '@material/slider';
 
 @Component({
   selector: 'app-product-display',
@@ -18,14 +19,35 @@ export class ProductDisplayComponent implements OnInit {
   products: Product[] = [];
   sizes: string[] = [];
   defaultType: number = 0;
+  mensualidadesConfig: any = {
+    snap: true,
+    start: [1],
+    range: {
+      'min': 1,
+      '14%': 3,
+      '28%': 6,
+      '42%': 12,
+      '56%': 18,
+      '70%': 24,
+      'max': 30
+    },
+    pips: {
+      mode: 'values',
+      values: [1, 3, 6, 12, 18, 24, 30],
+      density: 4,
+    }
+  }
+  mensualidadesValue = 0;
+  mensualidadesOnChange() {}
+  @ViewChild('someKeyboardSlider2', {'static': false}) someKeyboardSlider2: NouisliderComponent;
+
+public someKeyboard2: number[] = [1, 3];
   @ViewChild('filterForm', { static: false }) filterForm: NgForm;
 
   constructor(private productsService: ProductsService, private activatedRoute: ActivatedRoute) {}
 
   ngOnInit() {
-
-    const slider = new MDCSlider(document.querySelector('.mdc-slider'));
-    slider.listen('MDCSlider:change', () => console.log(`Value changed to ${slider.value}`));
+    
 
     this.productTypes = this.productsService.productTypes;
 
@@ -58,6 +80,56 @@ export class ProductDisplayComponent implements OnInit {
     //this.filter.type = 0; // fix hardcode
     this.sizes = this.productsService.getSizes(0);
   }
+
+ngOnViewInit() {
+}
+
+private someKeyboard2EventHandler = (e: KeyboardEvent) => {
+  console.log("overridden keyboard handler");
+
+  // determine which handle triggered the event
+  let index = parseInt((<HTMLElement>e.target).getAttribute('data-handle'));
+
+  let multiplier: number = 0;
+  let stepSize = 0.1;
+
+  switch ( e.which ) {
+    case 40:  // ArrowDown
+    case 37:  // ArrowLeft
+      multiplier = -2;
+      e.preventDefault();
+      break;
+
+    case 38:  // ArrowUp
+    case 39:  // ArrowRight
+      multiplier = 3;
+      e.preventDefault();
+      break;
+
+    default:
+      break;
+  }
+
+  let delta = multiplier * stepSize;
+  let newValue = [].concat(this.someKeyboard2);
+  newValue[index] += delta;
+  this.someKeyboard2 = newValue;
+}
+public someKeyboardConfig2: any = {
+  keyboard: true,
+onKeydown: this.someKeyboard2EventHandler,
+range: {
+  'min': 1,
+  '14%': 3,
+  '28%': 6,
+  '42%': 12,
+  '56%': 18,
+  '70%': 24,
+  'max': 30
+},
+}
+
+
 
   ngAfterContentChecked() {
     componentHandler.upgradeAllRegistered();
