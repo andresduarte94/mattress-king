@@ -15,7 +15,6 @@ a {
 
 .post-image {
     height:200px;
-    width: 100%;
 }
 
 .mdl-card__title-text {
@@ -25,6 +24,7 @@ a {
 
 .mdl-card__supporting-text {
     height: 120px !important;
+    background-color: #f1f3f5;
 }
 
 .upper {

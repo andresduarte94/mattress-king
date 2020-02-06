@@ -1,12 +1,14 @@
-<div class="container align-items-center test">
+<div class="container align-items-center">
     <div class="grid mx-auto">
 
         <!-- Post image, title and author section-->
         <div class="my-2">
+            <!-- Title -->
             <div class="mb-4">
                 <h1>{{ post.title }}</h1>
             </div>
             <hr>
+            <!-- Social networks -->
             <div class="row d-flex align-items-center">
                 <div class="col-6 col-lg-7 text-left mb-0">
                     <svg class="icon-twitter icon-small">
@@ -24,12 +26,36 @@
                 </div>
             </div>
             <hr>
+            <!-- Post image -->
             <img class="d-block w-100 post-img mt-3" src="assets/images/blog-design-inspiration.jpg" alt="Third slide">
-            
+            <!-- Auhtor and article info-->
+            <table class="mt-2" id="authorTable">
+                <tr>
+                    <td>
+                        <img class="d-block author-image-sm" [src]="'assets/images/' + author.imagePath + '.jpg'"
+                            alt="Author picture">
+                    </td>
+                    <td class="pl-4 pt-3">
+                        <h4 class="name">{{author.name}}</h4>
+                        <p class="resume ">
+                            <span>{{ postFormattedDate}}&nbsp;&nbsp;•</span>
+                            <span class="ml-2">{{  post.duration }} min read</span>
+                        </p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="contain">
+            <!-- Post content section-->
+            <p [innerHTML]="post.content"></p>
+            <hr>
+            <!-- Auhtor info -->
             <table class="mt-4" id="authorTable">
                 <tr>
                     <td>
-                        <img class="d-block author-image" [src]="'assets/images/' + author.imagePath + '.jpg'" alt="Author picture">
+                        <img class="d-block author-image" [src]="'assets/images/' + author.imagePath + '.jpg'"
+                            alt="Author picture">
                     </td>
                     <td class="pl-4 pt-3">
                         <h4 class="name">{{author.name}}</h4>
@@ -37,15 +63,6 @@
                     </td>
                 </tr>
             </table>
-            <div class="post-info">
-                <span>{{ postFormattedDate  }}</span>
-                <span class="ml-4">{{  post.duration }} min read</span>
-            </div>
-        </div>
-
-        <!-- Post content section-->
-        <div class="contain" >
-            <p [innerHTML]="post.content"></p>
         </div>
     </div>
 </div>
