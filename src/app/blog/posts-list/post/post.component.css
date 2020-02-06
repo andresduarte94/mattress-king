@@ -1,7 +1,6 @@
 .contain {
     margin-right: 14%;
     margin-left: 14%;
-    margin-top: 5%
 }
 
 .grid {
@@ -45,6 +44,10 @@ hr {
     width: 80px;
 }
 
+.author-image-sm {
+    width: 50px;
+}
+
 .resume {
     font-size: 0.87em;
     font-weight: bold;
@@ -53,12 +56,6 @@ hr {
 
 .name {
     font-weight: bold;
-}
-
-
-.post-info {
-    color: gray;
-    font-size: 0.83em;
 }
 
 @media (max-width:480px)  { 
