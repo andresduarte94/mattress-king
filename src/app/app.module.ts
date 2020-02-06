@@ -22,6 +22,9 @@ import { PostItemComponent } from './blog/posts-list/post-item/post-item.compone
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BlogBannerComponent } from './blog/blog-banner/blog-banner/blog-banner.component';
 import { NouisliderModule } from 'ng2-nouislider';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatRadioModule} from '@angular/material/radio';
+
 
 @NgModule({
   declarations: [
@@ -47,7 +50,9 @@ import { NouisliderModule } from 'ng2-nouislider';
     SharedModule,
     ReactiveFormsModule,
     FormsModule,
-    NouisliderModule
+    NouisliderModule,
+    BrowserAnimationsModule,
+    MatRadioModule
     ],
   bootstrap: [AppComponent],
   // providers: [LoggingService]

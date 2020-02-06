@@ -1,6 +1,6 @@
 .categories-sidebar {
     width: 230px;
-    max-height: 650px;
+    max-height: 700px;
 }
 
 .col {
@@ -31,8 +31,8 @@
  }
 
  .label {
-    font-weight: 600;
-    color: #35569A;
+    font-weight: 500;
+    color: #414242;/*#35569A;*/
 }
 
 .type {
@@ -53,6 +53,11 @@
 .noUi-connect {
     background: #6351ce !important;
 }
+
+.priceSlider {
+    margin-bottom: 15%;
+}
+
 /* .noUi-horizontal .noUi-handle, .noUi-vertical .noUi-handle {
     background: purple !important;
 }
@@ -68,3 +73,11 @@ background-color: purple !important;
   }
   ========================================== */
   
+  .example-radio-group {
+    display: flex;
+    flex-direction: column;
+  }
+  /* 
+  .example-radio-button {
+    margin: 5px;
+  } */

@@ -1,16 +1,5 @@
 <div class="mb-5 d-flex justify-content-center col-md-12 col-lg-2 filter-menu">
   <div class="card categories-sidebar">
-    <!--  <div class="sidebar-header card-header">
-      <h4 class="text-center">Categories</h4>
-    </div>
-    <ul class="list-group">
-      <li class="list-group-item p-0" *ngFor="let category of productTypes;">
-        <a class="nav-link" [routerLink]="['/products', category.toLowerCase()]">
-          {{ category }}
-        </a>
-      </li>
-    </ul> -->
-
     <form [formGroup]="filterForm" (ngSubmit)="onSubmit()" class="ml-2 mr-2">
       <!-- Product type -->
       <div class="form-group">
@@ -21,21 +10,24 @@
         </select>
       </div>
       <!-- Price range -->
+      <div class="form-group" class="title">
+        <label class="priceSlider">Price</label>
+      </div>
       <div class="form-group">
-        <label for="email" class="title">Price</label>
-        <nouislider class="mt-4" name="priceSlider" [config]="priceSliderConfig" formControlName="priceSlider"
+        <nouislider class="mx-auto w-75 " name="priceSlider" [config]="priceSliderConfig" formControlName="priceSlider"
           [tooltips]="[ true, true ]"></nouislider>
       </div>
-      <div id="slider"></div>
       <!-- Sizes -->
       <div formArrayName="sizes">
         <div class="form-group">
           <label class="title">Sizes:</label>
-          <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect label" [for]="size"
-            *ngFor="let size of sizes; let i = index;">
-            <input type="checkbox" [id]="size" class="mdl-checkbox__input">
-            <span class="mdl-checkbox__label">{{ size }}</span>
-          </label>
+          <div class="ml-3">
+            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect label" [for]="size"
+              *ngFor="let size of sizes; let i = index;">
+              <input type="checkbox" [id]="size" class="mdl-checkbox__input">
+              <span class="mdl-checkbox__label">{{ size }}</span>
+            </label>
+          </div>
         </div>
       </div>
       <!-- Scores -->
@@ -66,16 +58,21 @@
       <!-- Minimum discount -->
       <div class="form-group">
         <label for="payments" class="title">Discount %</label>
-        <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="6" step="2"
+        <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="0" step="2"
           formControlName="mindiscount">
       </div>
       <!-- Payments -->
       <div class="form-group">
         <label for="payments" class="title">Part payments</label>
-        <label>
-          <input type="radio" formControlName="payments" value="1">One payment
-          <input type="radio" formControlName="payments" value="4">4 & Up
-        </label>  
+        <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group ml-3"
+          formControlName="payments">
+          <mat-radio-button class="example-radio-button label" value="1">One payment
+          </mat-radio-button>
+          <mat-radio-button class="example-radio-button label" value="4">4 & Up
+          </mat-radio-button>
+          <mat-radio-button class="example-radio-button label" value="10">10 & Up
+          </mat-radio-button>
+        </mat-radio-group>
       </div>
     </form>
   </div>
