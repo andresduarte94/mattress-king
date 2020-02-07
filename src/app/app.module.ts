@@ -24,6 +24,8 @@ import { BlogBannerComponent } from './blog/blog-banner/blog-banner/blog-banner.
 import { NouisliderModule } from 'ng2-nouislider';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatRadioModule} from '@angular/material/radio';
+import {MatSliderModule} from '@angular/material/slider';
+
 
 
 @NgModule({
@@ -52,7 +54,8 @@ import {MatRadioModule} from '@angular/material/radio';
     FormsModule,
     NouisliderModule,
     BrowserAnimationsModule,
-    MatRadioModule
+    MatRadioModule,
+    MatSliderModule
     ],
   bootstrap: [AppComponent],
   // providers: [LoggingService]

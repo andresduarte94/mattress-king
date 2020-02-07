@@ -51,21 +51,26 @@
         </div>
       </div>
       <!-- Minimum discount -->
-      <div class="form-group">
+      <div class="form-group discount">
         <label for="payments" class="title">Discount %</label>
-        <input class="mdl-slider mdl-js-slider" type="range" min="0" max="10" value="0" step="2"
-          formControlName="mindiscount">
+        <div class="w-75 mx-auto">
+          <mat-slider class="p-0" thumbLabel [displayWith]="formatLabel" color="primary"
+            min="1" max="100" formControlName="mindiscount"></mat-slider>
+        </div>
       </div>
       <!-- Payments -->
-      <div class="form-group">
+      <div class="form-group mb-0">
         <label for="payments" class="title">Part payments</label>
         <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group ml-3"
           formControlName="payments">
-          <mat-radio-button class="example-radio-button label"  color="primary" value="1">One payment
+          <mat-radio-button class="example-radio-button label" color="primary" value="1"
+            (click)="uncheckRadio($event, 1)">One payment
           </mat-radio-button>
-          <mat-radio-button class="example-radio-button label"  color="primary" value="4">4 & Up
+          <mat-radio-button class="example-radio-button label" color="primary" value="4"
+            (click)="uncheckRadio($event, 4)">4 & Up
           </mat-radio-button>
-          <mat-radio-button class="example-radio-button label"  color="primary" value="10">10 & Up
+          <mat-radio-button class="example-radio-button label" color="primary" value="10"
+            (click)="uncheckRadio($event, 10)">10 & Up
           </mat-radio-button>
         </mat-radio-group>
       </div>

@@ -22,6 +22,7 @@ export class ProductDisplayComponent implements OnInit {
   sizes: string[] = [];
   defaultType: number = 0;
   filterForm: FormGroup;
+  checkedRadioPayment: number = null;
   public priceSliderValue: number[] = [0, 800];
   @ViewChild('priceSlider', { static: false }) priceSlider: NouisliderComponent;
 
@@ -58,48 +59,74 @@ export class ProductDisplayComponent implements OnInit {
     );
 
     this.createReactiveForm();
+  }
 
+  formatLabel(value: number) {
+      return value + '%';
   }
 
   createReactiveForm() {
     this.filterForm = new FormGroup({
       'productType': new FormControl(0),
-      'priceSlider': new FormControl(this.priceSliderValue),
+      'priceSlider': new FormControl(null),
       'sizes': new FormArray(this.createSizesControl()),
       'mindiscount': new FormControl(0),
-      'payments': new FormControl(1)
+      'payments': new FormControl(null)
     });
 
-    /* this.filterForm.setValue({
-      'productType': 0,
-      'priceSlider': ,
-      'sizes': [],
-      'mindiscount': 0,
-      'payments': "1"
-    });
- */
-    this.filterForm.valueChanges.subscribe(
-      (values) => console.log(values)
+    //Reactive form changes subscriptions
+    this.filterForm.controls['productType'].valueChanges.subscribe(
+      (productType) => {
+        this.filter.type = productType;
+        this.updateProducts(this.filter);      
+      }
+    );
+    this.filterForm.controls['priceSlider'].valueChanges.subscribe(
+      (values) => {
+        console.log(values);
+      }
+    );
+    this.filterForm.controls['sizes'].valueChanges.subscribe(
+      (values) => {
+        console.log(values);
+      }
+    );
+    this.filterForm.controls['mindiscount'].valueChanges.subscribe(
+      (mindiscount) => {
+        this.filter.mindiscount = mindiscount;
+        this.updateProducts(this.filter);
+      }
+    );
+    this.filterForm.controls['payments'].valueChanges.subscribe(
+      (payments) => {
+        this.checkedRadioPayment = payments;
+        this.filter.payments = payments;
+        this.updateProducts(this.filter);
+      }
     );
 
-/*     this.filterForm.controls[''].valueChanges.subscribe(
-      (values) => console.log(values)
-    ) */
   }
 
-
-/*   updateScoreFilter(score: number) {
+  updateScoreFilter(score: number) {
     this.filter.minscore = score;
     this.updateProducts(this.filter);
   }
-
-  updateSize(size: string) {
+    
+  updateSizeFilter(size: string) {
     if (!this.filter.hasOwnProperty('sizes')) {
       this.filter.sizes = []
     }
     this.filter.sizes.push(size);
     this.updateProducts(this.filter);
-  } */
+  }
+
+  ngOnViewInit() {
+
+  }
+
+  ngAfterContentChecked() {
+    componentHandler.upgradeAllRegistered();
+  }
 
   createSizesControl() {
     let sizesArray = this.sizes.reduce((sizesArray, size) => {
@@ -110,12 +137,12 @@ export class ProductDisplayComponent implements OnInit {
     return sizesArray;
   }
 
-  ngOnViewInit() {
-
-  }
-
-  ngAfterContentChecked() {
-    componentHandler.upgradeAllRegistered();
+  uncheckRadio(event, radio: number) {
+    if(this.checkedRadioPayment == radio) {
+      event.preventDefault()
+      this.checkedRadioPayment = null;
+      this.filterForm.controls['payments'].reset(); 
+    }
   }
 
   //Price slider configuration

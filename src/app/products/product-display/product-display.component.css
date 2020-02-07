@@ -1,15 +1,11 @@
 .categories-sidebar {
     width: 230px;
-    max-height: 710px;
+    max-height: 725px;
 }
 
 .col {
     padding-right: 0;
     padding-left: 0;
-}
-
-.discount {
-    width: 100px;
 }
 
 .link {
@@ -64,6 +60,10 @@
 
 .payment-radio-button {
     color: #7e40da;
+}
+
+.discount {
+    margin-bottom: 0;
 }
 
 /* .noUi-horizontal .noUi-handle, .noUi-vertical .noUi-handle {

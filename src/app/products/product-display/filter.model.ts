@@ -8,7 +8,7 @@ export class Filter {
         public country?: string,
         public minprice?: number,
         public maxprice?: number,
-        public discount?: number,
+        public mindiscount?: number,
         public payments?: number,
         public minscore?: number
         ) {}
