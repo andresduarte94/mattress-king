@@ -1,6 +1,6 @@
 .categories-sidebar {
     width: 230px;
-    max-height: 700px;
+    max-height: 710px;
 }
 
 .col {
@@ -18,8 +18,8 @@
 
 .icon {
     display: inline-block;
-    width: 1em;
-    height: 1em;
+    width: 1.5em;
+    height: 1.5em;
     stroke-width: 0;
     stroke: currentColor;
     fill: currentColor;
@@ -56,6 +56,14 @@
 
 .priceSlider {
     margin-bottom: 15%;
+}
+
+.icon-star-full {
+    color: #7e40da;
+}
+
+.payment-radio-button {
+    color: #7e40da;
 }
 
 /* .noUi-horizontal .noUi-handle, .noUi-vertical .noUi-handle {

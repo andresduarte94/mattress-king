@@ -82,27 +82,24 @@ export class ProductDisplayComponent implements OnInit {
       (values) => console.log(values)
     );
 
-this.filterForm.controls[''].valueChanges.subscribe(
-  (values) => console.log(values)
-)
-
-
-
-
-updateScoreFilter(score: number) {
-  this.filter.minscore = score;
-  this.updateProducts(this.filter);
-}
-
-updateSize(size: string) {
-
-
-
-
-
-
-
+/*     this.filterForm.controls[''].valueChanges.subscribe(
+      (values) => console.log(values)
+    ) */
   }
+
+
+/*   updateScoreFilter(score: number) {
+    this.filter.minscore = score;
+    this.updateProducts(this.filter);
+  }
+
+  updateSize(size: string) {
+    if (!this.filter.hasOwnProperty('sizes')) {
+      this.filter.sizes = []
+    }
+    this.filter.sizes.push(size);
+    this.updateProducts(this.filter);
+  } */
 
   createSizesControl() {
     let sizesArray = this.sizes.reduce((sizesArray, size) => {
@@ -173,17 +170,5 @@ updateSize(size: string) {
     this.products = products;
   }
 
-  updateScoreFilter(score: number) {
-    this.filter.minscore = score;
-    this.updateProducts(this.filter);
-  }
-
-  updateSize(size: string) {
-    if (!this.filter.hasOwnProperty('sizes')) {
-      this.filter.sizes = []
-    }
-    this.filter.sizes.push(size);
-    this.updateProducts(this.filter);
-  }
 
 }
