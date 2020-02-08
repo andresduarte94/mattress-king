@@ -14,7 +14,7 @@ export class ProductListComponent implements OnInit, OnChanges {
   @Input() products: Product[] = [];
 
   //Pagination variables
-  pageSize = 12;
+  pageSize = 8;
   maxPages = 5;
   pageOfProducts: Array<any>;
 

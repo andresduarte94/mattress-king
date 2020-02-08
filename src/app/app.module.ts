@@ -25,6 +25,8 @@ import { NouisliderModule } from 'ng2-nouislider';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSliderModule} from '@angular/material/slider';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+
 
 
 
@@ -55,7 +57,8 @@ import {MatSliderModule} from '@angular/material/slider';
     NouisliderModule,
     BrowserAnimationsModule,
     MatRadioModule,
-    MatSliderModule
+    MatSliderModule,
+    MatCheckboxModule
     ],
   bootstrap: [AppComponent],
   // providers: [LoggingService]

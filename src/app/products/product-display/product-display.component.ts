@@ -30,7 +30,7 @@ export class ProductDisplayComponent implements OnInit {
 
   ngOnInit() {
     this.productTypes = this.productsService.productTypes;
-    this.sizes = this.productsService.getSizes(0);
+    this.sizes = this.productsService.getSizes(1);
 
     //Params subscription for manual URL and header bar links
     this.activatedRoute.params.subscribe(
@@ -61,15 +61,14 @@ export class ProductDisplayComponent implements OnInit {
     this.createReactiveForm();
   }
 
-  formatLabel(value: number) {
-      return value + '%';
-  }
-
   createReactiveForm() {
     this.filterForm = new FormGroup({
       'productType': new FormControl(0),
       'priceSlider': new FormControl(null),
-      'sizes': new FormArray(this.createSizesControl()),
+      'sizes': new FormGroup(this.sizes.reduce((sizesArray, size) => {
+        sizesArray[size] = new FormControl(null);
+        return sizesArray;
+      }, {})),
       'mindiscount': new FormControl(0),
       'payments': new FormControl(null)
     });
@@ -78,7 +77,7 @@ export class ProductDisplayComponent implements OnInit {
     this.filterForm.controls['productType'].valueChanges.subscribe(
       (productType) => {
         this.filter.type = productType;
-        this.updateProducts(this.filter);      
+        this.updateProducts(this.filter);
       }
     );
     this.filterForm.controls['priceSlider'].valueChanges.subscribe(
@@ -86,9 +85,25 @@ export class ProductDisplayComponent implements OnInit {
         console.log(values);
       }
     );
+
     this.filterForm.controls['sizes'].valueChanges.subscribe(
       (values) => {
         console.log(values);
+        let sizesArray = [];
+        for (var size in values) {
+          if (values[size]) {
+            sizesArray.push(size);
+          }
+        }
+
+        if(sizesArray.length == 0) {
+          delete this.filter.sizes;
+          this.updateProducts(this.filter);
+        }
+        else {
+        this.filter.sizes = sizesArray;
+        this.updateProducts(this.filter);
+        }
       }
     );
     this.filterForm.controls['mindiscount'].valueChanges.subscribe(
@@ -107,16 +122,12 @@ export class ProductDisplayComponent implements OnInit {
 
   }
 
+  checkSize() {
+    //this.filterForm.controls['sizes'];
+  }
+
   updateScoreFilter(score: number) {
     this.filter.minscore = score;
-    this.updateProducts(this.filter);
-  }
-    
-  updateSizeFilter(size: string) {
-    if (!this.filter.hasOwnProperty('sizes')) {
-      this.filter.sizes = []
-    }
-    this.filter.sizes.push(size);
     this.updateProducts(this.filter);
   }
 
@@ -132,16 +143,16 @@ export class ProductDisplayComponent implements OnInit {
     let sizesArray = this.sizes.reduce((sizesArray, size) => {
       sizesArray.push(new FormControl(size));
       return sizesArray;
-    }, [])
-
+    }, []);
+    console.log(sizesArray);
     return sizesArray;
   }
 
   uncheckRadio(event, radio: number) {
-    if(this.checkedRadioPayment == radio) {
+    if (this.checkedRadioPayment == radio) {
       event.preventDefault()
       this.checkedRadioPayment = null;
-      this.filterForm.controls['payments'].reset(); 
+      this.filterForm.controls['payments'].reset();
     }
   }
 
@@ -175,8 +186,8 @@ export class ProductDisplayComponent implements OnInit {
   public priceSliderConfig: any = {
     start: this.priceSliderValue,
     keyboard: true,
-    onKeydown: this.priceSliderEventHandler,
     connect: [false, true, false],
+    onKeydown: this.priceSliderEventHandler,
     range: {
       min: 0,
       '35%': 200,
@@ -191,11 +202,13 @@ export class ProductDisplayComponent implements OnInit {
     }
   }
 
+  formatLabel(value: number) {
+    return value + '%';
+  }
+
   //Update products based on new filter
   updateProducts(filter: Filter) {
     let products = this.productsService.getProducts(filter);
     this.products = products;
   }
-
-
 }

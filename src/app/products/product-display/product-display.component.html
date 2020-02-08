@@ -10,25 +10,10 @@
         </select>
       </div>
       <!-- Price range -->
-      <div class="form-group" class="title">
-        <label class="priceSlider">Price</label>
-      </div>
-      <div class="form-group">
+      <div class="form-group mb-4" >
+        <label class="priceSlider title">Price</label>
         <nouislider class="mx-auto w-75 " name="priceSlider" [config]="priceSliderConfig" formControlName="priceSlider"
           [tooltips]="[ true, true ]"></nouislider>
-      </div>
-      <!-- Sizes -->
-      <div formArrayName="sizes">
-        <div class="form-group">
-          <label class="title">Sizes:</label>
-          <div class="ml-3">
-            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect label" [for]="size"
-              *ngFor="let size of sizes; let i = index;">
-              <input type="checkbox" [id]="size" class="mdl-checkbox__input">
-              <span class="mdl-checkbox__label">{{ size }}</span>
-            </label>
-          </div>
-        </div>
       </div>
       <!-- Scores -->
       <div class="form-group">
@@ -50,12 +35,23 @@
           </a>
         </div>
       </div>
+      <!-- Sizes -->
+      <div class="form-group" formGroupName='sizes'>
+        <label class="title">Sizes:</label>
+        <div class="ml-3">
+          <label [for]="size"></label>
+          <mat-checkbox [formControlName]="size" (onchange)="checkSize()" color="primary"
+            *ngFor="let size of sizes; let i = index;">{{ size }}</mat-checkbox>
+          <!--  <input type="checkbox" class="mdl-checkbox__input" >
+             <span class="mdl-checkbox__label">{{ size }}</span>  -->
+        </div>
+      </div>
       <!-- Minimum discount -->
       <div class="form-group discount">
         <label for="payments" class="title">Discount %</label>
         <div class="w-75 mx-auto">
-          <mat-slider class="p-0" thumbLabel [displayWith]="formatLabel" color="primary"
-            min="1" max="100" formControlName="mindiscount"></mat-slider>
+          <mat-slider class="p-0" thumbLabel [displayWith]="formatLabel" color="primary" min="0" max="100"
+            formControlName="mindiscount"></mat-slider>
         </div>
       </div>
       <!-- Payments -->
