@@ -12,9 +12,14 @@
       <!-- Price range -->
       <div class="form-group mb-4" >
         <label class="priceSlider title">Price</label>
-        <nouislider class="mx-auto w-75 " name="priceSlider" [config]="priceSliderConfig" formControlName="priceSlider"
+        <nouislider class="mx-auto w-90 pl-2" name="priceSlider" [config]="priceSliderConfig" formControlName="priceSlider"
           [tooltips]="[ true, true ]"></nouislider>
       </div>
+<!--       <form class="form-group mb-4" #sliderForm="ngForm">
+        <label class="priceSlider title">Price</label>
+        <nouislider class="mx-auto w-75 " name="priceSliderValue" [config]="priceSliderConfig" [(ngModel)]="priceSliderValue" 
+          [tooltips]="[ true, true ]"></nouislider>
+      </form> -->
       <!-- Scores -->
       <div class="form-group">
         <label class="title"> Customer reviews: </label>

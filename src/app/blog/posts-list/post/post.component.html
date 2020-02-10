@@ -36,7 +36,7 @@
                             alt="Author picture">
                     </td>
                     <td class="pl-4 pt-3">
-                        <h4 class="name">{{author.name}}</h4>
+                        <h4 class="name">{{ author.name }}</h4>
                         <p class="resume ">
                             <span>{{ postFormattedDate}}&nbsp;&nbsp;•</span>
                             <span class="ml-2">{{  post.duration }} min read</span>
@@ -45,11 +45,11 @@
                 </tr>
             </table>
         </div>
-
         <div class="contain">
             <!-- Post content section-->
-            <p [innerHTML]="post.content"></p>
-            <hr>
+<!--        <ng-container *ngComponentOutlet="component.component; injector: injector"></ng-container> 
+ --><!--              <article [innerHTML]="safeContent"></article>
+ -->           <hr>
             <!-- Auhtor info -->
             <table class="mt-4" id="authorTable">
                 <tr>
@@ -59,7 +59,7 @@
                     </td>
                     <td class="pl-4 pt-3">
                         <h4 class="name">{{author.name}}</h4>
-                        <p class="resume ">{{ author.resume }}</p>
+                        <p class="resume">{{ author.resume }}</p>
                     </td>
                 </tr>
             </table>

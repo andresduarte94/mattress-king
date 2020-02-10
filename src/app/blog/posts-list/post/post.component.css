@@ -9,8 +9,8 @@
 }
 
 .post-img {
-    border-bottom: 3em solid #F4F4F4;
-    border-top: 3em solid #F4F4F4;
+    border-bottom: 3em solid gainsboro; /*#F4F4F4;*/
+    border-top: 3em solid gainsboro;
 }
 
 .icon-small {

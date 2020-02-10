@@ -3,7 +3,7 @@ import { ProductsService } from '../products.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Filter } from './filter.model';
 import { Product } from '../product.model';
-import { FormGroup, FormControl, FormArray } from '@angular/forms';
+import { FormGroup, FormControl, FormArray, NgForm } from '@angular/forms';
 import { NouisliderComponent } from '../../../../node_modules/ng2-nouislider/ng2-nouislider.component';
 
 declare var componentHandler: any;
@@ -25,6 +25,7 @@ export class ProductDisplayComponent implements OnInit {
   checkedRadioPayment: number = null;
   public priceSliderValue: number[] = [0, 800];
   @ViewChild('priceSlider', { static: false }) priceSlider: NouisliderComponent;
+  @ViewChild('sliderForm', { static: true }) sliderForm: NgForm;
 
   constructor(private productsService: ProductsService, private activatedRoute: ActivatedRoute) { }
 
@@ -58,6 +59,11 @@ export class ProductDisplayComponent implements OnInit {
       }
     );
 
+    /*       this.sliderForm.form.valueChanges.subscribe( (val)=> {
+            console.log(val);
+    
+          }); */
+
     this.createReactiveForm();
   }
 
@@ -82,7 +88,10 @@ export class ProductDisplayComponent implements OnInit {
     );
     this.filterForm.controls['priceSlider'].valueChanges.subscribe(
       (values) => {
-        console.log(values);
+        console.log(this.priceSliderValue);
+        this.filter.minprice = this.priceSliderValue[0];
+        this.filter.maxprice = this.priceSliderValue[1];
+        this.updateProducts(this.filter);
       }
     );
 
@@ -96,13 +105,13 @@ export class ProductDisplayComponent implements OnInit {
           }
         }
 
-        if(sizesArray.length == 0) {
+        if (sizesArray.length == 0) {
           delete this.filter.sizes;
           this.updateProducts(this.filter);
         }
         else {
-        this.filter.sizes = sizesArray;
-        this.updateProducts(this.filter);
+          this.filter.sizes = sizesArray;
+          this.updateProducts(this.filter);
         }
       }
     );
@@ -183,6 +192,7 @@ export class ProductDisplayComponent implements OnInit {
     this.priceSliderValue = newValue;
   }
 
+  public i = 0;
   public priceSliderConfig: any = {
     start: this.priceSliderValue,
     keyboard: true,
@@ -190,14 +200,22 @@ export class ProductDisplayComponent implements OnInit {
     onKeydown: this.priceSliderEventHandler,
     range: {
       min: 0,
-      '35%': 200,
+      '55%': 300,
       max: 800
     },
     step: 10,
     format: {
       from: Number,
       to: (value) => {
-        return Math.ceil(value) + " €";
+        let val =  Math.ceil(value);
+        if (this.i == 0 || this.i % 2 == 0) {
+          this.priceSliderValue[0] = val;
+        }
+        else {
+          this.priceSliderValue[1] = val;
+        }
+        this.i++;
+        return val + " €";
       }
     }
   }

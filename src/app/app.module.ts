@@ -23,22 +23,22 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BlogBannerComponent } from './blog/blog-banner/blog-banner/blog-banner.component';
 import { NouisliderModule } from 'ng2-nouislider';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatRadioModule} from '@angular/material/radio';
-import {MatSliderModule} from '@angular/material/slider';
-import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
 
 
 @NgModule({
   declarations: [
-    AppComponent, 
+    AppComponent,
     HeaderComponent,
-    MainComponent, 
-    ProductsComponent, 
-    FooterComponent, 
-    BlogComponent, 
-    ProductListComponent, 
+    MainComponent,
+    ProductsComponent,
+    FooterComponent,
+    BlogComponent,
+    ProductListComponent,
     ProductItemComponent,
     JwPaginationComponent,
     ProductDisplayComponent,
@@ -46,7 +46,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     PostComponent,
     PostItemComponent,
     BlogBannerComponent
-  ], 
+  ],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -59,8 +59,10 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatRadioModule,
     MatSliderModule,
     MatCheckboxModule
-    ],
+  ],
+  exports: [ProductItemComponent],
+  entryComponents: [ProductItemComponent],
   bootstrap: [AppComponent],
   // providers: [LoggingService]
 })
-export class AppModule {}
+export class AppModule { }

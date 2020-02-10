@@ -34,8 +34,6 @@
     border: black;
     background-color: #54595E; /*#339933;*/
     border: 1px solid darkgray;
-    /* margin-left: auto;
-    margin-right: auto; */
 }
 
 .blog {
@@ -44,6 +42,9 @@
 }
 
 /* LIGHT BLUE NAVBAR */
+h2 {
+    font-size: 1.15em;
+}
 #navbar-light-blue {
     background-color:  #79cedc;
     padding-left: 8%;
