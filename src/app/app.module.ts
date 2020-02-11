@@ -27,9 +27,6 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
-
-
-
 @NgModule({
   declarations: [
     AppComponent,

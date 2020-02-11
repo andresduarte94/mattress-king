@@ -1,17 +1,19 @@
-import { Component, OnInit, SecurityContext, Injector } from '@angular/core';
+import { Component, OnInit, SecurityContext, Injector, ViewChild, ComponentFactoryResolver, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Post } from '../../post.model';
 import { BlogService } from '../../blog.service';
 import { Author } from '../../author.model';
 import { ProductsService } from 'src/app/products/products.service';
 import { Product } from 'src/app/products/product.model';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ProductItemComponent } from 'src/app/products/product-list/product-item/product-item.component';
+import { PlaceholderDirective } from 'src/app/shared/placeholder/placeholder.directive';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
-  styleUrls: ['./post.component.css']
+  styleUrls: ['./post.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PostComponent implements OnInit {
   post: Post;
@@ -19,16 +21,17 @@ export class PostComponent implements OnInit {
   nextId: number;
   author: Author;
   postFormattedDate: string;
-  products: Product[];
-  safeContent: SafeHtml;
-  public component = {
-      label: 'Product item',
-      component: ProductItemComponent
-    };
-    injector: Injector;
+  product: Product;
+   @ViewChild(PlaceholderDirective, { static: false }) alertHost: PlaceholderDirective;
+   productItemRef;
+   productItemRef2;
+  private closeSub: Subscription; 
+
+
 
   constructor(private activatedRoute: ActivatedRoute, private blogService: BlogService,
-    private productsService: ProductsService, private router: Router, private sanitizer: DomSanitizer, private inj: Injector) { }
+    private productsService: ProductsService, private router: Router, private cdr: ChangeDetectorRef, private componentFactoryResolver: ComponentFactoryResolver
+    ) { }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(
@@ -38,19 +41,11 @@ export class PostComponent implements OnInit {
         if (typeof this.post === 'undefined') {
           this.post = this.blogService.getPostById(0);
         }
-        this.safeContent = this.sanitizer.sanitize(SecurityContext.HTML, this.post.content);
-        //this.safeContent = this.sanitizer.bypassSecurityTrustHtml(this.post.content);
 
         this.author = this.blogService.getAuthorById(this.post.authorId);
         this.postFormattedDate = new Date(this.post.date * 1000).toLocaleString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
       }
     );
-
-    this.products = this.productsService.getProducts(null);
-
-/*     this.injector = Injector.create([
-      { provide: PRODUCT, useValue: this.products[0] }
-    ], this.inj); */
   }
 
   nextArticle() {
@@ -63,5 +58,44 @@ export class PostComponent implements OnInit {
     }
     this.router.navigate(['/blog', this.nextId]);
   }
+
+  ngAfterViewInit(){
+
+    let content = document.createElement('div');
+    content.innerHTML = `
+    <p>introduction</p>
+    <app-product-item>more text</app-product-item>
+    <app-product-item>and more text</app-product-item>
+    <button>button text</button>
+  `;
+
+
+
+     const productItemCmpFactory = this.componentFactoryResolver.resolveComponentFactory(ProductItemComponent);
+    const hostViewContainerRef = this.alertHost.viewContainerRef;
+    hostViewContainerRef.clear();
+    //this.productItemRef = hostViewContainerRef.createComponent(productItemCmpFactory);
+    this.productItemRef = hostViewContainerRef.createComponent(productItemCmpFactory, undefined, undefined, [[content]]);
+
+    this.product =  this.productsService.getProductById(0);
+    this.productItemRef.instance.product = this.product;
+
+    this.productItemRef2 = hostViewContainerRef.createComponent(productItemCmpFactory, undefined, undefined, [[content]]);
+
+    this.product =  this.productsService.getProductById(1);
+    this.productItemRef.instance.product = this.product;
+
+
+
+
+    this.cdr.detectChanges(); 
+
+  }
+
+/*   ngOnDestroy() {
+    if(this.productItemRef) {
+      this.productItemRef.destroy();
+    }
+  } */
 
 }

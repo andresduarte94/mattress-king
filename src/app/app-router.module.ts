@@ -14,7 +14,7 @@ const appRoutes: Routes = [
     { path: 'products', pathMatch: 'full', redirectTo: '/products/all'}, //delete this and change links
     { path: 'products/:filter', component: ProductsComponent, resolve: [ProductsResolverService]},
     { path: 'blog', component: BlogComponent, resolve: [PostsResolverService, AuthorsResolverService]},
-    { path: 'blog/:postIndex', component: PostComponent, resolve: [PostsResolverService, AuthorsResolverService]} 
+    { path: 'blog/:postIndex', component: PostComponent, resolve: [PostsResolverService, AuthorsResolverService, ProductsResolverService]} 
 
     
   //{ path: '', redirectTo: '/recipes', pathMatch: 'full' },

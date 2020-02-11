@@ -33,6 +33,10 @@ export class ProductsService {
     return products;
   }
 
+  getProductById(index: number) {
+    return this.products.slice()[index];
+  }
+
   setProducts(products: Product[]) {
     this.products = products;
     //this.recipesChanged.next(this.products.slice());
