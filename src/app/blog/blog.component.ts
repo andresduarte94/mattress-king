@@ -13,7 +13,7 @@ import { Subject } from 'rxjs';
   styleUrls: ['./blog.component.css']
 })
 export class BlogComponent implements OnInit {
-  postIndexes: number[] = [1, 4, 5];
+  postIndexes: number[] = [0, 1, 2];
   bannerPosts: Post[] = [];
   currentPost: Post;
   showingIndex: number = 0;
@@ -28,7 +28,6 @@ export class BlogComponent implements OnInit {
     })
     this.currentPost = this.bannerPosts.slice(0, 1)[0];
     this.nextPost.subscribe((post: Post) => {
-      console.log((new Date().getTime()))
       this.currentPost = post;
     });
   }

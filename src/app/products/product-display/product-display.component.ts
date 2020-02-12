@@ -88,7 +88,6 @@ export class ProductDisplayComponent implements OnInit {
     );
     this.filterForm.controls['priceSlider'].valueChanges.subscribe(
       (values) => {
-        console.log(this.priceSliderValue);
         this.filter.minprice = this.priceSliderValue[0];
         this.filter.maxprice = this.priceSliderValue[1];
         this.updateProducts(this.filter);
@@ -97,7 +96,6 @@ export class ProductDisplayComponent implements OnInit {
 
     this.filterForm.controls['sizes'].valueChanges.subscribe(
       (values) => {
-        console.log(values);
         let sizesArray = [];
         for (var size in values) {
           if (values[size]) {

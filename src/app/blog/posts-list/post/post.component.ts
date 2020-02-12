@@ -1,4 +1,4 @@
-import { Component, OnInit, SecurityContext, Injector, ViewChild, ComponentFactoryResolver, ChangeDetectionStrategy, ChangeDetectorRef, ElementRef, Renderer2, ViewContainerRef, TemplateRef } from '@angular/core';
+import { Component, OnInit, SecurityContext, Injector, ViewChild, ComponentFactoryResolver, ChangeDetectionStrategy, ChangeDetectorRef, ElementRef, Renderer2, ViewContainerRef, TemplateRef, Compiler, NgModuleRef, NgModule } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Post } from '../../post.model';
 import { BlogService } from '../../blog.service';
@@ -6,7 +6,6 @@ import { Author } from '../../author.model';
 import { ProductsService } from 'src/app/products/products.service';
 import { Product } from 'src/app/products/product.model';
 import { ProductItemComponent } from 'src/app/products/product-list/product-item/product-item.component';
-import { PlaceholderDirective } from 'src/app/shared/placeholder/placeholder.directive';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -22,24 +21,13 @@ export class PostComponent implements OnInit {
   author: Author;
   postFormattedDate: string;
   product: Product;
-/*    @ViewChild(PlaceholderDirective, { static: false }) alertHost: PlaceholderDirective;
-   @ViewChild('content', { static: false, read: ViewContainerRef}) content: ViewContainerRef;
-   @ViewChild('content2', { static: false, read: ViewContainerRef}) content2: ViewContainerRef;
-
-   @ViewChild('test', { static: false, read: TemplateRef}) test: TemplateRef<any>;
-
-   safeContent;
-   productItemRef;
-   productItemRef2;
-   nativeContentElement;
-  private closeSub: Subscription;  */
-
-
+  @ViewChild('contentContainer', { static: false, read: ViewContainerRef }) contentContainer: ViewContainerRef;
 
   constructor(private activatedRoute: ActivatedRoute, private blogService: BlogService,
-    private productsService: ProductsService, private router: Router, private cdr: ChangeDetectorRef, 
-    private componentFactoryResolver: ComponentFactoryResolver, private renderer: Renderer2
-    ) { }
+    private productsService: ProductsService, private router: Router, private cdr: ChangeDetectorRef,
+    private componentFactoryResolver: ComponentFactoryResolver, private renderer: Renderer2,
+    private _compiler: Compiler, private _injector: Injector, private _m: NgModuleRef<any>
+  ) { }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(
@@ -54,12 +42,6 @@ export class PostComponent implements OnInit {
         this.postFormattedDate = new Date(this.post.date * 1000).toLocaleString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
       }
     );
-
-/*     this.safeContent.innerHTML = `
-    <p>introduction</p>
-    <div id="product1"></div>
-    <button>button text</button>
-  `; */
   }
 
   nextArticle() {
@@ -70,53 +52,48 @@ export class PostComponent implements OnInit {
     else {
       this.nextId = ++this.postIndex;
     }
+    
     this.router.navigate(['/blog', this.nextId]);
   }
 
-  ngAfterViewInit(){
-/* 
-     const productItemCmpFactory = this.componentFactoryResolver.resolveComponentFactory(ProductItemComponent);
-    const hostViewContainerRef = this.alertHost.viewContainerRef;
-    hostViewContainerRef.clear();
-    //this.productItemRef = hostViewContainerRef.createComponent(productItemCmpFactory);
+  ngAfterViewInit() {
+    let contentHtmlArray = this.post.content.split(new RegExp('{{[a-zA-Z0-9:]+}}', 'g'));
+    let productIdsMatches = this.post.content.match(new RegExp('{{[a-zA-Z0-9:]+}}', 'g'));
 
-    this.productItemRef = hostViewContainerRef.createComponent(productItemCmpFactory, undefined, undefined, [[content]]);
-    let product =  this.productsService.getProductById(0);
-    this.productItemRef.instance.product = product;
+    if (productIdsMatches != undefined) {
+      var productIds = productIdsMatches.map((productId, i) => {
+        return +productId.substring(12, productId.length - 2);
+      });
+    }
 
-    this.productItemRef2 = hostViewContainerRef.createComponent(productItemCmpFactory, undefined, undefined, [[content]]);
-    let product2 =  this.productsService.getProductById(1);
-    this.productItemRef2.instance.product = product2;
+    let componentsArray = [];
+    contentHtmlArray.forEach(contentTemplate => {
+      const tmpCmp = Component({ template: contentTemplate })(class { });
+      componentsArray.push(tmpCmp);
+    });
+    const tmpModule = NgModule({ declarations: componentsArray })(class { });
 
-    this.nativeContentElement = this.alertHost.viewContainerRef.element.nativeElement;
+    this._compiler.compileModuleAndAllComponentsAsync(tmpModule)
+      .then((factories) => {
+        const productItemCmpFactory = this.componentFactoryResolver.resolveComponentFactory(ProductItemComponent);
+        
+        factories.componentFactories.forEach((factory, i, array) => {
+          const cmpRef = this.contentContainer.createComponent(factory);
 
-    //var node = document.createElement("div");  
-    //console.log(node)               // Create a <li> node
-//node.innerHTML = 'test satu dua tiga';
-// Create a text node
-//this.nativeContentElement.appendChild(node);
-//this.content.el.nativeElement.appendChild(node);
-//@ViewChild('content2', { static: false, read: ViewContainerRef}) content2: ViewContainerRef;
-@ViewChild('product1', { static: false}) let product1: ElementRef;
+          if ((i + 1) == array.length) { return; }
+          const productItemRef = this.contentContainer.createComponent(productItemCmpFactory);
+          const product = this.productsService.getProductById(productIds[i]);
+          productItemRef.instance.product = product;
 
-const p = this.renderer.createElement('p');
-const text = this.renderer.createText('Click here to add li');
-this.renderer.appendChild(p, text);
-this.renderer.appendChild(product1.nativeElement, p);
-
-//this.content.createEmbeddedView(this.test);
-//this.content.createEmbeddedView(this.content2.element);
-
-let content = document.createElement('<div>fddksandkldsn</div>');
-
-    this.cdr.detectChanges(); 
- */
+          this.cdr.detectChanges();
+        })
+      })
   }
 
-/*   ngOnDestroy() {
-    if(this.productItemRef) {
-      this.productItemRef.destroy();
-    }
-  } */
+  /*   ngOnDestroy() {
+      if(this.productItemRef) {
+        this.productItemRef.destroy();
+      }
+    } */
 
 }
