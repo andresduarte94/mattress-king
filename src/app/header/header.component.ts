@@ -32,9 +32,11 @@ export class HeaderComponent implements OnInit {
       'languages': new FormControl('default')
     });
     this.countryForm.controls['countries'].valueChanges.subscribe(
-      (values) => {
-        console.log(values);
-    })
+      (value) => {
+        this.filter.country = value;
+        sessionStorage.setItem('filter', JSON.stringify(this.filter));
+        this.router.navigate(['products/filter'], {queryParams: {filterId: 'filter' + (Math.floor(Math.random()*1000)+1)}});
+      })
     this.countryForm.controls['languages'].valueChanges.subscribe(
       (values) => {
         console.log(values);

@@ -8,7 +8,7 @@
                         <mat-form-field class="country-select w-50">
                             <mat-select formControlName="languages">
                                 <mat-option *ngFor="let language of languagesList, let i = index"
-                                    [value]="countriesCodes[i]">{{language}}</mat-option>
+                                    [value]="countriesCodes[i]">{{ language }}</mat-option>
                             </mat-select>
                         </mat-form-field>
                     </li>
@@ -16,7 +16,7 @@
                         <mat-form-field class="country-select w-60">
                             <mat-select formControlName="countries">
                                 <mat-option *ngFor="let country of countriesList, let i = index"
-                                    [value]="countriesCodes[i]">{{country}}</mat-option>
+                                    [value]="countriesCodes[i]">{{ country }}</mat-option>
                             </mat-select>
                         </mat-form-field>
                     </li>

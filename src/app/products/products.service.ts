@@ -27,7 +27,8 @@ export class ProductsService {
         (filter.hasOwnProperty('sizes') ? (filter.sizes.includes(product.size)) : (true)) &&
         (filter.hasOwnProperty('minscore') ? (product.score >= filter.minscore) : (true)) &&
         (filter.hasOwnProperty('mindiscount') ? (product.discount >= filter.mindiscount) : (true)) &&
-        (filter.hasOwnProperty('payments') ? (product.payments >= filter.payments) : (true));
+        (filter.hasOwnProperty('payments') ? (product.payments >= filter.payments) : (true)) &&
+        (filter.hasOwnProperty('country') ? (product.country == filter.country || filter.country == 'default') : (true));
     });
 
     return products;
