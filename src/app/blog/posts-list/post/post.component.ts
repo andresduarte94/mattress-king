@@ -52,8 +52,8 @@ export class PostComponent implements OnInit {
     else {
       this.nextId = ++this.postIndex;
     }
-    
-    this.router.navigate(['/blog', this.nextId]);
+
+    this.router.navigate(['/blog', this.nextId], {queryParams: {action: (Math.floor(Math.random()*1000)+1)}});
   }
 
   ngAfterViewInit() {

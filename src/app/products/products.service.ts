@@ -20,7 +20,8 @@ export class ProductsService {
 
     products = products.filter(function (product) {
       return (filter.hasOwnProperty('type') ? (product.type == filter.type || filter.type == 0) : (true)) &&
-        ((filter.hasOwnProperty('name') ? (RegExp(filter.name, 'i').test(product.name.normalize("NFD").replace(/[\u0300-\u036f]/g, ""))) : (true)) ||
+        ((filter.hasOwnProperty('name') ? (RegExp(filter.name.normalize("NFD").replace(/[\u0300-\u036f]/g, ""), 'i')
+          .test(product.name.normalize("NFD").replace(/[\u0300-\u036f]/g, ""))) : (true)) ||
           (filter.hasOwnProperty('description') ? (RegExp(filter.description, 'i').test(product.description.normalize("NFD").replace(/[\u0300-\u036f]/g, ""))) : (true))) &&
           (filter.hasOwnProperty('minprice') && filter.hasOwnProperty('maxprice') ? ((filter.minprice <= product.price) && (product.price <= filter.maxprice)) : (true)) &&
         (filter.hasOwnProperty('sizes') ? (filter.sizes.includes(product.size)) : (true)) &&

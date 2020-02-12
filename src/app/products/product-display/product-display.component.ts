@@ -15,7 +15,6 @@ declare var componentHandler: any;
   encapsulation: ViewEncapsulation.None
 })
 export class ProductDisplayComponent implements OnInit {
-
   productTypes: string[];
   filter: Filter;
   products: Product[] = [];
@@ -58,11 +57,6 @@ export class ProductDisplayComponent implements OnInit {
         }
       }
     );
-
-    /*       this.sliderForm.form.valueChanges.subscribe( (val)=> {
-            console.log(val);
-    
-          }); */
 
     this.createReactiveForm();
   }
@@ -127,10 +121,6 @@ export class ProductDisplayComponent implements OnInit {
       }
     );
 
-  }
-
-  checkSize() {
-    //this.filterForm.controls['sizes'];
   }
 
   updateScoreFilter(score: number) {
@@ -198,7 +188,7 @@ export class ProductDisplayComponent implements OnInit {
     onKeydown: this.priceSliderEventHandler,
     range: {
       min: 0,
-      '55%': 300,
+      '70%': 300,
       max: 800
     },
     step: 10,

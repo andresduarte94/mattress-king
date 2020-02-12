@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProductsService } from '../products/products.service';
 import { Filter } from '../products/product-display/filter.model';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import {FormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-header',
@@ -10,14 +11,37 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  countries = new FormControl();
+  languages = new FormControl();
+  countriesList: string[] = ['All countries', 'Amazon US', 'Amazon Spain'];
+  languagesList = ['Language', 'English', 'Spanish'];
+  countriesCodes: string[] = ['default', 'us', 'es'];
   productTypes: string[];
   filter: Filter = {}; 
   @ViewChild('searchForm', { static: false }) searchForm: NgForm;
+  countryForm: FormGroup;
+
 
   constructor(private productsService: ProductsService, private router: Router) { }
 
   ngOnInit() {
     this.productTypes = this.productsService.productTypes.slice(1);
+
+    this.countryForm = new FormGroup({
+      'countries': new FormControl('default'),
+      'languages': new FormControl('default')
+    });
+    this.countryForm.controls['countries'].valueChanges.subscribe(
+      (values) => {
+        console.log(values);
+    })
+    this.countryForm.controls['languages'].valueChanges.subscribe(
+      (values) => {
+        console.log(values);
+    })
+  }
+
+  ngOnViewInit() {
   }
 
   onSubmit() {

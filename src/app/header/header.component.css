@@ -5,6 +5,20 @@
     color: darkgray;
 }
 
+.w-60 {
+    width: 70%;
+}
+
+.not-empty-select.mat-selected {
+    color: green !important;
+}
+  
+:host /deep/ .mat-select-value-text {
+    font-weight: 600;
+    font-size: 1.05em;
+    margin-left: 5%;
+}
+
 /* BLUE NAVBAR */
 #navbar-blue {
     background-color: #0F2043;

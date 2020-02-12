@@ -2,14 +2,26 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark header1-color">
         <div class="collapse navbar-collapse" id="navbar-grey">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link text-white" href="#">Currency</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="#">Country</a>
-                </li>
-            </ul>
+            <form [formGroup]="countryForm">
+                <ul class="navbar-nav">
+                    <li class="nav-item active d-flex justify-content-center">
+                        <mat-form-field class="country-select w-50">
+                            <mat-select formControlName="languages">
+                                <mat-option *ngFor="let language of languagesList, let i = index"
+                                    [value]="countriesCodes[i]">{{language}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </li>
+                    <li class="nav-item">
+                        <mat-form-field class="country-select w-60">
+                            <mat-select formControlName="countries">
+                                <mat-option *ngFor="let country of countriesList, let i = index"
+                                    [value]="countriesCodes[i]">{{country}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </li>
+                </ul>
+            </form>
         </div>
 
     </nav>
@@ -31,9 +43,10 @@
 
         <!-- Search bar with button-->
         <div class="search-div w-100 ml-5">
-            <form class="form-inline my-2 mx-auto w-75 search-form" (ngSubmit)="onSubmit()" #searchForm="ngForm" >
+            <form class="form-inline my-2 mx-auto w-75 search-form" (ngSubmit)="onSubmit()" #searchForm="ngForm">
                 <div class="w-75 mx-auto">
-                    <input class="form-control w-75" type="search" placeholder="Search" aria-label="Search" ngModel name="search">
+                    <input class="form-control w-75" type="search" placeholder="Search" aria-label="Search" ngModel
+                        name="search">
                     <button class="btn btn-secondary ml-2" type="submit" id="searchBtn">Search</button>
                 </div>
             </form>
@@ -53,17 +66,17 @@
 
 
         <!-- Right part of 2nd header - Version 2 -->
-<!--         <div class="collapse navbar-collapse" id="navbar-blue-drop">
+        <!--         <div class="collapse navbar-collapse" id="navbar-blue-drop">
             <ul class="navbar-nav ml-auto"> -->
-                <!-- Car basket-->
-<!--                 <li class="nav-item">
+        <!-- Car basket-->
+        <!--                 <li class="nav-item">
                     <a class="nav-link text-light" routerLink="/home">
                         <fa-icon [icon]="faShoppingCart" id="shoppingCart"></fa-icon>
                         Cart
                     </a>
                 </li> -->
-                <!-- Authentication Links -->
-             <!--    <li class="nav-item lower">
+        <!-- Authentication Links -->
+        <!--    <li class="nav-item lower">
                     <a class="nav-link text-light" href="#" id="linkkk">Login</a>
                 </li>
                 <li class="nav-item lower">
