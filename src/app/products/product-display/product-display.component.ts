@@ -3,7 +3,7 @@ import { ProductsService } from '../products.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Filter } from './filter.model';
 import { Product } from '../product.model';
-import { FormGroup, FormControl, FormArray, NgForm } from '@angular/forms';
+import { FormGroup, FormControl, NgForm } from '@angular/forms';
 import { NouisliderComponent } from '../../../../node_modules/ng2-nouislider/ng2-nouislider.component';
 
 declare var componentHandler: any;
