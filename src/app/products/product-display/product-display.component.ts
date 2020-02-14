@@ -51,7 +51,7 @@ export class ProductDisplayComponent implements OnInit {
     //QueryParams subscription for search bar filter
     this.activatedRoute.queryParams.subscribe(
       (queryParams: Params) => {
-        if (queryParams.filterId) {
+        if (queryParams.filterId || queryParams.gl) {
           this.filter = JSON.parse(sessionStorage.getItem('filter'));
           this.updateProducts(this.filter);
         }

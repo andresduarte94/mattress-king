@@ -28,7 +28,7 @@ export class ProductsService {
         (filter.hasOwnProperty('minscore') ? (product.score >= filter.minscore) : (true)) &&
         (filter.hasOwnProperty('mindiscount') ? (product.discount >= filter.mindiscount) : (true)) &&
         (filter.hasOwnProperty('payments') ? (product.payments >= filter.payments) : (true)) &&
-        (filter.hasOwnProperty('country') ? (product.country == filter.country || filter.country == 'default') : (true));
+        (filter.hasOwnProperty('country') ? (product.country == filter.country || filter.country == 'all') : (true));
     });
 
     return products;

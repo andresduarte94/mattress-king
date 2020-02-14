@@ -33,14 +33,17 @@ export class HeaderComponent implements OnInit {
     });
     this.countryForm.controls['countries'].valueChanges.subscribe(
       (value) => {
-        this.filter.country = value;
+        this.filter.country = (value == 'default') ? 'all' : value;
         sessionStorage.setItem('filter', JSON.stringify(this.filter));
-        this.router.navigate(['products/filter'], {queryParams: {filterId: 'filter' + (Math.floor(Math.random()*1000)+1)}});
-      })
+        this.router.navigate(['products/filter'], {queryParams: {
+          //filterId:(Math.floor(Math.random()*1000)+1),
+          gl: this.filter.country
+        }});
+      });
     this.countryForm.controls['languages'].valueChanges.subscribe(
       (values) => {
         console.log(values);
-    })
+    });
   }
 
   ngOnViewInit() {
@@ -51,6 +54,6 @@ export class HeaderComponent implements OnInit {
     this.filter.name = this.searchForm.value.search;
     sessionStorage.setItem('filter', JSON.stringify(this.filter));
     this.searchForm.reset(this.searchForm.value);
-    this.router.navigate(['products/filter'], {queryParams: {filterId: 'filter' + (Math.floor(Math.random()*1000)+1)}});
+    this.router.navigate(['products/filter'], {queryParams: {filterId: Math.floor(Math.random()*1000)+1}});
   }
 }
