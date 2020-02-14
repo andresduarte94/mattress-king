@@ -3,7 +3,7 @@ import { ProductsService } from '../products.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Filter } from './filter.model';
 import { Product } from '../product.model';
-import { FormGroup, FormControl, FormArray, NgForm } from '@angular/forms';
+import { FormGroup, FormControl, NgForm } from '@angular/forms';
 import { NouisliderComponent } from '../../../../node_modules/ng2-nouislider/ng2-nouislider.component';
 
 declare var componentHandler: any;
@@ -51,7 +51,7 @@ export class ProductDisplayComponent implements OnInit {
     //QueryParams subscription for search bar filter
     this.activatedRoute.queryParams.subscribe(
       (queryParams: Params) => {
-        if (queryParams.filterId) {
+        if (queryParams.filterId || queryParams.gl) {
           this.filter = JSON.parse(sessionStorage.getItem('filter'));
           this.updateProducts(this.filter);
         }

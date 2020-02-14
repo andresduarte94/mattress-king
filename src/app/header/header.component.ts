@@ -3,7 +3,7 @@ import { ProductsService } from '../products/products.service';
 import { Filter } from '../products/product-display/filter.model';
 import { NgForm, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import {FormControl} from '@angular/forms';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-header',
@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit {
   languagesList = ['Language', 'English', 'Spanish'];
   countriesCodes: string[] = ['default', 'us', 'es'];
   productTypes: string[];
-  filter: Filter = {}; 
+  filter: Filter = {};
   @ViewChild('searchForm', { static: false }) searchForm: NgForm;
   countryForm: FormGroup;
 
@@ -31,19 +31,21 @@ export class HeaderComponent implements OnInit {
       'countries': new FormControl('default'),
       'languages': new FormControl('default')
     });
-    
+
     this.countryForm.controls['countries'].valueChanges.subscribe(
       (value) => {
-        this.filter.country = value;
+        this.filter.country = (value == 'default') ? 'all' : value;
         sessionStorage.setItem('filter', JSON.stringify(this.filter));
-        this.router.navigate(['products/filter'], {queryParams: {filterId: 'filter' + (Math.floor(Math.random()*1000)+1)}});
+        this.router.navigate(['products/filter'], {
+          queryParams: {
+            gl: this.filter.country
+          }
+        });
       });
-
     this.countryForm.controls['languages'].valueChanges.subscribe(
       (values) => {
         console.log(values);
-    });
-
+      });
   }
 
   ngOnViewInit() {
@@ -54,6 +56,6 @@ export class HeaderComponent implements OnInit {
     this.filter.name = this.searchForm.value.search;
     sessionStorage.setItem('filter', JSON.stringify(this.filter));
     this.searchForm.reset(this.searchForm.value);
-    this.router.navigate(['products/filter'], {queryParams: {filterId: 'filter' + (Math.floor(Math.random()*1000)+1)}});
+    this.router.navigate(['products/filter'], { queryParams: { filterId: Math.floor(Math.random() * 1000) + 1 } });
   }
 }

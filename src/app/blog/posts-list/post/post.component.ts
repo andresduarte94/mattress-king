@@ -1,4 +1,5 @@
-import { Component, OnInit, SecurityContext, Injector, ViewChild, ComponentFactoryResolver, ChangeDetectionStrategy, ChangeDetectorRef, ElementRef, Renderer2, ViewContainerRef, TemplateRef, Compiler, NgModuleRef, NgModule } from '@angular/core';
+import { Component, OnInit, ViewChild, ComponentFactoryResolver, ChangeDetectionStrategy, 
+  ChangeDetectorRef, ViewContainerRef, Compiler, NgModule } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Post } from '../../post.model';
 import { BlogService } from '../../blog.service';
@@ -6,13 +7,11 @@ import { Author } from '../../author.model';
 import { ProductsService } from 'src/app/products/products.service';
 import { Product } from 'src/app/products/product.model';
 import { ProductItemComponent } from 'src/app/products/product-list/product-item/product-item.component';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
-  styleUrls: ['./post.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./post.component.css']
 })
 export class PostComponent implements OnInit {
   post: Post;
@@ -25,8 +24,7 @@ export class PostComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute, private blogService: BlogService,
     private productsService: ProductsService, private router: Router, private cdr: ChangeDetectorRef,
-    private componentFactoryResolver: ComponentFactoryResolver, private renderer: Renderer2,
-    private _compiler: Compiler, private _injector: Injector, private _m: NgModuleRef<any>
+    private componentFactoryResolver: ComponentFactoryResolver, private _compiler: Compiler
   ) { }
 
   ngOnInit() {
