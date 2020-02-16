@@ -5,6 +5,7 @@ import { Filter } from './filter.model';
 import { Product } from '../product.model';
 import { FormGroup, FormControl, NgForm } from '@angular/forms';
 import { NouisliderComponent } from '../../../../node_modules/ng2-nouislider/ng2-nouislider.component';
+import { Subscription } from 'rxjs';
 
 declare var componentHandler: any;
 
@@ -24,7 +25,8 @@ export class ProductDisplayComponent implements OnInit {
   checkedRadioPayment: number = null;
   public priceSliderValue: number[] = [0, 800];
   @ViewChild('priceSlider', { static: false }) priceSlider: NouisliderComponent;
-  @ViewChild('sliderForm', { static: true }) sliderForm: NgForm;
+  @ViewChild('sliderForm', { static: false }) sliderForm: NgForm;
+  filterUpdateSub: Subscription;
 
   constructor(private productsService: ProductsService, private activatedRoute: ActivatedRoute) { }
 
@@ -44,15 +46,25 @@ export class ProductDisplayComponent implements OnInit {
         else {
           this.filter = { type: this.productsService.getProductTypeId(params.filter) };
         }
+        this.productsService.clearFilterEvent.next(this.filter);
         this.updateProducts(this.filter);
       }
     );
 
+    this.filterUpdateSub = this.productsService.filterUpdateEvent.subscribe((filter: Filter) => {
+      Object.keys(filter).forEach((key) => {
+        this.filter[key] = filter[key];
+      });
+      console.log(this.filter)
+      this.updateProducts(this.filter);
+    });
+    
+
     //QueryParams subscription for search bar filter
     this.activatedRoute.queryParams.subscribe(
       (queryParams: Params) => {
-        if (queryParams.filterId || queryParams.gl) {
-          this.filter = JSON.parse(sessionStorage.getItem('filter'));
+        if (queryParams.gl) {
+          this.filter.country = queryParams.gl;
           this.updateProducts(this.filter);
         }
       }
@@ -128,10 +140,6 @@ export class ProductDisplayComponent implements OnInit {
     this.updateProducts(this.filter);
   }
 
-  ngOnViewInit() {
-
-  }
-
   ngAfterContentChecked() {
     componentHandler.upgradeAllRegistered();
   }
@@ -155,7 +163,6 @@ export class ProductDisplayComponent implements OnInit {
 
   //Price slider configuration
   private priceSliderEventHandler = (e: KeyboardEvent) => {
-    console.log("overridden keyboard handler");
     // determine which handle triggered the event
     let index = parseInt((<HTMLElement>e.target).getAttribute('data-handle'));
     let multiplier: number = 0;
@@ -179,7 +186,6 @@ export class ProductDisplayComponent implements OnInit {
     newValue[index] += delta;
     this.priceSliderValue = newValue;
   }
-
   public i = 0;
   public priceSliderConfig: any = {
     start: this.priceSliderValue,
@@ -195,7 +201,7 @@ export class ProductDisplayComponent implements OnInit {
     format: {
       from: Number,
       to: (value) => {
-        let val =  Math.ceil(value);
+        let val = Math.ceil(value);
         if (this.i == 0 || this.i % 2 == 0) {
           this.priceSliderValue[0] = val;
         }
@@ -207,7 +213,6 @@ export class ProductDisplayComponent implements OnInit {
       }
     }
   }
-
   formatLabel(value: number) {
     return value + '%';
   }
@@ -216,5 +221,9 @@ export class ProductDisplayComponent implements OnInit {
   updateProducts(filter: Filter) {
     let products = this.productsService.getProducts(filter);
     this.products = products;
+  }
+
+  ngOnDestroy() {
+    this.filterUpdateSub.unsubscribe();
   }
 }

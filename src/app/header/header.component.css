@@ -69,36 +69,3 @@ h2 {
     color: black !important;
     font-weight: 600;
 }
-
-
-
-
-
-@media screen and (min-device-width: 620px) and (max-device-width: 800px) {
-    /* #index {
-        display: flex;
-        -ms-flex-wrap: initial;
-        flex-wrap: initial;
-        margin-right: initial;
-        margin-left: initial;
-    } */
-}
-@media screen and (max-device-width: 800px) {
-    /* #buscador {
-        display: none;
-    }
-    #buscador2 {
-        display: block;
-    } */
-}
-@media screen and (min-device-width: 800px) {
-    /* #buscador2 {
-        display: none;
-    } */
-}
-
-@media screen and (max-width: 480px) {
-    /* #searchBtn {
-
-    } */
-}

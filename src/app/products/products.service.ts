@@ -8,7 +8,9 @@ import { Filter } from './product-display/filter.model';
   providedIn: 'root'
 })
 export class ProductsService {
-  filterChanged = new Subject<Filter>();
+  filterUpdateEvent = new Subject<any>();
+  hideBannerEvent = new Subject<Boolean>();
+  clearFilterEvent = new Subject<Filter>();
   private products: Product[] = [];
   readonly productTypes: string[] = ['All', 'Mattresses', 'Beds', 'Sheets', 'Pillows', 'Accessories'];
 

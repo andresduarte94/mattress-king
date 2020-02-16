@@ -8,7 +8,7 @@
                         <mat-form-field class="country-select w-50">
                             <mat-select formControlName="languages">
                                 <mat-option *ngFor="let language of languagesList, let i = index"
-                                    [value]="countriesCodes[i]">{{ language }}</mat-option>
+                                    [value]="languagesCodes[i]">{{ language }}</mat-option>
                             </mat-select>
                         </mat-form-field>
                     </li>
@@ -32,7 +32,7 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark p-0" id="navbar-blue">
         <!-- Logo -->
-        <a class="navbar-brand p-0 ml-4" routerLink="/home">
+        <a class="navbar-brand p-0 ml-4" [routerLink]="[language, 'home']">
             <img class="mb-2 logo-image" src="assets/images/logo-04.jpg">
         </a>
         <!-- Burguer button for right-side of header -->
@@ -41,21 +41,21 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <!-- Search bar with button-->
+        <!-- Search bar with button  (ngSubmit)="updateSearch"-->
         <div class="search-div w-100 ml-5">
-            <form class="form-inline my-2 mx-auto w-75 search-form" (ngSubmit)="onSubmit()" #searchForm="ngForm">
+            <form class="form-inline my-2 mx-auto w-75 search-form" [formGroup]="searchForm" >
                 <div class="w-75 mx-auto">
-                    <input class="form-control w-75" type="search" placeholder="Search" aria-label="Search" ngModel
-                        name="search">
+                    <input class="form-control w-75" type="search" placeholder="Search" 
+                            aria-label="Search" name="search" formControlName="search">
                     <button class="btn btn-secondary ml-2" type="submit" id="searchBtn">Search</button>
                 </div>
             </form>
         </div>
         <!-- Search bar with button end-->
-        <div class="collapse navbar-collapse p-0 mt-1" id="navbar-blue-drop">
+        <div class="collapse navbar-collapse p-0 mt-1 mr-5" id="navbar-blue-drop">
             <ul class="navbar-nav ml-auto mb-2">
                 <!-- Blog and Contact -->
-                <li class="nav-item lower">
+                <li class="nav-item lower mr-2">
                     <a class="nav-link text-info font-weight-bold blog" routerLink="blog">Blog</a>
                 </li>
                 <li class="nav-item lower">
@@ -66,7 +66,7 @@
 
 
         <!-- Right part of 2nd header - Version 2 -->
-        <!--         <div class="collapse navbar-collapse" id="navbar-blue-drop">
+        <!--         <div class="collapse navbar-collapse" id="navbar-blue-drop2">
             <ul class="navbar-nav ml-auto"> -->
         <!-- Car basket-->
         <!--                 <li class="nav-item">
