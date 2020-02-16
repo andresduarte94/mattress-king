@@ -23,13 +23,14 @@ export class HeaderComponent implements OnInit {
   searchForm: FormGroup;
   countryForm: FormGroup;
   language: string = 'en';
-  country: string = 'us'
+  country: string = 'us';
   clearFilterSub: Subscription;
 
   constructor(private productsService: ProductsService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
     this.productTypes = this.productsService.productTypes.slice(1);
+    let activatedRouteURL: string;
 
     this.countryForm = new FormGroup({
       'countries': new FormControl('all'),
@@ -41,29 +42,36 @@ export class HeaderComponent implements OnInit {
     });
 
     this.countryForm.controls['countries'].valueChanges.subscribe(
-      (value) => {
-        this.country = value;
-        this.router.navigate([this.language, this.activatedRoute.snapshot['_routerState'].url], { queryParams: {
-            gl: this.country          }
-        });
+      (country) => {
+        activatedRouteURL =  this.activatedRoute.snapshot['_routerState'].url;
+        const baseURL = activatedRouteURL.indexOf('?')>-1? activatedRouteURL.slice(3, activatedRouteURL.indexOf('?')) : activatedRouteURL.slice(3);
+        this.country = country;
+        this.router.navigateByUrl(
+          this.language
+          + baseURL
+          + '?' + 'gl=' + this.country
+        );
       });
     this.countryForm.controls['languages'].valueChanges.subscribe(
       (language) => {
+        activatedRouteURL =  this.activatedRoute.snapshot['_routerState'].url;
+        const baseURL = activatedRouteURL.indexOf('?')>-1? activatedRouteURL.slice(3, activatedRouteURL.indexOf('?')) : activatedRouteURL.slice(3);
         this.language = language;
          this.router.navigateByUrl(
           this.language
-          + this.activatedRoute.snapshot['_routerState'].url.slice(3) 
+          + baseURL 
           + '?' + 'gl=' + this.country
         );
       });
 
     this.searchForm.controls['search'].valueChanges.subscribe(
       (search) => {
+        activatedRouteURL =  this.activatedRoute.snapshot['_routerState'].url;
         this.filter.description = search;
         this.filter.name = search;
 
         //If search is in Home route then hide banner
-        if(search != '' && this.activatedRoute.snapshot['_routerState'].url.indexOf('home') > -1) {
+        if(search != '' && activatedRouteURL.indexOf('home') > -1) {
           this.productsService.hideBannerEvent.next(true);
         }
 
@@ -74,6 +82,11 @@ export class HeaderComponent implements OnInit {
       this.clearFilterSub = this.productsService.clearFilterEvent.subscribe((filter: Filter) => {
         this.searchForm.controls['search'].setValue('');
       });
+  }
+
+  routeHome() {
+    this.productsService.hideBannerEvent.next(false);
+    this.router.navigate([this.language, 'home']); 
   }
 
   ngOnViewInit() {

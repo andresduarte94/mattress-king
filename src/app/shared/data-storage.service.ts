@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { map, tap, take, exhaustMap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 import { AuthService } from '../auth/auth.service';
 import { Product } from '../products/product.model';
@@ -15,7 +15,7 @@ export class DataStorageService {
     private http: HttpClient,
     private authService: AuthService,
     private productsService: ProductsService,
-    private blogService: BlogService
+    private blogService: BlogService,
   ) {}
 
   fetchProducts() {

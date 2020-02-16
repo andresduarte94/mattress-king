@@ -20,7 +20,7 @@ export class MainComponent implements OnInit {
         this.hideBanner = false;
     })
 
-    this.productsService.hideBannerEvent.subscribe( (hide: boolean) => {
+    this.productsService.hideBannerEvent.subscribe((hide: boolean) => {
       this.hideBanner = hide;
     })
 

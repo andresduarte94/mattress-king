@@ -1,11 +1,12 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ProductsService } from '../products.service';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router, NavigationEnd } from '@angular/router';
 import { Filter } from './filter.model';
 import { Product } from '../product.model';
 import { FormGroup, FormControl, NgForm } from '@angular/forms';
 import { NouisliderComponent } from '../../../../node_modules/ng2-nouislider/ng2-nouislider.component';
 import { Subscription } from 'rxjs';
+import { TranslationService } from 'src/app/shared/translation.service';
 
 declare var componentHandler: any;
 
@@ -27,25 +28,30 @@ export class ProductDisplayComponent implements OnInit {
   @ViewChild('priceSlider', { static: false }) priceSlider: NouisliderComponent;
   @ViewChild('sliderForm', { static: false }) sliderForm: NgForm;
   filterUpdateSub: Subscription;
+  isUntouchedFilterForm: boolean = true;
+  country;
 
-  constructor(private productsService: ProductsService, private activatedRoute: ActivatedRoute) { }
+  constructor(private productsService: ProductsService, private activatedRoute: ActivatedRoute, private router: Router,
+              private translationService: TranslationService) { }
 
   ngOnInit() {
     this.productTypes = this.productsService.productTypes;
     this.sizes = this.productsService.getSizes(1);
+    this.country = 'us';
 
     //Params subscription for manual URL and header bar links
     this.activatedRoute.params.subscribe(
       (params: Params) => {
-        if (!params.hasOwnProperty('filter') || params.filter == 'all') {
+        if (!params.hasOwnProperty('productType') || params.productType == 'all') {
           this.filter = {};
         }
-        else if (params.filter == 'filter') {
+        else if (params.productType == 'filter') {
           return;
         }
         else {
-          this.filter = { type: this.productsService.getProductTypeId(params.filter) };
+          this.filter = { type: this.productsService.getProductTypeId(params.productType), country: this.country };
         }
+        this.translationService.setLanguage(params.language);
         this.productsService.clearFilterEvent.next(this.filter);
         this.updateProducts(this.filter);
       }
@@ -55,15 +61,14 @@ export class ProductDisplayComponent implements OnInit {
       Object.keys(filter).forEach((key) => {
         this.filter[key] = filter[key];
       });
-      console.log(this.filter)
       this.updateProducts(this.filter);
     });
     
-
     //QueryParams subscription for search bar filter
     this.activatedRoute.queryParams.subscribe(
       (queryParams: Params) => {
         if (queryParams.gl) {
+          this.country = queryParams.gl;
           this.filter.country = queryParams.gl;
           this.updateProducts(this.filter);
         }
@@ -133,6 +138,16 @@ export class ProductDisplayComponent implements OnInit {
       }
     );
 
+    this.filterForm.statusChanges.subscribe(() => {
+      if(this.isUntouchedFilterForm) {
+      console.log(this.translationService.getLanguage())
+      this.productsService.hideBannerEvent.next(true);
+      window.scrollTo(0, 0);
+      this.isUntouchedFilterForm = false; 
+      }
+      //this.router.navigate(['/' + this.translationService.getLanguage(), 'products', 'all']);
+    })
+
   }
 
   updateScoreFilter(score: number) {
@@ -194,7 +209,8 @@ export class ProductDisplayComponent implements OnInit {
     onKeydown: this.priceSliderEventHandler,
     range: {
       min: 0,
-      '70%': 300,
+      '60%': 200,
+      '80%': 300,
       max: 800
     },
     step: 10,

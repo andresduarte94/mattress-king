@@ -10,16 +10,16 @@ import { AuthorsResolverService } from './blog/authors-resolver.service';
 
 const appRoutes: Routes = [
     { path: ':language/home', component: MainComponent, resolve: [ProductsResolverService]},
-    { path: 'products', pathMatch: 'full', redirectTo: '/products/all'},
-    { path: 'products/:filter', component: ProductsComponent, resolve: [ProductsResolverService]},
-    { path: 'blog', component: BlogComponent, resolve: [PostsResolverService, AuthorsResolverService]},
-    { path: 'blog/:postIndex', component: PostComponent, resolve: [PostsResolverService, AuthorsResolverService, ProductsResolverService]},
+    { path: ':language/products', pathMatch: 'full', redirectTo: '/products/all'},
+    { path: ':language/products/:productType', component: ProductsComponent, resolve: [ProductsResolverService]},
+    { path: ':language/blog', component: BlogComponent, resolve: [PostsResolverService, AuthorsResolverService]},
+    { path: ':language/blog/:postIndex', component: PostComponent, resolve: [PostsResolverService, AuthorsResolverService, ProductsResolverService]},
     { path: '**', redirectTo: 'en/home'},
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(appRoutes, { preloadingStrategy: PreloadAllModules, scrollPositionRestoration: 'enabled'})
+    RouterModule.forRoot(appRoutes, { preloadingStrategy: PreloadAllModules, scrollPositionRestoration: 'top'}) //enableTracing: true
   ],
   exports: [RouterModule]
 })
