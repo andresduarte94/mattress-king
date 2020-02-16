@@ -17,7 +17,4 @@ export class TranslationService {
   setLanguage(language: string) {
     this.language = language;
   }
-
-
-
 }

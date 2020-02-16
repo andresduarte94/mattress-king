@@ -10,7 +10,7 @@ import { AuthorsResolverService } from './blog/authors-resolver.service';
 
 const appRoutes: Routes = [
     { path: ':language/home', component: MainComponent, resolve: [ProductsResolverService]},
-    { path: ':language/products', pathMatch: 'full', redirectTo: '/products/all'},
+    { path: ':language/products', pathMatch: 'full', redirectTo: ':language/products/all'},
     { path: ':language/products/:productType', component: ProductsComponent, resolve: [ProductsResolverService]},
     { path: ':language/blog', component: BlogComponent, resolve: [PostsResolverService, AuthorsResolverService]},
     { path: ':language/blog/:postIndex', component: PostComponent, resolve: [PostsResolverService, AuthorsResolverService, ProductsResolverService]},

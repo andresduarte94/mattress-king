@@ -32,15 +32,16 @@ export class HeaderComponent implements OnInit {
     this.productTypes = this.productsService.productTypes.slice(1);
     let activatedRouteURL: string;
 
+    //Create reactive form for country and language
     this.countryForm = new FormGroup({
       'countries': new FormControl('all'),
       'languages': new FormControl('en')
     });
-
     this.searchForm = new FormGroup({
       'search': new FormControl(''),
     });
 
+    //Navigating with country query parameter change
     this.countryForm.controls['countries'].valueChanges.subscribe(
       (country) => {
         activatedRouteURL =  this.activatedRoute.snapshot['_routerState'].url;
@@ -52,11 +53,14 @@ export class HeaderComponent implements OnInit {
           + '?' + 'gl=' + this.country
         );
       });
+
+    //Navigating with language parameter change
     this.countryForm.controls['languages'].valueChanges.subscribe(
       (language) => {
         activatedRouteURL =  this.activatedRoute.snapshot['_routerState'].url;
         const baseURL = activatedRouteURL.indexOf('?')>-1? activatedRouteURL.slice(3, activatedRouteURL.indexOf('?')) : activatedRouteURL.slice(3);
         this.language = language;
+        //set languagae
          this.router.navigateByUrl(
           this.language
           + baseURL 
@@ -64,21 +68,20 @@ export class HeaderComponent implements OnInit {
         );
       });
 
+    //Updating products on search input change
     this.searchForm.controls['search'].valueChanges.subscribe(
       (search) => {
         activatedRouteURL =  this.activatedRoute.snapshot['_routerState'].url;
         this.filter.description = search;
         this.filter.name = search;
-
         //If search is in Home route then hide banner
         if(search != '' && activatedRouteURL.indexOf('home') > -1) {
           this.productsService.hideBannerEvent.next(true);
         }
-
         //Update name and description wfilter 
         this.productsService.filterUpdateEvent.next(this.filter);
       });
-
+      //Clear search bar on clearFilterEvent
       this.clearFilterSub = this.productsService.clearFilterEvent.subscribe((filter: Filter) => {
         this.searchForm.controls['search'].setValue('');
       });
