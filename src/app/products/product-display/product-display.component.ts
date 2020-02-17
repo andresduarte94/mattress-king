@@ -1,13 +1,12 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ProductsService } from '../products.service';
-import { ActivatedRoute, Params, Router, NavigationEnd } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Filter } from './filter.model';
 import { Product } from '../product.model';
 import { FormGroup, FormControl, NgForm } from '@angular/forms';
 import { NouisliderComponent } from '../../../../node_modules/ng2-nouislider/ng2-nouislider.component';
 import { Subscription } from 'rxjs';
 import { GlobalService } from 'src/app/shared/global.service';
-import { timingSafeEqual } from 'crypto';
 
 declare var componentHandler: any;
 
@@ -44,14 +43,14 @@ export class ProductDisplayComponent implements OnInit {
     this.sizes = this.productsService.getSizes(1);
     this.country = this.globalService.getCountry();
     this.language = this.globalService.getLanguage();
-
+    this.translationWords = this.globalService.getTranslationLanguage();
 
     //Params subscription for manual URL and header bar links
     this.activatedRoute.params.subscribe(
       (params: Params) => {
         //Set language from parameter and get translations words for rendering
-        this.globalService.setLanguage(params.language);
         this.language = params.language;
+        this.globalService.setLanguage(this.language);
         this.translationWords = this.globalService.getTranslationLanguage();
 
         //Update products based on new filter from URL or persist previous filter if 'filter' value
