@@ -6,7 +6,8 @@ import { Product } from '../product.model';
 import { FormGroup, FormControl, NgForm } from '@angular/forms';
 import { NouisliderComponent } from '../../../../node_modules/ng2-nouislider/ng2-nouislider.component';
 import { Subscription } from 'rxjs';
-import { TranslationService } from 'src/app/shared/translation.service';
+import { GlobalService } from 'src/app/shared/global.service';
+import { timingSafeEqual } from 'crypto';
 
 declare var componentHandler: any;
 
@@ -17,9 +18,14 @@ declare var componentHandler: any;
   encapsulation: ViewEncapsulation.None
 })
 export class ProductDisplayComponent implements OnInit {
+  country: string;
+  language: string;
+  translationWords: any;
   productTypes: string[];
   filter: Filter;
   products: Product[] = [];
+
+  // Filter menu variables
   sizes: string[] = [];
   defaultType: number = 0;
   filterForm: FormGroup;
@@ -29,19 +35,26 @@ export class ProductDisplayComponent implements OnInit {
   @ViewChild('sliderForm', { static: false }) sliderForm: NgForm;
   filterUpdateSub: Subscription;
   isUntouchedFilterForm: boolean = true;
-  country;
 
   constructor(private productsService: ProductsService, private activatedRoute: ActivatedRoute, private router: Router,
-              private translationService: TranslationService) { }
+    private globalService: GlobalService) { }
 
   ngOnInit() {
     this.productTypes = this.productsService.productTypes;
     this.sizes = this.productsService.getSizes(1);
-    this.country = 'us';
+    this.country = this.globalService.getCountry();
+    this.language = this.globalService.getLanguage();
+
 
     //Params subscription for manual URL and header bar links
     this.activatedRoute.params.subscribe(
       (params: Params) => {
+        //Set language from parameter and get translations words for rendering
+        this.globalService.setLanguage(params.language);
+        this.language = params.language;
+        this.translationWords = this.globalService.getTranslationLanguage();
+
+        //Update products based on new filter from URL or persist previous filter if 'filter' value
         if (!params.hasOwnProperty('productType') || params.productType == 'all') {
           this.filter = {};
         }
@@ -51,19 +64,20 @@ export class ProductDisplayComponent implements OnInit {
         else {
           this.filter = { type: this.productsService.getProductTypeId(params.productType), country: this.country };
         }
-        this.translationService.setLanguage(params.language);
-        this.productsService.clearFilterEvent.next(this.filter);
         this.updateProducts(this.filter);
+        //Throw clear filter search bar event
+        this.productsService.clearFilterEvent.next();
       }
     );
 
+    //Update filters from search bar and filter menu events
     this.filterUpdateSub = this.productsService.filterUpdateEvent.subscribe((filter: Filter) => {
       Object.keys(filter).forEach((key) => {
         this.filter[key] = filter[key];
       });
       this.updateProducts(this.filter);
     });
-    
+
     //QueryParams subscription for search bar filter
     this.activatedRoute.queryParams.subscribe(
       (queryParams: Params) => {
@@ -75,10 +89,12 @@ export class ProductDisplayComponent implements OnInit {
       }
     );
 
+    //Create, initialize and set subscriptions for filter form
     this.createReactiveForm();
   }
 
   createReactiveForm() {
+    //Create and initialize form
     this.filterForm = new FormGroup({
       'productType': new FormControl(0),
       'priceSlider': new FormControl(null),
@@ -90,13 +106,15 @@ export class ProductDisplayComponent implements OnInit {
       'payments': new FormControl(null)
     });
 
-    //Reactive form changes subscriptions
+    //Reactive filter form changes subscriptions
+    //Product type filter
     this.filterForm.controls['productType'].valueChanges.subscribe(
       (productType) => {
         this.filter.type = productType;
         this.updateProducts(this.filter);
       }
     );
+    //Min price and Max Price slider filter
     this.filterForm.controls['priceSlider'].valueChanges.subscribe(
       (values) => {
         this.filter.minprice = this.priceSliderValue[0];
@@ -104,7 +122,7 @@ export class ProductDisplayComponent implements OnInit {
         this.updateProducts(this.filter);
       }
     );
-
+    //Sizes filter
     this.filterForm.controls['sizes'].valueChanges.subscribe(
       (values) => {
         let sizesArray = [];
@@ -124,12 +142,14 @@ export class ProductDisplayComponent implements OnInit {
         }
       }
     );
+    //Minimum discount filter
     this.filterForm.controls['mindiscount'].valueChanges.subscribe(
       (mindiscount) => {
         this.filter.mindiscount = mindiscount;
         this.updateProducts(this.filter);
       }
     );
+    //Payments filter
     this.filterForm.controls['payments'].valueChanges.subscribe(
       (payments) => {
         this.checkedRadioPayment = payments;
@@ -137,15 +157,13 @@ export class ProductDisplayComponent implements OnInit {
         this.updateProducts(this.filter);
       }
     );
-
+    //Throw hide banner event when form is touched
     this.filterForm.statusChanges.subscribe(() => {
-      if(this.isUntouchedFilterForm) {
-      console.log(this.translationService.getLanguage())
-      this.productsService.hideBannerEvent.next(true);
-      window.scrollTo(0, 0);
-      this.isUntouchedFilterForm = false; 
+      if (this.isUntouchedFilterForm) {
+        this.productsService.hideBannerEvent.next(true);
+        window.scrollTo(0, 0);
+        this.isUntouchedFilterForm = false;
       }
-      //this.router.navigate(['/' + this.translationService.getLanguage(), 'products', 'all']);
     })
 
   }

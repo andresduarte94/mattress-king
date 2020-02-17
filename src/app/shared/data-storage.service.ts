@@ -2,20 +2,22 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { map, tap } from 'rxjs/operators';
 
-import { AuthService } from '../auth/auth.service';
+//import { AuthService } from '../auth/auth.service';
 import { Product } from '../products/product.model';
 import { ProductsService } from '../products/products.service';
 import { BlogService } from '../blog/blog.service';
 import { Post } from '../blog/post.model';
 import { Author } from '../blog/author.model';
+import { GlobalService } from './global.service';
 
 @Injectable({ providedIn: 'root' })
 export class DataStorageService {
   constructor(
     private http: HttpClient,
-    private authService: AuthService,
+    //private authService: AuthService,
     private productsService: ProductsService,
     private blogService: BlogService,
+    private globalService: GlobalService,
   ) {}
 
   fetchProducts() {
@@ -74,6 +76,25 @@ export class DataStorageService {
         }),
         tap(authors => {
           this.blogService.setAuthors(authors);
+        })
+      );
+  }
+
+  fetchTranslations() {
+    return this.http
+      .get<any>(
+        'https://mattress-king-10b2e.firebaseio.com/translations.json'
+      )
+      .pipe(
+        map(translationsJson => {
+            let translations = [];
+            for(let [i, [fbId, translation]] of Object.entries(Object.entries(translationsJson))) { 
+              translations[i] = translation; 
+            };
+            return translations;
+        }),
+        tap(translations => {
+          this.globalService.setTranslations(translations);
         })
       );
   }

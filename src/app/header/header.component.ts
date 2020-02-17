@@ -23,12 +23,12 @@ export class HeaderComponent implements OnInit {
   searchForm: FormGroup;
   countryForm: FormGroup;
   language: string = 'en';
-  country: string = 'us';
+  country: string = 'all';
   clearFilterSub: Subscription;
 
   constructor(private productsService: ProductsService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
-  ngOnInit() {
+  ngOnInit() { 
     this.productTypes = this.productsService.productTypes.slice(1);
     let activatedRouteURL: string;
 
@@ -82,14 +82,16 @@ export class HeaderComponent implements OnInit {
         this.productsService.filterUpdateEvent.next(this.filter);
       });
       //Clear search bar on clearFilterEvent
-      this.clearFilterSub = this.productsService.clearFilterEvent.subscribe((filter: Filter) => {
+      this.clearFilterSub = this.productsService.clearFilterEvent.subscribe(() => {
         this.searchForm.controls['search'].setValue('');
       });
   }
 
   routeHome() {
     this.productsService.hideBannerEvent.next(false);
-    this.router.navigate([this.language, 'home']); 
+    this.router.navigate([this.language, 'home'], {queryParams: {
+      gl: this.country
+    }}); 
   }
 
   ngOnViewInit() {
