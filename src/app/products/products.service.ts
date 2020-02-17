@@ -12,7 +12,7 @@ export class ProductsService {
   hideBannerEvent = new Subject<Boolean>();
   clearFilterEvent = new Subject<Filter>();
   private products: Product[] = [];
-  readonly productTypes: string[] = ['All', 'Mattresses', 'Beds', 'Sheets', 'Pillows', 'Accessories'];
+  readonly productTypes: string[] = ['all', 'mattresses', 'beds', 'sheets', 'pillows', 'accessories'];
 
   getProducts(filter?: Filter) {
     let products = this.products.slice();
@@ -47,11 +47,6 @@ export class ProductsService {
   getProductTypeId(productType: string) {
     productType = productType.charAt(0).toUpperCase() + productType.slice(1);
     return this.productTypes.indexOf(productType);
-  }
-
-
-  onFilterChange(filter: Filter) {
-
   }
 
   getSizes(type: number) {

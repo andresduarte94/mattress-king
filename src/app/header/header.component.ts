@@ -16,7 +16,7 @@ export class HeaderComponent implements OnInit {
   languages = new FormControl();
   countriesList: string[] = ['All countries', 'Amazon US', 'Amazon Spain'];
   countriesCodes: string[] = ['all', 'us', 'es'];
-  languagesList: string[] = ['English', 'Spanish'];
+  languagesList: string[] = ['English', 'Español'];
   languagesCodes: string[] = ['en', 'es'];
   productTypes: string[];
   filter: Filter = {};
