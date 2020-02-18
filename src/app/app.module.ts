@@ -26,7 +26,6 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
-import { ParentComponent } from './parent/parent.component';
 
 @NgModule({
   declarations: [
@@ -42,8 +41,7 @@ import { ParentComponent } from './parent/parent.component';
     ProductDisplayComponent,
     PostsListComponent,
     PostComponent,
-    PostItemComponent,
-    ParentComponent
+    PostItemComponent
   ],
   imports: [
     BrowserModule,
