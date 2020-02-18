@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 export class GlobalService {
     private language: string = 'en';
     private country: string = 'all';
-    private translations: any[];
+    private translations: any = {};
     private translationLanguage: any;
 
   constructor(
@@ -29,15 +29,15 @@ export class GlobalService {
   }
 
   getTranslations() {
-    return this.translations.slice();
+    return this.translations;
   }
 
-  setTranslations(translations: any[]) {
+  setTranslations(translations: any) {
     this.translations = translations;
   }
 
   getTranslationLanguage() {
     this.translationLanguage = this.translations[this.language];
-    return this.translationLanguage.slice();
+    return this.translationLanguage;
   }
 }

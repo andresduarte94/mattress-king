@@ -20,7 +20,6 @@ import { PostsListComponent } from './blog/posts-list/posts-list.component';
 import { PostComponent } from './blog/posts-list/post/post.component';
 import { PostItemComponent } from './blog/posts-list/post-item/post-item.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { BlogBannerComponent } from './blog/blog-banner/blog-banner/blog-banner.component';
 import { NouisliderModule } from 'ng2-nouislider';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatRadioModule } from '@angular/material/radio';
@@ -42,8 +41,7 @@ import { MatSelectModule } from '@angular/material/select';
     ProductDisplayComponent,
     PostsListComponent,
     PostComponent,
-    PostItemComponent,
-    BlogBannerComponent
+    PostItemComponent
   ],
   imports: [
     BrowserModule,

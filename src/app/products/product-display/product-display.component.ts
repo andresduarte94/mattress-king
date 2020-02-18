@@ -20,6 +20,8 @@ export class ProductDisplayComponent implements OnInit {
   country: string;
   language: string;
   translationWords: any;
+  componentWords: any;
+
   productTypes: string[];
   filter: Filter;
   products: Product[] = [];
@@ -44,7 +46,8 @@ export class ProductDisplayComponent implements OnInit {
     this.country = this.globalService.getCountry();
     this.language = this.globalService.getLanguage();
     this.translationWords = this.globalService.getTranslationLanguage();
-
+    this.componentWords = this.translationWords['product-display'];
+    
     //Params subscription for manual URL and header bar links
     this.activatedRoute.params.subscribe(
       (params: Params) => {
@@ -52,7 +55,9 @@ export class ProductDisplayComponent implements OnInit {
         this.language = params.language;
         this.globalService.setLanguage(this.language);
         this.translationWords = this.globalService.getTranslationLanguage();
+        this.componentWords = this.translationWords['product-display'];
 
+console.log(this.translationWords)
         //Update products based on new filter from URL or persist previous filter if 'filter' value
         if (!params.hasOwnProperty('productType') || params.productType == 'all') {
           this.filter = {};
@@ -163,8 +168,7 @@ export class ProductDisplayComponent implements OnInit {
         window.scrollTo(0, 0);
         this.isUntouchedFilterForm = false;
       }
-    })
-
+    });
   }
 
   updateScoreFilter(score: number) {
