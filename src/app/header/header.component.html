@@ -15,7 +15,7 @@
                     <li class="nav-item">
                         <mat-form-field class="country-select w-60">
                             <mat-select formControlName="countries">
-                                <mat-option *ngFor="let country of countriesList, let i = index"
+                                <mat-option *ngFor="let country of componentWords.countriesList, let i = index"
                                     [value]="countriesCodes[i]">{{ country }}</mat-option>
                             </mat-select>
                         </mat-form-field>
@@ -41,13 +41,14 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <!-- Search bar with button  (ngSubmit)="updateSearch"-->
+        <!-- Search bar with button -->
         <div class="search-div w-100 ml-5">
             <form class="form-inline my-2 mx-auto w-75 search-form" [formGroup]="searchForm">
                 <div class="w-75 mx-auto">
-                    <input class="form-control w-75" type="search" placeholder="Search" aria-label="Search"
-                        name="search" formControlName="search">
-                    <button class="btn btn-secondary ml-2" type="submit" id="searchBtn">Search</button>
+                    <input class="form-control w-75" type="search" [placeholder]="componentWords.search"
+                        aria-label="Search" name="search" formControlName="search">
+                    <button class="btn btn-secondary ml-2" type="submit"
+                        id="searchBtn">{{ componentWords.search }}</button>
                 </div>
             </form>
         </div>
@@ -57,10 +58,10 @@
                 <!-- Blog and Contact -->
                 <li class="nav-item lower mr-2">
                     <a class="nav-link text-info font-weight-bold blog" [routerLink]="[language, 'blog']"
-                        [queryParams]="{gl: country}">Blog</a>
+                        [queryParams]="{gl: country}">{{ componentWords.blog }}</a>
                 </li>
                 <li class="nav-item lower">
-                    <a class="nav-link text-info font-weight-bold blog" href="#">Contact</a>
+                    <a class="nav-link text-info font-weight-bold blog" href="#">{{ componentWords.contact }}</a>
                 </li>
             </ul>
         </div>
@@ -99,7 +100,7 @@
                 </li>
             </ul>
         </div> -->
-        
+
     </nav>
 </header>
 <!-- End 2nd header-->
@@ -109,13 +110,9 @@
     <nav class="navbar navbar-expand-lg" id="navbar-light-blue">
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active mr-4">
-                    <h2><a class="nav-link" [routerLink]="[language, 'products', 'all']"
-                            [queryParams]="{gl: country}">All Products</a></h2>
-                </li>
-                <li class="nav-item mr-4" *ngFor="let category of productTypes;">
+                <li class="nav-item mr-4" *ngFor="let category of productTypes; let i = index">
                     <h2><a class="nav-link" [routerLink]="[language, 'products', category.toLowerCase()]"
-                            [queryParams]="{gl: country}">{{ category }}</a></h2>
+                            [queryParams]="{gl: country}">{{ componentWords.categories[i] }}</a></h2>
                 </li>
             </ul>
         </div>

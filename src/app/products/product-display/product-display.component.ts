@@ -45,7 +45,7 @@ export class ProductDisplayComponent implements OnInit {
     this.sizes = this.productsService.getSizes(1);
     this.country = this.globalService.getCountry();
     this.language = this.globalService.getLanguage();
-    this.translationWords = this.globalService.getTranslationLanguage();
+    this.translationWords = this.globalService.getTranslationLanguage(this.language);
     this.componentWords = this.translationWords['product-display'];
     
     //Params subscription for manual URL and header bar links
@@ -54,7 +54,7 @@ export class ProductDisplayComponent implements OnInit {
         //Set language from parameter and get translations words for rendering
         this.language = params.language;
         this.globalService.setLanguage(this.language);
-        this.translationWords = this.globalService.getTranslationLanguage();
+        this.translationWords = this.globalService.getTranslationLanguage(this.language);
         this.componentWords = this.translationWords['product-display'];
 
 console.log(this.translationWords)

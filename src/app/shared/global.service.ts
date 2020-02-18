@@ -1,15 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
 export class GlobalService {
     private language: string = 'en';
     private country: string = 'all';
     private translations: any = {};
-    private translationLanguage: any;
 
   constructor(
-    private http: HttpClient,
   ) {}
 
   getLanguage() {
@@ -36,8 +33,11 @@ export class GlobalService {
     this.translations = translations;
   }
 
-  getTranslationLanguage() {
-    this.translationLanguage = this.translations[this.language];
-    return this.translationLanguage;
+  getTranslationLanguage(language: string) {
+    console.log(this.translations);
+    console.log(this.translations[language]);
+    console.log(language);
+
+    return this.translations[language];
   }
 }

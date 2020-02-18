@@ -45,7 +45,6 @@ export class ProductsService {
   }
 
   getProductTypeId(productType: string) {
-    productType = productType.charAt(0).toUpperCase() + productType.slice(1);
     return this.productTypes.indexOf(productType);
   }
 

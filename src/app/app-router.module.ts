@@ -8,9 +8,11 @@ import { PostsResolverService } from './blog/posts-resolver.service';
 import { PostComponent } from './blog/posts-list/post/post.component';
 import { AuthorsResolverService } from './blog/authors-resolver.service';
 import { globalResolverService } from './shared/global-resolver.service';
+import { ParentComponent } from './parent/parent.component';
 
 const appRoutes: Routes = [{
   path: '',
+  component: ParentComponent,
   resolve: { globalResolve: globalResolverService }, children: [
     { path: ':language/home', component: MainComponent, resolve: [ProductsResolverService] },
     { path: ':language/products', pathMatch: 'full', redirectTo: ':language/products/all' },
