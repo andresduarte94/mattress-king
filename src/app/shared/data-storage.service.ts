@@ -87,9 +87,10 @@ export class DataStorageService {
       )
       .pipe(
         map(translationsJson => {
-            let translations = [];
-            for(let [i, [fbId, translation]] of Object.entries(Object.entries(translationsJson))) { 
-              translations[i] = translation; 
+            let translations = {};
+            for(let [i, [fbId, translation]] of Object.entries(Object.entries(translationsJson))) {
+              let language = Object.keys(translation)[0];
+              translations[language] = translation[language]; 
             };
             return translations;
         }),

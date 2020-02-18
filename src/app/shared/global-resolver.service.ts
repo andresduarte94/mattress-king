@@ -18,12 +18,9 @@ export class globalResolverService implements Resolve<any[]> {
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const translations = this.globalService.getTranslations();
 
-    if (translations.length === 0) {
-        console.log('df')
+    if (Object.entries(translations).length === 0) {
       return this.dataStorageService.fetchTranslations();
     } else {
-        console.log('df')
-
       return translations;
     }
   }
