@@ -38,23 +38,25 @@ export class ProductDisplayComponent implements OnInit {
   isUntouchedFilterForm: boolean = true;
 
   constructor(private productsService: ProductsService, private activatedRoute: ActivatedRoute, private router: Router,
-    private globalService: GlobalService) { }
+                private globalService: GlobalService) { }
 
   ngOnInit() {
+    // Product variables set-up
     this.productTypes = this.productsService.productTypes;
     this.sizes = this.productsService.getSizes(1);
+    // Global variables set-up
     this.country = this.globalService.getCountry();
     this.language = this.globalService.getLanguage();
-    this.translationWords = this.globalService.getTranslationLanguage(this.language);
+    this.translationWords = this.globalService.getTranslationLanguage();
     this.componentWords = this.translationWords['product-display'];
     
-    //Params subscription for manual URL and header bar links
+    //Params subscription for setting language and productType filter
     this.activatedRoute.params.subscribe(
       (params: Params) => {
-        //Set language from parameter and get translations words for rendering
+        // Update language and translation words
         this.language = params.language;
         this.globalService.setLanguage(this.language);
-        this.translationWords = this.globalService.getTranslationLanguage(this.language);
+        this.translationWords = this.globalService.getTranslationLanguage();
         this.componentWords = this.translationWords['product-display'];
 
 console.log(this.translationWords)

@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
@@ -26,6 +26,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
+import { GlobalService } from './shared/global.service';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,15 @@ import { MatSelectModule } from '@angular/material/select';
   exports: [ProductItemComponent],
   entryComponents: [ProductItemComponent],
   bootstrap: [AppComponent],
-  // providers: [LoggingService]
+  providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (globalService: GlobalService) =>
+        () => globalService.fetchTranslations(),
+      deps: [GlobalService],
+      multi: true
+    },
+    //LoggingService
+  ]
 })
 export class AppModule { }

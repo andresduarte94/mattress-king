@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { map, tap } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class GlobalService {
-    private language: string = 'en';
-    private country: string = 'all';
-    private translations: any = {};
+  private language: string = 'en';
+  private country: string = 'all';
+  private translations: any = {};
 
-  constructor(
-  ) {}
+  constructor(private http: HttpClient) { }
 
   getLanguage() {
     return this.language.slice();
@@ -25,19 +26,31 @@ export class GlobalService {
     this.country = country;
   }
 
-  getTranslations() {
-    return this.translations;
+  getTranslationLanguage() {
+    return this.translations[this.language];
   }
 
-  setTranslations(translations: any) {
-    this.translations = translations;
-  }
+  fetchTranslations(): Promise<any> {
+    return this.http
+      .get<any>(
+        'https://mattress-king-10b2e.firebaseio.com/translations.json'
+      )
+      .pipe(
+        map(translationsJson => {
+          console.log(translationsJson)
 
-  getTranslationLanguage(language: string) {
-    console.log(this.translations);
-    console.log(this.translations[language]);
-    console.log(language);
-
-    return this.translations[language];
+          let translations = {};
+          for (let [i, [fbId, translation]] of Object.entries(Object.entries(translationsJson))) {
+            let language = Object.keys(translation)[0];
+            translations[language] = translation[language];
+          };
+          return translations;
+        }),
+        tap(translations => {
+          console.log(translations)
+          this.translations = translations;
+          console.log(this.translations)
+        })
+      ).toPromise();
   }
 }

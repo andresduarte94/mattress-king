@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { GlobalService } from './shared/global.service';
 
 @Component({
   selector: 'app-root',
@@ -7,6 +8,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'mattress-king';
+
+  constructor() { }
+
+  ngOnInit() {
+  }
+
 
 
 }

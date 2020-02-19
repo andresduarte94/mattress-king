@@ -7,12 +7,11 @@ import { BlogComponent } from './blog/blog.component';
 import { PostsResolverService } from './blog/posts-resolver.service';
 import { PostComponent } from './blog/posts-list/post/post.component';
 import { AuthorsResolverService } from './blog/authors-resolver.service';
-import { globalResolverService } from './shared/global-resolver.service';
 
 const appRoutes: Routes = [
   {
     path: '',
-    resolve: { globalResolve: globalResolverService }, children: [
+    children: [ // resolve: { globalResolve: globalResolverService },
       { path: ':language/home', component: MainComponent, resolve: [ProductsResolverService] },
       { path: ':language/products', pathMatch: 'full', redirectTo: ':language/products/all' },
       { path: ':language/products/:productType', component: ProductsComponent, resolve: [ProductsResolverService] },
