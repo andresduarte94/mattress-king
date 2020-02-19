@@ -8,7 +8,7 @@ import { ProductsService } from '../products/products.service';
   styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit {
-  language: string;
+  //language: string;
   hideBanner: boolean = false;
 
   constructor(private activatedRoute : ActivatedRoute, private productsService: ProductsService) { }
@@ -16,7 +16,7 @@ export class MainComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.params.subscribe( 
       (params: Params)=> {
-        this.language = params.language;
+        //this.language = params.language;
         this.hideBanner = false;
     })
 

@@ -17,11 +17,13 @@ declare var componentHandler: any;
   encapsulation: ViewEncapsulation.None
 })
 export class ProductDisplayComponent implements OnInit {
+  //Global variables
   country: string;
   language: string;
   translationWords: any;
   componentWords: any;
-
+  
+  //Product variables
   productTypes: string[];
   filter: Filter;
   products: Product[] = [];
@@ -37,8 +39,8 @@ export class ProductDisplayComponent implements OnInit {
   filterUpdateSub: Subscription;
   isUntouchedFilterForm: boolean = true;
 
-  constructor(private productsService: ProductsService, private activatedRoute: ActivatedRoute, private router: Router,
-                private globalService: GlobalService) { }
+  constructor(private globalService: GlobalService, private activatedRoute: ActivatedRoute, private router: Router,
+              private productsService: ProductsService) { }
 
   ngOnInit() {
     // Product variables set-up
@@ -59,7 +61,6 @@ export class ProductDisplayComponent implements OnInit {
         this.translationWords = this.globalService.getTranslationLanguage();
         this.componentWords = this.translationWords['product-display'];
 
-console.log(this.translationWords)
         //Update products based on new filter from URL or persist previous filter if 'filter' value
         if (!params.hasOwnProperty('productType') || params.productType == 'all') {
           this.filter = {};
@@ -96,10 +97,10 @@ console.log(this.translationWords)
     );
 
     //Create, initialize and set subscriptions for filter form
-    this.createReactiveForm();
+    this.createReactiveFilterForm();
   }
 
-  createReactiveForm() {
+  createReactiveFilterForm() {
     //Create and initialize form
     this.filterForm = new FormGroup({
       'productType': new FormControl(0),

@@ -30,7 +30,7 @@ export class HeaderComponent implements OnInit {
   componentWords: any;
 
   constructor(private productsService: ProductsService, private router: Router, private activatedRoute: ActivatedRoute,
-                private globalService: GlobalService) { }
+    private globalService: GlobalService) { }
 
   ngOnInit() {
     // Product variables set-up
@@ -39,9 +39,18 @@ export class HeaderComponent implements OnInit {
     this.country = this.globalService.getCountry();
     this.language = this.globalService.getLanguage();
     this.translationWords = this.globalService.getTranslationLanguage();
-    console.log( this.translationWords)
     this.componentWords = this.translationWords['header'];
 
+    //Clear search bar on clearFilterEvent
+    this.clearFilterSub = this.productsService.clearFilterEvent.subscribe(() => {
+      this.searchForm.controls['search'].setValue('');
+    });
+
+    //Create, initialize and set subscriptions for header forms
+    this.createReactiveHeaderForms()
+  }
+
+  createReactiveHeaderForms() {
     //Create reactive form for country and language
     this.countryForm = new FormGroup({
       'countries': new FormControl('all'),
@@ -54,9 +63,11 @@ export class HeaderComponent implements OnInit {
     //Navigating with country query parameter change
     this.countryForm.controls['countries'].valueChanges.subscribe(
       (country) => {
+        // Update country
+        this.country = country;
+        // Create url string with country and navigate to it
         let activatedRouteURL = this.activatedRoute.snapshot['_routerState'].url;
         const baseURL = activatedRouteURL.indexOf('?') > -1 ? activatedRouteURL.slice(3, activatedRouteURL.indexOf('?')) : activatedRouteURL.slice(3);
-        this.country = country;
         this.router.navigateByUrl(
           this.language
           + baseURL
@@ -67,12 +78,14 @@ export class HeaderComponent implements OnInit {
     //Navigating with language parameter change
     this.countryForm.controls['languages'].valueChanges.subscribe(
       (language) => {
-        let activatedRouteURL = this.activatedRoute.snapshot['_routerState'].url;
-        const baseURL = activatedRouteURL.indexOf('?') > -1 ? activatedRouteURL.slice(3, activatedRouteURL.indexOf('?')) : activatedRouteURL.slice(3);
+        // Update language and translation words
         this.language = language;
         this.globalService.setLanguage(language);
         this.translationWords = this.globalService.getTranslationLanguage();
         this.componentWords = this.translationWords['header'];
+        // Create url string with language and navigate to it
+        let activatedRouteURL = this.activatedRoute.snapshot['_routerState'].url;
+        const baseURL = activatedRouteURL.indexOf('?') > -1 ? activatedRouteURL.slice(3, activatedRouteURL.indexOf('?')) : activatedRouteURL.slice(3);
         this.router.navigateByUrl(
           this.language
           + baseURL
@@ -93,10 +106,6 @@ export class HeaderComponent implements OnInit {
         //Update name and description wfilter 
         this.productsService.filterUpdateEvent.next(this.filter);
       });
-    //Clear search bar on clearFilterEvent
-    this.clearFilterSub = this.productsService.clearFilterEvent.subscribe(() => {
-      this.searchForm.controls['search'].setValue('');
-    });
   }
 
   routeHome() {

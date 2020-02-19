@@ -8,7 +8,7 @@ export class GlobalService {
   private country: string = 'all';
   private translations: any = {};
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getLanguage() {
     return this.language.slice();
@@ -27,6 +27,7 @@ export class GlobalService {
   }
 
   getTranslationLanguage() {
+    console.log(this.translations)
     return this.translations[this.language];
   }
 
@@ -37,8 +38,6 @@ export class GlobalService {
       )
       .pipe(
         map(translationsJson => {
-          console.log(translationsJson)
-
           let translations = {};
           for (let [i, [fbId, translation]] of Object.entries(Object.entries(translationsJson))) {
             let language = Object.keys(translation)[0];
@@ -47,9 +46,7 @@ export class GlobalService {
           return translations;
         }),
         tap(translations => {
-          console.log(translations)
           this.translations = translations;
-          console.log(this.translations)
         })
       ).toPromise();
   }
