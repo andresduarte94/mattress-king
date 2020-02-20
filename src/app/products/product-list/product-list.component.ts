@@ -1,8 +1,5 @@
 import { Component, OnInit, Input, OnDestroy, ChangeDetectionStrategy, OnChanges } from '@angular/core';
 import { Product } from '../product.model';
-import { ProductsService } from '../products.service';
-import { Subscription } from 'rxjs';
-import { Filter } from '../product-display/filter.model';
 
 @Component({
   selector: 'app-product-list',
@@ -10,7 +7,7 @@ import { Filter } from '../product-display/filter.model';
   styleUrls: ['./product-list.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductListComponent implements OnInit, OnChanges {
+export class ProductListComponent implements OnInit {
   @Input() products: Product[] = [];
 
   //Pagination variables
@@ -20,13 +17,7 @@ export class ProductListComponent implements OnInit, OnChanges {
 
   constructor() { }
 
-  ngOnInit() {
-    //Set product onInit and on filterChanged subject
-  }
-
-  ngOnChanges() {
-    console.log(this.products);
-  }
+  ngOnInit() {}
 
   // update current pagination page of items
   onChangePage(pageOfProducts: Array<any>) {

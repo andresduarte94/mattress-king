@@ -11,7 +11,7 @@ import { AuthorsResolverService } from './blog/authors-resolver.service';
 const appRoutes: Routes = [
   {
     path: '',
-    children: [ // resolve: { globalResolve: globalResolverService },
+    children: [
       { path: ':language/home', component: MainComponent, resolve: [ProductsResolverService] },
       { path: ':language/products', pathMatch: 'full', redirectTo: ':language/products/all' },
       { path: ':language/products/:productType', component: ProductsComponent, resolve: [ProductsResolverService] },

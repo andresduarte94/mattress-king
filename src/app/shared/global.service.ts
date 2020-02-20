@@ -27,7 +27,6 @@ export class GlobalService {
   }
 
   getTranslationLanguage() {
-    console.log(this.translations)
     return this.translations[this.language];
   }
 

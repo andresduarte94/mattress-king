@@ -11,10 +11,9 @@
             <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
 
                 <!-- Content -->
-                <h6 class="text-uppercase font-weight-bold">Company name</h6>
+                <h6 class="text-uppercase font-weight-bold">{{ componentWords.companyName }}</h6>
                 <hr class="hr-footer mb-4 mt-0 d-inline-block mx-auto">
-                <p>We're an Amazon Associates business specialized in providing the best products to sleep and confort 
-                    in which are mattresses, beds, sheets and more at the best price and discounts.</p>
+                <p>{{ componentWords.companyDescription }}</p>
 
             </div>
             <!-- Grid column -->
@@ -23,12 +22,12 @@
             <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
 
                 <!-- Links -->
-                <h6 class="text-uppercase font-weight-bold">Products</h6>
+                <h6 class="text-uppercase font-weight-bold">{{ componentWords.productsLabel }}</h6>
                 <hr class="hr-footer mb-4 mt-0 d-inline-block mx-auto">
-                <p>
-                    <a routerLink="products/mattresses">Mattresses</a>
+                <p *ngFor="let category of translationWords.header.categories.slice(1); let i = index;">
+                    <a [routerLink]="['products', productTypes[i+1]]">{{ category }}</a>
                 </p>
-                <p>
+                <!-- <p>
                     <a routerLink="products/beds">Beds</a>
                 </p>
                 <p>
@@ -36,7 +35,7 @@
                 </p>
                 <p>
                     <a routerLink="products/pillows">Pillows</a>
-                </p>
+                </p> -->
 
             </div>
             <!-- Grid column -->
@@ -45,19 +44,10 @@
             <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
 
                 <!-- Links -->
-                <h6 class="text-uppercase font-weight-bold">Useful links</h6>
+                <h6 class="text-uppercase font-weight-bold">{{ componentWords.usefulLinks[0] }}</h6>
                 <hr class="hr-footer mb-4 mt-0 d-inline-block mx-auto">
-                <p>
-                    <a href="#!">Your Account</a>
-                </p>
-                <p>
-                    <a routerLink="blog">Blog</a>
-                </p>
-                <p>
-                    <a href="#!">Sign up</a>
-                </p>
-                <p>
-                    <a href="#!">Help</a>
+                <p *ngFor="let usefulLink of componentWords.usefulLinks.slice(1)">
+                    <a routerLink="blog">{{ usefulLink }}</a>
                 </p>
 
             </div>
@@ -67,12 +57,12 @@
             <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
 
                 <!-- Links -->
-                <h6 class="text-uppercase font-weight-bold">Contact</h6>
+                <h6 class="text-uppercase font-weight-bold">{{ componentWords.info[0] }}</h6>
                 <hr class="hr-footer mb-4 mt-0 d-inline-block mx-auto">
                 <address>
                     <svg class="icon-home icon-small">
                         <use xlink:href="#icon-home"></use>
-                    </svg> Barcelona, Catalonia, Spain
+                    </svg> {{ componentWords.info[1] }}
                 </address>
                 <p>
                     <svg class="icon-envelop icon-small">
@@ -102,7 +92,7 @@
         <div class="container">
             <div class="row py-4 d-flex align-items-center">
                 <div class="col-md-6 col-lg-5 text-center text-md-left mb-4 mb-md-0">
-                    <h6 class="mb-0">Get connected with us on social networks!</h6>
+                    <h6 class="mb-0">{{ componentWords.socialMessage }}</h6>
                 </div>
                 <div class="col-md-6 col-lg-7 text-center text-md-right">
                     <svg class="icon-facebook icon-med">

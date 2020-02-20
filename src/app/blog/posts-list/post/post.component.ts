@@ -1,12 +1,14 @@
-import { Component, OnInit, ViewChild, ComponentFactoryResolver, ChangeDetectionStrategy, 
-  ChangeDetectorRef, ViewContainerRef, Compiler, NgModule } from '@angular/core';
+import {
+  Component, OnInit, ViewChild, ComponentFactoryResolver,
+  ChangeDetectorRef, ViewContainerRef, Compiler, NgModule
+} from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Post } from '../../post.model';
 import { BlogService } from '../../blog.service';
 import { Author } from '../../author.model';
 import { ProductsService } from 'src/app/products/products.service';
-import { Product } from 'src/app/products/product.model';
 import { ProductItemComponent } from 'src/app/products/product-list/product-item/product-item.component';
+import { GlobalService } from 'src/app/shared/global.service';
 
 @Component({
   selector: 'app-post',
@@ -14,28 +16,46 @@ import { ProductItemComponent } from 'src/app/products/product-list/product-item
   styleUrls: ['./post.component.css']
 })
 export class PostComponent implements OnInit {
+  // Global variables
+  country: string;
+  language: string;
+  translationWords: any;
+  componentWords: any;
+
+  // Post variables
   post: Post;
   postIndex: number;
   nextId: number;
   author: Author;
   postFormattedDate: string;
-  product: Product;
   @ViewChild('contentContainer', { static: false, read: ViewContainerRef }) contentContainer: ViewContainerRef;
 
-  constructor(private activatedRoute: ActivatedRoute, private blogService: BlogService,
+  constructor(private globalService: GlobalService, private activatedRoute: ActivatedRoute, private blogService: BlogService,
     private productsService: ProductsService, private router: Router, private cdr: ChangeDetectorRef,
     private componentFactoryResolver: ComponentFactoryResolver, private _compiler: Compiler
   ) { }
 
   ngOnInit() {
+    // Global variables initialization
+    this.country = this.globalService.getCountry();
+    this.language = this.globalService.getLanguage();
+    this.translationWords = this.globalService.getTranslationLanguage();
+    this.componentWords = this.translationWords['post'];
+
     this.activatedRoute.params.subscribe(
       (params: Params) => {
+        // Update language and translation words
+        this.language = params.language;
+        this.globalService.setLanguage(this.language);
+        this.translationWords = this.globalService.getTranslationLanguage();
+        this.componentWords = this.translationWords['post'];
+
+        // Update post information
         this.postIndex = +params.postIndex;
         this.post = this.blogService.getPostById(this.postIndex);
         if (typeof this.post === 'undefined') {
           this.post = this.blogService.getPostById(0);
         }
-
         this.author = this.blogService.getAuthorById(this.post.authorId);
         this.postFormattedDate = new Date(this.post.date * 1000).toLocaleString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
       }
@@ -51,19 +71,23 @@ export class PostComponent implements OnInit {
       this.nextId = ++this.postIndex;
     }
 
-    this.router.navigate(['/blog', this.nextId], {queryParams: {action: (Math.floor(Math.random()*1000)+1)}});
+    this.router.navigate(['/blog', this.nextId], { queryParams: { action: (Math.floor(Math.random() * 1000) + 1) } });
   }
 
   ngAfterViewInit() {
+    //Generate post content on the fly with product-item components
+    //Array with html parts
     let contentHtmlArray = this.post.content.split(new RegExp('{{[a-zA-Z0-9:]+}}', 'g'));
-    let productIdsMatches = this.post.content.match(new RegExp('{{[a-zA-Z0-9:]+}}', 'g'));
 
+    //Array with product Ids to display
+    let productIdsMatches = this.post.content.match(new RegExp('{{[a-zA-Z0-9:]+}}', 'g'));
     if (productIdsMatches != undefined) {
       var productIds = productIdsMatches.map((productId, i) => {
         return +productId.substring(12, productId.length - 2);
       });
     }
 
+    //Array with components of html parts
     let componentsArray = [];
     contentHtmlArray.forEach(contentTemplate => {
       const tmpCmp = Component({ template: contentTemplate })(class { });
@@ -71,27 +95,26 @@ export class PostComponent implements OnInit {
     });
     const tmpModule = NgModule({ declarations: componentsArray })(class { });
 
+    //Compile all html parts mixed with product-item components
     this._compiler.compileModuleAndAllComponentsAsync(tmpModule)
       .then((factories) => {
         const productItemCmpFactory = this.componentFactoryResolver.resolveComponentFactory(ProductItemComponent);
-        
+
+        //Loop trough each html part factory
         factories.componentFactories.forEach((factory, i, array) => {
+          // Insert html part
           const cmpRef = this.contentContainer.createComponent(factory);
 
+          // Don't insert product-item component after last html part
           if ((i + 1) == array.length) { return; }
           const productItemRef = this.contentContainer.createComponent(productItemCmpFactory);
           const product = this.productsService.getProductById(productIds[i]);
           productItemRef.instance.product = product;
 
+          //Update component changes
           this.cdr.detectChanges();
         })
       })
   }
-
-  /*   ngOnDestroy() {
-      if(this.productItemRef) {
-        this.productItemRef.destroy();
-      }
-    } */
 
 }

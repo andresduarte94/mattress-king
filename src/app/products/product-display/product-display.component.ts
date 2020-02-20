@@ -22,7 +22,7 @@ export class ProductDisplayComponent implements OnInit {
   language: string;
   translationWords: any;
   componentWords: any;
-  
+
   //Product variables
   productTypes: string[];
   filter: Filter;
@@ -40,18 +40,18 @@ export class ProductDisplayComponent implements OnInit {
   isUntouchedFilterForm: boolean = true;
 
   constructor(private globalService: GlobalService, private activatedRoute: ActivatedRoute, private router: Router,
-              private productsService: ProductsService) { }
+    private productsService: ProductsService) { }
 
   ngOnInit() {
-    // Product variables set-up
-    this.productTypes = this.productsService.productTypes;
-    this.sizes = this.productsService.getSizes(1);
-    // Global variables set-up
+    // Global variables initialization
     this.country = this.globalService.getCountry();
     this.language = this.globalService.getLanguage();
     this.translationWords = this.globalService.getTranslationLanguage();
     this.componentWords = this.translationWords['product-display'];
-    
+    // Product variables initialization
+    this.productTypes = this.productsService.productTypes;
+    this.sizes = this.productsService.getSizes(1);
+
     //Params subscription for setting language and productType filter
     this.activatedRoute.params.subscribe(
       (params: Params) => {
