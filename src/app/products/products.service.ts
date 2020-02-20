@@ -53,8 +53,12 @@ export class ProductsService {
       return (product.type == type);
     });
 
+
+
     let sizes = filteredProducts.reduce((sizes, product) => {
       sizes.push(product.size);
+
+      
       return sizes;
     }, []);
 
