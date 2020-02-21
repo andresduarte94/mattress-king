@@ -16,7 +16,8 @@ const appRoutes: Routes = [
       { path: ':language/products', pathMatch: 'full', redirectTo: ':language/products/all' },
       { path: ':language/products/:productType', component: ProductsComponent, resolve: [ProductsResolverService] },
       { path: ':language/blog', component: BlogComponent, resolve: [PostsResolverService, AuthorsResolverService] },
-      { path: ':language/blog/:postIndex', component: PostComponent, resolve: [PostsResolverService, AuthorsResolverService, ProductsResolverService] },
+      { path: ':language/blog/:postIndex', component: PostComponent, resolve: [
+        PostsResolverService, AuthorsResolverService, ProductsResolverService] },
       { path: '**', redirectTo: 'en/home' }]
   }];
 
@@ -26,4 +27,4 @@ const appRoutes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
