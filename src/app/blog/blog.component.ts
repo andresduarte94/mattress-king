@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Post } from './post.model';
 import { BlogService } from './blog.service';
-
-import * as $ from 'jquery';
-import 'popper.js';
-import 'bootstrap';
 import { Subject } from 'rxjs';
 import { GlobalService } from '../shared/global.service';
 import { Params, ActivatedRoute } from '@angular/router';
+import * as $ from 'jquery';
+import 'popper.js';
+import 'bootstrap';
 
 @Component({
   selector: 'app-blog',
