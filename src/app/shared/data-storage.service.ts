@@ -16,29 +16,37 @@ export class DataStorageService {
     //private authService: AuthService,
     private productsService: ProductsService,
     private blogService: BlogService,
-  ) {}
+  ) { }
 
   fetchProducts() {
     return this.http
-      .get<Product[]>(
+      .get<any[]>(
         'https://mattress-king-10b2e.firebaseio.com/products.json'
       )
       .pipe(
         map(productsJson => {
-            let products = [];
-            for(let [i, [fbId, product]] of Object.entries(Object.entries(productsJson))) { 
-                product.id = fbId;
-                products[i] = product; 
-            };
-            return products;
+          let products = [];
+          for (let [i, [fbId, product]] of Object.entries(Object.entries(productsJson))) {
+            product.id = fbId;
+            products[i] = product;
+          };
+          return products;
         }),
-        tap(products => {
+        tap((products: any[]) => {
+          products.map((product, i) => {
+            let sizeOptionsArray = product.sizes.split(';');
+            // Trim, lowcase and push to sizes array each size
+            sizeOptionsArray = sizeOptionsArray.map((sizeOption: string) => {
+              return sizeOption.trim().toLowerCase();
+            })
+            products[i].sizes = sizeOptionsArray;
+            return;
+          })
           this.productsService.setProducts(products);
         })
       );
   }
 
-  //Avoid code replication
   fetchPosts() {
     return this.http
       .get<Post[]>(
@@ -46,12 +54,12 @@ export class DataStorageService {
       )
       .pipe(
         map(postsJson => {
-            let posts = [];
-            for(let [i, [fbId, post]] of Object.entries(Object.entries(postsJson))) { 
-                post.id = i;
-                posts[i] = post; 
-            };
-            return posts;
+          let posts = [];
+          for (let [i, [fbId, post]] of Object.entries(Object.entries(postsJson))) {
+            post.id = i;
+            posts[i] = post;
+          };
+          return posts;
         }),
         tap(posts => {
           this.blogService.setPosts(posts);
@@ -66,11 +74,11 @@ export class DataStorageService {
       )
       .pipe(
         map(authorsJson => {
-            let authors = [];
-            for(let [i, [fbId, author]] of Object.entries(Object.entries(authorsJson))) { 
-              authors[i] = author; 
-            };
-            return authors;
+          let authors = [];
+          for (let [i, [fbId, author]] of Object.entries(Object.entries(authorsJson))) {
+            authors[i] = author;
+          };
+          return authors;
         }),
         tap(authors => {
           this.blogService.setAuthors(authors);

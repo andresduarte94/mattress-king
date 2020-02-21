@@ -5,7 +5,7 @@ export class Product {
         public name: string, 
         public description: string,
         public type: number,
-        public size: string, 
+        public sizes: string[], 
         public imagePath: string,
         public amazonLink: string,
         public country: string,

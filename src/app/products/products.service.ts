@@ -23,13 +23,13 @@ export class ProductsService {
       return products;
     }
 
-    products = products.filter(function (product) {
+    products = products.filter((product) => {
       return (filter.hasOwnProperty('type') ? (product.type == filter.type || filter.type == 0) : (true)) &&
         ((filter.hasOwnProperty('name') ? (RegExp(filter.name.normalize("NFD").replace(/[\u0300-\u036f]/g, ""), 'i')
           .test(product.name.normalize("NFD").replace(/[\u0300-\u036f]/g, ""))) : (true)) ||
           (filter.hasOwnProperty('description') ? (RegExp(filter.description, 'i').test(product.description.normalize("NFD").replace(/[\u0300-\u036f]/g, ""))) : (true))) &&
         (filter.hasOwnProperty('minprice') && filter.hasOwnProperty('maxprice') ? ((filter.minprice <= product.price) && (product.price <= filter.maxprice)) : (true)) &&
-        (filter.hasOwnProperty('sizes') ? (filter.sizes.includes(product.size)) : (true)) &&
+        (filter.hasOwnProperty('sizes') ? this.checkSizesFilter(filter, product) : (true)) &&
         (filter.hasOwnProperty('minscore') ? (product.score >= filter.minscore) : (true)) &&
         (filter.hasOwnProperty('mindiscount') ? (product.discount >= filter.mindiscount) : (true)) &&
         (filter.hasOwnProperty('payments') ? (product.payments >= filter.payments) : (true)) &&
@@ -52,27 +52,41 @@ export class ProductsService {
   }
 
   getSizes(type: number) {
+    // Filter products by given size
     let filteredProducts: Product[] = this.products.filter((product) => {
       return (product.type == type);
     });
 
-    let sizes = filteredProducts.reduce((sizes, product) => {
-      let sizeOptions = product.size.split(';');
-      if (Array.isArray(sizeOptions)) {
-        sizes.push(...sizeOptions);
-      }
-      else {
-        sizes.push(product.size);
-      }
+    // Push each product sizes to all sizes array
+    let sizes = [];
+    filteredProducts.reduce((sizes, product) => {
+      sizes.push(...product.sizes);
       return sizes;
-    }, []);
+    }, sizes);
 
-    var seen = {};
+    // Remove duplicate sizes and fill count obj
+    var count = {};
+    sizes = sizes.filter((size) => {
+      let existCond = count.hasOwnProperty(size);
+      count[size] = existCond ? ++count[size] : 0;
+      return !existCond;
+    })
+
+    // Filter by most repeated using count obj
     sizes = sizes.filter(function (size) {
-      return seen.hasOwnProperty(size) ? false : (seen[size] = true);
+      return count[size] > 7;
     });
-    console.log(sizes);
     return sizes;
+  }
 
+  checkSizesFilter(filter: Filter, product: Product) {
+    let checkCondition = false;
+    for(var i=0; i < filter.sizes.length; i++) {
+      if(product.sizes.includes(filter.sizes[i])) {
+        checkCondition = true;
+        break;
+      }
+    }
+    return checkCondition;
   }
 }
