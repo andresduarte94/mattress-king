@@ -60,7 +60,7 @@ export class ProductDisplayComponent implements OnInit {
         this.globalService.setLanguage(this.language);
         this.translationWords = this.globalService.getTranslationLanguage();
         this.componentWords = this.translationWords['product-display'];
-
+        
         //Update products based on new filter from URL or persist previous filter if 'filter' value
         if (!params.hasOwnProperty('productType') || params.productType == 'all') {
           this.filter = {};
@@ -92,6 +92,7 @@ export class ProductDisplayComponent implements OnInit {
           this.country = queryParams.gl;
           this.filter.country = queryParams.gl;
           this.updateProducts(this.filter);
+          this.sizes = this.productsService.getSizes(1);
         }
       }
     );

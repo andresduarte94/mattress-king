@@ -3,6 +3,7 @@ import { Subject } from 'rxjs';
 
 import { Product } from './product.model';
 import { Filter } from './product-display/filter.model';
+import { GlobalService } from '../shared/global.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,8 @@ export class ProductsService {
   clearFilterEvent = new Subject<Filter>();
   private products: Product[] = [];
   readonly productTypes: string[] = ['all', 'mattresses', 'beds', 'sheets', 'pillows', 'accessories'];
+
+  constructor(private globalService: GlobalService) { }
 
   getProducts(filter?: Filter) {
     let products = this.products.slice();
@@ -25,7 +28,7 @@ export class ProductsService {
         ((filter.hasOwnProperty('name') ? (RegExp(filter.name.normalize("NFD").replace(/[\u0300-\u036f]/g, ""), 'i')
           .test(product.name.normalize("NFD").replace(/[\u0300-\u036f]/g, ""))) : (true)) ||
           (filter.hasOwnProperty('description') ? (RegExp(filter.description, 'i').test(product.description.normalize("NFD").replace(/[\u0300-\u036f]/g, ""))) : (true))) &&
-          (filter.hasOwnProperty('minprice') && filter.hasOwnProperty('maxprice') ? ((filter.minprice <= product.price) && (product.price <= filter.maxprice)) : (true)) &&
+        (filter.hasOwnProperty('minprice') && filter.hasOwnProperty('maxprice') ? ((filter.minprice <= product.price) && (product.price <= filter.maxprice)) : (true)) &&
         (filter.hasOwnProperty('sizes') ? (filter.sizes.includes(product.size)) : (true)) &&
         (filter.hasOwnProperty('minscore') ? (product.score >= filter.minscore) : (true)) &&
         (filter.hasOwnProperty('mindiscount') ? (product.discount >= filter.mindiscount) : (true)) &&
@@ -53,18 +56,23 @@ export class ProductsService {
       return (product.type == type);
     });
 
-
-
     let sizes = filteredProducts.reduce((sizes, product) => {
-      sizes.push(product.size);
-
-      
+      let sizeOptions = product.size.split(';');
+      if (Array.isArray(sizeOptions)) {
+        sizes.push(...sizeOptions);
+      }
+      else {
+        sizes.push(product.size);
+      }
       return sizes;
     }, []);
 
     var seen = {};
-    return sizes.filter(function (size) {
+    sizes = sizes.filter(function (size) {
       return seen.hasOwnProperty(size) ? false : (seen[size] = true);
     });
+    console.log(sizes);
+    return sizes;
+
   }
 }
