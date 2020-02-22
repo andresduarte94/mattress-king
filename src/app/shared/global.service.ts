@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, tap } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class GlobalService {
   private language: string = 'en';
   private country: string = 'all';
   private translations: any = {};
+  updateSubComponentLanguage = new Subject<any>();
 
   constructor(private http: HttpClient) {}
 

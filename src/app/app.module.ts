@@ -14,7 +14,6 @@ import { ProductListComponent } from './products/product-list/product-list.compo
 import { ProductItemComponent } from './products/product-list/product-item/product-item.component';
 import { SharedModule } from './shared/shared.module';
 
-import { JwPaginationComponent } from 'jw-angular-pagination';
 import { ProductDisplayComponent } from './products/product-display/product-display.component';
 import { PostsListComponent } from './blog/posts-list/posts-list.component';
 import { PostComponent } from './blog/posts-list/post/post.component';
@@ -27,6 +26,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
 import { GlobalService } from './shared/global.service';
+import { JwPaginationComponent } from './shared/jw-pagination/jw-pagination.component';
 
 @NgModule({
   declarations: [
@@ -38,11 +38,11 @@ import { GlobalService } from './shared/global.service';
     BlogComponent,
     ProductListComponent,
     ProductItemComponent,
-    JwPaginationComponent,
     ProductDisplayComponent,
     PostsListComponent,
     PostComponent,
-    PostItemComponent
+    PostItemComponent,
+    JwPaginationComponent
   ],
   imports: [
     BrowserModule,

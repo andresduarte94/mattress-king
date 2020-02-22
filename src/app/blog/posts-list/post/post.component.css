@@ -9,8 +9,9 @@
 }
 
 .post-img {
-    border-bottom: 3em solid gainsboro; /*#F4F4F4;*/
-    border-top: 3em solid gainsboro;
+    border-bottom: 2em solid gainsboro;
+    border-top: 2em solid gainsboro;
+    height: 400px;
 }
 
 .icon-small {

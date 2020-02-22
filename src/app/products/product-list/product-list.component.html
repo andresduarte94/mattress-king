@@ -3,6 +3,7 @@
     </app-product-item>
 </div>
 <div class="row pb-0 pt-3 justify-content-center d-flex">
-    <jw-pagination [items]="products" [pageSize]="pageSize" [maxPages]="maxPages" (changePage)="onChangePage($event)">
+    <jw-pagination [items]="products" [pageSize]="pageSize" [maxPages]="maxPages" [previousLabel]="previousLabel" 
+    [nextLabel]="nextLabel" [firstLabel]="firstLabel" [lastLabel]="lastLabel" (changePage)="onChangePage($event)">
     </jw-pagination>
 </div>

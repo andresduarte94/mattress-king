@@ -1,6 +1,6 @@
 .categories-sidebar {
     width: 230px;
-    max-height: 780px;
+    max-height: 790px;
 }
 
 .col {
@@ -28,7 +28,7 @@
 
  .label {
     font-weight: 500;
-    color: #414242;/*#35569A;*/
+    color: #414242;
 }
 
 .type {
@@ -97,6 +97,11 @@
 
 .discount {
     margin-bottom: 0;
+}
+
+hr {
+    margin-top: 0.2em;
+    margin-bottom: 0.2em;
 }
 
 /* .noUi-horizontal .noUi-handle, .noUi-vertical .noUi-handle {

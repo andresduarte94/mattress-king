@@ -1,5 +1,7 @@
-import { Component, OnInit, Input, OnDestroy, ChangeDetectionStrategy, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Product } from '../product.model';
+import { GlobalService } from 'src/app/shared/global.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-product-list',
@@ -8,20 +10,49 @@ import { Product } from '../product.model';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductListComponent implements OnInit {
+  // Global variables
+  translationWords: any;
+  updateLanguageSub: Subscription;
+
+  //Product variables
   @Input() products: Product[] = [];
 
   //Pagination variables
   pageSize = 8;
   maxPages = 5;
   pageOfProducts: Array<any>;
+  previousLabel;
+  nextLabel;
+  firstLabel;
+  lastLabel;
 
-  constructor() { }
+  constructor(private globalService: GlobalService) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.translationWords = this.globalService.getTranslationLanguage();
+    this.previousLabel = this.translationWords.blog.previousLabel;
+    this.nextLabel = this.translationWords.blog.nextLabel;
+    this.firstLabel = this.translationWords.blog.firstLabel;
+    this.lastLabel = this.translationWords.blog.lastLabel;
+
+    this.updateLanguageSub = this.globalService.updateSubComponentLanguage.subscribe((translationWords) => {
+      // Set pagination labels
+      this.translationWords = translationWords;
+      this.previousLabel = translationWords.blog.previousLabel;
+      this.nextLabel = translationWords.blog.nextLabel;
+      this.firstLabel = translationWords.blog.firstLabel;
+      this.lastLabel = translationWords.blog.lastLabel;
+    })
+  }
 
   // update current pagination page of items
   onChangePage(pageOfProducts: Array<any>) {
     this.pageOfProducts = pageOfProducts;
   }
 
+  ngOnDestroy() {
+    if (this.updateLanguageSub) {
+      this.updateLanguageSub.unsubscribe();
+    }
+  }
 }

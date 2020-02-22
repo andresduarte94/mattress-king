@@ -3,21 +3,23 @@
     <form [formGroup]="filterForm" class="ml-2 mr-2">
       <!-- Product type -->
       <div class="form-group mt-2">
-        <label for="productType" class="title">{{ componentWords.productTypeLabel }}</label>
+        <label for="productType" class="title">{{ componentWords.productTypeLabel }}:</label>
         <select id="productType" class="form-control type" formControlName="productType" required>
           <option class="typesOptions" *ngFor="let category of translationWords.header.categories; let i = index;" [value]="i">{{ category }}
           </option>
         </select>
       </div>
+      <hr>
       <!-- Price range -->
       <div class="form-group mb-4">
-        <label class="mb-2 title">{{ componentWords.priceLabel }}</label>
+        <label class="mb-2 title">{{ componentWords.priceLabel }}:</label>
         <nouislider class="mx-auto w-90 pl-2" name="priceSlider" [config]="priceSliderConfig"
           formControlName="priceSlider" [tooltips]="[ true, true ]"></nouislider>
       </div>
+      <hr>
       <!-- Scores -->
       <div class="form-group">
-        <label class="title">{{ componentWords.reviewsLabel }}</label>
+        <label class="title">{{ componentWords.reviewsLabel }}:</label>
         <div class="form-check" *ngFor="let score of [1, 2, 3, 4]">
           <!-- Stars -->
           <a (click)="updateScoreFilter(score)" class="link label">
@@ -35,25 +37,28 @@
           </a>
         </div>
       </div>
+      <hr>
       <!-- Sizes -->
-      <div class="form-group" formGroupName="sizes">
-        <label class="title">{{ componentWords.sizesLabel }}</label>
+      <div class="form-group mb-0" formGroupName="sizes">
+        <label class="title">{{ componentWords.sizesLabel }}:</label>
         <div class="ml-3">
           <mat-checkbox [formControlName]="size" (onchange)="checkSize()" color="primary"
             *ngFor="let size of sizes; let i = index;">{{ size }}</mat-checkbox>
         </div>
       </div>
+      <hr>
       <!-- Minimum discount -->
-      <div class="form-group discount">
-        <label for="payments" class="title">{{ componentWords.discountLabel }}</label>
+      <div class="form-group discount mb-0">
+        <label for="payments" class="title mb-0">{{ componentWords.discountLabel }}:</label>
         <div class="w-75 mx-auto">
           <mat-slider class="p-0" thumbLabel [displayWith]="formatLabel" color="primary" min="0" max="100"
             formControlName="mindiscount"></mat-slider>
         </div>
       </div>
+      <hr>
       <!-- Payments -->
       <div class="form-group mb-0">
-        <label for="payments" class="title">{{ componentWords.paymentsLabel }}</label>
+        <label for="payments" class="title">{{ componentWords.paymentsLabel }}:</label>
         <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group ml-3"
           formControlName="payments">
           <mat-radio-button class="example-radio-button label" color="primary" value="4"

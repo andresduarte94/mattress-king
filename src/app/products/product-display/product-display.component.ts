@@ -60,7 +60,8 @@ export class ProductDisplayComponent implements OnInit {
         this.globalService.setLanguage(this.language);
         this.translationWords = this.globalService.getTranslationLanguage();
         this.componentWords = this.translationWords['product-display'];
-        
+        this.globalService.updateSubComponentLanguage.next(this.translationWords);
+
         //Update products based on new filter from URL or persist previous filter if 'filter' value
         if (!params.hasOwnProperty('productType') || params.productType == 'all') {
           this.filter = {};

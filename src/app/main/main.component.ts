@@ -4,6 +4,7 @@ import { ProductsService } from '../products/products.service';
 import * as $ from 'jquery';
 import 'popper.js';
 import 'bootstrap';
+import { Product } from '../products/product.model';
 
 @Component({
   selector: 'app-main',
@@ -14,10 +15,13 @@ export class MainComponent implements OnInit {
   //language: string;
   hideBanner: boolean = false;
   carousel: any;
+  coverProducts: Product[] = [];
 
   constructor(private activatedRoute : ActivatedRoute, private productsService: ProductsService) { }
 
   ngOnInit() {
+    this.coverProducts.push(...[this.productsService.getProductById(19), this.productsService.getProductById(14)]);
+
     this.activatedRoute.params.subscribe( 
       (params: Params)=> {
         //this.language = params.language;

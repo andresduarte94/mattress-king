@@ -5,13 +5,15 @@
                 <ol class="carousel-indicators">
                     <li (click)="selectPost(0)" class="active"></li>
                     <li (click)="selectPost(1)"></li>
-                    <li (click)="selectPost(2)" ></li>
+                    <li (click)="selectPost(2)"></li>
                 </ol>
                 <div class="carousel-inner">
                     <div class="carousel-item" [ngClass]="{active: i == 0}"
                         *ngFor="let post of bannerPosts; let i = index">
-                        <img class="d-block w-100 banner-image" [src]="'assets/posts/' + post.imagePath"
-                            [alt]="'Slide' + i">
+                        <a [routerLink]="[i]">
+                            <img class="d-block w-100 banner-image" [src]="'assets/posts/' + post.imagePath"
+                                [alt]="'Slide' + i">
+                        </a>
                     </div>
                 </div>
                 <a class="carousel-control-prev" (click)="prev()">

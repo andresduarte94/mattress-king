@@ -53,6 +53,7 @@ export class BlogComponent implements OnInit {
         this.globalService.setLanguage(this.language);
         this.translationWords = this.globalService.getTranslationLanguage();
         this.componentWords = this.translationWords['blog'];
+        this.globalService.updateSubComponentLanguage.next(this.componentWords);
       });
   }
 
