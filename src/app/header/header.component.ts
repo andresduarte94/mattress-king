@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ProductsService } from '../products/products.service';
 import { Filter } from '../products/product-display/filter.model';
 import { FormGroup } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { FormControl } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable, of } from 'rxjs';
 import { GlobalService } from '../shared/global.service';
+import { filter, map, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-header',
@@ -29,6 +30,10 @@ export class HeaderComponent implements OnInit {
   translationWords: any;
   componentWords: any;
 
+  //Routing variables
+  navigationEnd: Observable<NavigationEnd>;
+  routePathParam: Observable<string>;
+
   constructor(private productsService: ProductsService, private router: Router, private activatedRoute: ActivatedRoute,
     private globalService: GlobalService) { }
 
@@ -46,21 +51,52 @@ export class HeaderComponent implements OnInit {
       this.searchForm.controls['search'].setValue('');
     });
 
-    //Create, initialize and set subscriptions for header forms
-    this.createReactiveHeaderForms()
+    // Get params from route when navigation ends
+    this.navigationEnd = this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd),
+      map(event => <NavigationEnd>event)
+    );
+    this.routePathParam = this.navigationEnd.pipe(
+      map(() => {
+        return this.activatedRoute.root.firstChild;
+      }),
+      switchMap(firstChild => {
+        if (firstChild) {
+          return firstChild.firstChild.params.pipe(map(params => {
+            // Update language and translation words
+            this.language = params.language;
+            this.globalService.setLanguage(this.language);
+            this.translationWords = this.globalService.getTranslationLanguage();
+            this.componentWords = this.translationWords['header'];
+            return params;
+          }));
+        }
+        else {
+          return of(null);
+        }
+      })
+    );
+
+    this.routePathParam.subscribe(() => {
+      // Update language when routing ends
+      this.countryForm.controls['languages'].setValue(this.language);
+    });
+
+    // Create, initialize and set subscriptions for header forms
+    this.createReactiveHeaderForms();
   }
 
   createReactiveHeaderForms() {
-    //Create reactive form for country and language
+    // Create reactive form for country and language
     this.countryForm = new FormGroup({
       'countries': new FormControl('all'),
-      'languages': new FormControl('en')
+      'languages': new FormControl('')
     });
     this.searchForm = new FormGroup({
       'search': new FormControl(''),
     });
 
-    //Navigating with country query parameter change
+    // Navigating with country query parameter change
     this.countryForm.controls['countries'].valueChanges.subscribe(
       (country) => {
         // Update country
