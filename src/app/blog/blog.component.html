@@ -1,24 +1,24 @@
 <div class="container-fluid">
     <div class="row mb-5 justify-content-center contain banner">
         <div class="col-md-8 col-10 p-0">
-            <div id="carouselExampleIndicators" class="carousel slide">
+            <div class="carousel slide">
                 <ol class="carousel-indicators">
-                    <li (click)="selectPost(0)" [ngClass]="{active: 0 == showingIndex}"></li>
-                    <li (click)="selectPost(1)" [ngClass]="{active: 1 == showingIndex}"></li>
-                    <li (click)="selectPost(2)" [ngClass]="{active: 2 == showingIndex}"></li>
+                    <li (click)="selectPost(0)" class="active"></li>
+                    <li (click)="selectPost(1)"></li>
+                    <li (click)="selectPost(2)" ></li>
                 </ol>
                 <div class="carousel-inner">
-                    <div class="carousel-item" [ngClass]="{active: i == showingIndex}"
+                    <div class="carousel-item" [ngClass]="{active: i == 0}"
                         *ngFor="let post of bannerPosts; let i = index">
                         <img class="d-block w-100 banner-image" [src]="'assets/posts/' + post.imagePath"
                             [alt]="'Slide' + i">
                     </div>
                 </div>
-                <a class="carousel-control-prev" role="button" (click)="prev()">
+                <a class="carousel-control-prev" (click)="prev()">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="sr-only">Previous</span>
                 </a>
-                <a class="carousel-control-next" role="button" (click)="next()">
+                <a class="carousel-control-next" (click)="next()">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="sr-only">Next</span>
                 </a>

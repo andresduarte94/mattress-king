@@ -11,8 +11,9 @@
     width: 95%;
 }
 
-.first-image {
-    margin-bottom: 8%;
+.second-image {
+    margin-top: 8%;
+    max-height: 45%;
 }
 
 .carousel-control-prev-icon,

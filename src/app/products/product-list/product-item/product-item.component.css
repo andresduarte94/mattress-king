@@ -27,6 +27,11 @@ h2 {
     top: -10px !important;
 }
 
+.discount-span {
+    float: right;
+    font-weight: 550;
+}
+
 @media screen and (max-width: 330px) {
     [class*="demo-card-square"] {
         width: 290px !important; 

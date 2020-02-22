@@ -9,9 +9,20 @@
         </h2>
     </div>
     <div class="mdl-card__actions mdl-card--border">
-        <p class="card-text">
-            <strong>{{ product.price }} €</strong>
-        </p>
+    <!--     <p class="card-text">
+            <span><strong>{{ discountPrice }} €</strong></span>
+            <span class="ml-auto"><strong>{{ product.discount }}% off</strong></span>
+
+        </p> -->
+
+        <div class="row justify-content-between">
+            <div class="col-5">
+                <span><strong>{{ discountPrice }} €</strong></span>
+            </div>
+            <div class="col-5">
+                <span class="discount-span">{{ product.discount }}% off</span>
+            </div>
+          </div>
     </div>
 </div>
 </a>

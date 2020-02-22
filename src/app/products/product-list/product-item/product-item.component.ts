@@ -8,10 +8,18 @@ import { Product } from '../../product.model';
 })
 export class ProductItemComponent implements OnInit {
   @Input() product: Product;
+  discountPrice: number;
 
   constructor() { }
 
   ngOnInit() {
+
+console.log( this.product.price)
+console.log( typeof this.product.price)
+
+    this.discountPrice = Math.round((this.product.price*(1-this.product.discount/100) + Number.EPSILON) * 100)/100;
+    console.log(this.discountPrice)
+
   }
 
 }
