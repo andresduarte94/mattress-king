@@ -57,7 +57,6 @@ export class ProductDisplayComponent implements OnInit {
       (params: Params) => { 
         // Update language and translation words
         this.language = params.language;
-        this.globalService.setLanguage(this.language);
         this.translationWords = this.globalService.getTranslationLanguage();
         this.componentWords = this.translationWords['product-display'];
         this.globalService.updateSubComponentLanguage.next(this.translationWords);

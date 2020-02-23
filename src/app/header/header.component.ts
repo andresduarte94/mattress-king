@@ -7,6 +7,7 @@ import { FormControl } from '@angular/forms';
 import { Subscription, Observable, of } from 'rxjs';
 import { GlobalService } from '../shared/global.service';
 import { filter, map, switchMap } from 'rxjs/operators';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-header',
@@ -29,13 +30,14 @@ export class HeaderComponent implements OnInit {
   language: string;
   translationWords: any;
   componentWords: any;
+  isAValidLanguage: boolean;
 
   //Routing variables
   navigationEnd: Observable<NavigationEnd>;
   routePathParam: Observable<string>;
 
   constructor(private productsService: ProductsService, private router: Router, private activatedRoute: ActivatedRoute,
-    private globalService: GlobalService) { }
+    private globalService: GlobalService, private location: Location) { }
 
   ngOnInit() {
     // Product variables set-up
@@ -64,7 +66,15 @@ export class HeaderComponent implements OnInit {
         if (firstChild) {
           return firstChild.firstChild.params.pipe(map(params => {
             // Update language and translation words
-            this.language = params.language;
+            if (!this.languagesCodes.includes(params.language)) {
+              this.language = 'en';
+              this.isAValidLanguage = false;
+              this.location.replaceState('/en/home');
+            }
+            else {
+              this.language = params.language;
+              this.isAValidLanguage = true;
+            }
             this.globalService.setLanguage(this.language);
             this.translationWords = this.globalService.getTranslationLanguage();
             this.componentWords = this.translationWords['header'];
@@ -77,6 +87,7 @@ export class HeaderComponent implements OnInit {
       })
     );
 
+    // Update language select based on route
     this.routePathParam.subscribe(() => {
       // Update language when routing ends
       this.countryForm.controls['languages'].setValue(this.language);
@@ -114,6 +125,8 @@ export class HeaderComponent implements OnInit {
     //Navigating with language parameter change
     this.countryForm.controls['languages'].valueChanges.subscribe(
       (language) => {
+        // Don't update language if route is unknown
+        if (!this.isAValidLanguage) { return; }
         // Update language and translation words
         this.language = language;
         this.globalService.setLanguage(language);

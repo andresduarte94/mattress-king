@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { ProductsService } from '../products/products.service';
+import { Product } from '../products/product.model';
+
 import * as $ from 'jquery';
 import 'popper.js';
 import 'bootstrap';
-import { Product } from '../products/product.model';
 
 @Component({
   selector: 'app-main',
@@ -12,7 +13,6 @@ import { Product } from '../products/product.model';
   styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit {
-  //language: string;
   hideBanner: boolean = false;
   carousel: any;
   coverProducts: Product[] = [];
@@ -24,7 +24,6 @@ export class MainComponent implements OnInit {
 
     this.activatedRoute.params.subscribe( 
       (params: Params)=> {
-        //this.language = params.language;
         this.hideBanner = false;
     })
 
