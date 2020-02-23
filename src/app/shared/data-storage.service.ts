@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { map, tap } from 'rxjs/operators';
 
-//import { AuthService } from '../auth/auth.service';
 import { Product } from '../products/product.model';
 import { ProductsService } from '../products/products.service';
 import { BlogService } from '../blog/blog.service';
@@ -13,7 +12,6 @@ import { Author } from '../blog/author.model';
 export class DataStorageService {
   constructor(
     private http: HttpClient,
-    //private authService: AuthService,
     private productsService: ProductsService,
     private blogService: BlogService,
   ) { }

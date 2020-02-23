@@ -166,14 +166,6 @@ export class ProductDisplayComponent implements OnInit {
         this.updateProducts(this.filter);
       }
     );
-    //Throw hide banner event when form is touched
-    this.filterForm.statusChanges.subscribe(() => {
-      if (this.isUntouchedFilterForm) {
-        this.productsService.hideBannerEvent.next(true);
-        window.scrollTo(0, 0);
-        this.isUntouchedFilterForm = false;
-      }
-    });
   }
 
   updateScoreFilter(score: number) {

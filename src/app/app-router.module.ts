@@ -12,6 +12,7 @@ const appRoutes: Routes = [
   {
     path: '',
     children: [
+      { path: ':language', redirectTo: ':language/home' },
       { path: ':language/home', component: MainComponent, resolve: [ProductsResolverService] },
       { path: ':language/products', pathMatch: 'full', redirectTo: ':language/products/all' },
       { path: ':language/products/:productType', component: ProductsComponent, resolve: [ProductsResolverService] },

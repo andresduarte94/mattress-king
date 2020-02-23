@@ -42,7 +42,7 @@
       <div class="form-group mb-0" formGroupName="sizes">
         <label class="title">{{ componentWords.sizesLabel }}:</label>
         <div class="ml-3">
-          <mat-checkbox [formControlName]="size" (onchange)="checkSize()" color="primary"
+          <mat-checkbox [formControlName]="size" color="primary"
             *ngFor="let size of sizes; let i = index;">{{ size }}</mat-checkbox>
         </div>
       </div>
