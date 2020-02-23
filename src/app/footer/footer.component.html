@@ -25,7 +25,7 @@
                 <h6 class="text-uppercase font-weight-bold">{{ componentWords.productsLabel }}</h6>
                 <hr class="hr-footer mb-4 mt-0 d-inline-block mx-auto">
                 <p *ngFor="let category of translationWords.header.categories.slice(1); let i = index;">
-                    <a [routerLink]="['products', productTypes[i+1]]">{{ category }}</a>
+                    <a [routerLink]="[language, 'products', productTypes[i+1]]">{{ category }}</a>
                 </p>
                 <!-- <p>
                     <a routerLink="products/beds">Beds</a>
@@ -47,7 +47,7 @@
                 <h6 class="text-uppercase font-weight-bold">{{ componentWords.usefulLinks[0] }}</h6>
                 <hr class="hr-footer mb-4 mt-0 d-inline-block mx-auto">
                 <p *ngFor="let usefulLink of componentWords.usefulLinks.slice(1)">
-                    <a routerLink="blog">{{ usefulLink }}</a>
+                    <a [routerLink]="[language, 'blog']">{{ usefulLink }}</a>
                 </p>
 
             </div>
@@ -86,7 +86,7 @@
         <!-- Grid row -->
 
     </div>
-    
+
     <!-- Footer Links -->
     <div class="social-footer">
         <div class="container">

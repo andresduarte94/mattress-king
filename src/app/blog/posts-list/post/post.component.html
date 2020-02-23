@@ -58,7 +58,7 @@
                     </td>
                     <td class="pl-4 pt-3">
                         <h4 class="name">{{ author.name }}</h4>
-                        <p class="resume">{{ author.resume }}</p>
+                        <p class="resume" [innerHtml]="author.resume"></p>
                     </td>
                 </tr>
             </table>
