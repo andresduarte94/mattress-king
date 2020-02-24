@@ -16,13 +16,13 @@ import { GlobalService } from 'src/app/shared/global.service';
   styleUrls: ['./post.component.css']
 })
 export class PostComponent implements OnInit {
-  // Global variables
+  //Global variables
   country: string;
   language: string;
   translationWords: any;
   componentWords: any;
 
-  // Post variables
+  //Post variables
   post: Post;
   postIndex: number;
   nextId: number;
@@ -36,7 +36,7 @@ export class PostComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // Global variables initialization
+    //Global variables initialization
     this.country = this.globalService.getCountry();
     this.language = this.globalService.getLanguage();
     this.translationWords = this.globalService.getTranslationLanguage();
@@ -44,12 +44,12 @@ export class PostComponent implements OnInit {
 
     this.activatedRoute.params.subscribe(
       (params: Params) => {
-        // Update language and translation words
+        //Update language and translation words
         this.language = params.language;
         this.translationWords = this.globalService.getTranslationLanguage();
         this.componentWords = this.translationWords['post'];
 
-        // Update post information
+        //Update post information
         this.postIndex = +params.postIndex;
         this.post = this.blogService.getPostById(this.postIndex);
         if (typeof this.post === 'undefined') {
@@ -101,10 +101,10 @@ export class PostComponent implements OnInit {
 
         //Loop trough each html part factory
         factories.componentFactories.forEach((factory, i, array) => {
-          // Insert html part
+          //Insert html part
           const cmpRef = this.contentContainer.createComponent(factory);
 
-          // Don't insert product-item component after last html part
+          //Don't insert product-item component after last html part
           if ((i + 1) == array.length) { return; }
           const productItemRef = this.contentContainer.createComponent(productItemCmpFactory);
           const product = this.productsService.getProductById(productIds[i]);
