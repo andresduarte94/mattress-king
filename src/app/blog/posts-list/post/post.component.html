@@ -47,7 +47,8 @@
         </div>
         <div class="contain">
             <!-- Post content section-->
-            <ng-template #contentContainer></ng-template>
+            <!-- <ng-template #contentContainer></ng-template> -->
+            <app-post-content [postId]="postIndex"></app-post-content>
             <hr>
             <!-- Auhtor info -->
             <table class="mt-4" id="authorTable">

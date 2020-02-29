@@ -26,6 +26,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
+import { PostContentComponent } from './blog/posts-list/post/post-content/post-content.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { MatSelectModule } from '@angular/material/select';
     PostsListComponent,
     PostComponent,
     PostItemComponent,
-    JwPaginationComponent
+    JwPaginationComponent,
+    PostContentComponent
   ],
   imports: [
     BrowserModule,

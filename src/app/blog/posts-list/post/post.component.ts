@@ -1,13 +1,8 @@
-import {
-  Component, OnInit, ViewChild, ComponentFactoryResolver,
-  ChangeDetectorRef, ViewContainerRef, Compiler, NgModule
-} from '@angular/core';
+import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Post } from '../../post.model';
 import { BlogService } from '../../blog.service';
 import { Author } from '../../author.model';
-import { ProductsService } from 'src/app/products/products.service';
-import { ProductItemComponent } from 'src/app/products/product-list/product-item/product-item.component';
 import { GlobalService } from 'src/app/shared/global.service';
 
 @Component({
@@ -30,9 +25,9 @@ export class PostComponent implements OnInit {
   postFormattedDate: string;
   @ViewChild('contentContainer', { static: false, read: ViewContainerRef }) contentContainer: ViewContainerRef;
 
-  constructor(private globalService: GlobalService, private activatedRoute: ActivatedRoute, private blogService: BlogService,
-    private productsService: ProductsService, private router: Router, private cdr: ChangeDetectorRef,
-    private componentFactoryResolver: ComponentFactoryResolver, private _compiler: Compiler
+  constructor(private globalService: GlobalService, private activatedRoute: ActivatedRoute, private blogService: BlogService, 
+    private router: Router /*private productsService: ProductsService, private cdr: ChangeDetectorRef,
+    private componentFactoryResolver: ComponentFactoryResolver, private _compiler: Compiler*/
   ) { }
 
   ngOnInit() {
@@ -69,11 +64,11 @@ export class PostComponent implements OnInit {
     else {
       this.nextId = ++this.postIndex;
     }
-
     this.router.navigate(['../', this.nextId], { relativeTo: this.activatedRoute, queryParams: { action: (Math.floor(Math.random() * 1000) + 1) } });
   }
 
-  ngAfterViewInit() {
+  // Generate post content on the fly - Commented until implementing a way of only use JIT compiler for this component
+  /* ngAfterViewInit() {
     //Generate post content on the fly with product-item components
     //Array with html parts
     let contentHtmlArray = this.post.content.split(new RegExp('{{[a-zA-Z0-9:]+}}', 'g'));
@@ -114,5 +109,6 @@ export class PostComponent implements OnInit {
           this.cdr.detectChanges();
         })
       })
-  }
+  } */
+  
 }
