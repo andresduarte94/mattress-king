@@ -12,7 +12,7 @@ import { Location, ViewportScroller } from '@angular/common';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
   countries = new FormControl();
@@ -31,6 +31,7 @@ export class HeaderComponent implements OnInit {
   translationWords: any;
   componentWords: any;
   isAValidLanguage: boolean;
+  navbarOpen = false;
 
   //Routing variables
   navigationEnd: Observable<NavigationEnd>;
@@ -175,5 +176,9 @@ export class HeaderComponent implements OnInit {
 
   ngOnDestroy() {
     this.clearFilterSub.unsubscribe();
+  }
+
+  toggleNavbar() {
+    this.navbarOpen = !this.navbarOpen;
   }
 }

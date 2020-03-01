@@ -1,7 +1,7 @@
 <div class="container-fluid">
-    <div class="row  justify-content-center contain" *ngIf="!hideBanner">
-        <div class="col-8 p-0 mr-3 mb-5">
-            <div class="carousel slide">
+    <div class="row justify-content-center contain mb-3" *ngIf="!hideBanner">
+        <div class="col-11 col-md-8 p-0">
+            <div class="carousel slide ">
                 <ol class="carousel-indicators">
                     <li (click)="selectPost(0)" class="active"></li>
                     <li (click)="selectPost(1)"></li>
@@ -10,7 +10,7 @@
                 <div class="carousel-inner">
                     <div class="carousel-item" *ngFor="let postId of [1, 2, 3]" [ngClass]="{active: postId == 1}">
                         <a [routerLink]="['..', 'blog', (postId-1)]">
-                            <img class="d-block w-100" [src]="'assets/posts/post-' + (postId) + '.jpg'"
+                            <img class="d-block w-100 banner-img" [src]="'assets/posts/post-' + (postId) + '.jpg'"
                                 [alt]="'Slide number ' + postId">
                         </a>
                     </div>
@@ -25,13 +25,12 @@
                 </a>
             </div>
         </div>
-        <div class="col-3 p-0 mb-35">
+        <div class="col-3 p-4 home-products">
             <a [href]="coverProducts[0].amazonLink" target="_blank">
-                <img class="d-block banner-images " src="assets/products/product_19.jpg" alt="First cover product">
+                <img class="d-block first-image" src="assets/products/product_19.jpg" alt="First cover product">
             </a>
             <a [href]="coverProducts[1].amazonLink" target="_blank">
-
-                <img class="d-block banner-images second-image" src="assets/products/product_14.jpg" alt="Second cover product">
+                <img class="d-block anner-images second-image" src="assets/products/product_14.jpg" alt="Second cover product">
             </a>
         </div>
     </div>

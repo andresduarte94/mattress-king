@@ -1,5 +1,5 @@
 /* GREY NAVBAR */
-.header1-color {
+#navbar-grey {
     background-color: #54595E;
     max-height: 42px;
     color: darkgray;
@@ -12,12 +12,16 @@
 .not-empty-select.mat-selected {
     color: green !important;
 }
+
+.grey-item {
+    text-align: center;
+}
   
-:host /deep/ .mat-select-value-text {
+/* :host /deep/ .mat-select-value-text {
     font-weight: 600;
     font-size: 1.05em;
     margin-left: 5%;
-}
+} */
 
 /* BLUE NAVBAR */
 #navbar-blue {
@@ -40,6 +44,14 @@
 
 .search-form {
     min-width: 287px;
+    width: 90%;
+    margin: 2% auto;
+    text-align: center;
+}
+
+.search-input {
+    width: 65%;
+    display: inline-block 
 }
 
 #searchBtn {
@@ -68,4 +80,16 @@ h2 {
 #navbar-light-blue a {
     color: black !important;
     font-weight: 600;
+}
+
+@media screen and (max-width: 761px) {
+    .btn {
+        display: none;
+    }
+    #navbar-light-blue {
+        display: none;
+    }
+    .search-input {
+        width: 85%;
+    }
 }
