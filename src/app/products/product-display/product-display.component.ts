@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation, HostListener } from '@angular/core';
 import { ProductsService } from '../products.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Filter } from './filter.model';
@@ -41,22 +41,28 @@ export class ProductDisplayComponent implements OnInit {
 
   //Ui variables
   navbarOpen = false;
+  public innerWidth: any;
 
   constructor(private globalService: GlobalService, private activatedRoute: ActivatedRoute, private productsService: ProductsService) { }
 
   ngOnInit() {
-    // Global variables initialization
+    //Global variables initialization
     this.country = this.globalService.getCountry();
     this.language = this.globalService.getLanguage();
     this.translationWords = this.globalService.getTranslationLanguage();
     this.componentWords = this.translationWords['product-display'];
-    // Product variables initialization
+    //Product variables initialization
     this.productTypes = this.productsService.productTypes;
     this.sizes = this.productsService.getSizes(1);
+    //Ui variables
+    this.innerWidth = window.innerWidth;
+    if (this.innerWidth >= 761) {
+      this.navbarOpen = true;
+    }
 
     //Params subscription for setting language and productType filter
     this.activatedRoute.params.subscribe(
-      (params: Params) => { 
+      (params: Params) => {
         // Update language and translation words
         this.language = params.language;
         this.translationWords = this.globalService.getTranslationLanguage();
@@ -260,6 +266,12 @@ export class ProductDisplayComponent implements OnInit {
 
   toggleNavbar() {
     this.navbarOpen = !this.navbarOpen;
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.innerWidth = window.innerWidth;
+    this.navbarOpen = this.innerWidth >= 761 ? true : false;
   }
 
   ngOnDestroy() {

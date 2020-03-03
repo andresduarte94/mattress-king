@@ -1,6 +1,32 @@
 .categories-sidebar {
     width: 230px;
-    max-height: 790px;
+    max-height: 830px;
+}
+
+.filters-title {
+    font-size: 1.5em;
+    font-weight: 600;
+}
+
+.filters-header {
+    display: flex; 
+    background-color: #79cedc;
+    width: 100%;
+    padding: 2% 5%;
+    align-items: center;
+    justify-content: space-between
+}
+
+.navbar {
+    padding: 0;
+}
+
+.navbar-toggler {
+    float: right;
+}
+
+.hide-icon{
+    display: none;
 }
 
 .col {
