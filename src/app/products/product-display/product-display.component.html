@@ -1,7 +1,11 @@
 <div class="mb-5 d-flex justify-content-center col-md-12 col-lg-2 filter-menu">
   <div class="card categories-sidebar">
     <div>
-      <span>Filters: </span>
+      <span>Filter</span>
+      <!-- Burguer button for right-side of header -->
+      <button class="navbar-toggler mr-4" type="button" (click)="toggleNavbar()" id="burger-icon">
+        <span class="navbar-toggler-icon"></span>
+      </button>
     </div>
     <hr>
     <form [formGroup]="filterForm" class="ml-2 mr-2">
@@ -9,7 +13,8 @@
       <div class="form-group mt-2">
         <label for="productType" class="title">{{ componentWords.productTypeLabel }}:</label>
         <select id="productType" class="form-control type" formControlName="productType" required>
-          <option class="typesOptions" *ngFor="let category of translationWords.header.categories; let i = index;" [value]="i">{{ category }}
+          <option class="typesOptions" *ngFor="let category of translationWords.header.categories; let i = index;"
+            [value]="i">{{ category }}
           </option>
         </select>
       </div>
@@ -46,8 +51,8 @@
       <div class="form-group mb-0" formGroupName="sizes">
         <label class="title">{{ componentWords.sizesLabel }}:</label>
         <div class="ml-3">
-          <mat-checkbox [formControlName]="size" color="primary"
-            *ngFor="let size of sizes; let i = index;">{{ size }}</mat-checkbox>
+          <mat-checkbox [formControlName]="size" color="primary" *ngFor="let size of sizes; let i = index;">{{ size }}
+          </mat-checkbox>
         </div>
       </div>
       <hr>
