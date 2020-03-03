@@ -121,17 +121,14 @@ export class HeaderComponent implements OnInit {
           + baseURL
           + '?' + 'gl=' + this.country
         );
-        console.log('sdfdsfds')
         this.viewportScroller.scrollToPosition([0,0]);
       });
 
     //Navigating with language parameter change
     this.countryForm.controls['languages'].valueChanges.subscribe(
       (language) => {
-        console.log(language)
         // Don't update language if route is unknown
         if (!this.isAValidLanguage) { return; }
-        console.log(language)
 
         // Update language and translation words
         this.language = language;
@@ -147,7 +144,6 @@ export class HeaderComponent implements OnInit {
           + '?' + 'gl=' + this.country
         );
         this.viewportScroller.scrollToPosition([0, 0]);
-        console.log('donde')
       });
 
     //Updating products on search input change

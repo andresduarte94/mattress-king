@@ -12,19 +12,19 @@ const appRoutes: Routes = [
   {
     path: '',
     children: [
-      { path: ':language', redirectTo: ':language/home' },
       { path: ':language/home', component: MainComponent, resolve: [ProductsResolverService] },
       { path: ':language/products', pathMatch: 'full', redirectTo: ':language/products/all' },
       { path: ':language/products/:productType', component: ProductsComponent, resolve: [ProductsResolverService] },
       { path: ':language/blog', component: BlogComponent, resolve: [PostsResolverService, AuthorsResolverService] },
       { path: ':language/blog/:postIndex', component: PostComponent, resolve: [
         PostsResolverService, AuthorsResolverService, ProductsResolverService] },
+      { path: ':language/**', redirectTo: ':language/home' },
       { path: '**', redirectTo: 'en/home' }]
   }];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(appRoutes, { preloadingStrategy: PreloadAllModules, scrollPositionRestoration: 'top', enableTracing: true }) //
+    RouterModule.forRoot(appRoutes, { preloadingStrategy: PreloadAllModules, scrollPositionRestoration: 'top'}) //, enableTracing: true 
   ],
   exports: [RouterModule]
 })

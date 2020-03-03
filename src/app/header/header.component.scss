@@ -13,11 +13,11 @@
     text-align: center;
 }
   
-/* :host /deep/ .mat-select-value-text {
+:host::ng-deep .mat-select-value-text {
     font-weight: 600;
     font-size: 1.05em;
     margin-left: 5%;
-} */
+} 
 
 /* BLUE NAVBAR */
 #navbar-blue {
