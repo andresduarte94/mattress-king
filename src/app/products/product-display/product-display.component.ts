@@ -39,8 +39,10 @@ export class ProductDisplayComponent implements OnInit {
   filterUpdateSub: Subscription;
   isUntouchedFilterForm: boolean = true;
 
-  constructor(private globalService: GlobalService, private activatedRoute: ActivatedRoute, private router: Router,
-    private productsService: ProductsService) { }
+  //Ui variables
+  navbarOpen = false;
+
+  constructor(private globalService: GlobalService, private activatedRoute: ActivatedRoute, private productsService: ProductsService) { }
 
   ngOnInit() {
     // Global variables initialization
@@ -254,6 +256,10 @@ export class ProductDisplayComponent implements OnInit {
   updateProducts(filter: Filter) {
     let products = this.productsService.getProducts(filter);
     this.products = products;
+  }
+
+  toggleNavbar() {
+    this.navbarOpen = !this.navbarOpen;
   }
 
   ngOnDestroy() {

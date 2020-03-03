@@ -1,5 +1,13 @@
 <div class="mb-5 d-flex justify-content-center col-md-12 col-lg-2 filter-menu">
   <div class="card categories-sidebar">
+    <div>
+      <span>Filter</span>
+              <!-- Burguer button for right-side of header -->
+              <button class="navbar-toggler mr-4" type="button" (click)="toggleNavbar()" id="burger-icon">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+    </div>
+    <hr>
     <form [formGroup]="filterForm" class="ml-2 mr-2">
       <!-- Product type -->
       <div class="form-group mt-2">
