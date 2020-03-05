@@ -10,22 +10,40 @@ import { AuthorsResolverService } from './blog/authors-resolver.service';
 
 const appRoutes: Routes = [
   {
-    path: '',
+    path: ':language',
     children: [
-      { path: ':language/home', component: MainComponent, resolve: [ProductsResolverService] },
-      { path: ':language/products', pathMatch: 'full', redirectTo: ':language/products/all' },
-      { path: ':language/products/:productType', component: ProductsComponent, resolve: [ProductsResolverService] },
-      { path: ':language/blog', component: BlogComponent, resolve: [PostsResolverService, AuthorsResolverService] },
-      { path: ':language/blog/:postIndex', component: PostComponent, resolve: [
-        PostsResolverService, AuthorsResolverService, ProductsResolverService] },
-      { path: ':language/**', redirectTo: ':language/home' },
-      { path: '**', redirectTo: 'en/home' }]
-  }];
+      {
+        path: 'home', component: MainComponent, data: {
+          title: 'Home',
+          description: 'Description Meta Tag Content',
+        }, resolve: [ProductsResolverService]
+      },
+      { path: 'products', pathMatch: 'full', redirectTo: 'products/all' },
+      { path: 'products/:productType', component: ProductsComponent, data: {
+        title: 'Products',
+        description: 'Description Meta Tag Content',
+      }, resolve: [ProductsResolverService] },
+      { path: 'blog', component: BlogComponent, data: {
+        title: 'Blog',
+        description: 'Description Meta Tag Content',
+      }, resolve: [PostsResolverService, AuthorsResolverService] },
+      {
+        path: 'blog/:postIndex', component: PostComponent, data: {
+          title: '',
+          description: 'Description Meta Tag Content',
+        }, resolve: [
+          PostsResolverService, AuthorsResolverService, ProductsResolverService]
+      },
+      { path: '**', redirectTo: 'home' }
+    ],
+  },
+  { path: '**', redirectTo: 'es/home' }
+];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(appRoutes, { preloadingStrategy: PreloadAllModules, scrollPositionRestoration: 'top'}) //, enableTracing: true 
+    RouterModule.forRoot(appRoutes, { preloadingStrategy: PreloadAllModules, scrollPositionRestoration: 'top'}) //, enableTracing: true, 
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

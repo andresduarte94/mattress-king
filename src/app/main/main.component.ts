@@ -25,11 +25,11 @@ export class MainComponent implements OnInit {
     this.activatedRoute.params.subscribe( 
       (params: Params)=> {
         this.hideBanner = false;
-    })
+    });
 
     this.productsService.hideBannerEvent.subscribe((hide: boolean) => {
       this.hideBanner = hide;
-    })
+    });
   }
 
   ngAfterViewInit() {

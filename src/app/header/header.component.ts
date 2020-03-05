@@ -68,9 +68,7 @@ export class HeaderComponent implements OnInit {
           return firstChild.firstChild.params.pipe(map(params => {
             // Update language and translation words
             if (!this.languagesCodes.includes(params.language)) {
-              this.language = 'en';
-              this.isAValidLanguage = false;
-              this.location.replaceState('/en/home');
+              this.location.replaceState('/es/home');
             }
             else {
               this.language = params.language;
