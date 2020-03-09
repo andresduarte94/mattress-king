@@ -10,7 +10,7 @@ export class GlobalService {
   private translations: any = {};
   updateSubComponentLanguage = new Subject<any>();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getLanguage() {
     return this.language.slice();

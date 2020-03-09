@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { filter, map, mergeMap } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { SEOService } from './shared/seo.service';
 
@@ -21,13 +21,12 @@ export class AppComponent {
         return route;
       }),
       filter((route) => route.outlet === 'primary'),
-      mergeMap((route) => {
-        console.log(route.snapshot);
-        return route.data;
+      map((route) => {
+        return route.snapshot;
       })
      )
-     .subscribe((event) => {
-       this.seoService.updateAllMetas(event);
+     .subscribe((snapshot: any) => {
+       this.seoService.updateAllMetas(snapshot.url, snapshot.params);
        //this.seoService.updateTitle(event['title']);
        //this.seoService.updateOgUrl(event['ogUrl']);
        //Updating Description tag dynamically with title

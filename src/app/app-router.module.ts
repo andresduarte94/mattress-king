@@ -13,29 +13,17 @@ const appRoutes: Routes = [
     path: ':language',
     children: [
       {
-        path: 'home', component: MainComponent, data: {
-          title: 'Home',
-          description: 'Description Meta Tag Content',
-        }, resolve: [ProductsResolverService]
+        path: 'home', component: MainComponent, resolve: [ProductsResolverService]
       },
       { path: 'products', pathMatch: 'full', redirectTo: 'products/all' },
       {
-        path: 'products/:productType', component: ProductsComponent, data: {
-          title: 'Products',
-          description: 'Description Meta Tag Content',
-        }, resolve: [ProductsResolverService]
+        path: 'products/:productType', component: ProductsComponent, resolve: [ProductsResolverService]
       },
       {
-        path: 'blog', component: BlogComponent, data: {
-          title: 'Blog',
-          description: 'Description Meta Tag Content',
-        }, resolve: [PostsResolverService, AuthorsResolverService]
+        path: 'blog', component: BlogComponent, resolve: [PostsResolverService, AuthorsResolverService]
       },
       {
-        path: 'blog/:postIndex', component: PostComponent, data: {
-          title: '',
-          description: 'Description Meta Tag Content',
-        }, resolve: [
+        path: 'blog/:postIndex', component: PostComponent, resolve: [
           PostsResolverService, AuthorsResolverService, ProductsResolverService]
       },
       { path: '**', redirectTo: 'home' }

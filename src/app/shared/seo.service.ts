@@ -9,7 +9,21 @@ export class SEOService {
 
     constructor(private http: HttpClient, private title: Title, private meta: Meta) { }
 
-    updateAllMetas(routeObj: any) {
+    updateAllMetas(url: any, params: any) {
+        
+let language = params.language;
+let path1 = url[0].path;
+let title = this.seoData[language][path1];
+let description = 
+
+console.log(params);
+console.log(language)
+console.log(path1);
+
+if(params.length <= 1) {
+
+}
+
 
     }
 
@@ -33,9 +47,9 @@ export class SEOService {
             .pipe(
                 map(seoDataJson => {
                     let seoData = {};
-                    for (let [i, [fbId, seoDataLanguage]] of Object.entries(Object.entries(seoDataJson))) {
-                        let language = Object.keys(seoDataLanguage)[0];
-                        seoData[language] = seoData[language];
+                    for (let [i, [fbId, seoDataIdObject]] of Object.entries(Object.entries(seoDataJson))) {
+                        let language = Object.keys(seoDataIdObject)[0];
+                        seoData[language] = seoDataIdObject[language];
                     };
                     return seoData;
                 }),
