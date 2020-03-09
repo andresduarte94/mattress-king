@@ -27,6 +27,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
 import { PostContentComponent } from './blog/posts-list/post/post-content/post-content.component';
+import { SEOService } from './shared/seo.service';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,7 @@ import { PostContentComponent } from './blog/posts-list/post/post-content/post-c
     MatSelectModule
   ],
   exports: [ProductItemComponent],
-  entryComponents: [ProductItemComponent],
+  //entryComponents: [ProductItemComponent],
   bootstrap: [AppComponent],
   providers: [
     {
@@ -68,6 +69,13 @@ import { PostContentComponent } from './blog/posts-list/post/post-content/post-c
       useFactory: (globalService: GlobalService) =>
         () => globalService.fetchTranslations(),
       deps: [GlobalService],
+      multi: true
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (seoService: SEOService) =>
+        () => seoService.fetchSEO(),
+      deps: [SEOService],
       multi: true
     }
   ]

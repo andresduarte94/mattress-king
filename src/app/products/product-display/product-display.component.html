@@ -2,7 +2,7 @@
   <div class="card categories-sidebar">
     <nav class="navbar navbar-light">
       <div class="filters-header">
-        <span class="filters-title">Filters:</span>
+        <span class="filters-title">Filters</span>
         <!-- Burguer button for right-side of header -->
         <button class="navbar-toggler" type="button" (click)="toggleNavbar()" [ngClass]="{'hide-icon': innerWidth >= 761}">
           <span class="navbar-toggler-icon"></span>
@@ -12,7 +12,7 @@
       <form [formGroup]="filterForm" class="mx-2 collapse navbar-collapse" [ngClass]="{'show': navbarOpen}">
         <!-- Product type -->
         <div class="form-group mt-2">
-          <label for="productType" class="title">{{ componentWords.productTypeLabel }}:</label>
+          <label for="productType" class="title">{{ componentWords.productTypeLabel }}</label>
           <select id="productType" class="form-control type" formControlName="productType" required>
             <option class="typesOptions" *ngFor="let category of translationWords.header.categories; let i = index;"
               [value]="i">{{ category }}
@@ -22,14 +22,14 @@
         <hr>
         <!-- Price range -->
         <div class="form-group mb-4">
-          <label class="mb-2 title">{{ componentWords.priceLabel }}:</label>
+          <label class="mb-2 title">{{ componentWords.priceLabel }}</label>
           <nouislider class="mx-auto w-90 pl-2" name="priceSlider" [config]="priceSliderConfig"
             formControlName="priceSlider" [tooltips]="[ true, true ]"></nouislider>
         </div>
         <hr>
         <!-- Scores -->
         <div class="form-group">
-          <label class="title">{{ componentWords.reviewsLabel }}:</label>
+          <label class="title">{{ componentWords.reviewsLabel }}</label>
           <div class="form-check" *ngFor="let score of [1, 2, 3, 4]">
             <!-- Stars -->
             <a (click)="updateScoreFilter(score)" class="link label">
@@ -50,7 +50,7 @@
         <hr>
         <!-- Sizes -->
         <div class="form-group mb-0" formGroupName="sizes">
-          <label class="title">{{ componentWords.sizesLabel }}:</label>
+          <label class="title">{{ componentWords.sizesLabel }}</label>
           <div class="ml-3">
             <mat-checkbox [formControlName]="size" color="primary" *ngFor="let size of sizes; let i = index;">{{ size }}
             </mat-checkbox>
@@ -59,7 +59,7 @@
         <hr>
         <!-- Minimum discount -->
         <div class="form-group discount mb-0">
-          <label for="payments" class="title mb-0">{{ componentWords.discountLabel }}:</label>
+          <label for="payments" class="title mb-0">{{ componentWords.discountLabel }}</label>
           <div class="w-75 mx-auto">
             <mat-slider class="p-0" thumbLabel [displayWith]="formatLabel" color="primary" min="0" max="100"
               formControlName="mindiscount"></mat-slider>
@@ -68,7 +68,7 @@
         <hr>
         <!-- Payments -->
         <div class="form-group mb-0">
-          <label for="payments" class="title">{{ componentWords.paymentsLabel }}:</label>
+          <label for="payments" class="title">{{ componentWords.paymentsLabel }}</label>
           <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group ml-3"
             formControlName="payments">
             <mat-radio-button class="example-radio-button label" color="primary" value="4"

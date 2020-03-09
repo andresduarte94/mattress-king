@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { ProductsService } from '../products/products.service';
 import { Filter } from '../products/product-display/filter.model';
 import { FormGroup } from '@angular/forms';
@@ -8,6 +8,7 @@ import { Subscription, Observable, of } from 'rxjs';
 import { GlobalService } from '../shared/global.service';
 import { filter, map, switchMap } from 'rxjs/operators';
 import { Location, ViewportScroller } from '@angular/common';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-header',
@@ -38,7 +39,8 @@ export class HeaderComponent implements OnInit {
   routePathParam: Observable<string>;
 
   constructor(private productsService: ProductsService, private router: Router, private activatedRoute: ActivatedRoute,
-    private globalService: GlobalService, private location: Location, private viewportScroller: ViewportScroller) { }
+    private globalService: GlobalService, private location: Location, private viewportScroller: ViewportScroller,
+    @Inject(DOCUMENT) private _document: any) { }
 
   ngOnInit() {
     // Product variables set-up
@@ -127,6 +129,9 @@ export class HeaderComponent implements OnInit {
       (language) => {
         // Don't update language if route is unknown
         if (!this.isAValidLanguage) { return; }
+
+        // Update HTML language attr
+        this._document.documentElement.lang = language;
 
         // Update language and translation words
         this.language = language;

@@ -19,14 +19,18 @@ const appRoutes: Routes = [
         }, resolve: [ProductsResolverService]
       },
       { path: 'products', pathMatch: 'full', redirectTo: 'products/all' },
-      { path: 'products/:productType', component: ProductsComponent, data: {
-        title: 'Products',
-        description: 'Description Meta Tag Content',
-      }, resolve: [ProductsResolverService] },
-      { path: 'blog', component: BlogComponent, data: {
-        title: 'Blog',
-        description: 'Description Meta Tag Content',
-      }, resolve: [PostsResolverService, AuthorsResolverService] },
+      {
+        path: 'products/:productType', component: ProductsComponent, data: {
+          title: 'Products',
+          description: 'Description Meta Tag Content',
+        }, resolve: [ProductsResolverService]
+      },
+      {
+        path: 'blog', component: BlogComponent, data: {
+          title: 'Blog',
+          description: 'Description Meta Tag Content',
+        }, resolve: [PostsResolverService, AuthorsResolverService]
+      },
       {
         path: 'blog/:postIndex', component: PostComponent, data: {
           title: '',
@@ -42,7 +46,7 @@ const appRoutes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(appRoutes, { preloadingStrategy: PreloadAllModules, scrollPositionRestoration: 'top'}) //, enableTracing: true, 
+    RouterModule.forRoot(appRoutes, { preloadingStrategy: PreloadAllModules, scrollPositionRestoration: 'top' }) //, enableTracing: true, 
   ],
   exports: [RouterModule]
 })
