@@ -4,7 +4,7 @@
         <form [formGroup]="countryForm" id="greyNavForm">
             <ul class="navbar-nav">
                 <li class="nav-item active grey-item">
-                    <mat-form-field class="country-select w-50">
+                    <mat-form-field class="w-60">
                         <mat-select formControlName="languages">
                             <mat-option *ngFor="let language of languagesList, let i = index"
                                 [value]="languagesCodes[i]">{{ language }}</mat-option>
@@ -12,7 +12,7 @@
                     </mat-form-field>
                 </li>
                 <li class="nav-item grey-item">
-                    <mat-form-field class="country-select w-60">
+                    <mat-form-field class="w-60">
                         <mat-select formControlName="countries">
                             <mat-option *ngFor="let country of componentWords.countriesList, let i = index"
                                 [value]="countriesCodes[i]">{{ country }}</mat-option>
@@ -66,8 +66,7 @@
     <nav class="navbar navbar-expand-md" id="navbar-light-blue">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item mr-4" *ngFor="let category of productTypes; let i = index">
-                <h2><a class="nav-link" [routerLink]="[language, 'products', category.toLowerCase()]"
-                        [queryParams]="{gl: country}">{{ componentWords.categories[i] }}</a></h2>
+                <h2><a class="nav-link" (click)="changeProductType(category)">{{ componentWords.categories[i] }}</a></h2>
             </li>
         </ul>
     </nav>

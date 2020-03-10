@@ -36,9 +36,6 @@ export class SEOService {
                 //Mattresses, Beds, Sheets, Pillows and more
             }
         }
-
-        console.log(title);
-        console.log(description)
         this.updateTitle(title);
         this.updateDescription(description);
     }
@@ -50,11 +47,6 @@ export class SEOService {
     updateDescription(desc: string) {
         this.meta.updateTag({ name: 'description', content: desc })
     }
-
-    /*         updateOgUrl(url: string) {
-        this.meta.updateTag({ name: 'og:url', content: url })
-    }
-   */
 
     fetchSEO(): Promise<any> {
         return this.http

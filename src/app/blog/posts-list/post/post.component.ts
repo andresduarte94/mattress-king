@@ -64,7 +64,7 @@ export class PostComponent implements OnInit {
     else {
       this.nextId = ++this.postIndex;
     }
-    this.router.navigate(['../', this.nextId], { relativeTo: this.activatedRoute, queryParams: { action: (Math.floor(Math.random() * 1000) + 1) } });
+    this.router.navigate(['../', this.nextId], { relativeTo: this.activatedRoute }); //, queryParams: { action: (Math.floor(Math.random() * 1000) + 1) }s
   }
 
   // Generate post content on the fly - Commented until implementing a way of only use JIT compiler for this component

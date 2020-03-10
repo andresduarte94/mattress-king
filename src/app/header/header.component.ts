@@ -173,6 +173,10 @@ export class HeaderComponent implements OnInit {
     });
   }
 
+  changeProductType(category: string) {
+    this.router.navigate([this.language, 'products', category.toLowerCase()]);
+  }
+
   ngOnDestroy() {
     this.clearFilterSub.unsubscribe();
   }
