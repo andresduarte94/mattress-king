@@ -8,6 +8,7 @@ export class Post {
         public authorId: number,
         public imagePath: string,
         public date: number,
-        public duration: number
+        public duration: number,
+        public summary: string,
         ){}
 }

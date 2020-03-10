@@ -26,15 +26,7 @@ export class AppComponent {
       })
      )
      .subscribe((snapshot: any) => {
-       this.seoService.updateAllMetas(snapshot.url, snapshot.params);
-       //this.seoService.updateTitle(event['title']);
-       //this.seoService.updateOgUrl(event['ogUrl']);
-       //Updating Description tag dynamically with title
-       //this.seoService.updateDescription(event['description'])
+       this.seoService.updateAllMetasForRoute(snapshot.url, snapshot.params);
      }); 
   }
-
-
-
-
 }
