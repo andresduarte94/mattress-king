@@ -141,12 +141,13 @@ export class HeaderComponent implements OnInit {
         // Create url string with language and navigate to it
         let activatedRouteURL = this.activatedRoute.snapshot['_routerState'].url;
         const baseURL = activatedRouteURL.indexOf('?') > -1 ? activatedRouteURL.slice(3, activatedRouteURL.indexOf('?')) : activatedRouteURL.slice(3);
-        this.router.navigateByUrl(
+     /*    this.router.navigateByUrl(
           this.language
           + baseURL
           + '?' + 'gl=' + this.country
-        );
-        this.viewportScroller.scrollToPosition([0, 0]);
+        ); */
+        this.router.navigate([this.language, baseURL]);
+        //this.viewportScroller.scrollToPosition([0, 0]);
       });
 
     //Updating products on search input change
