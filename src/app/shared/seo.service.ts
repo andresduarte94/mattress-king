@@ -1,17 +1,22 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { map, tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { BlogService } from '../blog/blog.service';
+import { DOCUMENT } from '@angular/common';
 
 @Injectable({ providedIn: 'root' })
 export class SEOService {
     seoData: any;
 
-    constructor(private http: HttpClient, private title: Title, private meta: Meta, private blogService: BlogService) { }
+    constructor(private http: HttpClient, private title: Title, private meta: Meta, private blogService: BlogService,
+        @Inject(DOCUMENT) private _document: any) { }
 
     updateAllMetasForRoute(url: any, params: any) {
+        // Update HTML language attr
         let language = params.language;
+        this._document.documentElement.lang = language;
+
         let path1 = url[0].path;
         let title = this.seoData[language][path1].title;
         let description = this.seoData[language][path1].description;
@@ -63,7 +68,6 @@ export class SEOService {
                 }),
                 tap(seoData => {
                     this.seoData = seoData;
-                    console.log(seoData)
                 })
             ).toPromise();
     }

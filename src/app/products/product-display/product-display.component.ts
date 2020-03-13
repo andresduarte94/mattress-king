@@ -63,7 +63,6 @@ export class ProductDisplayComponent implements OnInit {
     //Params subscription for setting language and productType filter
     this.activatedRoute.params.subscribe(
       (params: Params) => {
-        console.log(params)
         // Update language and translation words
         this.language = params.language;
         this.translationWords = this.globalService.getTranslationLanguage();
