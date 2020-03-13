@@ -17,11 +17,10 @@ export class SEOService {
         let language = params.language;
         this._document.documentElement.lang = language;
 
+        // SEO variables and path
         let path1 = url[0].path;
         let title = this.seoData[language][path1].title;
         let description = this.seoData[language][path1].description;
-        console.log(path1);
-        console.log(language);
 
         if (Object.keys(params).length > 1) {
             if (path1 == 'products') {
