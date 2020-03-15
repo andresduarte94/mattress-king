@@ -7,8 +7,7 @@ import { FormControl } from '@angular/forms';
 import { Subscription, Observable, of } from 'rxjs';
 import { GlobalService } from '../shared/global.service';
 import { filter, map, switchMap } from 'rxjs/operators';
-import { Location, ViewportScroller } from '@angular/common';
-import { DOCUMENT } from '@angular/common';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-header',
@@ -37,9 +36,10 @@ export class HeaderComponent implements OnInit {
   //Routing variables
   navigationEnd: Observable<NavigationEnd>;
   routePathParam: Observable<string>;
+  routePathSubscription: Subscription;
 
   constructor(private productsService: ProductsService, private router: Router, private activatedRoute: ActivatedRoute,
-    private globalService: GlobalService, private location: Location, private viewportScroller: ViewportScroller) { }
+    private globalService: GlobalService, private location: Location) { }
 
   ngOnInit() {
     // Product variables set-up
@@ -88,7 +88,7 @@ export class HeaderComponent implements OnInit {
     );
 
     // Update language select based on route
-    this.routePathParam.subscribe(() => {
+    this.routePathSubscription = this.routePathParam.subscribe(() => {
       // Update language when routing ends
       //this.countryForm.controls['languages'].setValue(this.language);
     });
@@ -120,7 +120,6 @@ export class HeaderComponent implements OnInit {
           + baseURL
           + '?' + 'gl=' + this.country
         );
-        this.viewportScroller.scrollToPosition([0,0]);
       });
 
     //Navigating with language parameter change
@@ -134,29 +133,13 @@ export class HeaderComponent implements OnInit {
         this.globalService.setLanguage(language);
         this.translationWords = this.globalService.getTranslationLanguage();
         this.componentWords = this.translationWords['header'];
-/* 
-        if() {
-
-        } */
         let activatedRouteURL = this.activatedRoute.snapshot['_routerState'].url;
         const baseURL = activatedRouteURL.indexOf('?') > -1 ? activatedRouteURL.slice(3, activatedRouteURL.indexOf('?')) : activatedRouteURL.slice(3);
-
-        console.log(baseURL)
-
-        // Create url string with language and navigate to it
-        
         this.router.navigateByUrl(
           this.language
           + baseURL
           + '?' + 'gl=' + this.country
         );
-        //this.router.navigate([this.language, baseURL.slice(1)], {queryParams: {gl: this.country}});
-
-
-        //this.viewportScroller.scrollToPosition([0, 0]);
-
-
-
       });
 
     //Updating products on search input change

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation, HostListener } from '@angular/core';
 import { ProductsService } from '../products.service';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router, NavigationEnd } from '@angular/router';
 import { Filter } from './filter.model';
 import { Product } from '../product.model';
 import { FormGroup, FormControl, NgForm } from '@angular/forms';
@@ -63,6 +63,7 @@ export class ProductDisplayComponent implements OnInit {
     //Params subscription for setting language and productType filter
     this.activatedRoute.params.subscribe(
       (params: Params) => {
+        //this.viewportScroller.scrollToPosition([0, 0]);
         // Update language and translation words
         this.language = params.language;
         this.translationWords = this.globalService.getTranslationLanguage();
@@ -270,11 +271,14 @@ export class ProductDisplayComponent implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
+    if (this.innerWidth == window.innerWidth) {
+      return;
+    }
     this.innerWidth = window.innerWidth;
     this.navbarOpen = this.innerWidth >= 761 ? true : false;
   }
 
   ngOnDestroy() {
-    this.filterUpdateSub.unsubscribe();
+    if (this.filterUpdateSub) this.filterUpdateSub.unsubscribe();
   }
 }
