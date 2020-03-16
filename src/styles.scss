@@ -11,18 +11,16 @@ $grid-breakpoints: (
     xxl: 2200px
 );
 
-
 @import '../node_modules/bootstrap/scss/bootstrap';
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
 
-
-body {
-    background-color: #F2F5F7 !important;
-}
-
-html,body{
+html, body {
+    height: auto;
     overflow-x: hidden;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { 
+    background-color: #F2F5F7 !important;
+    margin: 0; 
+    font-family: Roboto, "Helvetica Neue", sans-serif; 
+}

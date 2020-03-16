@@ -36,3 +36,10 @@ a, p, address {
 a {
     font-size: 0.9em;
 }
+
+.krowded {
+    font-weight: 700;
+    font-size: 1.05em;
+    color: #007bff;
+    cursor: pointer;
+}

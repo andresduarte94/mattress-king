@@ -25,8 +25,8 @@
 }
 
 .logo-image {
-    width: 160px; 
-    height: 80px;
+    width: 180px; 
+    height: 90px;
     margin: 0 !important;
 }
 
@@ -81,6 +81,12 @@ h2 {
 @media screen and (max-width: 420px) {
     .grey-item {
         max-width: 130px;
+    }
+}
+
+@media screen and (min-width: 420px){
+    .grey-item {
+        max-width: 250px;
     }
 }
 

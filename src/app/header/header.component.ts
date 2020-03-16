@@ -145,15 +145,14 @@ export class HeaderComponent implements OnInit {
     //Updating products on search input change
     this.searchForm.controls['search'].valueChanges.subscribe(
       (search) => {
-        let activatedRouteURL = this.activatedRoute.snapshot['_routerState'].url;
-        this.filter.description = search;
-        this.filter.name = search;
         //If search is in Home route then hide banner
+        const activatedRouteURL = this.activatedRoute.snapshot['_routerState'].url;
         if (search != '' && activatedRouteURL.indexOf('home') > -1) {
           this.productsService.hideBannerEvent.next(true);
         }
-        //Update name and description wfilter 
-        this.productsService.filterUpdateEvent.next(this.filter);
+
+        //Update name and description filter
+        this.onSearchSubmit();
       });
   }
 
@@ -166,8 +165,25 @@ export class HeaderComponent implements OnInit {
     });
   }
 
+  onSearchSubmit() {
+    //Update name and description filter
+    const search = this.searchForm.controls['search'].value;
+    this.filter.description = search;
+    this.filter.name = search;
+    this.productsService.filterUpdateEvent.next(this.filter);
+    // Route to products if activatedRoute is currently not products
+    const activatedRouteURL = this.activatedRoute.snapshot['_routerState'].url;
+    if (search != '' && activatedRouteURL.indexOf('products') == -1) {
+      this.router.navigate([this.language, 'products/all'], {
+        queryParams: {
+          gl: this.country
+        }
+      });
+    }
+  }
+
   changeProductType(category: string) {
-    this.router.navigate([this.language, 'products', category.toLowerCase()], {queryParams: {gl: this.country}});
+    this.router.navigate([this.language, 'products', category.toLowerCase()], { queryParams: { gl: this.country } });
   }
 
   ngOnDestroy() {

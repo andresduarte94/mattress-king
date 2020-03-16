@@ -30,7 +30,7 @@
     <nav class="navbar navbar-expand-md navbar-dark p-0" id="navbar-blue">
         <!-- Logo -->
         <a class="navbar-brand ml-4" (click)="routeHome()">
-            <img class="mb-2 logo-image" src="assets/images/logo-04.jpg">
+            <img class="mb-2 logo-image" src="assets/images/logo-04-02.png">
         </a>
         <!-- Burguer button for right-side of header -->
         <button class="navbar-toggler mr-4" type="button" (click)="toggleNavbar()" id="burger-icon">
@@ -41,7 +41,7 @@
             <form class="search-form" [formGroup]="searchForm">
                 <input class="form-control search-input" type="search" [placeholder]="componentWords.search"
                     aria-label="Search" name="search" formControlName="search">
-                <button class="btn ml-2" type="submit" id="searchBtn">{{ componentWords.search }}</button>
+                <button class="btn ml-2" type="submit" id="searchBtn" (click) = "onSearchSubmit()">{{ componentWords.search }}</button>
             </form>
         </div>
         <!-- Search bar with button end -->
