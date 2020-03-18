@@ -3,7 +3,6 @@ import { Subject } from 'rxjs';
 
 import { Product } from './product.model';
 import { Filter } from './product-display/filter.model';
-import { GlobalService } from '../shared/global.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +14,7 @@ export class ProductsService {
   private products: Product[] = [];
   readonly productTypes: string[] = ['all', 'mattresses', 'beds', 'sheets', 'pillows', 'accessories'];
 
-  constructor(private globalService: GlobalService) { }
+  constructor() { }
 
   getProducts(filter?: Filter) {
     let products = this.products.slice();

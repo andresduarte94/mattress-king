@@ -3,8 +3,14 @@
 }
 
 .hr-footer {
-    border: 1px solid #6351ce;  /* #79cedc*/
+    border: 1px solid #6351ce; 
     width: 7em;
+}
+
+.hr-footer-design {
+    border: 1px solid #6351ce; 
+    width: 20em;
+    margin-top: 10%;
 }
 
 .social-footer {
@@ -43,3 +49,4 @@ a {
     color: #007bff;
     cursor: pointer;
 }
+

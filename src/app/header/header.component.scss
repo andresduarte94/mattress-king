@@ -25,9 +25,10 @@
 }
 
 .logo-image {
-    width: 180px; 
-    height: 90px;
-    margin: 0 !important;
+    width: 160px; 
+    height: 80px;
+    display: block;
+    margin: auto;
 }
 
 #shoppingCart {
@@ -36,11 +37,16 @@
 
 .search-div {
     display: inline;
+    width: 90%;
+}
+
+.navbar-brand {
+    width: 20%;
 }
 
 .search-form {
     min-width: 287px;
-    width: 90%;
+    width: 100%;
     margin: 2% auto;
     text-align: center;
 }

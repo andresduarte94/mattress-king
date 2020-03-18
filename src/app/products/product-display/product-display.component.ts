@@ -59,27 +59,34 @@ export class ProductDisplayComponent implements OnInit {
     if (this.innerWidth >= 761) {
       this.navbarOpen = true;
     }
+    //Create, initialize and set subscriptions for filter form
+    this.createReactiveFilterForm();
 
     //Params subscription for setting language and productType filter
     this.activatedRoute.params.subscribe(
       (params: Params) => {
-        //this.viewportScroller.scrollToPosition([0, 0]);
         // Update language and translation words
         this.language = params.language;
         this.translationWords = this.globalService.getTranslationLanguage();
         this.componentWords = this.translationWords['product-display'];
         this.globalService.updateSubComponentLanguage.next(this.translationWords);
 
-        //Update products based on new filter from URL or persist previous filter if 'filter' value
+        let currentPoductTypeId;
+        console.log(params)
+        console.log(this.filter)
+
+        //Update products based on new productType from URL
         if (!params.hasOwnProperty('productType') || params.productType == 'all') {
+          currentPoductTypeId = 0;
           this.filter = {};
         }
-        else if (params.productType == 'filter') {
-          return;
-        }
         else {
-          this.filter = { type: this.productsService.getProductTypeId(params.productType), country: this.country };
+          currentPoductTypeId = this.productsService.getProductTypeId(params.productType);
+          this.filter = { type: currentPoductTypeId, country: this.country };
         }
+        this.filterForm.controls['productType'].setValue(currentPoductTypeId);
+
+        console.log(this.filter)
         this.updateProducts(this.filter);
         //Throw clear filter search bar event
         this.productsService.clearFilterEvent.next();
@@ -106,8 +113,7 @@ export class ProductDisplayComponent implements OnInit {
       }
     );
 
-    //Create, initialize and set subscriptions for filter form
-    this.createReactiveFilterForm();
+
   }
 
   createReactiveFilterForm() {
