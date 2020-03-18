@@ -31,10 +31,6 @@
     margin: auto;
 }
 
-#shoppingCart {
-    color: darkgray;
-}
-
 .search-div {
     display: inline;
     width: 90%;
@@ -42,6 +38,7 @@
 
 .navbar-brand {
     width: 20%;
+    cursor: pointer;
 }
 
 .search-form {
@@ -74,6 +71,7 @@ h2 {
     font-size: 1.15em;
     margin-bottom: 0;
 }
+
 #navbar-light-blue {
     background-color: #79cedc;
     padding-left: 8%;
@@ -82,8 +80,11 @@ h2 {
 #navbar-light-blue a {
     color: black !important;
     font-weight: 600;
+    cursor: pointer;
 }
 
+
+/* RESPONSIVE */
 @media screen and (max-width: 420px) {
     .grey-item {
         max-width: 130px;

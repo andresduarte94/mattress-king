@@ -32,10 +32,10 @@
                 <div class="card-text" [innerHtml]="currentPost.content | shorten:180">
                 </div>
                 <!-- Colored raised button -->
-                <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"
-                    [routerLink]="[currentPost.id]">
+                <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"
+                    type="button" target="_blank" [routerLink]="[currentPost.id]">
                     {{ componentWords.readMore }}&nbsp;&nbsp;>
-                </button>
+                </a>
             </div>
         </div>
     </div>

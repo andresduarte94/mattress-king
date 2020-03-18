@@ -42,6 +42,10 @@ ol.carousel-indicators li.active {
   background: #6351ce;
 }
 
+a.mdl-button {
+  text-decoration: none;
+}
+
 @media screen and (max-width: 870px) {
     [class*="contain"] {
         margin-right: auto;

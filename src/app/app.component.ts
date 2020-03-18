@@ -11,7 +11,7 @@ import { ViewportScroller } from '@angular/common';
 })
 export class AppComponent {
 
-  constructor(private activatedRoute: ActivatedRoute, private router: Router, private seoService: SEOService, private viewportScroller: ViewportScroller) { }
+  constructor(private activatedRoute: ActivatedRoute, private router: Router, private seoService: SEOService) { }
 
   ngOnInit() {
     this.router.events.pipe(
@@ -30,8 +30,6 @@ export class AppComponent {
     )
       .subscribe((snapshot: any) => {
         this.seoService.updateAllMetasForRoute(snapshot.url, snapshot.params);
-        // scroll to top
-        //this.viewportScroller.scrollToPosition([0, 0]);
       });
   }
 }

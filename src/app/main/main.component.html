@@ -9,7 +9,7 @@
                 </ol>
                 <div class="carousel-inner">
                     <div class="carousel-item" *ngFor="let postId of [1, 2, 3]" [ngClass]="{active: postId == 1}">
-                        <a [routerLink]="['..', 'blog', (postId-1)]">
+                        <a [routerLink]="['..', 'blog', (postId-1)]" target="_blank">
                             <img class="d-block w-100 banner-img" [src]="'assets/posts/post-' + (postId) + '.jpg'"
                                 [alt]="'Slide number ' + postId">
                         </a>

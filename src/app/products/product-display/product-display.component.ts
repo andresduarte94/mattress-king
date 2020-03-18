@@ -7,6 +7,8 @@ import { FormGroup, FormControl, NgForm } from '@angular/forms';
 import { NouisliderComponent } from '../../../../node_modules/ng2-nouislider/ng2-nouislider.component';
 import { Subscription } from 'rxjs';
 import { GlobalService } from 'src/app/shared/global.service';
+import { Location } from '@angular/common';
+
 
 declare var componentHandler: any;
 
@@ -43,7 +45,8 @@ export class ProductDisplayComponent implements OnInit {
   navbarOpen = false;
   public innerWidth: any;
 
-  constructor(private globalService: GlobalService, private activatedRoute: ActivatedRoute, private productsService: ProductsService) { }
+  constructor(private globalService: GlobalService, private activatedRoute: ActivatedRoute, private productsService: ProductsService, 
+    private location: Location) { }
 
   ngOnInit() {
     //Global variables initialization
@@ -72,24 +75,23 @@ export class ProductDisplayComponent implements OnInit {
         this.globalService.updateSubComponentLanguage.next(this.translationWords);
 
         let currentPoductTypeId;
+        this.filter = this.filter ? this.filter : {};
+        this.filter.country = this.country;
+
         console.log(params)
         console.log(this.filter)
 
         //Update products based on new productType from URL
-        if (!params.hasOwnProperty('productType') || params.productType == 'all') {
-          currentPoductTypeId = 0;
-          this.filter = {};
-        }
-        else {
+        if ( params.hasOwnProperty('productType') ) {
           currentPoductTypeId = this.productsService.getProductTypeId(params.productType);
-          this.filter = { type: currentPoductTypeId, country: this.country };
+          this.filter.type = currentPoductTypeId;
+          this.filterForm.controls['productType'].setValue(currentPoductTypeId);
         }
-        this.filterForm.controls['productType'].setValue(currentPoductTypeId);
 
         console.log(this.filter)
         this.updateProducts(this.filter);
         //Throw clear filter search bar event
-        this.productsService.clearFilterEvent.next();
+        //this.productsService.clearFilterEvent.next();
       }
     );
 
@@ -132,8 +134,12 @@ export class ProductDisplayComponent implements OnInit {
     //Reactive filter form changes subscriptions
     //Product type filter
     this.filterForm.controls['productType'].valueChanges.subscribe(
-      (productType) => {
-        this.filter.type = productType;
+      (productTypeId) => {
+        this.filter.type = productTypeId;
+        this.location.replaceState(this.language + '/products/' + this.productTypes[productTypeId], 'gl=' + this.country);
+        console.log('valuchange: ')
+        console.log(this.filter)
+
         this.updateProducts(this.filter);
       }
     );
