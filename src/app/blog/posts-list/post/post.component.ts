@@ -49,19 +49,16 @@ export class PostComponent implements OnInit {
         //Update post information
         this.postIndex = +params.postIndex;
         this.post = this.blogService.getPostById(this.postIndex);
-        if (typeof this.post === 'undefined') {
-          this.post = this.blogService.getPostById(0);
-        }
         this.author = this.blogService.getAuthorById(this.post.authorId);
         this.postFormattedDate = new Date(this.post.date * 1000).toLocaleString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
-        const prettyURLTitle = this.seoService.getPrettyURLTitle();
+        let prettyURLTitle = this.seoService.getPrettyURLTitle(this.post.title);
         this.location.replaceState(this.language + '/blog/' + prettyURLTitle);
       }
     );
   }
 
   nextArticle() {
-    var post = this.blogService.getPostById(this.postIndex + 1);
+    const post = this.blogService.getPostById(this.postIndex + 1);
     if (typeof post === 'undefined') {
       this.nextId = 0;
     }

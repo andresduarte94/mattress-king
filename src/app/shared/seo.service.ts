@@ -8,7 +8,6 @@ import { DOCUMENT } from '@angular/common';
 @Injectable({ providedIn: 'root' })
 export class SEOService {
     seoData: any;
-    pageTitle: string;
 
     constructor(private http: HttpClient, private title: Title, private meta: Meta, private blogService: BlogService,
         @Inject(DOCUMENT) private _document: any) { }
@@ -21,31 +20,31 @@ export class SEOService {
         // SEO variables and path
         let path1 = url[0].path;
         let description = this.seoData[language][path1].description;
-        this.pageTitle = this.seoData[language][path1].title;
+        let pageTitle = this.seoData[language][path1].title;
 
         if (Object.keys(params).length > 1) {
             if (path1 == 'products') {
                 let productType = this.seoData[language][path1][params.productType];
                 productType = productType.replace(/\b\w/, v => v.toUpperCase());
-                this.pageTitle = this.pageTitle.replace('{{ productType }}', productType);
+                pageTitle = pageTitle.replace('{{ productType }}', productType);
                 description = description.replace('{{ productType }}', productType);
             }
             else if (path1 == 'blog') {
                 const post = this.blogService.getPostById(params.postIndex);
-                this.pageTitle = this.seoData[language].post.title;
+                pageTitle = this.seoData[language].post.title;
                 description = this.seoData[language].post.description;
-                this.pageTitle = this.pageTitle.replace('{{ title }}', post.title);
+                pageTitle = pageTitle.replace('{{ title }}', post.title);
                 description = description.replace('{{ author }}', this.blogService.getAuthorById(post.authorId).name);
                 description = description.replace('{{ date }}', new Date(post.date * 1000).toLocaleString(undefined, { year: 'numeric', month: 'long', day: 'numeric' }));
                 description = description.replace('{{ summary }}', post.summary);
             }
         }
-        this.updateTitle(this.pageTitle);
+        this.updateTitle(pageTitle);
         this.updateDescription(description);
     }
 
-    getPrettyURLTitle() {
-        const prettyURLTitle = this.pageTitle.replace(/ /g, '-');
+    getPrettyURLTitle(pageURLTitle: string) {
+        const prettyURLTitle = pageURLTitle.replace(/ /g, '-').normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[¿?]/g, '').toLowerCase();
         return prettyURLTitle;
     }
 

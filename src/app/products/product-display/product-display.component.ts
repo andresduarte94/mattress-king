@@ -78,9 +78,6 @@ export class ProductDisplayComponent implements OnInit {
         this.filter = this.filter ? this.filter : {};
         this.filter.country = this.country;
 
-        console.log(params)
-        console.log(this.filter)
-
         //Update products based on new productType from URL
         if ( params.hasOwnProperty('productType') ) {
           currentPoductTypeId = this.productsService.getProductTypeId(params.productType);
@@ -88,7 +85,6 @@ export class ProductDisplayComponent implements OnInit {
           this.filterForm.controls['productType'].setValue(currentPoductTypeId);
         }
 
-        console.log(this.filter)
         this.updateProducts(this.filter);
       }
     );
