@@ -90,8 +90,6 @@ export class ProductDisplayComponent implements OnInit {
 
         console.log(this.filter)
         this.updateProducts(this.filter);
-        //Throw clear filter search bar event
-        //this.productsService.clearFilterEvent.next();
       }
     );
 
@@ -114,8 +112,6 @@ export class ProductDisplayComponent implements OnInit {
         }
       }
     );
-
-
   }
 
   createReactiveFilterForm() {
@@ -135,7 +131,7 @@ export class ProductDisplayComponent implements OnInit {
     //Product type filter
     this.filterForm.controls['productType'].valueChanges.subscribe(
       (productTypeId) => {
-        this.filter.type = productTypeId;
+        this.filter.type = +productTypeId;
         this.location.replaceState(this.language + '/products/' + this.productTypes[productTypeId], 'gl=' + this.country);
         console.log('valuchange: ')
         console.log(this.filter)

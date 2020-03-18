@@ -29,9 +29,10 @@
         <div class="card col-lg-3 col-10 p-0">
             <div class="card-body">
                 <h1>{{ currentPost.title }}</h1>
-                <div class="card-text" [innerHtml]="currentPost.content | shorten:180">
+                <div class="card-text" [innerHtml]="currentPost.summary">
                 </div>
-                <!-- Colored raised button -->
+                <br>
+                <!-- Read More button -->
                 <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"
                     type="button" target="_blank" [routerLink]="[currentPost.id]">
                     {{ componentWords.readMore }}&nbsp;&nbsp;>

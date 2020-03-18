@@ -50,11 +50,6 @@ export class HeaderComponent implements OnInit {
     this.translationWords = this.globalService.getTranslationLanguage();
     this.componentWords = this.translationWords['header'];
 
-    //Clear search bar on clearFilterEvent
-    this.clearFilterSub = this.productsService.clearFilterEvent.subscribe(() => {
-      this.searchForm.controls['search'].setValue('');
-    });
-
     // Get params from route when navigation ends
     this.navigationEnd = this.router.events.pipe(
       filter(event => event instanceof NavigationEnd),
@@ -69,7 +64,7 @@ export class HeaderComponent implements OnInit {
           return firstChild.firstChild.params.pipe(map(params => {
             // Update language and translation words
             if (!this.languagesCodes.includes(params.language)) {
-              this.location.replaceState('/es/home');
+              this.location.replaceState('/' + this.language + '/home');
             }
             else {
               this.language = params.language;
@@ -156,9 +151,19 @@ export class HeaderComponent implements OnInit {
       });
   }
 
-  routeHome() {
+  routeToHome() {
     this.productsService.hideBannerEvent.next(false);
+    this.searchForm.controls['search'].setValue('');
     this.router.navigate([this.language, 'home'], {
+      queryParams: {
+        gl: this.country
+      }
+    });
+  }
+
+  routeToBlog() {
+    this.searchForm.controls['search'].setValue('');
+    this.router.navigate([this.language, 'blog'], {
       queryParams: {
         gl: this.country
       }

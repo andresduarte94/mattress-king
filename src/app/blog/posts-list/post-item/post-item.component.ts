@@ -9,12 +9,10 @@ import { Post } from '../../post.model';
 export class PostItemComponent implements OnInit {
   @Input() post: Post;
   @Input() postIndex: number;
-  postDescription: string;
 
   constructor() { }
 
   ngOnInit() {
-    this.postDescription = this.post.content.slice(0, 120) + '...';
   }
 
 }

@@ -29,7 +29,7 @@
 <header>
     <nav class="navbar navbar-expand-md navbar-dark p-0" id="navbar-blue">
         <!-- Logo -->
-        <a class="navbar-brand ml-4" (click)="routeHome()">
+        <a class="navbar-brand ml-4" (click)="routeToHome()">
             <img class="mb-2 logo-image" src="assets/images/logo-04-02.png">
         </a>
         <!-- Burguer button for right-side of header -->
@@ -49,11 +49,10 @@
             <ul class="navbar-nav mb-2 ml-3 ml-md-0">
                 <!-- Blog and Contact -->
                 <li class="nav-item lower mr-2 ">
-                    <a class="nav-link text-info font-weight-bold blog" [routerLink]="[language, 'blog']"
-                        [queryParams]="{gl: country}">{{ componentWords.blog }}</a>
+                    <a class="nav-link text-info font-weight-bold blog" (click)="routeToBlog()">{{ componentWords.blog }}</a>
                 </li>
                 <li class="nav-item lower">
-                    <a class="nav-link text-info font-weight-bold blog" href="#">{{ componentWords.contact }}</a>
+                    <a class="nav-link text-info font-weight-bold blog" (click)="routeToHome()">{{ componentWords.contact }}</a>
                 </li>
             </ul>
         </div>
