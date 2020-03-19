@@ -5,7 +5,6 @@ import { BlogService } from '../../blog.service';
 import { Author } from '../../author.model';
 import { GlobalService } from 'src/app/shared/global.service';
 import { Location } from '@angular/common';
-import { SEOService } from 'src/app/shared/seo.service';
 
 @Component({
   selector: 'app-post',
@@ -27,7 +26,7 @@ export class PostComponent implements OnInit {
   postFormattedDate: string;
   @ViewChild('contentContainer', { static: false, read: ViewContainerRef }) contentContainer: ViewContainerRef;
 
-  constructor(private globalService: GlobalService, private seoService: SEOService, private activatedRoute: ActivatedRoute, private blogService: BlogService, 
+  constructor(private globalService: GlobalService, private activatedRoute: ActivatedRoute, private blogService: BlogService, 
     private router: Router, private location: Location /*private productsService: ProductsService, private cdr: ChangeDetectorRef,
     private componentFactoryResolver: ComponentFactoryResolver, private _compiler: Compiler*/
   ) { }
@@ -47,11 +46,16 @@ export class PostComponent implements OnInit {
         this.componentWords = this.translationWords['post'];
 
         //Update post information
-        this.postIndex = +params.postIndex;
+        let postParam = params.postIndex;
+
+        if(isNaN(postParam)){
+          postParam = this.blogService.getPostIndexByTitle(postParam);
+        }
+        this.postIndex = +postParam;
         this.post = this.blogService.getPostById(this.postIndex);
         this.author = this.blogService.getAuthorById(this.post.authorId);
         this.postFormattedDate = new Date(this.post.date * 1000).toLocaleString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
-        let prettyURLTitle = this.seoService.getPrettyURLTitle(this.post.title);
+        let prettyURLTitle = this.blogService.getURLTitleById(this.postIndex);
         this.location.replaceState(this.language + '/blog/' + prettyURLTitle);
       }
     );

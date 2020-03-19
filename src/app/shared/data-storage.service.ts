@@ -54,7 +54,7 @@ export class DataStorageService {
         map(postsJson => {
           let posts = [];
           for (let [i, [fbId, post]] of Object.entries(Object.entries(postsJson))) {
-            post.id = i;
+            post.id = +i;
             posts[i] = post;
           };
           return posts;

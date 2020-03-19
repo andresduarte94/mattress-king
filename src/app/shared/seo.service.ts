@@ -8,6 +8,7 @@ import { DOCUMENT } from '@angular/common';
 @Injectable({ providedIn: 'root' })
 export class SEOService {
     seoData: any;
+    postURLTitlesArray: string[];
 
     constructor(private http: HttpClient, private title: Title, private meta: Meta, private blogService: BlogService,
         @Inject(DOCUMENT) private _document: any) { }
@@ -41,11 +42,6 @@ export class SEOService {
         }
         this.updateTitle(pageTitle);
         this.updateDescription(description);
-    }
-
-    getPrettyURLTitle(pageURLTitle: string) {
-        const prettyURLTitle = pageURLTitle.replace(/ /g, '-').normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[¿?]/g, '').toLowerCase();
-        return prettyURLTitle;
     }
 
     updateTitle(pageTitle: string) {
