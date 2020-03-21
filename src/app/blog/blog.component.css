@@ -1,3 +1,7 @@
+a {
+  text-decoration: none;
+}
+
 .contain {
   margin-right: 7%;
   margin-left: 7%;
@@ -45,8 +49,8 @@ ol.carousel-indicators li.active {
   background: #6351ce;
 }
 
-a.mdl-button {
-  text-decoration: none;
+.post-title {
+  color: #0F2043;
 }
 
 @media screen and (max-width: 870px) {

@@ -33,15 +33,6 @@
                 <p *ngFor="let category of translationWords.header.categories.slice(1); let i = index;">
                     <a [routerLink]="[language, 'products', productTypes[i+1]]">{{ category }}</a>
                 </p>
-                <!-- <p>
-                    <a routerLink="products/beds">Beds</a>
-                </p>
-                <p>
-                    <a routerLink="products/sheets">Sheets</a>
-                </p>
-                <p>
-                    <a routerLink="products/pillows">Pillows</a>
-                </p> -->
 
             </div>
             <!-- Grid column -->

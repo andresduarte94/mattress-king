@@ -15,28 +15,35 @@ import { Location } from '@angular/common';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  countries = new FormControl();
-  languages = new FormControl();
+  // Global variables
   countriesList: string[] = ['All countries', 'Amazon US', 'Amazon Spain'];
   countriesCodes: string[] = ['all', 'us', 'es'];
   languagesList: string[] = ['English', 'Español'];
   languagesCodes: string[] = ['en', 'es'];
-  productTypes: string[];
-  filter: Filter = {};
-  searchForm: FormGroup;
-  countryForm: FormGroup;
-  clearFilterSub: Subscription;
   country: string;
   language: string;
   translationWords: any;
   componentWords: any;
   isAValidLanguage: boolean;
+
+  // Form variables
+  countries = new FormControl();
+  languages = new FormControl();
+  productTypes: string[];
+  filter: Filter = {};
+  searchForm: FormGroup;
+  countryForm: FormGroup;
+
+  // UI variables
   navbarOpen = false;
 
-  //Routing variables
+  // Routing variables
   navigationEnd: Observable<NavigationEnd>;
   routePathParam: Observable<string>;
   routePathSubscription: Subscription;
+
+  // Subscriptions
+  clearFilterSub: Subscription;
 
   constructor(private productsService: ProductsService, private router: Router, private activatedRoute: ActivatedRoute,
     private globalService: GlobalService, private location: Location) { }
@@ -70,9 +77,11 @@ export class HeaderComponent implements OnInit {
               this.language = params.language;
               this.isAValidLanguage = true;
             }
+            // Update global variables
             this.globalService.setLanguage(this.language);
             this.translationWords = this.globalService.getTranslationLanguage();
             this.componentWords = this.translationWords['header'];
+
             return params;
           }));
         }
@@ -151,25 +160,6 @@ export class HeaderComponent implements OnInit {
       });
   }
 
-  routeToHome() {
-    this.productsService.hideBannerEvent.next(false);
-    this.searchForm.controls['search'].setValue('');
-    this.router.navigate([this.language, 'home'], {
-      queryParams: {
-        gl: this.country
-      }
-    });
-  }
-
-  routeToBlog() {
-    this.searchForm.controls['search'].setValue('');
-    this.router.navigate([this.language, 'blog'], {
-      queryParams: {
-        gl: this.country
-      }
-    });
-  }
-
   onSearchSubmit() {
     //Update name and description filter
     const search = this.searchForm.controls['search'].value;
@@ -191,11 +181,11 @@ export class HeaderComponent implements OnInit {
     this.router.navigate([this.language, 'products', category.toLowerCase()], { queryParams: { gl: this.country } });
   }
 
-  ngOnDestroy() {
-    this.clearFilterSub.unsubscribe();
-  }
-
   toggleNavbar() {
     this.navbarOpen = !this.navbarOpen;
+  }
+
+  ngOnDestroy() {
+    this.clearFilterSub.unsubscribe();
   }
 }

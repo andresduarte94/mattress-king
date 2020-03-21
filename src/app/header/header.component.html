@@ -29,7 +29,7 @@
 <header>
     <nav class="navbar navbar-expand-md navbar-dark p-0" id="navbar-blue">
         <!-- Logo -->
-        <a class="navbar-brand ml-4" (click)="routeToHome()">
+        <a class="navbar-brand ml-4" [routerLink]="[language, 'home']" [queryParams]="{gl: country}">
             <img class="mb-2 logo-image" src="assets/images/logo-04-02.png">
         </a>
         <!-- Burguer button for right-side of header -->
@@ -41,18 +41,18 @@
             <form class="search-form" [formGroup]="searchForm">
                 <input class="form-control search-input" type="search" [placeholder]="componentWords.search"
                     aria-label="Search" name="search" formControlName="search">
-                <button class="btn ml-2" type="submit" id="searchBtn" (click) = "onSearchSubmit()">{{ componentWords.search }}</button>
+                <button class="btn ml-2" type="submit" id="searchBtn" (click)="onSearchSubmit()">{{ componentWords.search }}</button>
             </form>
         </div>
         <!-- Search bar with button end -->
         <div class="collapse navbar-collapse p-0 mt-1 mr-5" id="navbar-blue-drop" [ngClass]="{'show': navbarOpen}">
             <ul class="navbar-nav mb-2 ml-3 ml-md-0">
                 <!-- Blog and Contact -->
-                <li class="nav-item lower mr-2 ">
-                    <a class="nav-link text-info font-weight-bold blog" (click)="routeToBlog()">{{ componentWords.blog }}</a>
-                </li>
                 <li class="nav-item lower">
-                    <a class="nav-link text-info font-weight-bold blog" (click)="routeToHome()">{{ componentWords.contact }}</a>
+                    <a class="nav-link text-info font-weight-bold blog" [routerLink]="[language, 'home']" [queryParams]="{gl: country}">{{ componentWords.contact }}</a>
+                </li>
+                <li class="nav-item lower mr-2 ">
+                    <a class="nav-link text-info font-weight-bold blog" [routerLink]="[language, 'blog']" [queryParams]="{gl: country}">{{ componentWords.blog }}</a>
                 </li>
             </ul>
         </div>
@@ -65,7 +65,9 @@
     <nav class="navbar navbar-expand-md" id="navbar-light-blue">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item mr-4" *ngFor="let category of productTypes; let i = index">
-                <h2><a class="nav-link" (click)="changeProductType(category)">{{ componentWords.categories[i] }}</a></h2>
+                <a class="nav-link" (click)="changeProductType(category)">
+                    <h2>{{ componentWords.categories[i] }}</h2>
+                </a>
             </li>
         </ul>
     </nav>

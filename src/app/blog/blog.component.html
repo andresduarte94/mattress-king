@@ -28,7 +28,9 @@
         </div>
         <div class="card col-lg-3 col-10 p-0">
             <div class="card-body">
-                <h1>{{ currentPost.title }}</h1>
+                <a [routerLink]="[currentPost.id]" class="post-title">
+                    <h1>{{ currentPost.title }}</h1>
+                </a>
                 <div class="card-text" [innerHtml]="currentPost.summary">
                 </div>
                 <br>
