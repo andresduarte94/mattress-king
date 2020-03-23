@@ -1,26 +1,29 @@
 import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { ViewportScroller } from '@angular/common';
 
 import paginate from 'jw-paginate';
+import { ProductsService } from 'src/app/products/products.service';
 
 @Component({
   selector: 'jw-pagination',
   template: `<ul *ngIf="pager.pages && pager.pages.length" class="pagination">
-  <li [ngClass]="{disabled:pager.currentPage === 1}" class="page-item first-item">
-      <a (click)="setPage(1)" class="page-link">{{ firstLabel }}</a>
-  </li>
-  <li [ngClass]="{disabled:pager.currentPage === 1}" class="page-item previous-item">
-      <a (click)="setPage(pager.currentPage - 1)" class="page-link">{{ previousLabel }}</a>
-  </li>
-  <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}" class="page-item number-item">
-      <a (click)="setPage(page)" class="page-link">{{page}}</a>
-  </li>
-  <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}" class="page-item next-item">
-      <a (click)="setPage(pager.currentPage + 1)" class="page-link">{{ nextLabel }}</a>
-  </li>
-  <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}" class="page-item last-item">
-      <a (click)="setPage(pager.totalPages)" class="page-link">{{ lastLabel }}</a>
-  </li>
-</ul>`
+    <li [ngClass]="{disabled:pager.currentPage === 1}" class="page-item first-item">
+      <a (click)="setPage(1); scrollTop();" class="page-link">{{ firstLabel }}</a>
+    </li>
+    <li [ngClass]="{disabled:pager.currentPage === 1}" class="page-item previous-item">
+      <a (click)="setPage(pager.currentPage - 1); scrollTop();" class="page-link">{{ previousLabel }}</a>
+    </li>
+    <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}" class="page-item number-item">
+      <a (click)="setPage(page); scrollTop();" class="page-link">{{page}}</a>
+    </li>
+    <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}" class="page-item next-item">
+      <a (click)="setPage(pager.currentPage + 1); scrollTop();" class="page-link">{{ nextLabel }}</a>
+    </li>
+    <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}" class="page-item last-item">
+      <a (click)="setPage(pager.totalPages); scrollTop();" class="page-link">{{ lastLabel }}</a>
+    </li>
+  </ul>`,
+  styleUrls: ['./jw-pagination.component.css'],
 })
 
 export class JwPaginationComponent implements OnInit, OnChanges {
@@ -35,6 +38,8 @@ export class JwPaginationComponent implements OnInit, OnChanges {
   @Input() lastLabel = 'Last';
 
   pager: any = {};
+
+  constructor( private viewportScroller: ViewportScroller, private productsService: ProductsService ) {} 
 
   ngOnInit() {
     // set page if items array isn't empty
@@ -61,5 +66,13 @@ export class JwPaginationComponent implements OnInit, OnChanges {
 
     // call change page function in parent component
     this.changePage.emit(pageOfItems);
+  }
+
+  scrollTop() {
+    // Throw hide banner event
+    this.productsService.hideBannerEvent.next(true);
+
+    // Scroll to the top of page
+    this.viewportScroller.scrollToPosition([0, 0]);
   }
 }

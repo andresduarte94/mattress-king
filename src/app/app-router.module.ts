@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
-import { MainComponent } from './main/main.component';
+import { HomeComponent } from './home/home.component';
 import { ProductsResolverService } from './products/products-resolver.service';
 import { ProductsComponent } from './products/products.component';
 import { BlogComponent } from './blog/blog.component';
@@ -13,7 +13,7 @@ const appRoutes: Routes = [
     path: ':language',
     children: [
       {
-        path: 'home', component: MainComponent, resolve: [ProductsResolverService]
+        path: 'home', component: HomeComponent, resolve: [ProductsResolverService]
       },
       { path: 'products', pathMatch: 'full', redirectTo: 'products/all' },
       {

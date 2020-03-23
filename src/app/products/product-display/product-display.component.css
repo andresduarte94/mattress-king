@@ -6,11 +6,13 @@
 .filters-title {
     font-size: 1.5em;
     font-weight: 600;
+    color: #F2F5F7;
+    
 }
 
 .filters-header {
     display: flex; 
-    background-color: #6351ce;
+    background-color: #142a58;
     width: 100%;
     padding: 2% 5%;
     align-items: center;
@@ -47,12 +49,12 @@
     fill: currentColor;
  }
 
- .title {
-     font-size: 1.3em;
-     font-weight: bold
+.title {
+    font-size: 1.3em;
+    font-weight: bold
  }
 
- .label {
+.label {
     font-weight: 500;
     color: #414242;
 }

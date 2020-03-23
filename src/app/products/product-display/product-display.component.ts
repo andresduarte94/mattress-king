@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation, HostListener } from '@angular/core';
 import { ProductsService } from '../products.service';
-import { ActivatedRoute, Params, Router, NavigationEnd } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { Filter } from './filter.model';
 import { Product } from '../product.model';
 import { FormGroup, FormControl, NgForm } from '@angular/forms';
@@ -8,7 +8,6 @@ import { NouisliderComponent } from '../../../../node_modules/ng2-nouislider/ng2
 import { Subscription } from 'rxjs';
 import { GlobalService } from 'src/app/shared/global.service';
 import { Location } from '@angular/common';
-
 
 declare var componentHandler: any;
 
@@ -104,7 +103,6 @@ export class ProductDisplayComponent implements OnInit {
           this.country = queryParams.gl;
           this.filter.country = queryParams.gl;
           this.updateProducts(this.filter);
-          this.sizes = this.productsService.getSizes(1);
         }
       }
     );
@@ -129,9 +127,6 @@ export class ProductDisplayComponent implements OnInit {
       (productTypeId) => {
         this.filter.type = +productTypeId;
         this.location.replaceState(this.language + '/products/' + this.productTypes[productTypeId], 'gl=' + this.country);
-        console.log('valuchange: ')
-        console.log(this.filter)
-
         this.updateProducts(this.filter);
       }
     );
@@ -146,19 +141,19 @@ export class ProductDisplayComponent implements OnInit {
     //Sizes filter
     this.filterForm.controls['sizes'].valueChanges.subscribe(
       (values) => {
-        let sizesArray = [];
+        let sizeArrayValues = [];
         for (var size in values) {
           if (values[size]) {
-            sizesArray.push(size);
+            sizeArrayValues.push(size);
           }
         }
 
-        if (sizesArray.length == 0) {
+        if (sizeArrayValues.length == 0) {
           delete this.filter.sizes;
           this.updateProducts(this.filter);
         }
         else {
-          this.filter.sizes = sizesArray;
+          this.filter.sizes = sizeArrayValues;
           this.updateProducts(this.filter);
         }
       }
@@ -183,19 +178,6 @@ export class ProductDisplayComponent implements OnInit {
   updateScoreFilter(score: number) {
     this.filter.minscore = score;
     this.updateProducts(this.filter);
-  }
-
-  ngAfterContentChecked() {
-    componentHandler.upgradeAllRegistered();
-  }
-
-  createSizesControl() {
-    let sizesArray = this.sizes.reduce((sizesArray, size) => {
-      sizesArray.push(new FormControl(size));
-      return sizesArray;
-    }, []);
-    console.log(sizesArray);
-    return sizesArray;
   }
 
   uncheckRadio(event, radio: number) {
@@ -280,6 +262,10 @@ export class ProductDisplayComponent implements OnInit {
     }
     this.innerWidth = window.innerWidth;
     this.navbarOpen = this.innerWidth >= 761 ? true : false;
+  }
+
+  ngAfterContentChecked() {
+    componentHandler.upgradeAllRegistered();
   }
 
   ngOnDestroy() {

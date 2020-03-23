@@ -2,15 +2,26 @@
     background-color: #0F2043;
 }
 
-.hr-footer {
+.hr {
+    display: inline-block;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.hr:after {
+    content: '';
+    display: block;
     border: 1px solid #6351ce; 
-    width: 7em;
+    margin-top: 0.5em;
+    margin-bottom: 1.5em;
 }
 
 .hr-footer-design {
     border: 1px solid #6351ce; 
     width: 20em;
     margin-top: 10%;
+    justify-content: center;
+    margin: 0 auto;
 }
 
 .social-footer {
@@ -43,6 +54,10 @@ a {
     font-size: 0.9em;
 }
 
+h6 {
+    margin-bottom: 0;
+}
+
 .krowded {
     font-weight: 700;
     font-size: 1.05em;
@@ -50,3 +65,8 @@ a {
     cursor: pointer;
 }
 
+@media screen and (max-width: 762px) {
+    .hr-footer-design {
+        margin-top: 3%;
+    }
+}

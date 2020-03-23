@@ -126,7 +126,7 @@ export class HeaderComponent implements OnInit {
         );
       });
 
-    //Navigating with language parameter change
+    // Navigating with language parameter change
     this.countryForm.controls['languages'].valueChanges.subscribe(
       (language) => {
         // Don't update language if route is unknown
@@ -146,34 +146,35 @@ export class HeaderComponent implements OnInit {
         );
       });
 
-    //Updating products on search input change
+    // Updating products on search input change
     this.searchForm.controls['search'].valueChanges.subscribe(
       (search) => {
-        //If search is in Home route then hide banner
-        const activatedRouteURL = this.activatedRoute.snapshot['_routerState'].url;
-        if (search != '' && activatedRouteURL.indexOf('home') > -1) {
-          this.productsService.hideBannerEvent.next(true);
-        }
-
-        //Update name and description filter
+        // Update name and description filter
         this.onSearchSubmit();
       });
   }
 
   onSearchSubmit() {
-    //Update name and description filter
+    // Update name and description filter
     const search = this.searchForm.controls['search'].value;
     this.filter.description = search;
     this.filter.name = search;
     this.productsService.filterUpdateEvent.next(this.filter);
+    if (search == '') {
+      return;
+    }
+
     // Route to products if activatedRoute is currently not products
     const activatedRouteURL = this.activatedRoute.snapshot['_routerState'].url;
-    if (search != '' && activatedRouteURL.indexOf('products') == -1) {
-      this.router.navigate([this.language, 'products/all'], {
+    if (!activatedRouteURL.match(/(products)/)) {
+      this.router.navigate([this.language, 'products', 'all'], {
         queryParams: {
           gl: this.country
         }
       });
+    }
+    else if (activatedRouteURL.match(/home/)) { // If search is in Home hide banner
+      this.productsService.hideBannerEvent.next(true);
     }
   }
 

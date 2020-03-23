@@ -7,7 +7,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { MainComponent } from './main/main.component';
+import { HomeComponent } from './home/home.component';
 import { ProductsComponent } from './products/products.component';
 import { FooterComponent } from './footer/footer.component';
 import { BlogComponent } from './blog/blog.component';
@@ -33,7 +33,7 @@ import { SEOService } from './shared/seo.service';
   declarations: [
     AppComponent,
     HeaderComponent,
-    MainComponent,
+    HomeComponent,
     ProductsComponent,
     FooterComponent,
     BlogComponent,
