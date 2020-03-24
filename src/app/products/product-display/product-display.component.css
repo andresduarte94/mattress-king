@@ -1,3 +1,9 @@
+#productsContainer {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1%;
+}
+
 .categories-sidebar {
     width: 230px;
     max-height: 830px;

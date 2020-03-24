@@ -13,7 +13,6 @@ import 'bootstrap';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  hideBanner: boolean = false;
   carousel: any;
   coverProducts: Product[] = [];
 
@@ -24,11 +23,6 @@ export class HomeComponent implements OnInit {
 
     this.activatedRoute.params.subscribe( 
       (params: Params)=> {
-        this.hideBanner = false;
-    });
-
-    this.productsService.hideBannerEvent.subscribe((hide: boolean) => {
-      this.hideBanner = hide;
     });
   }
 

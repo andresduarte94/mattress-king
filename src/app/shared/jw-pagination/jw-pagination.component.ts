@@ -1,8 +1,7 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges } from '@angular/core';
-import { ViewportScroller } from '@angular/common';
+import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges} from '@angular/core';
 
 import paginate from 'jw-paginate';
-import { ProductsService } from 'src/app/products/products.service';
+import { ScrollService } from '../scroll.service';
 
 @Component({
   selector: 'jw-pagination',
@@ -39,7 +38,7 @@ export class JwPaginationComponent implements OnInit, OnChanges {
 
   pager: any = {};
 
-  constructor( private viewportScroller: ViewportScroller, private productsService: ProductsService ) {} 
+  constructor(private scrollService: ScrollService) {} 
 
   ngOnInit() {
     // set page if items array isn't empty
@@ -69,10 +68,7 @@ export class JwPaginationComponent implements OnInit, OnChanges {
   }
 
   scrollTop() {
-    // Throw hide banner event
-    this.productsService.hideBannerEvent.next(true);
-
-    // Scroll to the top of page
-    this.viewportScroller.scrollToPosition([0, 0]);
+    // Scroll to the top of productsContainer element (products display)
+    this.scrollService.scrollToElementById('productsContainer');
   }
 }

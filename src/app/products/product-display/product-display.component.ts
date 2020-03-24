@@ -44,7 +44,7 @@ export class ProductDisplayComponent implements OnInit {
   navbarOpen = false;
   public innerWidth: any;
 
-  constructor(private globalService: GlobalService, private activatedRoute: ActivatedRoute, private productsService: ProductsService, 
+  constructor(private globalService: GlobalService, private activatedRoute: ActivatedRoute, private productsService: ProductsService,
     private location: Location) { }
 
   ngOnInit() {
@@ -78,10 +78,15 @@ export class ProductDisplayComponent implements OnInit {
         this.filter.country = this.country;
 
         //Update products based on new productType from URL
-        if ( params.hasOwnProperty('productType') ) {
+        if (params.hasOwnProperty('productType')) {
           currentPoductTypeId = this.productsService.getProductTypeId(params.productType);
           this.filter.type = currentPoductTypeId;
           this.filterForm.controls['productType'].setValue(currentPoductTypeId);
+        }
+
+        if (params.hasOwnProperty('search')) {
+          currentPoductTypeId = this.productsService.getProductTypeId(params.productType);
+          [this.filter.name, this.filter.description] = params.search;
         }
 
         this.updateProducts(this.filter);
@@ -125,8 +130,11 @@ export class ProductDisplayComponent implements OnInit {
     //Product type filter
     this.filterForm.controls['productType'].valueChanges.subscribe(
       (productTypeId) => {
+        console.log('producttype: ' + productTypeId)
         this.filter.type = +productTypeId;
+        // Update product type name in URL for when navigating inside products path
         this.location.replaceState(this.language + '/products/' + this.productTypes[productTypeId], 'gl=' + this.country);
+        // Update products filter with product type change
         this.updateProducts(this.filter);
       }
     );

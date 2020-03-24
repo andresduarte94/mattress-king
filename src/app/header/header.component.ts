@@ -30,9 +30,8 @@ export class HeaderComponent implements OnInit {
   countries = new FormControl();
   languages = new FormControl();
   productTypes: string[];
-  filter: Filter = {};
   searchForm: FormGroup;
-  countryForm: FormGroup;
+  globalForm: FormGroup;
 
   // UI variables
   navbarOpen = false;
@@ -41,9 +40,6 @@ export class HeaderComponent implements OnInit {
   navigationEnd: Observable<NavigationEnd>;
   routePathParam: Observable<string>;
   routePathSubscription: Subscription;
-
-  // Subscriptions
-  clearFilterSub: Subscription;
 
   constructor(private productsService: ProductsService, private router: Router, private activatedRoute: ActivatedRoute,
     private globalService: GlobalService, private location: Location) { }
@@ -68,6 +64,9 @@ export class HeaderComponent implements OnInit {
       }),
       switchMap(firstChild => {
         if (firstChild) {
+          if (!firstChild.firstChild.snapshot['_routerState'].url.match(/products/)) {
+            this.searchForm.controls['search'].setValue('');
+          }
           return firstChild.firstChild.params.pipe(map(params => {
             // Update language and translation words
             if (!this.languagesCodes.includes(params.language)) {
@@ -94,7 +93,7 @@ export class HeaderComponent implements OnInit {
     // Update language select based on route
     this.routePathSubscription = this.routePathParam.subscribe(() => {
       // Update language when routing ends
-      //this.countryForm.controls['languages'].setValue(this.language);
+      //this.globalForm.controls['languages'].setValue(this.language);
     });
 
     // Create, initialize and set subscriptions for header forms
@@ -103,7 +102,7 @@ export class HeaderComponent implements OnInit {
 
   createReactiveHeaderForms() {
     // Create reactive form for country and language
-    this.countryForm = new FormGroup({
+    this.globalForm = new FormGroup({
       'countries': new FormControl('all'),
       'languages': new FormControl(this.language)
     });
@@ -112,7 +111,7 @@ export class HeaderComponent implements OnInit {
     });
 
     // Navigating with country query parameter change
-    this.countryForm.controls['countries'].valueChanges.subscribe(
+    this.globalForm.controls['countries'].valueChanges.subscribe(
       (country) => {
         // Update country
         this.country = country;
@@ -127,7 +126,7 @@ export class HeaderComponent implements OnInit {
       });
 
     // Navigating with language parameter change
-    this.countryForm.controls['languages'].valueChanges.subscribe(
+    this.globalForm.controls['languages'].valueChanges.subscribe(
       (language) => {
         // Don't update language if route is unknown
         if (!this.isAValidLanguage) { return; }
@@ -155,26 +154,29 @@ export class HeaderComponent implements OnInit {
   }
 
   onSearchSubmit() {
-    // Update name and description filter
+    // Get search bar value and avoid actions if  
     const search = this.searchForm.controls['search'].value;
-    this.filter.description = search;
-    this.filter.name = search;
-    this.productsService.filterUpdateEvent.next(this.filter);
-    if (search == '') {
-      return;
-    }
 
-    // Route to products if activatedRoute is currently not products
     const activatedRouteURL = this.activatedRoute.snapshot['_routerState'].url;
-    if (!activatedRouteURL.match(/(products)/)) {
+    if (activatedRouteURL.match(/products/)) {
+      // Update name and description filter if routing is within products
+      let filter: Filter = {};
+      filter.description = search;
+      filter.name = search;
+      this.productsService.filterUpdateEvent.next(filter);
+    }
+    else {
+      // Avoid navigating to products if search bar is empty outside products path
+      if (search == '') {
+        return;
+      }
+      // Navigate to products path with search params when using search bar outside products
       this.router.navigate([this.language, 'products', 'all'], {
         queryParams: {
-          gl: this.country
+          gl: this.country,
+          search: search
         }
       });
-    }
-    else if (activatedRouteURL.match(/home/)) { // If search is in Home hide banner
-      this.productsService.hideBannerEvent.next(true);
     }
   }
 
@@ -184,9 +186,5 @@ export class HeaderComponent implements OnInit {
 
   toggleNavbar() {
     this.navbarOpen = !this.navbarOpen;
-  }
-
-  ngOnDestroy() {
-    this.clearFilterSub.unsubscribe();
   }
 }

@@ -9,7 +9,6 @@ import { Filter } from './product-display/filter.model';
 })
 export class ProductsService {
   filterUpdateEvent = new Subject<any>();
-  hideBannerEvent = new Subject<Boolean>();
   private products: Product[] = [];
   readonly productTypes: string[] = ['all', 'mattresses', 'beds', 'sheets', 'pillows', 'accessories'];
 
