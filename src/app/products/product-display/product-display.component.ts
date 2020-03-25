@@ -14,8 +14,8 @@ declare var componentHandler: any;
 @Component({
   selector: 'app-product-display',
   templateUrl: './product-display.component.html',
-  styleUrls: ['./product-display.component.css'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./product-display.component.scss']
+
 })
 export class ProductDisplayComponent implements OnInit {
   //Global variables
@@ -188,14 +188,6 @@ export class ProductDisplayComponent implements OnInit {
     this.updateProducts(this.filter);
   }
 
-  uncheckRadio(event, radio: number) {
-    if (this.checkedRadioPayment == radio) {
-      event.preventDefault()
-      this.checkedRadioPayment = null;
-      this.filterForm.controls['payments'].reset();
-    }
-  }
-
   //Price slider configuration
   private priceSliderEventHandler = (e: KeyboardEvent) => {
     // determine which handle triggered the event
@@ -259,8 +251,17 @@ export class ProductDisplayComponent implements OnInit {
     this.products = products;
   }
 
+  // UI functions
   toggleNavbar() {
     this.navbarOpen = !this.navbarOpen;
+  }
+
+  uncheckRadio(event, radio: number) {
+    if (this.checkedRadioPayment == radio) {
+      event.preventDefault()
+      this.checkedRadioPayment = null;
+      this.filterForm.controls['payments'].reset();
+    }
   }
 
   @HostListener('window:resize', ['$event'])
@@ -272,6 +273,7 @@ export class ProductDisplayComponent implements OnInit {
     this.navbarOpen = this.innerWidth >= 761 ? true : false;
   }
 
+  // Lifehooks functions
   ngAfterContentChecked() {
     componentHandler.upgradeAllRegistered();
   }

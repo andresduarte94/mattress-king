@@ -22,6 +22,19 @@
 /* BLUE NAVBAR */
 #navbar-blue {
     background-color: #0F2043;
+    padding: 0;
+}
+
+#navbar-blue-drop {
+    margin-right: 4%;
+}
+
+#searchBtn {
+    color: whitesmoke;
+    font-weight: 500;
+    border: black;
+    background-color: #54595E;
+    border: 1px solid darkgray;
 }
 
 .logo-image {
@@ -33,6 +46,7 @@
 
 .search-div {
     display: inline;
+    margin: 0 auto;
     width: 90%;
 }
 
@@ -53,16 +67,8 @@
     display: inline-block 
 }
 
-#searchBtn {
-    color: whitesmoke;
-    font-weight: 500;
-    border: black;
-    background-color: #54595E;
-    border: 1px solid darkgray;
-}
-
 .blog {
-    font-size: large;
+    font-size: 1.5em;
     color: white !important;
     cursor: pointer;
 }
@@ -75,7 +81,7 @@ h2 {
 
 #navbar-light-blue {
     background-color: #79cedc;
-    padding-left: 8%;
+    padding: 0.2% 0;
 }
 
 #navbar-light-blue a {
