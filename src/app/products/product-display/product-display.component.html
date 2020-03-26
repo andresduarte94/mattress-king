@@ -1,30 +1,32 @@
-<div id="productsContainer" class="col-12 col-lg-2">
-  <div class="card categories-sidebar">
+<div id="filtersContainer" class="col-16 col-ml-3">
+  <div class="card categories-sidebar my-4 my-md-0">
     <nav class="navbar navbar-dark">
       <div class="filters-header">
         <span class="filters-title">{{ componentWords.filtersLabel }}</span>
         <!-- Burguer button for right-side of header -->
-        <button class="navbar-toggler" type="button" (click)="toggleNavbar()" [ngClass]="{'hide-icon': innerWidth >= 761}">
+        <button class="navbar-toggler" type="button" (click)="toggleNavbar()"
+          [ngClass]="{'hide-icon': innerWidth >= 970}">
           <span class="navbar-toggler-icon"></span>
         </button>
       </div>
       <hr>
-      <form [formGroup]="filterForm" class="mx-2 collapse navbar-collapse" [ngClass]="{'show': navbarOpen}">
+      <form [formGroup]="filterForm" class="collapse navbar-collapse mx-2" [ngClass]="{'show': navbarOpen}">
         <!-- Product type -->
         <div class="form-group mt-2">
           <label for="productType" class="title">{{ componentWords.productTypeLabel }}</label>
           <select id="productType" class="form-control type" formControlName="productType" required>
             <option class="typesOptions" *ngFor="let category of translationWords.header.categories; let i = index;"
-              [value]="i">{{ category }}
+              [value]="i">
+              {{ category }}
             </option>
           </select>
         </div>
         <hr>
         <!-- Price range -->
         <div class="form-group mb-4">
-          <label class="mb-2 title">{{ componentWords.priceLabel }}</label>
-          <nouislider class="mx-auto w-90 pl-2" name="priceSlider" [config]="priceSliderConfig"
-            formControlName="priceSlider" [tooltips]="[ true, true ]"></nouislider>
+          <label class="title mb-4">{{ componentWords.priceLabel }}</label>
+          <nouislider class="nouislider" name="priceSlider" [config]="priceSliderConfig" formControlName="priceSlider"
+            [tooltips]="[ true, true ]"></nouislider>
         </div>
         <hr>
         <!-- Scores -->
@@ -83,4 +85,4 @@
     </nav>
   </div>
 </div>
-<app-product-list class="col-12 col-lg-10" [products]="products"></app-product-list>
+<app-product-list class="col-16 col-ml-13" [products]="products"></app-product-list>

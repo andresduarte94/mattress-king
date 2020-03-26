@@ -68,7 +68,7 @@ export class JwPaginationComponent implements OnInit, OnChanges {
   }
 
   scrollTop() {
-    // Scroll to the top of productsContainer element (products display)
-    this.scrollService.scrollToElementById('productsContainer');
+    // Scroll to the top of filtersContainer element (products display)
+    this.scrollService.scrollToElementById('filtersContainer');
   }
 }

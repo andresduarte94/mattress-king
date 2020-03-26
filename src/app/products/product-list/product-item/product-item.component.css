@@ -34,7 +34,7 @@ h2 {
 
 @media screen and (max-width: 330px) {
     [class*="demo-card-square"] {
-        width: 290px !important; 
+        width: 270px !important; 
     }
 }
 
@@ -44,50 +44,56 @@ h2 {
     }
 }
 
-@media screen and (min-width: 576px) and (max-width: 761px) {
+@media screen and (min-width: 576px) and (max-width: 762px) {
     [class*="demo-card-square"] {
-        width: 280px !important;
+        width: 250px !important;
     }
 }
 
-@media screen and (min-width: 761px) and (max-width: 870px) {
+@media screen and (min-width: 762px) and (max-width: 870px) {
     [class*="demo-card-square"] {
-        width: 240px !important;
+        width: 200px !important;
     }
 }
 
 @media screen and (min-width: 870px) and (max-width: 970px) {
     [class*="demo-card-square"] {
-        width: 270px !important;
+        width: 220px !important;
     }
 }
 
 @media screen and (min-width: 970px) and (max-width: 1050px) {
     [class*="demo-card-square"] {
-        width: 300px !important;
+        width: 250px !important;
     }
+}
+
+@media screen and (min-width: 1050px) and (max-width: 1200px) {
+    [class*="demo-card-square"] {
+        width: 270px !important;
+    } 
 }
 
 @media screen and (min-width: 1200px) and (max-width: 1280px) {
     [class*="demo-card-square"] {
-        width: 240px !important;
+        width: 230px !important;
     }
 }
 
 @media screen and (min-width: 1280px) and (max-width: 1440px) {
     [class*="demo-card-square"] {
-        width: 260px !important;
+        width: 250px !important;
     }
 }
 
 @media screen and (min-width: 1440px) and (max-width: 1640px) {
     [class*="demo-card-square"] {
-        width: 280px !important;
+        width: 270px !important;
     }
 }
 
 @media screen and (min-width: 1824px) {
     [class*="demo-card-square"] {
-        width: 360px !important;
+        width: 350px !important;
     }
 }

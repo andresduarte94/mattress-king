@@ -9,9 +9,9 @@ export class ScrollService {
   constructor(@Inject(DOCUMENT) private document: HTMLDocument, private viewportScroller: ViewportScroller) { }
 
   scrollToElementById(elementId: string) {
-    let productsContainerEl = this.document.getElementById(elementId);
+    let filtersContainerEl = this.document.getElementById(elementId);
 
-    const positionY = window.scrollY + productsContainerEl.getBoundingClientRect().top;
+    const positionY = window.scrollY + filtersContainerEl.getBoundingClientRect().top;
     this.viewportScroller.scrollToPosition([0, positionY]);
   }
 }

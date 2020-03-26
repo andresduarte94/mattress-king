@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation, HostListener } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { ProductsService } from '../products.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Filter } from './filter.model';
@@ -15,7 +15,6 @@ declare var componentHandler: any;
   selector: 'app-product-display',
   templateUrl: './product-display.component.html',
   styleUrls: ['./product-display.component.scss']
-
 })
 export class ProductDisplayComponent implements OnInit {
   //Global variables
@@ -58,7 +57,7 @@ export class ProductDisplayComponent implements OnInit {
     this.sizes = this.productsService.getSizes(1);
     //Ui variables
     this.innerWidth = window.innerWidth;
-    if (this.innerWidth >= 761) {
+    if (this.innerWidth >= 970) {
       this.navbarOpen = true;
     }
     //Create, initialize and set subscriptions for filter form
@@ -113,6 +112,7 @@ export class ProductDisplayComponent implements OnInit {
     );
   }
 
+  // Create filters form with all inputs and value changes subscriptions
   createReactiveFilterForm() {
     //Create and initialize form
     this.filterForm = new FormGroup({
@@ -130,7 +130,6 @@ export class ProductDisplayComponent implements OnInit {
     //Product type filter
     this.filterForm.controls['productType'].valueChanges.subscribe(
       (productTypeId) => {
-        console.log('producttype: ' + productTypeId)
         this.filter.type = +productTypeId;
         // Update product type name in URL for when navigating inside products path
         this.location.replaceState(this.language + '/products/' + this.productTypes[productTypeId], 'gl=' + this.country);
@@ -270,7 +269,7 @@ export class ProductDisplayComponent implements OnInit {
       return;
     }
     this.innerWidth = window.innerWidth;
-    this.navbarOpen = this.innerWidth >= 761 ? true : false;
+    this.navbarOpen = this.innerWidth >= 970 ? true : false;
   }
 
   // Lifehooks functions
