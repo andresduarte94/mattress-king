@@ -34,7 +34,7 @@
           <label class="title">{{ componentWords.reviewsLabel }}</label>
           <div class="form-check" *ngFor="let score of [1, 2, 3, 4]">
             <!-- Stars -->
-            <a (click)="updateScoreFilter(score)" class="link label">
+            <a (click)="updateScoreFilter(score)" class="link">
               <span>
                 <svg class="icon icon-star-full" *ngFor="let item of [].constructor(score)">
                   <use xlink:href="#icon-star-full"></use>
@@ -71,13 +71,12 @@
         <!-- Payments -->
         <div class="form-group mb-0">
           <label for="payments" class="title">{{ componentWords.paymentsLabel }}</label>
-          <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group ml-3"
-            formControlName="payments">
-            <mat-radio-button class="example-radio-button label" color="primary" value="4"
-              (click)="uncheckRadio($event, 4)">{{ componentWords.paymentsOptions[0] }}
+          <mat-radio-group class="payment-checkbox ml-3" formControlName="payments">
+            <mat-radio-button color="primary" value="4" (click)="uncheckRadio($event, 4)">
+              {{ componentWords.paymentsOptions[0] }}
             </mat-radio-button>
-            <mat-radio-button class="example-radio-button label" color="primary" value="10"
-              (click)="uncheckRadio($event, 10)">{{ componentWords.paymentsOptions[1] }}
+            <mat-radio-button color="primary" value="10" (click)="uncheckRadio($event, 10)">
+              {{ componentWords.paymentsOptions[1] }}
             </mat-radio-button>
           </mat-radio-group>
         </div>

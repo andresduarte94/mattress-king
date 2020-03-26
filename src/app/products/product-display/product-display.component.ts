@@ -263,14 +263,14 @@ export class ProductDisplayComponent implements OnInit {
     }
   }
 
-  @HostListener('window:resize', ['$event'])
+/*   @HostListener('window:resize', ['$event'])
   onResize(event) {
     if (this.innerWidth == window.innerWidth) {
       return;
     }
     this.innerWidth = window.innerWidth;
     this.navbarOpen = this.innerWidth >= 970 ? true : false;
-  }
+  } */
 
   // Lifehooks functions
   ngAfterContentChecked() {

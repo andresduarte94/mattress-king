@@ -52,13 +52,13 @@ h2 {
 
 @media screen and (min-width: 762px) and (max-width: 870px) {
     [class*="demo-card-square"] {
-        width: 200px !important;
+        width: 230px !important;
     }
 }
 
 @media screen and (min-width: 870px) and (max-width: 970px) {
     [class*="demo-card-square"] {
-        width: 220px !important;
+        width: 260px !important;
     }
 }
 

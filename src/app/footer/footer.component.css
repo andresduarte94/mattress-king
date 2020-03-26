@@ -1,5 +1,9 @@
 .footer {
     background-color: #0F2043;
+    font-size: small;
+    color: white;
+    margin-top: 1%;
+    padding-top: 1%;
 }
 
 .hr {
@@ -20,8 +24,6 @@
     border: 1px solid #6351ce; 
     width: 20em;
     margin-top: 10%;
-    justify-content: center;
-    margin: 0 auto;
 }
 
 .social-footer {
@@ -67,6 +69,10 @@ h6 {
 
 @media screen and (max-width: 762px) {
     .hr-footer-design {
+        margin: 0 auto;
         margin-top: 3%;
+    }
+    .container {
+        text-align: center;
     }
 }

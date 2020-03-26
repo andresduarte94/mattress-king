@@ -9,8 +9,8 @@ $grid-breakpoints: (
     md: 762px,
     ml: 970px,  
     lg: 1200px, 
-    xl: 1824px,
-    xxl: 2200px
+/*     xl: 1824px,
+    xxl: 2200px */
 );
 
 @import '../../../../node_modules/bootstrap/scss/bootstrap';
@@ -24,13 +24,14 @@ $grid-breakpoints: (
 }
 
 .categories-sidebar {
+    display: flex;
     width: 100%;
-    max-height: 830px;
+    height: fit-content;
 }
 
 .filters-title {
-    font-size: 1.5em;
-    font-weight: 600;
+    font-size: 1.4em;
+    font-weight: 500;
     color: #F2F5F7;
 }
 
@@ -55,11 +56,6 @@ $grid-breakpoints: (
     display: none;
 }
 
-.col {
-    padding-right: 0;
-    padding-left: 0;
-}
-
 .link {
     cursor: pointer;
 }
@@ -74,25 +70,21 @@ $grid-breakpoints: (
  }
 
 .title {
-    font-size: 1.3em;
-    font-weight: bold;
+    font-size: 1.2em;
+    font-family: 'Roboto';
+    font-weight: 500;
     margin-bottom: 5%
  }
 
-.label {
-    font-weight: 500;
-    color: #414242;
-}
-
 .type {
-    font-size: 1.2em;
-    font-weight: 600;
-    color: #35569A;
+    font-size: 1.1em;
+    font-weight: 500;
+    color: #142a58;
 }
 
 .typesOptions {
-    font-weight: 600;
-    color: #35569A;
+    font-weight: 500;
+    color: #142a58;
 }
 
 .mdc-slider {
@@ -100,7 +92,7 @@ $grid-breakpoints: (
 }
 
 :host::ng-deep .noUi-connect {
-    background: #6351ce !important;
+    background: #142a58 !important;
 }
 
 :host::ng-deep .noUi-handle {
@@ -143,11 +135,11 @@ $grid-breakpoints: (
 }
 
 .icon-star-full {
-    color: #7e40da;
+    color: #142a58;
 }
 
 .payment-radio-button {
-    color: #7e40da;
+    color: #142a58;
 }
 
 .discount {
@@ -159,42 +151,14 @@ hr {
     margin-bottom: 0.2em;
 }
 
-.example-radio-group {
+.payment-checkbox {
     display: flex;
     flex-direction: column;
 }
 
-
-
-@media screen and (max-width: 761px) {
+@media screen and (max-width: 970px) {
     #filtersContainer {
         padding-left: 2%;
         padding-right: 2%;
     }
 }
-/* 
-@media screen and (min-width: 761px) and (max-width: 870px) {
-    .categories-sidebar {
-        width: 180px;
-        max-height: 1030px;
-    }
-}
-
-@media screen and (min-width: 870px) and (max-width: 970px) {
-    .categories-sidebar {
-        width: 250px;
-    }
-}
-
-@media screen and (min-width: 970px) and (max-width: 1050px) {
-    .categories-sidebar {
-        width: 10210px;
-        max-height: 830px;
-    }
-}
-
-@media screen and (min-width: 1050px) and (max-width: 1200px) {
-    [class*="demo-card-square"] {
-        width: 300px !important;
-    } 
-}*/
