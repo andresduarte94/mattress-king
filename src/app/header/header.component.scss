@@ -5,7 +5,7 @@
     color: darkgray;
 }
 
-.w-60 {
+.form-field {
     width: 70%;
 }
 
@@ -25,16 +25,9 @@
     padding: 0;
 }
 
-#navbar-blue-drop {
-    margin-right: 4%;
-}
-
-#searchBtn {
-    color: whitesmoke;
-    font-weight: 500;
-    border: black;
-    background-color: #54595E;
-    border: 1px solid darkgray;
+.logo-container {
+    text-align: center;
+    margin: 0 5%;
 }
 
 .logo-image {
@@ -47,12 +40,7 @@
 .search-div {
     display: inline;
     margin: 0 auto;
-    width: 90%;
-}
-
-.navbar-brand {
-    width: 20%;
-    cursor: pointer;
+    width: 100%;
 }
 
 .search-form {
@@ -63,8 +51,13 @@
 }
 
 .search-input {
-    width: 65%;
+    width: 80%;
     display: inline-block 
+}
+
+.collapse-container {
+    min-width: 160px;
+    margin: 0 5%;
 }
 
 .blog {
@@ -82,12 +75,19 @@ h2 {
 #navbar-light-blue {
     background-color: #79cedc;
     padding: 0;
+    margin-bottom: 2%;
 }
 
 #navbar-light-blue a {
     color: black !important;
     font-weight: 600;
     cursor: pointer;
+}
+
+.products-list {
+    margin: 0 auto;
+    width: 600px;
+    justify-content: space-between;
 }
 
 /* RESPONSIVE */
@@ -104,8 +104,11 @@ h2 {
 }
 
 @media screen and (max-width: 761px) {
-    .btn {
-        display: none;
+    #greyNavForm {
+        margin: 0 auto;
+    }
+    #navbar-blue {
+        margin-bottom: 2%;
     }
     #navbar-light-blue {
         display: none;
@@ -113,7 +116,7 @@ h2 {
     .search-input {
         width: 85%;
     }
-    #greyNavForm {
-        margin: 0 auto;
+    .navbar-toggler {
+        margin-right: 8%;
     }
 }

@@ -81,6 +81,9 @@ export class HeaderComponent implements OnInit {
             this.translationWords = this.globalService.getTranslationLanguage();
             this.componentWords = this.translationWords['header'];
 
+            // Update UI variables
+            this.navbarOpen = false;
+
             return params;
           }));
         }
@@ -149,11 +152,11 @@ export class HeaderComponent implements OnInit {
     this.searchForm.controls['search'].valueChanges.subscribe(
       (search) => {
         // Update name and description filter
-        this.onSearchSubmit();
+        this.onSearchChange();
       });
   }
 
-  onSearchSubmit() {
+  onSearchChange() {
     // Get search bar value and avoid actions if  
     const search = this.searchForm.controls['search'].value;
 

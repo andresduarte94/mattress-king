@@ -24,7 +24,7 @@
         <hr>
         <!-- Price range -->
         <div class="form-group mb-4">
-          <label class="title mb-4">{{ componentWords.priceLabel }}</label>
+          <label class="title-slider">{{ componentWords.priceLabel }}</label>
           <nouislider class="nouislider" name="priceSlider" [config]="priceSliderConfig" formControlName="priceSlider"
             [tooltips]="[ true, true ]"></nouislider>
         </div>
@@ -32,7 +32,7 @@
         <!-- Scores -->
         <div class="form-group">
           <label class="title">{{ componentWords.reviewsLabel }}</label>
-          <div class="form-check" *ngFor="let score of [1, 2, 3, 4]">
+          <div class="review-filter" *ngFor="let score of [1, 2, 3, 4]">
             <!-- Stars -->
             <a (click)="updateScoreFilter(score)" class="link">
               <span>
@@ -60,18 +60,16 @@
         </div>
         <hr>
         <!-- Minimum discount -->
-        <div class="form-group discount mb-0">
-          <label for="payments" class="title mb-0">{{ componentWords.discountLabel }}</label>
-          <div class="w-75 mx-auto">
-            <mat-slider class="p-0" thumbLabel [displayWith]="formatLabel" color="primary" min="0" max="100"
-              formControlName="mindiscount"></mat-slider>
-          </div>
+        <div class="discount-container">
+          <label for="mindiscount" class="title">{{ componentWords.discountLabel }}</label>
+          <mat-slider class="mat-slider" thumbLabel [displayWith]="formatLabel" color="primary" min="0" max="100"
+            formControlName="mindiscount"></mat-slider>
         </div>
         <hr>
         <!-- Payments -->
-        <div class="form-group mb-0">
+        <div class="payments-container">
           <label for="payments" class="title">{{ componentWords.paymentsLabel }}</label>
-          <mat-radio-group class="payment-checkbox ml-3" formControlName="payments">
+          <mat-radio-group class="payment-group" formControlName="payments">
             <mat-radio-button color="primary" value="4" (click)="uncheckRadio($event, 4)">
               {{ componentWords.paymentsOptions[0] }}
             </mat-radio-button>

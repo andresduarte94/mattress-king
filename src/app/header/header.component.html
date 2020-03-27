@@ -4,7 +4,7 @@
         <form [formGroup]="globalForm" id="greyNavForm">
             <ul class="navbar-nav">
                 <li class="grey-item active">
-                    <mat-form-field class="w-60">
+                    <mat-form-field class="form-field">
                         <mat-select formControlName="languages">
                             <mat-option *ngFor="let language of languagesList, let i = index"
                                 [value]="languagesCodes[i]">{{ language }}</mat-option>
@@ -12,7 +12,7 @@
                     </mat-form-field>
                 </li>
                 <li class="grey-item">
-                    <mat-form-field class="w-60">
+                    <mat-form-field class="form-field">
                         <mat-select formControlName="countries">
                             <mat-option *ngFor="let country of componentWords.countriesList, let i = index"
                                 [value]="countriesCodes[i]">{{ country }}</mat-option>
@@ -30,12 +30,14 @@
     <nav class="navbar navbar-expand-md navbar-dark" id="navbar-blue">
 
         <!-- Logo -->
-        <a class="navbar-brand ml-4" [routerLink]="[language, 'home']" [queryParams]="{gl: country}">
-            <img class="logo-image" src="assets/images/logo-04-02.png">
-        </a>
+        <div class="logo-container">
+            <a [routerLink]="[language, 'home']" [queryParams]="{gl: country}">
+                <img class="logo-image" src="assets/images/logo-04-02.png">
+            </a>
+        </div>
 
         <!-- Burguer button for right-side of header -->
-        <button class="navbar-toggler mr-5" type="button" (click)="toggleNavbar()" id="burger-icon">
+        <button class="navbar-toggler" type="button" (click)="toggleNavbar()" id="burger-icon">
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -44,13 +46,11 @@
             <form class="search-form" [formGroup]="searchForm">
                 <input class="form-control search-input" type="search" [placeholder]="componentWords.search"
                     aria-label="Search" name="search" formControlName="search">
-                <button class="btn ml-2" type="submit" id="searchBtn"
-                    (click)="onSearchSubmit()">{{ componentWords.search }}</button>
             </form>
         </div>
 
         <!-- Blog and Contact -->
-        <div class="collapse navbar-collapse" id="navbar-blue-drop" [ngClass]="{'show': navbarOpen}">
+        <div class="collapse-container collapse navbar-collapse" [ngClass]="{'show': navbarOpen}">
             <ul class="navbar-nav ml-3 ml-md-0">
                 <li class="nav-item">
                     <a class="nav-link text-info blog" [routerLink]="[language, 'home']"
@@ -67,10 +67,10 @@
 <!-- End 2nd header-->
 
 <!-- Light blue header for products and its categories-->
-<header class="mb-md-4">
+<header>
     <nav class="navbar navbar-expand-md" id="navbar-light-blue">
-        <ul class="navbar-nav mx-auto">
-            <li class="nav-item mr-4" *ngFor="let category of productTypes; let i = index">
+        <ul class="navbar-nav products-list">
+            <li class="nav-item" *ngFor="let category of productTypes; let i = index">
                 <a class="nav-link" (click)="changeProductType(category)">
                     <h2>{{ componentWords.categories[i] }}</h2>
                 </a>

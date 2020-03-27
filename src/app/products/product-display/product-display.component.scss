@@ -69,12 +69,21 @@ $grid-breakpoints: (
     fill: currentColor;
  }
 
-.title {
+ [class^="title"] {
     font-size: 1.2em;
-    font-family: 'Roboto';
     font-weight: 500;
-    margin-bottom: 5%
+    margin-bottom: 2% !important;
+    margin-left: 3%;
  }
+
+.title-slider {
+    margin-bottom: 8% !important;
+}
+
+hr {
+    margin-top: 0.2em;
+    margin-bottom: 0.2em;
+}
 
 .type {
     font-size: 1.1em;
@@ -134,6 +143,10 @@ $grid-breakpoints: (
     margin-top: 2%
 }
 
+.review-filter {
+    text-align: center
+}
+
 .icon-star-full {
     color: #142a58;
 }
@@ -142,18 +155,29 @@ $grid-breakpoints: (
     color: #142a58;
 }
 
-.discount {
+:host::ng-deep .mat-checkbox-inner-container {
+    margin-right: 2%;
+}
+
+:host::ng-deep .mat-checkbox {
+    margin-right: 3.5%;
+}
+
+.discount-container {
     margin-bottom: 0;
 }
 
-hr {
-    margin-top: 0.2em;
-    margin-bottom: 0.2em;
+.mat-slider {
+    display: block;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.payment-checkbox {
+.payment-group {
     display: flex;
     flex-direction: column;
+    padding-left: 10%;
 }
 
 @media screen and (max-width: 970px) {
@@ -161,4 +185,25 @@ hr {
         padding-left: 2%;
         padding-right: 2%;
     }
+    /* new */
+    .payment-group {
+        display: flex;
+        flex-direction: row;
+        padding-left: 12%;
+        padding-right: 12%;
+        justify-content: space-between;
+    }
+    :host::ng-deep .mat-radio-label-content {
+        padding-left: 2%;
+    }
+}
+
+@media screen and (max-width: 762px) {
+    [class^="title"] {
+        font-size: 1.3em;
+        margin-bottom: 1% !important;
+    }
+    .title-slider {
+        margin-bottom: 5% !important;
+     }
 }
