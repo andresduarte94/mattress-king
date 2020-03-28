@@ -57,7 +57,7 @@ export class ProductDisplayComponent implements OnInit {
     this.sizes = this.productsService.getSizes(1);
     //Ui variables
     this.innerWidth = window.innerWidth;
-    if (this.innerWidth >= 970) {
+    if (this.innerWidth >= 762) {
       this.navbarOpen = true;
     }
     //Create, initialize and set subscriptions for filter form
@@ -263,14 +263,14 @@ export class ProductDisplayComponent implements OnInit {
     }
   }
 
-/*   @HostListener('window:resize', ['$event'])
+  @HostListener('window:resize', ['$event'])
   onResize(event) {
     if (this.innerWidth == window.innerWidth) {
       return;
     }
     this.innerWidth = window.innerWidth;
-    this.navbarOpen = this.innerWidth >= 970 ? true : false;
-  } */
+    this.navbarOpen = this.innerWidth >= 762 ? true : false;
+  }
 
   // Lifehooks functions
   ngAfterContentChecked() {
