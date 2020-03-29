@@ -31,12 +31,15 @@ export class AppComponent {
     )
       .subscribe((snapshot: any) => {
         this.seoService.updateAllMetasForRoute(snapshot.url, snapshot.params);
-        
+
         // Set route path in Google Analitycs configuration
-        const routeURL = snapshot['_routerState'].url;
+        let routeURL = snapshot['_routerState'].url;
+        const lastIndex = routeURL.indexOf('?');
+        routeURL = lastIndex > -1 ? routeURL.slice(0, lastIndex) : routeURL.slice(0);
         gtag('config', 'UA-155272090-1', {
-          'page_path': routeURL.slice(0, routeURL.indexOf('?'))
+          'page_path': routeURL
         });
+
       });
   }
 }
