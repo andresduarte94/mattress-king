@@ -2,7 +2,8 @@ import { Component, Inject } from '@angular/core';
 import { filter, map } from 'rxjs/operators';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { SEOService } from './shared/seo.service';
-import { ViewportScroller } from '@angular/common';
+
+declare let gtag: Function;
 
 @Component({
   selector: 'app-root',
@@ -30,6 +31,12 @@ export class AppComponent {
     )
       .subscribe((snapshot: any) => {
         this.seoService.updateAllMetasForRoute(snapshot.url, snapshot.params);
+        
+        // Set route path in Google Analitycs configuration
+        const routeURL = snapshot['_routerState'].url;
+        gtag('config', 'UA-155272090-1', {
+          'page_path': routeURL.slice(0, routeURL.indexOf('?'))
+        });
       });
   }
 }
