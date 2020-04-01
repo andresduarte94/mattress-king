@@ -67,11 +67,6 @@
 }
 
 /* LIGHT BLUE NAVBAR */
-h2 {
-    font-size: 1.15em;
-    margin-bottom: 0;
-}
-
 #navbar-light-blue {
     background-color: #79cedc;
     padding: 0;
@@ -79,9 +74,13 @@ h2 {
 }
 
 #navbar-light-blue a {
-    color: black !important;
-    font-weight: 600;
     cursor: pointer;
+}
+
+#navbar-light-blue h2 {
+    font-size: 1.15em;
+    font-weight: bold;
+    margin-bottom: 0;
 }
 
 .products-list {

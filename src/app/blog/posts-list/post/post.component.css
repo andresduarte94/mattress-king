@@ -13,9 +13,13 @@ h1 {
 }
 
 .post-img {
-    border-bottom: 2em solid gainsboro;
-    border-top: 2em solid gainsboro;
-    height: 400px;
+    display: block;
+    border-bottom: 1.5em solid gainsboro;
+    border-top: 1.5em solid gainsboro;
+    height: 450px;
+    width: 750px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .icon-small {

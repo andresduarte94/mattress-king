@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { filter, map } from 'rxjs/operators';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { SEOService } from './shared/seo.service';
@@ -42,4 +42,5 @@ export class AppComponent {
 
       });
   }
+
 }
