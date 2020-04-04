@@ -2,6 +2,10 @@ a {
     text-decoration: none;
 }
 
+a:hover {
+    color: #0F2043;
+}
+
 h2 {
     font-size: 1.2em;
     color: black;
