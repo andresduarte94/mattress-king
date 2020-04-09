@@ -18,6 +18,7 @@ export class ProductItemComponent implements OnInit {
   @Input() product: Product;
   productImage: string;
   discountPrice: number;
+  discountDisplay: string;
 
   constructor(private globalService: GlobalService) { }
 
@@ -26,6 +27,16 @@ export class ProductItemComponent implements OnInit {
 
     // Calculate discount price
     this.discountPrice = Math.round((this.product.price*(1-this.product.discount/100) + Number.EPSILON) * 100)/100;
+    // Set display discount string, empty for 0 discount
+    if(this.product.discount === 0) {
+      this.discountDisplay = '';
+    }
+    else {
+      this.discountDisplay = this.product.discount + ' ' + this.translationWords['product-display'].off; 
+    }
+
+
+
     this.productImage = 'assets/products/' + this.product.country  + '/product-' + this.product.country + '-' + this.product.id + '-large.jpg';
 
   }

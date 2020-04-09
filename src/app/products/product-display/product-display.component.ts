@@ -33,7 +33,7 @@ export class ProductDisplayComponent implements OnInit {
   defaultType: number = 0;
   filterForm: FormGroup;
   checkedRadioPayment: number = null;
-  public priceSliderValue: number[] = [0, 800];
+  public priceSliderValue: number[] = [0, 2000];
   @ViewChild('priceSlider', { static: false }) priceSlider: NouisliderComponent;
   @ViewChild('sliderForm', { static: false }) sliderForm: NgForm;
   filterUpdateSub: Subscription;
@@ -60,6 +60,7 @@ export class ProductDisplayComponent implements OnInit {
     if (this.innerWidth >= 762) {
       this.navbarOpen = true;
     }
+    
     //Create, initialize and set subscriptions for filter form
     this.createReactiveFilterForm();
 
@@ -222,7 +223,8 @@ export class ProductDisplayComponent implements OnInit {
       min: 0,
       '60%': 200,
       '80%': 300,
-      max: 800
+      '95%': 1800,
+      max: 2000
     },
     step: 10,
     format: {

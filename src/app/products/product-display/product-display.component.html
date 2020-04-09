@@ -32,7 +32,7 @@
         <!-- Scores -->
         <div class="form-group">
           <label class="title">{{ componentWords.reviewsLabel }}</label>
-          <div class="review-filter" *ngFor="let score of [1, 2, 3, 4]">
+          <div class="review-filter" *ngFor="let score of [1, 2, 3, 4, 5]">
             <!-- Stars -->
             <a (click)="updateScoreFilter(score)" class="link">
               <span>
@@ -44,7 +44,7 @@
                 <svg class="icon" *ngFor="let item of [].constructor(5-score)">
                   <use xlink:href="#icon-star-empty"></use>
                 </svg>
-                &nbsp;{{ componentWords.moreLabel }}
+                <span  [ngStyle]="{'visibility': score != 5 ? 'visible' : 'hidden'}">&nbsp;{{ componentWords.moreLabel }}</span>
               </span>
             </a>
           </div>
