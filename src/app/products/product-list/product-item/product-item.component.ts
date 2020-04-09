@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, ViewChild } from '@angular/core';
 import { Product } from '../../product.model';
 import { GlobalService } from 'src/app/shared/global.service';
 import { Subscription } from 'rxjs';
@@ -16,6 +16,7 @@ export class ProductItemComponent implements OnInit {
 
   //Product variables
   @Input() product: Product;
+  productImage: string;
   discountPrice: number;
 
   constructor(private globalService: GlobalService) { }
@@ -25,8 +26,11 @@ export class ProductItemComponent implements OnInit {
 
     // Calculate discount price
     this.discountPrice = Math.round((this.product.price*(1-this.product.discount/100) + Number.EPSILON) * 100)/100;
+    this.productImage = 'assets/products/' + this.product.country  + '/product-' + this.product.country + '-' + this.product.id + '-large.jpg';
 
+  }
 
+  ngAfterViewInit() {
   }
 
 }

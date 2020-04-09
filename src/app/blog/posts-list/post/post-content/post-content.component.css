@@ -15,9 +15,14 @@ h2 {
     margin-left: 2%;
 }
 
-p, li {
+p {
     font-size: 14pt;
     text-align: justify;
+}
+
+li {
+    font-size: 14pt;
+    text-align: left;
 }
 
 * {

@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { map, tap } from 'rxjs/operators';
 
-import { Product } from '../products/product.model';
 import { ProductsService } from '../products/products.service';
 import { BlogService } from '../blog/blog.service';
 import { Post } from '../blog/post.model';
@@ -25,7 +24,6 @@ export class DataStorageService {
         map(productsJson => {
           let products = [];
           for (let [i, [fbId, product]] of Object.entries(Object.entries(productsJson))) {
-            product.id = fbId;
             products[i] = product;
           };
           return products;
