@@ -8,11 +8,19 @@
                     <li (click)="selectPost(2)"></li>
                 </ol>
                 <div class="carousel-inner">
-                    <div class="carousel-item" [ngClass]="{active: i == 0}"
-                        *ngFor="let post of bannerPosts; let i = index">
-                        <a [routerLink]="[i]">
-                            <img class="banner-image" [src]="'assets/posts/' + post.imagePath"
-                                [alt]="'Slide' + i">
+                    <div class="carousel-item" [ngClass]="{active: postId == 0}" *ngFor="let postId of [0, 1, 2];">
+                        <a [routerLink]="[currentPost.url]">
+                            <picture>
+                                <source
+                                    [srcset]="'https://assets.mattressking.shop/v2/assets/posts/post-' + postId + postImageSize + '.webp'"
+                                    type="image/webp">
+                                <source
+                                    [srcset]="'https://assets.mattressking.shop/v2/assets/posts/post-' + postId + postImageSize + '.jpg'"
+                                    type="image/jpeg">
+                                <img class="banner-img"
+                                    [src]="'https://assets.mattressking.shop/v2/assets/posts/post-' + postId + postImageSize + '.jpg'"
+                                    [alt]="currentPost.imageAlt">
+                            </picture>
                         </a>
                     </div>
                 </div>
@@ -28,15 +36,15 @@
         </div>
         <div class="card col-lg-3 col-10 p-0">
             <div class="card-body">
-                <a [routerLink]="[currentPost.id]" class="post-title">
+                <a [routerLink]="[currentPost.url]" class="post-title">
                     <h1>{{ currentPost.title }}</h1>
                 </a>
                 <div class="card-text" [innerHtml]="currentPost.summary">
                 </div>
                 <br>
                 <!-- Read More button -->
-                <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"
-                    type="button" [routerLink]="[currentPost.id]">
+                <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" type="button"
+                    [routerLink]="[currentPost.url]">
                     {{ componentWords.readMore }}&nbsp;&nbsp;>
                 </a>
             </div>

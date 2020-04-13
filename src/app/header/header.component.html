@@ -32,7 +32,12 @@
         <!-- Logo -->
         <div class="logo-container">
             <a [routerLink]="[language, 'home']" [queryParams]="{gl: country}">
-                <img class="logo-image" src="assets/images/logo-04-02.png">
+                <picture>
+                    <source srcset="https://assets.mattressking.shop/v2/assets/images/logo.webp" type="image/webp">
+                    <source srcset="https://assets.mattressking.shop/v2/assets/images/logo.png" type="image/png">
+                    <img class="logo-image" src="https://assets.mattressking.shop/v2/assets/images/logo.png"
+                        alt="Mattress King">
+                </picture>
             </a>
         </div>
 

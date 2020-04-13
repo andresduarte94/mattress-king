@@ -30,7 +30,11 @@ export class AppComponent {
       })
     )
       .subscribe((snapshot: any) => {
+        // Update Title and Decription metas according to path
         this.seoService.updateAllMetasForRoute(snapshot.url, snapshot.params);
+
+        // Set canonical relation on page
+        this.seoService.createCanonicalURL();
 
         // Set route path in Google Analitycs configuration
         let routeURL = snapshot['_routerState'].url;

@@ -11,7 +11,7 @@
                 <hr class="hr-footer-design">
                 <p>
                     {{ componentWords.desginBy }}
-                    <a href="https://krowded.agency/" target="_blank" class="krowded">Krowded</a>
+                    <a href="https://www.krowded.agency/" target="_blank" class="krowded">Krowded</a>
                 </p>
             </div>
             <div class="col-12 col-md-2 mx-auto mb-4">
@@ -19,7 +19,7 @@
                     {{ componentWords.productsLabel }}
                 </h6>
                 <p *ngFor="let category of translationWords.header.categories.slice(1); let i = index;">
-                    <a [routerLink]="[language, 'products', productTypes[i+1]]">
+                    <a [routerLink]="[language, 'products', productTypes[i+1]]" [queryParams]="{gl: country}">
                         {{ category }}
                     </a>
                 </p>
@@ -29,7 +29,7 @@
                     {{ componentWords.usefulLinks[0] }}
                 </h6>
                 <p *ngFor="let usefulLink of componentWords.usefulLinks.slice(1)">
-                    <a [routerLink]="[language, 'blog']">{{ usefulLink }}</a>
+                    <a [routerLink]="[language, 'blog']" [queryParams]="{gl: country}">{{ usefulLink }}</a>
                 </p>
             </div>
             <div class="col-12 col-md-3 mx-auto mb-md-0 mb-4">

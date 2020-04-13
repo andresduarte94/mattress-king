@@ -36,12 +36,14 @@ export class ProductsService {
     return products;
   }
 
-  getProductById(index: number) {
-    return this.products.slice()[index];
+  getProductById(id: number, country: string) {
+    return this.products.slice().find((product: Product) => {
+      return product.id === id && product.country === country;
+    })
   }
 
   setProducts(products: Product[]) {
-    this.products = products;
+    this.products = this.shuffle(products);
   }
 
   getProductTypeId(productType: string) {
@@ -71,7 +73,7 @@ export class ProductsService {
 
     // Filter by most repeated using count obj
     sizes = sizes.filter(function (size) {
-      return count[size] > 7;
+      return count[size] > 7 && size != '';
     });
     return sizes;
   }
@@ -85,5 +87,24 @@ export class ProductsService {
       }
     }
     return checkCondition;
+  }
+
+  shuffle(array: Product[]) {
+    var currentIndex = array.length, temporaryValue, randomIndex;
+  
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+  
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+  
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+  
+    return array;
   }
 }

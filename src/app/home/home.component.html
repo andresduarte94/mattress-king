@@ -8,10 +8,19 @@
                     <li (click)="selectPost(2)"></li>
                 </ol>
                 <div class="carousel-inner">
-                    <div class="carousel-item" *ngFor="let postId of [1, 2, 3]" [ngClass]="{active: postId == 1}">
-                        <a [routerLink]="['..', 'blog', (postId-1)]" target="_blank">
-                            <img class="w-100 banner-img" [src]="'assets/posts/post-' + (postId) + '.jpg'"
-                                [alt]="'Slide number ' + postId">
+                    <div class="carousel-item" *ngFor="let postId of [0, 1, 2]" [ngClass]="{active: postId == 0}">
+                        <a [routerLink]="['..', 'blog', posts[postId].url]" target="_blank">
+                            <picture>
+                                <source
+                                    [srcset]="'https://assets.mattressking.shop/v2/assets/posts/post-' + postId + postImageSize + '.webp'"
+                                    type="image/webp">
+                                <source
+                                    [srcset]="'https://assets.mattressking.shop/v2/assets/posts/post-' + postId + postImageSize + '.jpg'"
+                                    type="image/jpeg">
+                                <img class="banner-img"
+                                    [src]="'https://assets.mattressking.shop/v2/assets/posts/post-' + postId + postImageSize + '.jpg'"
+                                    [alt]="posts[postId].imageAlt">
+                            </picture>
                         </a>
                     </div>
                 </div>
@@ -27,10 +36,24 @@
         </div>
         <div class="col-3 home-products">
             <a [href]="coverProducts[0].amazonLink" target="_blank">
-                <img class="first-image" src="assets/images/product-es-19.jpg" alt="First cover product">
+                <picture>
+                    <source srcset="https://assets.mattressking.shop/v2/assets/images/product-es-19.webp"
+                        type="image/webp">
+                    <source srcset="https://assets.mattressking.shop/v2/assets/images/product-es-19.jpg"
+                        type="image/jpeg">
+                    <img src="https://assets.mattressking.shop/v2/assets/images/product-es-19.jpg" class="first-image"
+                        [alt]="coverProducts[0].name | shorten:60:true">
+                </picture>
             </a>
             <a [href]="coverProducts[1].amazonLink" target="_blank">
-                <img class="second-image" src="assets/images/product-es-14.jpg" alt="Second cover product">
+                <picture>
+                    <source srcset="https://assets.mattressking.shop/v2/assets/images/product-es-14.webp"
+                        type="image/webp">
+                    <source srcset="https://assets.mattressking.shop/v2/assets/images/product-es-14.jpg"
+                        type="image/jpeg">
+                    <img src="https://assets.mattressking.shop/v2/assets/images/product-es-14.jpg" class="second-image"
+                        [alt]="coverProducts[1].name | shorten:60:true">
+                </picture>
             </a>
         </div>
     </div>

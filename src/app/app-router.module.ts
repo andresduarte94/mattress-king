@@ -13,7 +13,7 @@ const appRoutes: Routes = [
     path: ':language',
     children: [
       {
-        path: 'home', component: HomeComponent, resolve: [ProductsResolverService]
+        path: 'home', component: HomeComponent, resolve: [ProductsResolverService, PostsResolverService]
       },
       { path: 'products', pathMatch: 'full', redirectTo: 'products/all' },
       {
@@ -23,7 +23,7 @@ const appRoutes: Routes = [
         path: 'blog', component: BlogComponent, resolve: [PostsResolverService, AuthorsResolverService]
       },
       {
-        path: 'blog/:postIndex', component: PostComponent, resolve: [
+        path: 'blog/:postUrl', component: PostComponent, resolve: [
           PostsResolverService, AuthorsResolverService, ProductsResolverService]
       },
       { path: '**', redirectTo: 'home' }

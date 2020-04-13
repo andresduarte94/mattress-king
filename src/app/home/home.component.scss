@@ -18,10 +18,12 @@ $grid-columns: 11;
 
 .banner-block, .carousel {
   padding: 0;
+  max-height: 450px;
+  max-width: 750px;
 }
 
 .banner-img {
-  max-height: 450px;
+  width: 100%;
 }
 
 .home-products {

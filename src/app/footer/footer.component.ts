@@ -50,6 +50,7 @@ export class FooterComponent implements OnInit {
           return firstChild.firstChild.params.pipe(map(params => {
             // Update language and translation words
             this.language = params.language;
+            this.country = this.globalService.getCountry();
             this.translationWords = this.globalService.getTranslationLanguage();
             this.componentWords = this.translationWords['footer'];
             return params;

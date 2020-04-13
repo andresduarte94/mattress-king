@@ -4,6 +4,7 @@ import { map, tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { BlogService } from '../blog/blog.service';
 import { DOCUMENT } from '@angular/common';
+import { Post } from '../blog/post.model';
 
 @Injectable({ providedIn: 'root' })
 export class SEOService {
@@ -14,8 +15,9 @@ export class SEOService {
         @Inject(DOCUMENT) private _document: any) { }
 
     updateAllMetasForRoute(url: any, params: any) {
-        // Update HTML language attr
         let language = params.language;
+
+        // Update HTML language attribute
         this._document.documentElement.lang = language;
 
         // SEO variables and path
@@ -31,7 +33,14 @@ export class SEOService {
                 description = description.replace('{{ productType }}', productType);
             }
             else if (path1 == 'blog') {
-                const post = this.blogService.getPostById(params.postIndex);
+                const postParam = params.postUrl;
+                let post: Post;
+                if (!isNaN(postParam)) {
+                    post = this.blogService.getPostById(postParam);
+                }
+                else {
+                    post = this.blogService.getPostByUrl(postParam);
+                }
                 pageTitle = this.seoData[language].post.title;
                 description = this.seoData[language].post.description;
                 pageTitle = pageTitle.replace('{{ title }}', post.title);
@@ -50,6 +59,16 @@ export class SEOService {
 
     updateDescription(desc: string) {
         this.meta.updateTag({ name: 'description', content: desc })
+    }
+
+    createCanonicalURL() {
+        let canonicalLink = this._document.querySelector('[rel="canonical"]');
+        if (canonicalLink == null) {
+            canonicalLink = this._document.createElement('link');
+            canonicalLink.setAttribute('rel', 'canonical');
+            this._document.head.appendChild(canonicalLink);
+        }
+        canonicalLink.setAttribute('href', this._document.URL);
     }
 
     fetchSEO(): Promise<any> {

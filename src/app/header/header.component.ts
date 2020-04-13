@@ -64,9 +64,15 @@ export class HeaderComponent implements OnInit {
       }),
       switchMap(firstChild => {
         if (firstChild) {
+          const countryQueryParam = firstChild.firstChild.snapshot.queryParams['gl'];
+          if (countryQueryParam) {
+            this.globalForm.controls['countries'].setValue(countryQueryParam);
+          }
+          
           if (!firstChild.firstChild.snapshot['_routerState'].url.match(/products/)) {
             this.searchForm.controls['search'].setValue('');
           }
+
           return firstChild.firstChild.params.pipe(map(params => {
             // Update language and translation words
             if (!this.languagesCodes.includes(params.language)) {
@@ -118,13 +124,15 @@ export class HeaderComponent implements OnInit {
       (country) => {
         // Update country
         this.country = country;
+        this.globalService.setCountry(this.country);
         // Create url string with country and navigate to it
         let activatedRouteURL = this.activatedRoute.snapshot['_routerState'].url;
         const baseURL = activatedRouteURL.indexOf('?') > -1 ? activatedRouteURL.slice(3, activatedRouteURL.indexOf('?')) : activatedRouteURL.slice(3);
+        const countryParameter = country == 'all' ? '' : `?gl=${country}`;
         this.router.navigateByUrl(
           this.language
           + baseURL
-          + '?' + 'gl=' + this.country
+          + countryParameter
         );
       });
 
@@ -141,10 +149,11 @@ export class HeaderComponent implements OnInit {
         this.componentWords = this.translationWords['header'];
         let activatedRouteURL = this.activatedRoute.snapshot['_routerState'].url;
         const baseURL = activatedRouteURL.indexOf('?') > -1 ? activatedRouteURL.slice(3, activatedRouteURL.indexOf('?')) : activatedRouteURL.slice(3);
+        const countryParameter = this.country == 'all' ? '' : `?gl=${this.country}`;
         this.router.navigateByUrl(
           this.language
           + baseURL
-          + '?' + 'gl=' + this.country
+          + countryParameter
         );
       });
 
@@ -184,6 +193,10 @@ export class HeaderComponent implements OnInit {
   }
 
   changeProductType(category: string) {
+    if ( this.country == 'all' ) {
+      this.router.navigate([this.language, 'products', category.toLowerCase()]);
+    }
+
     this.router.navigate([this.language, 'products', category.toLowerCase()], { queryParams: { gl: this.country } });
   }
 

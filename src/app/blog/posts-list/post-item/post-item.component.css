@@ -2,33 +2,12 @@ a {
     text-decoration: none;
 }
 
-h2 {
-    font-size: 1em !important;
-}
-
-.demo-card-square.mdl-card {
-    height: 320px;
-    width: 380px;  
-}
-
-.demo-card-square > .mdl-card__title {
-    position: relative !important;
-    text-align: center !important;
-    color: white !important;
-}
-
-.post-image {
-    height:200px;
-}
-
-.mdl-card__title-text {
-    position: absolute !important;
-    left: 26px !important;
-}
-
-.mdl-card__supporting-text {
-    height: 120px !important;
-    background-color: #f1f3f5;
+.mdl-card  {
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 0;
+    padding-right: 0;
+    margin-bottom: 2%;
 }
 
 .upper {
@@ -41,18 +20,37 @@ h2 {
     top: -10px;
 }
 
-@media screen and (max-width: 800px) {
-    [class*="demo-card-square"] {
-        width: 300px !important; 
+.post-img {
+    width: 100%;
+}
+
+.mdl-card__supporting-text {
+    min-height: 93px;
+    background-color: #f1f3f5;
+}
+
+@media screen and (max-width: 340px) {
+    [class*="mdl-card"] {
+        width: 270px; 
+    }
+}
+@media screen and (min-width: 340px) and (max-width: 800px) {
+    [class*="mdl-card"] {
+        width: 300px; 
     }
 }
 @media screen and (min-width: 800px) and (max-width: 1370px) {
-    [class*="demo-card-square"] {
-        width: 340px !important; 
+    [class*="mdl-card"] {
+        width: 340px; 
+    }
+}
+@media screen and (min-width: 1370px) and (max-width: 1720px) {
+    [class*="mdl-card"] {
+        width: 380px; 
     }
 }
 @media screen and (min-width: 1720px) {
-    [class*="demo-card-square"] {
-        width: 460px !important; 
+    [class*="mdl-card"] {
+        width: 460px; 
     }  
 }

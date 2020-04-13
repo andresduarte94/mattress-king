@@ -1,6 +1,12 @@
 h1 {
     text-align: center;
-    font-size: 32pt !important;
+    font-size: 32pt;
+    color: #142a58;
+}
+
+hr {
+    margin-top: 0.8em;
+    margin-bottom: 0.8em;
 }
 
 .contain {
@@ -29,11 +35,6 @@ h1 {
     margin-right: 0.7em;
 }
 
-hr {
-    margin-top: 0.8em;
-    margin-bottom: 0.8em;
-}
-
 .link, .link:hover {
     cursor: pointer;
     font-weight: 700 !important;
@@ -42,18 +43,32 @@ hr {
     text-decoration: none;
 }
 
-#authorTable {
-    vertical-align: top;
-    text-align: left;
-    display: inline-block;
+.author-image-div {
+    width: 80px;
+    display: block;
+    background: #142a58;
+    border-radius: 100%;
+    padding: 2px;
 }
 
 .author-image {
-    width: 80px;
+    display: block;
+    width:100%;
+    border-radius: 100%;
 }
 
+.author-image-sm-div {
+    width: 60px;
+    display: block;
+    background: #142a58;
+    border-radius: 100%;
+    padding: 2px;
+}
+  
 .author-image-sm {
-    width: 50px;
+    display: block;
+    width: 100%;
+    border-radius: 100%;
 }
 
 .resume {
@@ -64,6 +79,12 @@ hr {
 
 .name {
     font-weight: bold;
+}
+
+#authorTable {
+    vertical-align: top;
+    text-align: left;
+    display: inline-block;
 }
 
 @media (max-width:480px)  { 

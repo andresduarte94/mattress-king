@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
 import { ProductsService } from '../products/products.service';
 import { Product } from '../products/product.model';
 
 import * as $ from 'jquery';
 import 'popper.js';
 import 'bootstrap';
+import { BlogService } from '../blog/blog.service';
+import { Post } from '../blog/post.model';
+import { Subscription } from 'rxjs';
+import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-home',
@@ -15,15 +18,20 @@ import 'bootstrap';
 export class HomeComponent implements OnInit {
   carousel: any;
   coverProducts: Product[] = [];
+  posts: Post[];
+  postImageSize: string;
 
-  constructor(private activatedRoute : ActivatedRoute, private productsService: ProductsService) { }
+  // Subscriptions
+  breakpointSub: Subscription;
+
+  constructor(private productsService: ProductsService, private blogService: BlogService, public breakpointObserver: BreakpointObserver) { }
 
   ngOnInit() {
-    this.coverProducts.push(...[this.productsService.getProductById(19), this.productsService.getProductById(14)]);
+    this.coverProducts.push(...[this.productsService.getProductById(19, 'es'), this.productsService.getProductById(14, 'es')]);
+    this.posts = this.blogService.getPosts();
 
-    this.activatedRoute.params.subscribe( 
-      (params: Params)=> {
-    });
+    // Set product responsive images depending on viewport size
+    this.breakpointSub = this.createBreakpointsSubscription();
   }
 
   ngAfterViewInit() {
@@ -35,7 +43,6 @@ export class HomeComponent implements OnInit {
     }).carousel('cycle');
   }
 
-  
   next() {
     this.carousel.carousel('next');
   }
@@ -48,4 +55,24 @@ export class HomeComponent implements OnInit {
     this.carousel.carousel(index);
   }
 
+  createBreakpointsSubscription() {
+    // Set product image url and update the change
+    return this.breakpointObserver
+      .observe(['(max-width: 450px)', '(max-width: 790px)'])
+      .subscribe((state: BreakpointState) => {
+        if (state.breakpoints['(max-width: 450px)']) {
+          this.postImageSize = '-small';
+        }
+        else if (state.breakpoints['(max-width: 790px)']) {
+          this.postImageSize = '-medium';
+        }
+        else {
+          this.postImageSize = '-large';
+        }
+      });
+  }
+
+  ngOnDestroy() {
+    this.breakpointSub.unsubscribe();
+  }
 }

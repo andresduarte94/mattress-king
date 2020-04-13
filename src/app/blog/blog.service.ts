@@ -10,7 +10,6 @@ export class BlogService {
   filterPostsChanged = new Subject<any>();
   private posts: Post[] = [];
   private authors: Author[] = [];
-  postTitles: string[];
 
   getPosts(filter?) {
     let posts = this.posts.slice();
@@ -20,8 +19,8 @@ export class BlogService {
 
     posts = posts.filter(function (post) {
       return (filter.hasOwnProperty('type') ? (post.type == filter.type) : (true)) &&
-        (filter.hasOwnProperty('title') ? (RegExp(filter.title, 'i').test(post.title.normalize("NFD").replace(/[\u0300-\u036f]/g, ""))) : (true)) &&
-        (filter.hasOwnProperty('content') ? (RegExp(filter.content, 'i').test(post.content.normalize("NFD").replace(/[\u0300-\u036f]/g, ""))) : (true))
+        (filter.hasOwnProperty('title') ? (RegExp(filter.title, 'i').test(post.title.normalize("NFD").replace(/[\u0300-\u036f]/g, ""))) : (true)) //&&
+        //(filter.hasOwnProperty('content') ? (RegExp(filter.content, 'i').test(post.content.normalize("NFD").replace(/[\u0300-\u036f]/g, ""))) : (true))
     });
 
     return posts;
@@ -29,7 +28,15 @@ export class BlogService {
 
   setPosts(posts: Post[]) {
     this.posts = posts;
-    this.setPostTitles();
+    this.posts.forEach((post) => {
+      post.imageAlt = post.title.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    })
+  }
+
+  getPostByUrl(url: string) {
+    return this.posts.slice().find((post: Post) => {
+      return post.url === url;
+    })
   }
 
   getPostById(postId: number) {
@@ -46,20 +53,5 @@ export class BlogService {
 
   getAuthorById(authorId: number) {
     return this.authors[authorId];
-  }
-
-  setPostTitles() {
-    this.postTitles = this.posts.map((post) => {
-      return post.title.replace(/ /g, '-').normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[¿?]/g, '').toLowerCase();
-    });
-  }
-
-  getURLTitleById(postId: number) {
-    const prettyURLTitle = this.postTitles[postId];
-    return prettyURLTitle;
-  }
-
-  getPostIndexByTitle(postTitle: string) {
-    return this.postTitles.indexOf(postTitle);
   }
 }

@@ -5,6 +5,8 @@ import { BlogService } from '../../blog.service';
 import { Author } from '../../author.model';
 import { GlobalService } from 'src/app/shared/global.service';
 import { Location } from '@angular/common';
+import { Subscription } from 'rxjs';
+import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-post',
@@ -20,14 +22,17 @@ export class PostComponent implements OnInit {
 
   //Post variables
   post: Post;
-  postIndex: number;
-  nextId: number;
   author: Author;
   postFormattedDate: string;
   @ViewChild('contentContainer', { static: false, read: ViewContainerRef }) contentContainer: ViewContainerRef;
+  postImageSize: string;
 
-  constructor(private globalService: GlobalService, private activatedRoute: ActivatedRoute, private blogService: BlogService, 
-    private router: Router, private location: Location /*private productsService: ProductsService, private cdr: ChangeDetectorRef,
+  // Subscriptions
+  breakpointSub: Subscription;
+
+  constructor(private globalService: GlobalService, private activatedRoute: ActivatedRoute, private blogService: BlogService,
+    private router: Router, private location: Location, public breakpointObserver: BreakpointObserver 
+    /*private productsService: ProductsService, private cdr: ChangeDetectorRef,
     private componentFactoryResolver: ComponentFactoryResolver, private _compiler: Compiler*/
   ) { }
 
@@ -46,30 +51,50 @@ export class PostComponent implements OnInit {
         this.componentWords = this.translationWords['post'];
 
         //Update post information
-        let postParam = params.postIndex;
-
-        if(isNaN(postParam)){
-          postParam = this.blogService.getPostIndexByTitle(postParam);
+        const postParam = params.postUrl;
+        if (!isNaN(postParam)) {
+          this.post = this.blogService.getPostById(postParam);
+          this.location.replaceState(this.language + '/blog/' + this.post.url)
         }
-        this.postIndex = +postParam;
-        this.post = this.blogService.getPostById(this.postIndex);
+        else {
+          this.post = this.blogService.getPostByUrl(postParam);
+        }
         this.author = this.blogService.getAuthorById(this.post.authorId);
         this.postFormattedDate = new Date(this.post.date * 1000).toLocaleString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
-        let prettyURLTitle = this.blogService.getURLTitleById(this.postIndex);
-        this.location.replaceState(this.language + '/blog/' + prettyURLTitle);
       }
     );
+
+    // Set product responsive images depending on viewport size
+    this.breakpointSub = this.createBreakpointsSubscription();
   }
 
   nextArticle() {
-    const post = this.blogService.getPostById(this.postIndex + 1);
-    if (typeof post === 'undefined') {
-      this.nextId = 0;
+    let nextPost = this.blogService.getPostById(this.post.id + 1);
+    if (!nextPost) {
+      nextPost = this.blogService.getPostById(0);
     }
-    else {
-      this.nextId = ++this.postIndex;
-    }
-    this.router.navigate(['../', this.nextId], { relativeTo: this.activatedRoute }); //, queryParams: { action: (Math.floor(Math.random() * 1000) + 1) }s
+    this.router.navigate(['../', nextPost.url], { relativeTo: this.activatedRoute });
+  }
+
+  createBreakpointsSubscription() {
+    // Set product image url and update the change
+    return this.breakpointObserver
+      .observe(['(max-width: 450px)', '(max-width: 790px)'])
+      .subscribe((state: BreakpointState) => {
+        if (state.breakpoints['(max-width: 450px)']) {
+          this.postImageSize = '-small';
+        }
+        else if (state.breakpoints['(max-width: 760px)']) {
+          this.postImageSize = '-medium';
+        }
+        else {
+          this.postImageSize = '-large';
+        }
+      });
+  }
+
+  ngOnDestroy() {
+    this.breakpointSub.unsubscribe();
   }
 
   // Generate post content on the fly - Commented until implementing a way of only use JIT compiler for this component
@@ -115,5 +140,4 @@ export class PostComponent implements OnInit {
         })
       })
   } */
-  
 }

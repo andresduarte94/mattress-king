@@ -55,6 +55,7 @@ export class ProductDisplayComponent implements OnInit {
     //Product variables initialization
     this.productTypes = this.productsService.productTypes;
     this.sizes = this.productsService.getSizes(1);
+    //this.updateProducts(this.filter)
     //Ui variables
     this.innerWidth = window.innerWidth;
     if (this.innerWidth >= 762) {
@@ -104,11 +105,8 @@ export class ProductDisplayComponent implements OnInit {
     //QueryParams subscription for search bar filter
     this.activatedRoute.queryParams.subscribe(
       (queryParams: Params) => {
-        if (queryParams.gl) {
-          this.country = queryParams.gl;
-          this.filter.country = queryParams.gl;
-          this.updateProducts(this.filter);
-        }
+        this.filter.country = this.country = queryParams.gl ? queryParams.gl: 'all';
+        this.updateProducts(this.filter);
       }
     );
   }
@@ -133,7 +131,8 @@ export class ProductDisplayComponent implements OnInit {
       (productTypeId) => {
         this.filter.type = +productTypeId;
         // Update product type name in URL for when navigating inside products path
-        this.location.replaceState(this.language + '/products/' + this.productTypes[productTypeId], 'gl=' + this.country);
+        const countryParameter = this.country == 'all' ? '' : `?gl=${this.country}`;
+        this.location.replaceState(this.language + '/products/' + this.productTypes[productTypeId], countryParameter);
         // Update products filter with product type change
         this.updateProducts(this.filter);
       }

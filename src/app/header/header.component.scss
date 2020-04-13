@@ -1,12 +1,15 @@
 /* GREY NAVBAR */
 #navbar-grey {
-    background-color: #54595E;
+    background-color: #d6d8d7;
     max-height: 42px;
     color: darkgray;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    height: 35px;
 }
 
 .form-field {
-    width: 70%;
+    width: 80%;
 }
 
 .grey-item {
@@ -70,7 +73,7 @@
 #navbar-light-blue {
     background-color: #79cedc;
     padding: 0;
-    margin-bottom: 2%;
+    margin-bottom: 1%;
 }
 
 #navbar-light-blue a {
@@ -90,18 +93,16 @@
 }
 
 /* RESPONSIVE */
-@media screen and (max-width: 420px) {
+@media screen and (max-width: 350px) {
     .grey-item {
         max-width: 130px;
     }
 }
-
-@media screen and (min-width: 420px){
+@media screen and (min-width: 350px) and (max-width: 420px) {
     .grey-item {
-        max-width: 250px;
+        max-width: 150px;
     }
 }
-
 @media screen and (max-width: 761px) {
     #greyNavForm {
         margin: 0 auto;

@@ -27,13 +27,34 @@
             </div>
             <hr>
             <!-- Post image -->
-            <img class="post-img" [src]="'assets/posts/post-' + (postIndex+1) + '.jpg'" alt="Post image">
+            <picture>
+                <source
+                    [srcset]="'https://assets.mattressking.shop/v2/assets/posts/post-' + post.id + postImageSize + '.webp'"
+                    type="image/webp">
+                <source
+                    [srcset]="'https://assets.mattressking.shop/v2/assets/posts/post-' + post.id + postImageSize + '.jpg'"
+                    type="image/jpeg">
+                <img class="post-img"
+                    [src]="'https://assets.mattressking.shop/v2/assets/posts/post-' + post.id + postImageSize + '.jpg'"
+                    [alt]="post.imageAlt">
+            </picture>
             <!-- Auhtor and article info-->
             <table class="mt-2" id="authorTable">
                 <tr>
                     <td>
-                        <img class="d-block author-image-sm" [src]="'assets/images/' + author.imagePath + '.jpg'"
-                            alt="Author picture">
+                        <div class="author-image-sm-div">
+                            <picture>
+                                <source
+                                    [srcset]="'https://assets.mattressking.shop/v2/assets/images/' + author.imagePath + '.webp'"
+                                    type="image/webp">
+                                <source
+                                    [srcset]="'https://assets.mattressking.shop/v2/assets/images/' + author.imagePath + '.jpg'"
+                                    type="image/jpeg">
+                                <img class="author-image-sm"
+                                    [src]="'https://assets.mattressking.shop/v2/assets/images/' + author.imagePath + '.jpg'"
+                                    [alt]="author.name">
+                            </picture>
+                        </div>
                     </td>
                     <td class="pl-4 pt-3">
                         <h4 class="name">{{ author.name }}</h4>
@@ -47,15 +68,25 @@
         </div>
         <div class="contain">
             <!-- Post content section-->
-            <!-- <ng-template #contentContainer></ng-template> -->
-            <app-post-content [postId]="postIndex"></app-post-content>
+            <app-post-content [postId]="post.id"></app-post-content>
             <hr>
             <!-- Auhtor info -->
             <table class="mt-4" id="authorTable">
                 <tr>
                     <td>
-                        <img class="d-block author-image" [src]="'assets/images/' + author.imagePath + '.jpg'"
-                            alt="Author picture">
+                        <div class="author-image-div">
+                            <picture>
+                                <source
+                                    [srcset]="'https://assets.mattressking.shop/v2/assets/images/' + author.imagePath + '.webp'"
+                                    type="image/webp">
+                                <source
+                                    [srcset]="'https://assets.mattressking.shop/v2/assets/images/' + author.imagePath + '.jpg'"
+                                    type="image/jpeg">
+                                <img class="author-image"
+                                    [src]="'https://assets.mattressking.shop/v2/assets/images/' + author.imagePath + '.jpg'"
+                                    [alt]="author.name">
+                            </picture>
+                        </div>
                     </td>
                     <td class="pl-4 pt-3">
                         <h4 class="name">{{ author.name }}</h4>
