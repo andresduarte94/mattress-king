@@ -44,3 +44,6 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+sitemap2.xml
+.htaccess
+sitemap.xml

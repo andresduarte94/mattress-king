@@ -12,13 +12,13 @@
                         <a [routerLink]="[currentPost.url]">
                             <picture>
                                 <source
-                                    [srcset]="'https://assets.mattressking.shop/v2/assets/posts/post-' + postId + postImageSize + '.webp'"
+                                    [srcset]="'https://assets.mattressfinder.shop/v2/assets/posts/post-' + postId + postImageSize + '.webp'"
                                     type="image/webp">
                                 <source
-                                    [srcset]="'https://assets.mattressking.shop/v2/assets/posts/post-' + postId + postImageSize + '.jpg'"
+                                    [srcset]="'https://assets.mattressfinder.shop/v2/assets/posts/post-' + postId + postImageSize + '.jpg'"
                                     type="image/jpeg">
                                 <img class="banner-img"
-                                    [src]="'https://assets.mattressking.shop/v2/assets/posts/post-' + postId + postImageSize + '.jpg'"
+                                    [src]="'https://assets.mattressfinder.shop/v2/assets/posts/post-' + postId + postImageSize + '.jpg'"
                                     [alt]="currentPost.imageAlt">
                             </picture>
                         </a>

@@ -79,7 +79,7 @@ export class ProductItemComponent implements OnInit {
         size = 'large';
       }
       // Set product image url and update the change
-      this.productImage = `https://assets.mattressking.shop/v2/assets/products/${this.product.country}/product-${this.product.country}-${this.product.id}-${size}`;
+      this.productImage = `https://assets.mattressfinder.shop/v2/assets/products/${this.product.country}/product-${this.product.country}-${this.product.id}-${size}`;
     });
   }
 
