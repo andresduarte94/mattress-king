@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { ProductsService } from '../products/products.service';
-import { Filter } from '../products/product-display/filter.model';
+import { Filter } from '../products/filter.model';
 import { FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { FormControl } from '@angular/forms';

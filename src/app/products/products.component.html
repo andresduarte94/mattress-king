@@ -1,3 +1,93 @@
-<div class="container-fluid px-0">
-    <app-product-display class="row mx-auto no-gutters"></app-product-display>
+<div class="container-fluid px-2">
+    <div class="row no-gutters">
+        <div id="filtersContainer" class="col-16 col-md-5 col-ml-3">
+            <div class="card categories-sidebar my-4 my-md-0">
+                <nav class="navbar navbar-dark">
+                    <div class="filters-header">
+                        <span class="filters-title">{{ componentWords.filtersLabel }}</span>
+                        <!-- Burguer button for right-side of header -->
+                        <button class="navbar-toggler" type="button" (click)="toggleNavbar()"
+                            [ngClass]="{'hide-icon': innerWidth >= 762}">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                    </div>
+                    <hr>
+                    <form [formGroup]="filterForm" class="collapse navbar-collapse mx-2"
+                        [ngClass]="{'show': navbarOpen}">
+                        <!-- Product type -->
+                        <div class="form-group mt-2">
+                            <label for="productType" class="title">{{ componentWords.productTypeLabel }}</label>
+                            <select id="productType" class="form-control type" formControlName="productType" required>
+                                <option class="typesOptions"
+                                    *ngFor="let category of translationWords.header.categories; let i = index;"
+                                    [value]="i">
+                                    {{ category }}
+                                </option>
+                            </select>
+                        </div>
+                        <hr>
+                        <!-- Price range -->
+                        <div class="form-group mb-4">
+                            <label class="title title-slider">{{ componentWords.priceLabel }}</label>
+                            <nouislider class="nouislider" name="priceSlider" [config]="priceSliderConfig"
+                                formControlName="priceSlider" [tooltips]="[ true, true ]"></nouislider>
+                        </div>
+                        <hr>
+                        <!-- Scores -->
+                        <div class="form-group">
+                            <label class="title">{{ componentWords.reviewsLabel }}</label>
+                            <div class="review-filter" *ngFor="let score of [1, 2, 3, 4, 5]">
+                                <!-- Stars -->
+                                <a (click)="updateScoreFilter(score)" class="link">
+                                    <span>
+                                        <svg class="icon icon-star-full" *ngFor="let item of [].constructor(score)">
+                                            <use xlink:href="#icon-star-full"></use>
+                                        </svg>
+                                    </span>
+                                    <span>
+                                        <svg class="icon" *ngFor="let item of [].constructor(5-score)">
+                                            <use xlink:href="#icon-star-empty"></use>
+                                        </svg>
+                                        <span
+                                            [ngStyle]="{'visibility': score != 5 ? 'visible' : 'hidden'}">&nbsp;{{ componentWords.moreLabel }}</span>
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+                        <hr>
+                        <!-- Sizes -->
+                        <div class="form-group mb-0" formGroupName="sizes">
+                            <label class="title">{{ componentWords.sizesLabel }}</label>
+                            <div class="sizes-options">
+                                <mat-checkbox [formControlName]="size" color="primary"
+                                    *ngFor="let size of sizes; let i = index;">{{ size }}
+                                </mat-checkbox>
+                            </div>
+                        </div>
+                        <hr>
+                        <!-- Minimum discount -->
+                        <div class="discount-container">
+                            <label for="mindiscount" class="title">{{ componentWords.discountLabel }}</label>
+                            <mat-slider class="mat-slider" thumbLabel [displayWith]="formatLabel" color="primary"
+                                min="0" max="100" formControlName="mindiscount"></mat-slider>
+                        </div>
+                        <hr>
+                        <!-- Payments -->
+                        <div class="payments-container">
+                            <label for="payments" class="title">{{ componentWords.paymentsLabel }}</label>
+                            <mat-radio-group class="payment-group" formControlName="payments">
+                                <mat-radio-button color="primary" value="4" (click)="uncheckRadio($event, 4)">
+                                    {{ componentWords.paymentsOptions[0] }}
+                                </mat-radio-button>
+                                <mat-radio-button color="primary" value="10" (click)="uncheckRadio($event, 10)">
+                                    {{ componentWords.paymentsOptions[1] }}
+                                </mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+                    </form>
+                </nav>
+            </div>
+        </div>
+        <app-product-list class="col-16 col-md-11 col-ml-13" [products]="products"></app-product-list>
+    </div>
 </div>

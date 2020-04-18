@@ -1,9 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { AppRoutingModule } from './app-router.module';
+import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from './shared/shared.module';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -13,7 +13,6 @@ import { FooterComponent } from './footer/footer.component';
 import { BlogComponent } from './blog/blog.component';
 import { ProductListComponent } from './products/product-list/product-list.component';
 import { ProductItemComponent } from './products/product-list/product-item/product-item.component';
-import { ProductDisplayComponent } from './products/product-display/product-display.component';
 import { PostsListComponent } from './blog/posts-list/posts-list.component';
 import { PostComponent } from './blog/posts-list/post/post.component';
 import { PostItemComponent } from './blog/posts-list/post-item/post-item.component';
@@ -39,7 +38,6 @@ import { SEOService } from './shared/seo.service';
     BlogComponent,
     ProductListComponent,
     ProductItemComponent,
-    ProductDisplayComponent,
     PostsListComponent,
     PostComponent,
     PostItemComponent,
@@ -52,7 +50,6 @@ import { SEOService } from './shared/seo.service';
     AppRoutingModule,
     SharedModule,
     ReactiveFormsModule,
-    FormsModule,
     NouisliderModule,
     BrowserAnimationsModule,
     MatRadioModule,
@@ -60,8 +57,6 @@ import { SEOService } from './shared/seo.service';
     MatCheckboxModule,
     MatSelectModule
   ],
-  exports: [ProductItemComponent],
-  //entryComponents: [ProductItemComponent],
   bootstrap: [AppComponent],
   providers: [
     {
