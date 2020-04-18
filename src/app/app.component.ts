@@ -36,6 +36,9 @@ export class AppComponent {
         // Set canonical relation on page
         this.seoService.createCanonicalURL();
 
+        // Change lang attribute
+        this.seoService.changeLangAttribute(snapshot.params.language);
+
         // Set route path in Google Analitycs configuration
         let routeURL = snapshot['_routerState'].url;
         const lastIndex = routeURL.indexOf('?');

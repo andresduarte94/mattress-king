@@ -16,16 +16,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'mattress-king'`, () => {
+  it(`should have as title 'mattress-finder'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('mattress-king');
+    expect(app.title).toEqual('mattress-finder');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('mattress-king app is running!');
+    expect(compiled.querySelector('.content span').textContent).toContain('mattress-finder app is running!');
   });
 });

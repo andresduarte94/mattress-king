@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "mattress-king": {
+    "mattress-finder": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/mattress-king",
+            "outputPath": "dist/mattress-finder",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -74,18 +74,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "mattress-king:build"
+            "browserTarget": "mattress-finder:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "mattress-king:build:production"
+              "browserTarget": "mattress-finder:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "mattress-king:build"
+            "browserTarget": "mattress-finder:build"
           }
         },
         "test": {
@@ -127,16 +127,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "mattress-king:serve"
+            "devServerTarget": "mattress-finder:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "mattress-king:serve:production"
+              "devServerTarget": "mattress-finder:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "mattress-king"
+  "defaultProject": "mattress-finder"
 }

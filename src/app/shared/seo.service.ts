@@ -61,6 +61,10 @@ export class SEOService {
         this.meta.updateTag({ name: 'description', content: desc })
     }
 
+    changeLangAttribute(language: string) {
+        this._document.documentElement.lang = language;
+    }
+
     createCanonicalURL() {
         let canonicalLink = this._document.querySelector('[rel="canonical"]');
         if (canonicalLink == null) {
