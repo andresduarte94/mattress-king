@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, tap } from 'rxjs/operators';
 
-import { ProductsService } from '../products/products.service';
+import { ProductsService } from '../main/products/products.service';
 import { BlogService } from '../blog/blog.service';
 import { Post } from '../blog/post.model';
 import { Author } from '../blog/author.model';

@@ -30,8 +30,13 @@ export class AppComponent {
       })
     )
       .subscribe((snapshot: any) => {
+        // Get route path without query parameters
+        let routeURL = snapshot['_routerState'].url;
+        const lastIndex = routeURL.indexOf('?');
+        routeURL = lastIndex > -1 ? routeURL.slice(0, lastIndex) : routeURL.slice(0);
+
         // Update Title and Decription metas according to path
-        this.seoService.updateAllMetasForRoute(snapshot.url, snapshot.params);
+        this.seoService.updateAllMetasForRoute(routeURL, snapshot.params);
 
         // Set canonical relation on page
         this.seoService.createCanonicalURL();
@@ -40,9 +45,6 @@ export class AppComponent {
         this.seoService.changeLangAttribute(snapshot.params.language);
 
         // Set route path in Google Analitycs configuration
-        let routeURL = snapshot['_routerState'].url;
-        const lastIndex = routeURL.indexOf('?');
-        routeURL = lastIndex > -1 ? routeURL.slice(0, lastIndex) : routeURL.slice(0);
         gtag('config', 'UA-163785252-1', {
           'page_path': routeURL
         });

@@ -21,7 +21,7 @@ export class SEOService {
         this._document.documentElement.lang = language;
 
         // SEO variables and path
-        let path1 = url[0].path;
+        const path1 = url.split('/')[2];
         let description = this.seoData[language][path1].description;
         let pageTitle = this.seoData[language][path1].title;
 

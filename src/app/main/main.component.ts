@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductsService } from '../products/products.service';
-import { Product } from '../products/product.model';
+import { ProductsService } from './products/products.service';
+import { Product } from './products/product.model';
 
 import * as $ from 'jquery';
 import 'popper.js';
@@ -11,11 +11,11 @@ import { Subscription } from 'rxjs';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  selector: 'app-main',
+  templateUrl: './main.component.html',
+  styleUrls: ['./main.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class MainComponent implements OnInit {
   carousel: any;
   coverProducts: Product[] = [];
   posts: Post[];

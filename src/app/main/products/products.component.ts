@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { FormGroup, FormControl, NgForm } from '@angular/forms';
-import { NouisliderComponent } from '../../../node_modules/ng2-nouislider/ng2-nouislider.component';
+import { NouisliderComponent } from 'ng2-nouislider/ng2-nouislider.component';
 import { Subscription } from 'rxjs';
 import { GlobalService } from 'src/app/shared/global.service';
 import { Location } from '@angular/common';

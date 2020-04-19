@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Product } from 'src/app/products/product.model';
-import { ProductsService } from 'src/app/products/products.service';
+import { Product } from 'src/app/main/products/product.model';
+import { ProductsService } from 'src/app/main/products/products.service';
 
 @Component({
   selector: 'app-post-content',

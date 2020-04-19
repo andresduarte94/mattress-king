@@ -3,7 +3,7 @@ import { GlobalService } from '../shared/global.service';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { map, switchMap, filter } from 'rxjs/operators';
-import { ProductsService } from '../products/products.service';
+import { ProductsService } from '../main/products/products.service';
 
 @Component({
   selector: 'app-footer',

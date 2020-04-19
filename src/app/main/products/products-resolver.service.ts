@@ -5,7 +5,7 @@ import {
   RouterStateSnapshot
 } from '@angular/router';
 
-import { DataStorageService } from '../shared/data-storage.service';
+import { DataStorageService } from '../../shared/data-storage.service';
 import { Product } from './product.model';
 import { ProductsService } from './products.service';
 
