@@ -21,22 +21,28 @@
             "aot": false,
             "assets": [
               "src/favicon.ico",
-              "src/assets",
-              "src/assets/images",
-              "src/assets/products",
-              "src/assets/externals"
+              {
+                "glob": "**/*",
+                "input": "src/assets",
+                "output": "assets"
+              }
             ],
             "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.scss",
-              "node_modules/nouislider/distribute/nouislider.min.css"
+              "node_modules/nouislider/distribute/nouislider.min.css",
+              "src/assets/externals/fonts/lato.css",
+              "src/assets/externals/fonts/raleway.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/popper.js/dist/umd/popper.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js",
               "src/assets/externals/import-svg.js"
+            ],
+            "lazyModules": [
+              "src/app/footer/footer.module"
             ]
           },
           "configurations": {
