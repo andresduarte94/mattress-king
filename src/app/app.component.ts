@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { filter, map } from 'rxjs/operators';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { SEOService } from './shared/seo.service';
+import { ScriptLoader } from './shared/scriptLoader.service';
 
 declare let gtag: Function;
 
@@ -12,7 +13,8 @@ declare let gtag: Function;
 })
 export class AppComponent {
 
-  constructor(private activatedRoute: ActivatedRoute, private router: Router, private seoService: SEOService) { }
+  constructor(private activatedRoute: ActivatedRoute, private router: Router, private seoService: SEOService,
+    private scriptLoader: ScriptLoader) { }
 
   ngOnInit() {
     this.router.events.pipe(
@@ -52,7 +54,8 @@ export class AppComponent {
       });
   }
 
-
+  ngAfterViewInit() {
+    this.scriptLoader.loadScriptsAndStyles();
+  }
   
-
 }

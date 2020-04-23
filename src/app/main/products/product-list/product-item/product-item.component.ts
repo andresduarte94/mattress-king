@@ -8,7 +8,7 @@ import { ProductsService } from '../../products.service';
 @Component({
   selector: 'app-product-item',
   templateUrl: './product-item.component.html',
-  styleUrls: ['./product-item.component.css'],
+  styleUrls: ['./product-item.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductItemComponent implements OnInit {

@@ -4,15 +4,18 @@ import { BlogService } from './blog.service';
 import { Subject, Subscription } from 'rxjs';
 import { GlobalService } from '../shared/global.service';
 import { Params, ActivatedRoute } from '@angular/router';
-import * as $ from 'jquery';
-import 'popper.js';
-import 'bootstrap';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
+
+import('jquery').then((jquery) => {
+       window.$ = jquery.default;
+});
+import('popper.js').then(() => {});
+import('bootstrap').then(() => {});
 
 @Component({
   selector: 'app-blog',
   templateUrl: './blog.component.html',
-  styleUrls: ['./blog.component.css']
+  styleUrls: ['./blog.component.scss']
 })
 export class BlogComponent implements OnInit {
   // Global variables

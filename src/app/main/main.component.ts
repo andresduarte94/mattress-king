@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from './products/products.service';
 import { Product } from './products/product.model';
-
-import * as $ from 'jquery';
-import 'popper.js';
-import 'bootstrap';
 import { BlogService } from '../blog/blog.service';
 import { Post } from '../blog/post.model';
 import { Subscription } from 'rxjs';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
+
+import * as $ from 'jquery';
+import 'popper.js';
+import 'bootstrap';
 
 @Component({
   selector: 'app-main',

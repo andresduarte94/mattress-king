@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
-
-import { MainModule } from './main/main.module';
+import { MainComponent } from './main/main.component';
+import { ProductsResolverService } from './main/products/products-resolver.service';
+import { PostsResolverService } from './blog/posts-resolver.service';
+import { ProductsComponent } from './main/products/products.component';
 
 const appRoutes: Routes = [
   {
@@ -10,13 +12,25 @@ const appRoutes: Routes = [
       {
         path: 'blog',
         loadChildren: () =>
-          import("./blog/blog.module").then(m => m.BlogModule)
+          import('./blog/blog.module').then(m => m.BlogModule)
       },
       {
         path: '',
-        loadChildren: () => MainModule
-      },
-      { path: '**', redirectTo: 'home' }
+        resolve: [ProductsResolverService],
+        children: [
+            {
+                path: 'home', component: MainComponent, resolve: [PostsResolverService]
+            },
+            {
+                path: 'products',
+                children: [
+                    { path: '', pathMatch: 'full', redirectTo: 'all' },
+                    { path: ':productType', component: ProductsComponent }
+                ]
+            },
+            { path: '**', redirectTo: 'home' }
+        ]
+      }
     ],
   },
   { path: '**', redirectTo: 'es/home' }
@@ -24,7 +38,7 @@ const appRoutes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(appRoutes, { preloadingStrategy: PreloadAllModules, scrollPositionRestoration: 'top'}) //, enableTracing: true
+    RouterModule.forRoot(appRoutes, { preloadingStrategy: PreloadAllModules, scrollPositionRestoration: 'top'}) //, enableTracing: true  ,
   ],
   exports: [RouterModule]
 })

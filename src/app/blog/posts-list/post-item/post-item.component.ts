@@ -6,7 +6,7 @@ import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 @Component({
   selector: 'app-post-item',
   templateUrl: './post-item.component.html',
-  styleUrls: ['./post-item.component.css']
+  styleUrls: ['./post-item.component.scss']
 })
 export class PostItemComponent implements OnInit {
   @Input() post: Post;

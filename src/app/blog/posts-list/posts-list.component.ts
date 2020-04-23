@@ -7,7 +7,7 @@ import { GlobalService } from 'src/app/shared/global.service';
 @Component({
   selector: 'app-posts-list',
   templateUrl: './posts-list.component.html',
-  styleUrls: ['./posts-list.component.css']
+  styleUrls: ['./posts-list.component.scss']
 })
 export class PostsListComponent implements OnInit, OnDestroy {
   // Global variables

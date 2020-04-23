@@ -1,15 +1,14 @@
 import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { FormGroup, FormControl, NgForm } from '@angular/forms';
-import { NouisliderComponent } from 'ng2-nouislider/ng2-nouislider.component';
 import { Subscription } from 'rxjs';
 import { GlobalService } from 'src/app/shared/global.service';
 import { Location } from '@angular/common';
 import { ProductsService } from './products.service';
 import { Filter } from './filter.model';
 import { Product } from './product.model';
+import { NouisliderComponent } from 'ng2-nouislider/ng2-nouislider.component';
 
-declare var componentHandler: any;
 
 @Component({
   selector: 'app-products',
@@ -124,9 +123,6 @@ export class ProductsComponent implements OnInit {
     this.filterForm.controls['productType'].valueChanges.subscribe(
       (productTypeId) => {
         this.filter.type = +productTypeId;
-        // Update product type name in URL for when navigating inside products path
-        //const countryParameter = this.country == 'all' ? '' : `?gl=${this.country}`;
-        //this.location.replaceState(this.language + '/products/' + this.productTypes[productTypeId], countryParameter);
         // Update products filter with product type change
         this.updateProducts(this.filter);
       }
@@ -268,10 +264,6 @@ export class ProductsComponent implements OnInit {
   }
 
   // Lifehooks functions
-  ngAfterContentChecked() {
-    componentHandler.upgradeAllRegistered();
-  }
-
   ngOnDestroy() {
     if (this.filterUpdateSub) this.filterUpdateSub.unsubscribe();
   }
