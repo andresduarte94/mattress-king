@@ -20,6 +20,8 @@ export class ScriptLoader {
     loadScript(scriptUrl: string) {
         const script = this._document.createElement('script');
         script.src = scriptUrl;
+        //script.module = "es2015";
+        //script.type = "module";
         this._document.body.appendChild(script);
     }
 
