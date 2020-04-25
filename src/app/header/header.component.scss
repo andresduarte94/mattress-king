@@ -1,3 +1,7 @@
+a {
+    text-decoration: none !important;
+}
+
 /* GREY NAVBAR */
 #navbar-grey {
     background-color: #d6d8d7;
@@ -58,14 +62,31 @@
 }
 
 .collapse-container {
-    min-width: 160px;
-    margin: 0 5%;
+    min-width: 190px;
+    margin: 0 3.5%;
 }
 
-.blog {
+.menu-nav {
+    width: 100%;
+    justify-content: space-between;
+}
+
+.menu-item{
+    display: block;
+    min-width: 85px;
+}
+
+.menu-item-text {
+    display: inline-block;
+    vertical-align: middle;
+    color: white;
     font-size: 1.5em;
-    color: white !important;
-    cursor: pointer;
+    margin-left: 3%;
+}
+
+.icon {
+    display: inline-block;
+    vertical-align: middle;
 }
 
 /* LIGHT BLUE NAVBAR */
@@ -117,5 +138,8 @@
     }
     .navbar-toggler {
         margin-right: 8%;
+    }
+    .menu-item-text {
+        margin-left: 2%;
     }
 }

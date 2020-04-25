@@ -33,10 +33,11 @@
         <div class="logo-container">
             <a [routerLink]="[language, 'home']" [queryParams]="{gl: country}">
                 <picture>
-                    <source srcset="https://assets.mattressfinder.shop/v2/assets/images/MF-logo-2.webp" type="image/webp">
+                    <source srcset="https://assets.mattressfinder.shop/v2/assets/images/MF-logo-2.webp"
+                        type="image/webp">
                     <source srcset="https://assets.mattressfinder.shop/v2/assets/images/MF-logo-2.png" type="image/png">
-                    <img class="logo-image" src="https://assets.mattressfinder.shop/v2/assets/images/logo.png"
-                        alt="Mattress King">
+                    <img class="logo-image" src="https://assets.mattressfinder.shop/v2/assets/images/MF-logo-2.png"
+                        alt="Mattress Finder">
                 </picture>
             </a>
         </div>
@@ -56,14 +57,27 @@
 
         <!-- Blog and Contact -->
         <div class="collapse-container collapse navbar-collapse" [ngClass]="{'show': navbarOpen}">
-            <ul class="navbar-nav ml-3 ml-md-0">
-                <li class="nav-item">
-                    <a class="nav-link text-info blog" [routerLink]="[language, 'home']"
-                        [queryParams]="{gl: country}">{{ componentWords.contact }}</a>
+            <ul class="navbar-nav menu-nav">
+                <li>
+                    <a class="menu-item" [routerLink]="[language, 'home']" [queryParams]="{gl: country}">
+                        <picture>
+                            <source srcset="assets/icons/home-icon-medium.webp" type="image/webp">
+                            <source srcset="assets/icons/home-icon-medium.png" type="image/png">
+                            <img class="icon" src="assets/externals/icons/home-icon-medium.png"
+                                alt="Mattress Finder Home">
+                        </picture>
+                        <div class="menu-item-text">{{ componentWords.contact }}</div>
+                    </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link text-info blog ml-md-3" [routerLink]="[language, 'blog']"
-                        [queryParams]="{gl: country}">{{ componentWords.blog }}</a>
+                <li>
+                    <a class="menu-item" [routerLink]="[language, 'blog']" [queryParams]="{gl: country}">
+                        <picture>
+                            <source srcset="assets/icons/blog.webp" type="image/webp">
+                            <source srcset="assets/icons/blog.png" type="image/png">
+                            <img class="icon" src="assets/externals/icons/blog.png" alt="Mattress Finder Blog">
+                        </picture>
+                        <div class="menu-item-text">{{ componentWords.blog }}</div>
+                    </a>
                 </li>
             </ul>
         </div>

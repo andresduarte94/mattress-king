@@ -20,6 +20,7 @@
             "tsConfig": "tsconfig.app.json",
             "aot": false,
             "extractCss": true,
+            "es5BrowserSupport": true,
             "assets": [
               "src/favicon.ico",
               {
@@ -29,7 +30,6 @@
               }
             ],
             "styles": [
-              "node_modules/nouislider/distribute/nouislider.min.css",
               {
                 "input": "src/styles.scss",
                 "lazy": true,
@@ -71,11 +71,6 @@
                 "input": "node_modules/bootstrap/dist/js/bootstrap.min.js",
                 "lazy": true,
                 "bundleName": "bootstrap"
-              },
-              {
-                "input": "src/assets/externals/import-svg.js",
-                "lazy": true,
-                "bundleName": "svgs"
               }
             ],
             "lazyModules": [
@@ -111,6 +106,9 @@
                   "maximumError": "10kb"
                 }
               ]
+            },
+            "es5": {
+              "tsConfig": "./tsconfig.es5.json"
             }
           }
         },
@@ -122,6 +120,9 @@
           "configurations": {
             "production": {
               "browserTarget": "mattress-finder:build:production"
+            },
+            "es5": {
+              "browserTarget": "mattress-finder:build:es5"
             }
           }
         },

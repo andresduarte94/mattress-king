@@ -11,6 +11,7 @@ import { HeroLoaderModule } from '@herodevs/hero-loader';
 
 import { SEOService } from './shared/seo.service';
 import { GlobalService } from './shared/global.service';
+
 import { MainComponent } from './main/main.component';
 import { NouisliderModule } from 'ng2-nouislider';
 import { MatRadioModule } from '@angular/material/radio';

@@ -11,8 +11,7 @@ const appRoutes: Routes = [
     children: [
       {
         path: 'blog',
-        loadChildren: () =>
-          import('./blog/blog.module').then(m => m.BlogModule)
+        loadChildren: './blog/blog.module#BlogModule'
       },
       {
         path: '',
