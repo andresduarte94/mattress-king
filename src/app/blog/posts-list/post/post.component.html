@@ -1,99 +1,82 @@
-<div class="container align-items-center">
-    <div class="grid mx-auto">
+<div class="article-container">
 
-        <!-- Post image, title and author section-->
-        <div class="my-2">
-            <!-- Title -->
-            <div class="mb-4">
-                <h1>{{ post.title }}</h1>
-            </div>
-            <hr>
-            <!-- Social networks -->
-            <div class="row d-flex align-items-center">
-                <div class="col-6 col-lg-7 text-left mb-0">
-                    <svg class="icon-twitter icon-small">
-                        <use xlink:href="#icon-twitter"></use>
-                    </svg>
-                    <svg class="icon-linkedin icon-small">
-                        <use xlink:href="#icon-linkedin"></use>
-                    </svg>
-                    <svg class="icon-mail icon-small">
-                        <use xlink:href="#icon-mail"></use>
-                    </svg>
-                </div>
-                <div class="col-6 col-lg-5 text-right mb-0">
-                    <a (click)="nextArticle()" class="mb-0 link">{{ componentWords.nextArticle }}</a>
-                </div>
-            </div>
-            <hr>
-            <!-- Post image -->
-            <picture>
-                <source
-                    [srcset]="'https://assets.mattressfinder.shop/v2/assets/posts/post-' + post.id + postImageSize + '.webp'"
-                    type="image/webp">
-                <source
-                    [srcset]="'https://assets.mattressfinder.shop/v2/assets/posts/post-' + post.id + postImageSize + '.jpg'"
-                    type="image/jpeg">
-                <img class="post-img"
-                    [src]="'https://assets.mattressfinder.shop/v2/assets/posts/post-' + post.id + postImageSize + '.jpg'"
-                    [alt]="post.imageAlt">
-            </picture>
-            <!-- Auhtor and article info-->
-            <table class="mt-2" id="authorTable">
-                <tr>
-                    <td>
-                        <div class="author-image-sm-div">
-                            <picture>
-                                <source
-                                    [srcset]="'https://assets.mattressfinder.shop/v2/assets/images/' + author.imagePath + '.webp'"
-                                    type="image/webp">
-                                <source
-                                    [srcset]="'https://assets.mattressfinder.shop/v2/assets/images/' + author.imagePath + '.jpg'"
-                                    type="image/jpeg">
-                                <img class="author-image-sm"
-                                    [src]="'https://assets.mattressfinder.shop/v2/assets/images/' + author.imagePath + '.jpg'"
-                                    [alt]="author.name">
-                            </picture>
-                        </div>
-                    </td>
-                    <td class="pl-4 pt-3">
-                        <h4 class="name">{{ author.name }}</h4>
-                        <p class="resume">
-                            <span>{{ postFormattedDate }}&nbsp;&nbsp;•</span>
-                            <span class="ml-2">{{  post.duration }}&nbsp;{{ componentWords.minRead }}</span>
-                        </p>
-                    </td>
-                </tr>
-            </table>
+    <!-- Post image, title and author section-->
+    <div class="header-container">
+        <!-- Title -->
+        <h1>{{ post.title }}</h1>
+        <hr>
+        <!-- Next Article -->
+        <div class="next-art-div">
+            <a (click)="nextArticle()" class="mb-0 link">{{ componentWords.nextArticle }}</a>
         </div>
-        <div class="contain">
-            <!-- Post content section-->
-            <app-post-content [postId]="post.id"></app-post-content>
-            <hr>
-            <!-- Auhtor info -->
-            <table class="mt-4" id="authorTable">
-                <tr>
-                    <td>
-                        <div class="author-image-div">
-                            <picture>
-                                <source
-                                    [srcset]="'https://assets.mattressfinder.shop/v2/assets/images/' + author.imagePath + '.webp'"
-                                    type="image/webp">
-                                <source
-                                    [srcset]="'https://assets.mattressfinder.shop/v2/assets/images/' + author.imagePath + '.jpg'"
-                                    type="image/jpeg">
-                                <img class="author-image"
-                                    [src]="'https://assets.mattressfinder.shop/v2/assets/images/' + author.imagePath + '.jpg'"
-                                    [alt]="author.name">
-                            </picture>
-                        </div>
-                    </td>
-                    <td class="pl-4 pt-3">
-                        <h4 class="name">{{ author.name }}</h4>
-                        <p class="resume" [innerHtml]="author.resume"></p>
-                    </td>
-                </tr>
-            </table>
-        </div>
+        <hr>
+        <!-- Post image -->
+        <picture>
+            <source
+                [srcset]="'https://assets.mattressfinder.shop/v2/assets/posts/post-' + post.id + postImageSize + '.webp'"
+                type="image/webp">
+            <source
+                [srcset]="'https://assets.mattressfinder.shop/v2/assets/posts/post-' + post.id + postImageSize + '.jpg'"
+                type="image/jpeg">
+            <img class="post-img"
+                [src]="'https://assets.mattressfinder.shop/v2/assets/posts/post-' + post.id + postImageSize + '.jpg'"
+                [alt]="post.imageAlt">
+        </picture>
+        <!-- Auhtor and article info-->
+        <table class="authorTable-top">
+            <tr>
+                <td>
+                    <div class="author-image-sm-div">
+                        <picture>
+                            <source
+                                [srcset]="'https://assets.mattressfinder.shop/v2/assets/images/' + author.imagePath + '.webp'"
+                                type="image/webp">
+                            <source
+                                [srcset]="'https://assets.mattressfinder.shop/v2/assets/images/' + author.imagePath + '.jpg'"
+                                type="image/jpeg">
+                            <img class="author-image-sm"
+                                [src]="'https://assets.mattressfinder.shop/v2/assets/images/' + author.imagePath + '.jpg'"
+                                [alt]="author.name">
+                        </picture>
+                    </div>
+                </td>
+                <td class="author-info-top">
+                    <h4 class="name">{{ author.name }}</h4>
+                    <div class="resume">
+                        <span>{{ postFormattedDate }}&nbsp;&nbsp;•</span>
+                        <span class="ml-2">{{  post.duration }}&nbsp;{{ componentWords.minRead }}</span>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="post-container">
+        <!-- Post content section-->
+        <app-post-content [postId]="post.id"></app-post-content>
+        <hr>
+        <!-- Auhtor info -->
+        <table class="authorTable">
+            <tr>
+                <td>
+                    <div class="author-image-div">
+                        <picture>
+                            <source
+                                [srcset]="'https://assets.mattressfinder.shop/v2/assets/images/' + author.imagePath + '.webp'"
+                                type="image/webp">
+                            <source
+                                [srcset]="'https://assets.mattressfinder.shop/v2/assets/images/' + author.imagePath + '.jpg'"
+                                type="image/jpeg">
+                            <img class="author-image"
+                                [src]="'https://assets.mattressfinder.shop/v2/assets/images/' + author.imagePath + '.jpg'"
+                                [alt]="author.name">
+                        </picture>
+                    </div>
+                </td>
+                <td class="pl-4 pt-3">
+                    <h4 class="name">{{ author.name }}</h4>
+                    <p class="resume" [innerHtml]="author.resume"></p>
+                </td>
+            </tr>
+        </table>
     </div>
 </div>
