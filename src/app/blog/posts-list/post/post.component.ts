@@ -31,10 +31,7 @@ export class PostComponent implements OnInit {
   breakpointSub: Subscription;
 
   constructor(private globalService: GlobalService, private activatedRoute: ActivatedRoute, private blogService: BlogService,
-    private router: Router, private location: Location, public breakpointObserver: BreakpointObserver 
-    /*private productsService: ProductsService, private cdr: ChangeDetectorRef,
-    private componentFactoryResolver: ComponentFactoryResolver, private _compiler: Compiler*/
-  ) { }
+    private router: Router, private location: Location, public breakpointObserver: BreakpointObserver ) { }
 
   ngOnInit() {
     //Global variables initialization
@@ -96,48 +93,4 @@ export class PostComponent implements OnInit {
   ngOnDestroy() {
     this.breakpointSub.unsubscribe();
   }
-
-  // Generate post content on the fly - Commented until implementing a way of only use JIT compiler for this component
-  /* ngAfterViewInit() {
-    //Generate post content on the fly with product-item components
-    //Array with html parts
-    let contentHtmlArray = this.post.content.split(new RegExp('{{[a-zA-Z0-9:]+}}', 'g'));
-
-    //Array with product Ids to display
-    let productIdsMatches = this.post.content.match(new RegExp('{{[a-zA-Z0-9:]+}}', 'g'));
-    if (productIdsMatches != undefined) {
-      var productIds = productIdsMatches.map((productId, i) => {
-        return +productId.substring(12, productId.length - 2);
-      });
-    }
-
-    //Array with components of html parts
-    let componentsArray = [];
-    contentHtmlArray.forEach(contentTemplate => {
-      const tmpCmp = Component({ template: contentTemplate })(class { });
-      componentsArray.push(tmpCmp);
-    });
-    const tmpModule = NgModule({ declarations: componentsArray })(class { });
-
-    //Compile all html parts mixed with product-item components
-    this._compiler.compileModuleAndAllComponentsAsync(tmpModule)
-      .then((factories) => {
-        const productItemCmpFactory = this.componentFactoryResolver.resolveComponentFactory(ProductItemComponent);
-
-        //Loop trough each html part factory
-        factories.componentFactories.forEach((factory, i, array) => {
-          //Insert html part
-          const cmpRef = this.contentContainer.createComponent(factory);
-
-          //Don't insert product-item component after last html part
-          if ((i + 1) == array.length) { return; }
-          const productItemRef = this.contentContainer.createComponent(productItemCmpFactory);
-          const product = this.productsService.getProductById(productIds[i]);
-          productItemRef.instance.product = product;
-
-          //Update component changes
-          this.cdr.detectChanges();
-        })
-      })
-  } */
 }

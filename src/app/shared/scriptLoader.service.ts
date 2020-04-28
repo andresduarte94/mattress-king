@@ -1,29 +1,17 @@
 import { Injectable, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 
-
 @Injectable({ providedIn: 'root' })
 export class ScriptLoader {
 
     constructor(@Inject(DOCUMENT) private _document: any) { }
 
     loadScriptsAndStyles() {
-        const scripts = ['popper', 'bootstrap'];
         const styles = ['styles', 'fonts-lato', 'fonts-raleway', 'indigo-pink', 'bootstrap-css', 'nouislider'];
-        scripts.forEach((bundleName) => {
-            this.loadScript(bundleName + '.js');
-        });
         styles.forEach((bundleName) => {
             this.loadStyle(bundleName + '.css');
         });
         this.loadSvgs();
-    }
-
-    loadScript(scriptUrl: string) {
-        const script = this._document.createElement('script');
-        script.src = scriptUrl;
-        script.defer = true;
-        this._document.body.appendChild(script);
     }
 
     loadStyle(styletUrl: string) {

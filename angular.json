@@ -11,7 +11,7 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-builders/custom-webpack:browser",
           "options": {
             "outputPath": "dist/mattress-finder",
             "index": "src/index.html",
@@ -21,6 +21,9 @@
             "aot": false,
             "extractCss": true,
             "es5BrowserSupport": true,
+            "customWebpackConfig": {
+              "path": "./custom-webpack.config.js"
+            },
             "assets": [
               "src/favicon.ico",
               {
@@ -62,16 +65,6 @@
               }             
             ],
             "scripts": [
-              {
-                "input": "node_modules/popper.js/dist/umd/popper.min.js",
-                "lazy": true,
-                "bundleName": "popper"
-              },
-              {
-                "input": "node_modules/bootstrap/dist/js/bootstrap.min.js",
-                "lazy": true,
-                "bundleName": "bootstrap"
-              }
             ],
             "lazyModules": [
               "src/app/footer/footer.module"
@@ -113,7 +106,7 @@
           }
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "@angular-builders/custom-webpack:dev-server",
           "options": {
             "browserTarget": "mattress-finder:build"
           },
