@@ -1,20 +1,17 @@
-<div class="mdl-card mdl-shadow--2dp upper">
-    <a [routerLink]="[post.url]">
-        <div>
-            <picture>
-                <source
-                    [srcset]="'https://assets.mattressfinder.shop/v2/assets/posts/post-' + post.id + postImageSize + '.webp'"
-                    type="image/webp">
-                <source
-                    [srcset]="'https://assets.mattressfinder.shop/v2/assets/posts/post-' + post.id + postImageSize + '.jpg'"
-                    type="image/jpeg">
-                <img class="post-img"
-                    [src]="'https://assets.mattressfinder.shop/v2/assets/posts/post-' + post.id + postImageSize + '.jpg'"
-                    [alt]="post.imageAlt">
-            </picture>
-        </div>
-        <div class="mdl-card__supporting-text">
-            <div [innerHtml]="post.summary"></div>
-        </div>
-    </a>
-</div>
+<a [routerLink]="[post.url]">
+    <mat-card>
+        <picture>
+            <source
+                [srcset]="'https://assets.mattressfinder.shop/v2/assets/posts/post-' + post.id + postImageSize + '.webp'"
+                type="image/webp">
+            <source
+                [srcset]="'https://assets.mattressfinder.shop/v2/assets/posts/post-' + post.id + postImageSize + '.jpg'"
+                type="image/jpeg">
+            <img mat-card-image
+                [src]="'https://assets.mattressfinder.shop/v2/assets/posts/post-' + post.id + postImageSize + '.jpg'"
+                [alt]="post.imageAlt">
+        </picture>
+        <mat-card-content [innerHtml]="post.summary">
+        </mat-card-content>
+    </mat-card>
+</a>

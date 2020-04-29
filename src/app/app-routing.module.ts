@@ -6,6 +6,7 @@ import { PostsResolverService } from './blog/posts-resolver.service';
 import { ProductsComponent } from './main/products/products.component';
 
 const appRoutes: Routes = [
+  { path: '', component: MainComponent, resolve: [ProductsResolverService, PostsResolverService] },
   {
     path: ':language',
     children: [
@@ -17,27 +18,27 @@ const appRoutes: Routes = [
         path: '',
         resolve: [ProductsResolverService],
         children: [
-            {
-                path: 'home', component: MainComponent, resolve: [PostsResolverService]
-            },
-            {
-                path: 'products',
-                children: [
-                    { path: '', pathMatch: 'full', redirectTo: 'all' },
-                    { path: ':productType', component: ProductsComponent }
-                ]
-            },
-            { path: '**', redirectTo: 'home' }
+          {
+            path: 'home', component: MainComponent, resolve: [PostsResolverService]
+          },
+          {
+            path: 'products',
+            children: [
+              { path: '', pathMatch: 'full', redirectTo: 'all' },
+              { path: ':productType', component: ProductsComponent }
+            ]
+          },
+          { path: '**', redirectTo: 'home' }
         ]
       }
     ],
   },
-  { path: '**', redirectTo: 'es/home' }
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(appRoutes, { preloadingStrategy: PreloadAllModules, scrollPositionRestoration: 'top'}) //, enableTracing: true  ,
+    RouterModule.forRoot(appRoutes, { preloadingStrategy: PreloadAllModules, scrollPositionRestoration: 'top' }) //, enableTracing: true  ,
   ],
   exports: [RouterModule]
 })

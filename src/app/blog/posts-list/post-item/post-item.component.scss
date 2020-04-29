@@ -2,55 +2,43 @@ a {
     text-decoration: none !important;
 }
 
-.mdl-card  {
-    margin-right: auto;
-    margin-left: auto;
-    padding-left: 0;
-    padding-right: 0;
-    margin-bottom: 2%;
-}
-
-.upper {
+.mat-card {
     position: relative;
     top: 0;
     transition: top ease 0.5s;
+    padding-top: 0;
 }
   
-.upper:hover {
+.mat-card:hover {
     top: -10px;
 }
 
-.post-img {
-    width: 100%;
-}
-
-.mdl-card__supporting-text {
-    min-height: 93px;
+.mat-card-content {
     color: black;
 }
 
 @media screen and (max-width: 340px) {
-    [class*="mdl-card"] {
+    [class*="mat-card"] {
         width: 270px; 
     }
 }
 @media screen and (min-width: 340px) and (max-width: 800px) {
-    [class*="mdl-card"] {
+    [class="mat-card"] {
         width: 300px; 
     }
 }
 @media screen and (min-width: 800px) and (max-width: 1370px) {
-    [class*="mdl-card"] {
+    [class="mat-card"] {
         width: 340px; 
     }
 }
 @media screen and (min-width: 1370px) and (max-width: 1720px) {
-    [class*="mdl-card"] {
+    [class="mat-card"] {
         width: 380px; 
     }
 }
 @media screen and (min-width: 1720px) {
-    [class*="mdl-card"] {
+    [class="mat-card"] {
         width: 460px; 
     }  
 }

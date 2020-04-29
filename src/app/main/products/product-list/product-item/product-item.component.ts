@@ -1,9 +1,9 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { Product } from '../../product.model';
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { ProductsService } from '../../products.service';
-
+import { GlobalService } from 'src/app/shared/global.service';
+import { Product } from '../../product.model';
 
 @Component({
   selector: 'app-product-item',
@@ -13,12 +13,12 @@ import { ProductsService } from '../../products.service';
 })
 export class ProductItemComponent implements OnInit {
   // Global variables
-  @Input() translationWords: any;
+  translationWords: any;
   updateLanguageSub: Subscription;
 
   //Product variables
-  @Input() productId: number;
-  @Input() productCountry: string;
+  @Input('id') productId: number;
+  @Input('country') productCountry: string;
   product: Product;
   productImage: string;
   discountPrice: number;
@@ -27,10 +27,13 @@ export class ProductItemComponent implements OnInit {
   // Subscriptions
   breakpointSub: Subscription;
 
-  constructor(private productsService: ProductsService, public breakpointObserver: BreakpointObserver) { }
+  constructor(private productsService: ProductsService, public breakpointObserver: BreakpointObserver, private globalService: GlobalService) { }
 
   ngOnInit() {
+    // Get product based on ProductId and Product country
     this.product = this.productsService.getProductById(this.productId, this.productCountry);
+    // Get translations for 'off' string
+    this.translationWords = this.globalService.getTranslationLanguage();
 
     // Calculate discount price
     this.discountPrice = Math.round((this.product.price*(1-this.product.discount/100) + Number.EPSILON) * 100)/100;
@@ -39,8 +42,7 @@ export class ProductItemComponent implements OnInit {
       this.discountDisplay = '';
     }
     else {
-      const off = '% ' + (this.productCountry == 'us'? 'off':'dto.');
-      this.discountDisplay = this.product.discount + ' ' + off; 
+      this.discountDisplay = this.product.discount + this.translationWords['product-display'].off; 
     }
 
     // Set product responsive images depending on viewport size

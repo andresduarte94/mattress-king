@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-
 import { SharedModule } from './shared/shared.module';
 import { HeroLoaderModule } from '@herodevs/hero-loader';
 
@@ -13,12 +12,13 @@ import { SEOService } from './shared/seo.service';
 import { GlobalService } from './shared/global.service';
 
 import { MainComponent } from './main/main.component';
+import { ProductsComponent } from './main/products/products.component';
+import { ProductListComponent } from './main/products/product-list/product-list.component';
+
 import { NouisliderModule } from 'ng2-nouislider';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { ProductsComponent } from './main/products/products.component';
-import { ProductListComponent } from './main/products/product-list/product-list.component';
 
 @NgModule({
   declarations: [

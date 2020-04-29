@@ -2,33 +2,43 @@ a {
     text-decoration: none !important;
 }
 
-a:hover {
-    color: #0F2043;
-}
-
 h2 {
     font-size: 1.2em;
+    font-weight: 700;
     color: black;
     margin-bottom: 0;
+    padding: 4%;
+    padding-bottom: 3%;
+}
+
+hr {
+    margin: 0
+}
+
+.mat-card {
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    top: 0;
+    transition: top ease 0.5s;
+    padding: 0
+}
+
+.mat-card:hover {
+    top: -10px;
+    color: #0F2043 !important;
 }
 
 .product-img {
     height: 200px;
 }
 
-.demo-card-square {
-    max-height: 370px; 
-    overflow: hidden;
-}
-
-.upper {
-    position: relative !important;
-    top: 0 !important;
-    transition: top ease 0.5s !important;
-}
-  
-.upper:hover {
-    top: -10px !important;
+.price-row {
+    font-size: 1.1em;
+    color: #007bff;
+    justify-content: space-between;
+    display: flex;
+    padding: 2% 4%;
 }
 
 .discount-span {
@@ -37,43 +47,43 @@ h2 {
 }
 
 @media screen and (max-width: 330px) {
-    [class*="demo-card-square"] {
+    [class="mat-card"] {
         width: 235px !important; 
     }
 }
 
 @media screen and (min-width: 330px) and (max-width: 576px) {
-    [class*="demo-card-square"] {
+    [class="mat-card"] {
         width: 300px !important; 
     }
 }
 
  @media screen and (min-width: 576px) and (max-width: 640px) {
-    [class*="demo-card-square"] {
+    [class="mat-card"] {
         width: 235px !important;
     }
 }
 
 @media screen and (min-width: 640px) and (max-width: 762px) {
-    [class*="demo-card-square"] {
+    [class="mat-card"] {
         width: 300px !important; 
     }
 } 
 
 @media screen and (min-width: 762px) and (max-width: 1530px) {
-    [class*="demo-card-square"] {
+    [class="mat-card"] {
         width: 235px !important;
     }
 }
 
 @media screen and (min-width: 1530px) and (max-width: 1824px) {
-    [class*="demo-card-square"] {
+    [class="mat-card"] {
         width: 300px !important;
     }
 }
 
 @media screen and (min-width: 1824px) {
-    [class*="demo-card-square"] {
+    [class="mat-card"] {
         width: 350px !important;
     }
 }

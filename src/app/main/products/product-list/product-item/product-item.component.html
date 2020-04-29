@@ -1,26 +1,21 @@
 <a href="{{ product.amazonLink }}" target="_blank" id="product-item">
-    <div class="demo-card-square mdl-card mdl-shadow--2dp mb-4 mx-auto upper">
-        <div class="mdl-card__title mdl-card--expand p-0">
-            <picture>
-                <source [srcset]="productImage + '.webp'" type="image/webp">
-                <source [srcset]="productImage + '.jpg'" type="image/jpeg">
-                <img [src]="productImage + '.jpg'" class="card-img-top product-img" [alt]="product.name | shorten:60:true">
-            </picture>
-        </div>
-        <div class="mdl-card__supporting-text mx-auto px-0 py-3">
-            <h2>
-                <strong class="mx-auto">{{ product.name | shorten:60:false }}</strong>
-            </h2>
-        </div>
-        <div class="mdl-card__actions mdl-card--border">
-            <div class="row justify-content-between">
-                <div class="col-5">
-                    <span><strong>{{ discountPrice }} €</strong></span>
-                </div>
-                <div class="col-6">
-                    <span class="discount-span">{{ discountDisplay }}</span>
-                </div>
+    <mat-card>
+        <picture>
+            <source [srcset]="productImage + '.webp'" type="image/webp">
+            <source [srcset]="productImage + '.jpg'" type="image/jpeg">
+            <img [src]="productImage + '.jpg'" class="product-img" [alt]="product.name | shorten:60:true">
+        </picture>
+        <h2>
+            {{ product.name | shorten:60:false }}
+        </h2>
+        <hr>
+        <div class="price-row">
+            <div>
+                <span><strong>{{ discountPrice }} €</strong></span>
+            </div>
+            <div>
+                <span class="discount-span">{{ discountDisplay }}</span>
             </div>
         </div>
-    </div>
+    </mat-card>
 </a>

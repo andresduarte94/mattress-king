@@ -2,11 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
+import { JwPaginationComponent } from './jw-pagination/jw-pagination.component';
+import { ProductItemComponent } from '../main/products/product-list/product-item/product-item.component';
 import { ShortenPipe } from './shorten.pipe';
 
 import { MatSelectModule } from '@angular/material/select';
-import { JwPaginationComponent } from './jw-pagination/jw-pagination.component';
-import { ProductItemComponent } from '../main/products/product-list/product-item/product-item.component';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -16,16 +17,18 @@ import { ProductItemComponent } from '../main/products/product-list/product-item
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     MatSelectModule,
-    ReactiveFormsModule
+    MatCardModule
   ],
   exports: [
     ShortenPipe,
     CommonModule,
     ReactiveFormsModule,
-    MatSelectModule,
     JwPaginationComponent,
-    ProductItemComponent
+    ProductItemComponent,
+    MatSelectModule,
+    MatCardModule
   ]
 })
 export class SharedModule {}

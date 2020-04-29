@@ -7,7 +7,7 @@ export class ScriptLoader {
     constructor(@Inject(DOCUMENT) private _document: any) { }
 
     loadScriptsAndStyles() {
-        const styles = ['styles', 'fonts-lato', 'fonts-raleway', 'indigo-pink', 'bootstrap-css', 'nouislider'];
+        const styles = ['styles', 'fonts-lato', 'fonts-raleway', 'bootstrap-css', 'nouislider'];
         styles.forEach((bundleName) => {
             this.loadStyle(bundleName + '.css');
         });

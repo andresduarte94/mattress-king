@@ -3,7 +3,6 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { FormGroup, FormControl, NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { GlobalService } from 'src/app/shared/global.service';
-import { Location } from '@angular/common';
 import { ProductsService } from './products.service';
 import { Filter } from './filter.model';
 import { Product } from './product.model';
@@ -41,8 +40,7 @@ export class ProductsComponent implements OnInit {
   navbarOpen = false;
   public innerWidth: any;
 
-  constructor(private globalService: GlobalService, private activatedRoute: ActivatedRoute, private productsService: ProductsService,
-    private location: Location) { }
+  constructor(private globalService: GlobalService, private activatedRoute: ActivatedRoute, private productsService: ProductsService) { }
 
   ngOnInit() {
     //Global variables initialization
@@ -53,13 +51,12 @@ export class ProductsComponent implements OnInit {
     //Product variables initialization
     this.productTypes = this.productsService.productTypes;
     this.sizes = this.productsService.getSizes(1);
-    //this.updateProducts(this.filter)
     //Ui variables
     this.innerWidth = window.innerWidth;
     if (this.innerWidth >= 762) {
       this.navbarOpen = true;
     }
-    
+
     //Create, initialize and set subscriptions for filter form
     this.createReactiveFilterForm();
 
@@ -98,10 +95,16 @@ export class ProductsComponent implements OnInit {
     //QueryParams subscription for search bar filter
     this.activatedRoute.queryParams.subscribe(
       (queryParams: Params) => {
-        this.filter.country = this.country = queryParams.gl ? queryParams.gl: 'all';
+        this.filter.country = this.country = queryParams.gl ? queryParams.gl : 'all';
         this.updateProducts(this.filter);
       }
     );
+  }
+
+  //Update products based on new filter
+  updateProducts(filter: Filter) {
+    let products = this.productsService.getProducts(filter);
+    this.products = products;
   }
 
   // Create filters form with all inputs and value changes subscriptions
@@ -233,12 +236,6 @@ export class ProductsComponent implements OnInit {
   }
   formatLabel(value: number) {
     return value + '%';
-  }
-
-  //Update products based on new filter
-  updateProducts(filter: Filter) {
-    let products = this.productsService.getProducts(filter);
-    this.products = products;
   }
 
   // UI functions

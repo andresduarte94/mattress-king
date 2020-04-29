@@ -42,10 +42,8 @@
                 <div class="card-text" [innerHtml]="currentPost.summary">
                 </div>
                 <br>
-                <!-- Read More button -->
-                <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" type="button"
-                    [routerLink]="[currentPost.url]">
-                    {{ componentWords.readMore }}&nbsp;&nbsp;>
+                <a mat-raised-button color="primary" [routerLink]="[currentPost.url]">
+                    {{ componentWords.readMore }}&nbsp;&nbsp;&gt;
                 </a>
             </div>
         </div>
