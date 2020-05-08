@@ -9,8 +9,6 @@ import { PostItemComponent } from './posts-list/post-item/post-item.component';
 import { PostComponent } from './posts-list/post/post.component';
 import { PostContentComponent } from './posts-list/post/post-content/post-content.component';
 
-import { MatButtonModule } from '@angular/material/button';
-
 @NgModule({
   declarations: [
     BlogComponent,
@@ -22,8 +20,7 @@ import { MatButtonModule } from '@angular/material/button';
   imports: [
     RouterModule,
     BlogRoutingModule,
-    SharedModule,
-    MatButtonModule
+    SharedModule
   ]
 })
 export class BlogModule {}

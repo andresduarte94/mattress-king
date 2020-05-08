@@ -22,7 +22,7 @@ import { ScrollService } from '../scroll.service';
       <a (click)="setPage(pager.totalPages); scrollTop();" class="page-link">{{ lastLabel }}</a>
     </li>
   </ul>`,
-  styleUrls: ['./jw-pagination.component.css'],
+  styleUrls: ['./jw-pagination.component.scss'],
 })
 
 export class JwPaginationComponent implements OnInit, OnChanges {

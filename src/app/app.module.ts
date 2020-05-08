@@ -37,7 +37,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     NouisliderModule,
     MatRadioModule,
     MatSliderModule,
-    MatCheckboxModule
+    MatCheckboxModule,
   ],
   bootstrap: [AppComponent],
   providers: [

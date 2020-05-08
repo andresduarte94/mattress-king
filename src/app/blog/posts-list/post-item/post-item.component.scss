@@ -1,44 +1,50 @@
 a {
     text-decoration: none !important;
 }
-
 .mat-card {
     position: relative;
     top: 0;
     transition: top ease 0.5s;
     padding-top: 0;
 }
-  
 .mat-card:hover {
     top: -10px;
 }
-
 .mat-card-content {
     color: black;
 }
-
 @media screen and (max-width: 340px) {
-    [class*="mat-card"] {
+    .mat-card {
         width: 270px; 
     }
 }
 @media screen and (min-width: 340px) and (max-width: 800px) {
-    [class="mat-card"] {
+    .mat-card {
         width: 300px; 
     }
 }
-@media screen and (min-width: 800px) and (max-width: 1370px) {
-    [class="mat-card"] {
+@media screen and (min-width: 800px) and (max-width: 1200px) {
+    .mat-card {
+        width: 340px; 
+    }
+}
+@media screen and (min-width: 1200px) and (max-width: 1250px) {
+    .mat-card {
+        width: 320px; 
+    }
+}
+@media screen and (min-width: 1250px) and (max-width: 1370px) {
+    .mat-card {
         width: 340px; 
     }
 }
 @media screen and (min-width: 1370px) and (max-width: 1720px) {
-    [class="mat-card"] {
+    .mat-card {
         width: 380px; 
     }
 }
 @media screen and (min-width: 1720px) {
-    [class="mat-card"] {
+    .mat-card {
         width: 460px; 
     }  
 }

@@ -12,7 +12,7 @@ export class DataStorageService {
   constructor(
     private http: HttpClient,
     private productsService: ProductsService,
-    private blogService: BlogService,
+    private blogService: BlogService
   ) { }
 
   fetchProducts() {

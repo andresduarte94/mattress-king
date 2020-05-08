@@ -1,151 +1,206 @@
-a {
-    text-decoration: none !important;
-}
-
-/* GREY NAVBAR */
 #navbar-grey {
+    display: flex;
     background-color: #d6d8d7;
-    max-height: 42px;
-    color: darkgray;
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
     height: 35px;
 }
-
-.form-field {
-    width: 80%;
+#navbar-grey ul {
+    display: flex;
+    height: 35px;
+    margin: 0;
+    padding-left: 2%;
 }
-
-.grey-item {
+#navbar-grey li {
+    display: inline;
     text-align: center;
 }
-  
-:host::ng-deep .mat-select-value-text {
-    font-weight: 600;
-    font-size: 1.05em;
-    margin-left: 5%;
-} 
-
-/* BLUE NAVBAR */
-#navbar-blue {
-    background-color: #0F2043;
+#navbar-grey .mat-form-field {
+    width: 75%;
+    max-height: 35px;
+}
+#navbar-grey .mat-select {
     padding: 0;
 }
-
-.logo-container {
+:host::ng-deep .mat-form-field-wrapper {
+    padding: 2% 0;
+}
+:host::ng-deep #navbar-grey .mat-form-field-infix {
+    border-top-style: none;
+    padding-top: 2%;
+    padding-bottom: 3%;
+}
+:host::ng-deep #navbar-grey .mat-select-value-text {
+    font-weight: 700;
+    margin-left: 5%;
+    font-size: 0.95em;
+}
+.mat-option {
+    height: 2.5em !important;
+    font-size: 0.9em !important;
+}
+#navbar-blue {
+    display: flex;
+    background-color: #0F2043;
+}
+#navbar-blue [aria-label="Toggler icon"] {
+    display: none;
+}
+#navbar-blue .logo-container {
     text-align: center;
     margin: 0 5%;
 }
-
-.logo-image {
+#navbar-blue .logo-image {
     width: 160px; 
     display: block;
     margin: auto;
 }
-
-.search-div {
-    display: inline;
-    margin: 0 auto;
+#search {
+    display: flex;
     width: 100%;
+    margin: 0 auto;
 }
-
-.search-form {
+#search form {
     min-width: 287px;
     width: 100%;
-    margin: 2% auto;
+    margin: auto;
     text-align: center;
 }
-
-.search-input {
+#search input {
     width: 80%;
-    display: inline-block 
+    display: inline-block;
+    line-height: 26px;
+    vertical-align: middle;
+    box-sizing: content-box;
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+    padding-left: 1%;
 }
-
-.collapse-container {
-    min-width: 190px;
-    margin: 0 3.5%;
+#search .lens-div {
+    display: inline-block;
+    height: 32px;
+    width: 30px;
+    background-color: #79cedc;
+    box-sizing: content-box;
+    vertical-align: middle;
+    border-top-left-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
+    text-align: center;
+    padding-left: 0.5%;
 }
-
-.menu-nav {
+#search .mat-icon{
+    color: white;
+    position:relative;
+    top: calc(50% - 12px);
+}
+#main-menu {
+    margin: auto 4%;
+}
+#main-menu ul {
+    display: flex;
     width: 100%;
     justify-content: space-between;
+    padding-left: 0;
+    min-width: 190px;
 }
-
-.menu-item{
+#main-menu li {
+    display: inline;
+}
+#main-menu a {
     display: block;
     min-width: 85px;
 }
-
-.menu-item-text {
+#main-menu .menu-item-text {
     display: inline-block;
     vertical-align: middle;
     color: white;
-    font-size: 1.5em;
+    font-size: 1.35em;
     margin-left: 3%;
 }
-
-.icon {
+#main-menu .icon {
     display: inline-block;
     vertical-align: middle;
 }
-
-/* LIGHT BLUE NAVBAR */
 #navbar-light-blue {
+    display: flex;
     background-color: #79cedc;
-    padding: 0;
     margin-bottom: 1%;
 }
-
-#navbar-light-blue a {
-    cursor: pointer;
-}
-
-#navbar-light-blue h2 {
-    font-size: 1.15em;
-    font-weight: bold;
-    margin-bottom: 0;
-}
-
-.products-list {
+#navbar-light-blue ul {
+    display: flex;
     margin: 0 auto;
     width: 600px;
     justify-content: space-between;
+    list-style-type: none;
+    padding: 7px 0;
+}
+#navbar-light-blue a {
+    cursor: pointer;
+}
+#navbar-light-blue h2 {
+    font-size: 1em;
+    font-weight: 700;
+    opacity: 90%;
+    margin: 0;
+}
+.hide {
+    display: none;
 }
 
-/* RESPONSIVE */
 @media screen and (max-width: 350px) {
-    .grey-item {
+    #navbar-grey li {
         max-width: 130px;
+    }
+    #navbar-grey ul {
+        padding-left: 0;
     }
 }
 @media screen and (min-width: 350px) and (max-width: 420px) {
-    .grey-item {
+    #navbar-grey li {
         max-width: 150px;
     }
 }
 @media screen and (max-width: 761px) {
-    #greyNavForm {
+    #navbar-grey form {
         margin: 0 auto;
     }
+    #navbar-grey ul {
+        padding-left: 0;
+    }
     #navbar-blue {
+        position: relative;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
         margin-bottom: 2%;
     }
-    #navbar-light-blue {
-        display: none;
-    }
-    .search-input {
-        width: 85%;
-        margin-bottom: 2%;
-    }
-    .navbar-toggler {
+    #navbar-blue [aria-label="Toggler icon"] {
+        display: inline;
         margin-right: 8%;
     }
-    .menu-item {
+    #search {
+        margin-top: 1%;
+        margin-bottom: 8px;
+    }
+    #search input {
+        width: 75%;
+    }
+    #main-menu ul {
+        display: block;
+        margin: 5px 15px;
+        padding-left: 0;
+    }
+    #main-menu li {
+        display: block;
+        padding: 6%;
+    }
+    #main-menu a {
         display: inline-block;
         margin-bottom: 4%;
         margin-left: 4%;
     }
-    .menu-item-text {
+    #main-menu .menu-item-text {
         margin-left: 2%;
+    }
+    #navbar-light-blue {
+        display: none;
     }
 }

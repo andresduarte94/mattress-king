@@ -23,6 +23,7 @@ export class ProductItemComponent implements OnInit {
   productImage: string;
   discountPrice: number;
   discountDisplay: string;
+  currency: string;
 
   // Subscriptions
   breakpointSub: Subscription;
@@ -32,6 +33,8 @@ export class ProductItemComponent implements OnInit {
   ngOnInit() {
     // Get product based on ProductId and Product country
     this.product = this.productsService.getProductById(this.productId, this.productCountry);
+    this.currency = this.productCountry == 'us'? '$':'€';
+
     // Get translations for 'off' string
     this.translationWords = this.globalService.getTranslationLanguage();
 

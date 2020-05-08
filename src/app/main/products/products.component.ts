@@ -37,7 +37,7 @@ export class ProductsComponent implements OnInit {
   isUntouchedFilterForm: boolean = true;
 
   //Ui variables
-  navbarOpen = false;
+  navbarOpen: boolean;
   public innerWidth: any;
 
   constructor(private globalService: GlobalService, private activatedRoute: ActivatedRoute, private productsService: ProductsService) { }
@@ -53,7 +53,7 @@ export class ProductsComponent implements OnInit {
     this.sizes = this.productsService.getSizes(1);
     //Ui variables
     this.innerWidth = window.innerWidth;
-    if (this.innerWidth >= 762) {
+    if (this.innerWidth <= 762) {
       this.navbarOpen = true;
     }
 
@@ -257,12 +257,10 @@ export class ProductsComponent implements OnInit {
       return;
     }
     this.innerWidth = window.innerWidth;
-    this.navbarOpen = this.innerWidth >= 762 ? true : false;
+    this.navbarOpen = this.innerWidth <= 762 ? true : false;
   }
 
-  // Lifehooks functions
   ngOnDestroy() {
     if (this.filterUpdateSub) this.filterUpdateSub.unsubscribe();
   }
 }
-

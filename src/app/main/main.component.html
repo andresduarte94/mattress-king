@@ -1,60 +1,33 @@
-<div class="container-fluid px-0">
-    <div class="row contain mt-3 mt-md-0">
-        <div class="col-11 col-md-8 banner-block">
-            <div class="carousel">
-                <ol class="carousel-indicators">
-                    <li (click)="selectPost(0)" class="active"></li>
-                    <li (click)="selectPost(1)"></li>
-                    <li (click)="selectPost(2)"></li>
-                </ol>
-                <div class="carousel-inner">
-                    <div class="carousel-item" *ngFor="let postId of [0, 1, 2]" [ngClass]="{active: postId == 0}">
-                        <a [routerLink]="['..', 'blog', posts[postId].url]" target="_blank">
-                            <picture>
-                                <source
-                                    [srcset]="'https://assets.mattressfinder.shop/v2/assets/posts/post-' + postId + postImageSize + '.webp'"
-                                    type="image/webp">
-                                <source
-                                    [srcset]="'https://assets.mattressfinder.shop/v2/assets/posts/post-' + postId + postImageSize + '.jpg'"
-                                    type="image/jpeg">
-                                <img class="banner-img"
-                                    [src]="'https://assets.mattressfinder.shop/v2/assets/posts/post-' + postId + postImageSize + '.jpg'"
-                                    [alt]="posts[postId].imageAlt">
-                            </picture>
-                        </a>
-                    </div>
-                </div>
-                <a class="carousel-control-prev" (click)="prev()">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
+<div class="container">
+    <div class="row">
+        <div class="carousel-col">
+            <mat-card>
+                <app-carousel></app-carousel>
+            </mat-card>
+        </div>
+        <div class="products-col">
+            <div class="products-container">
+                <a [href]="coverProducts[0].amazonLink" target="_blank">
+                    <picture>
+                        <source srcset="https://assets.mattressfinder.shop/v2/assets/images/product-es-19.webp"
+                            type="image/webp">
+                        <source srcset="https://assets.mattressfinder.shop/v2/assets/images/product-es-19.jpg"
+                            type="image/jpeg">
+                        <img src="https://assets.mattressfinder.shop/v2/assets/images/product-es-19.jpg"
+                            class="first-image" [alt]="coverProducts[0].name | shorten:60:true">
+                    </picture>
                 </a>
-                <a class="carousel-control-next" (click)="next()">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
+                <a [href]="coverProducts[1].amazonLink" target="_blank">
+                    <picture>
+                        <source srcset="https://assets.mattressfinder.shop/v2/assets/images/product-es-14.webp"
+                            type="image/webp">
+                        <source srcset="https://assets.mattressfinder.shop/v2/assets/images/product-es-14.jpg"
+                            type="image/jpeg">
+                        <img src="https://assets.mattressfinder.shop/v2/assets/images/product-es-14.jpg"
+                            class="second-image" [alt]="coverProducts[1].name | shorten:60:true">
+                    </picture>
                 </a>
             </div>
-        </div>
-        <div class="col-3 home-products">
-            <a [href]="coverProducts[0].amazonLink" target="_blank">
-                <picture>
-                    <source srcset="https://assets.mattressfinder.shop/v2/assets/images/product-es-19.webp"
-                        type="image/webp">
-                    <source srcset="https://assets.mattressfinder.shop/v2/assets/images/product-es-19.jpg"
-                        type="image/jpeg">
-                    <img src="https://assets.mattressfinder.shop/v2/assets/images/product-es-19.jpg" class="first-image"
-                        [alt]="coverProducts[0].name | shorten:60:true">
-                </picture>
-            </a>
-            <a [href]="coverProducts[1].amazonLink" target="_blank">
-                <picture>
-                    <source srcset="https://assets.mattressfinder.shop/v2/assets/images/product-es-14.webp"
-                        type="image/webp">
-                    <source srcset="https://assets.mattressfinder.shop/v2/assets/images/product-es-14.jpg"
-                        type="image/jpeg">
-                    <img src="https://assets.mattressfinder.shop/v2/assets/images/product-es-14.jpg"
-                        class="second-image" [alt]="coverProducts[1].name | shorten:60:true">
-                </picture>
-            </a>
         </div>
     </div>
 </div>

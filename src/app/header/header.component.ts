@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, HostListener } from '@angular/core';
 import { ProductsService } from '../main/products/products.service';
 import { Filter } from '../main/products/filter.model';
 import { FormGroup } from '@angular/forms';
@@ -34,7 +34,7 @@ export class HeaderComponent implements OnInit {
   globalForm: FormGroup;
 
   // UI variables
-  navbarOpen = false;
+  hideMenu;
 
   // Routing variables
   navigationEnd: Observable<NavigationEnd>;
@@ -52,7 +52,6 @@ export class HeaderComponent implements OnInit {
     this.language = this.globalService.getLanguage();
     this.translationWords = this.globalService.getTranslationLanguage();
     this.componentWords = this.translationWords['header'];
-
     // Get params from route when navigation ends
     this.navigationEnd = this.router.events.pipe(
       filter(event => event instanceof NavigationEnd),
@@ -63,7 +62,7 @@ export class HeaderComponent implements OnInit {
         return this.activatedRoute.root.firstChild;
       }),
       switchMap(firstChild => {
-        if (firstChild) {
+        if (firstChild.firstChild) {
           const countryQueryParam = firstChild.firstChild.snapshot.queryParams['gl'];
           if (countryQueryParam) {
             this.globalForm.controls['countries'].setValue(countryQueryParam);
@@ -86,10 +85,9 @@ export class HeaderComponent implements OnInit {
             this.globalService.setLanguage(this.language);
             this.translationWords = this.globalService.getTranslationLanguage();
             this.componentWords = this.translationWords['header'];
-
             // Update UI variables
-            this.navbarOpen = false;
-
+            this.hideMenu = window.innerWidth <= 762;
+            
             return params;
           }));
         }
@@ -98,13 +96,8 @@ export class HeaderComponent implements OnInit {
         }
       })
     );
-
     // Update language select based on route
-    this.routePathSubscription = this.routePathParam.subscribe(() => {
-      // Update language when routing ends
-      //this.globalForm.controls['languages'].setValue(this.language);
-    });
-
+    this.routePathSubscription = this.routePathParam.subscribe(() => {});
     // Create, initialize and set subscriptions for header forms
     this.createReactiveHeaderForms();
   }
@@ -118,7 +111,6 @@ export class HeaderComponent implements OnInit {
     this.searchForm = new FormGroup({
       'search': new FormControl(''),
     });
-
     // Navigating with country query parameter change
     this.globalForm.controls['countries'].valueChanges.subscribe(
       (country) => {
@@ -135,13 +127,11 @@ export class HeaderComponent implements OnInit {
           + countryParameter
         );
       });
-
     // Navigating with language parameter change
     this.globalForm.controls['languages'].valueChanges.subscribe(
       (language) => {
         // Don't update language if route is unknown
         if (!this.isAValidLanguage) { return; }
-
         // Update language and translation words
         this.language = language;
         this.globalService.setLanguage(language);
@@ -156,7 +146,6 @@ export class HeaderComponent implements OnInit {
           + countryParameter
         );
       });
-
     // Updating products on search input change
     this.searchForm.controls['search'].valueChanges.subscribe(
       (search) => {
@@ -196,11 +185,15 @@ export class HeaderComponent implements OnInit {
     if ( this.country == 'all' ) {
       this.router.navigate([this.language, 'products', category.toLowerCase()]);
     }
-
     this.router.navigate([this.language, 'products', category.toLowerCase()], { queryParams: { gl: this.country } });
   }
 
   toggleNavbar() {
-    this.navbarOpen = !this.navbarOpen;
+    this.hideMenu = !this.hideMenu;
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.hideMenu = window.innerWidth <= 762;
   }
 }

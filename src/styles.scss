@@ -10,7 +10,8 @@ body {
     margin: 0; 
 }
 
-* {
+*, ::after, ::before {
     font-family: Lato, "Helvetica Neue", sans-serif !important;
     font-display: swap !important;
+    box-sizing: border-box;
 }

@@ -1,10 +1,10 @@
-<div class="container-fluid justify-content-center">
-    <div class="row mx-auto px-0">
-        <app-post-item class="mb-4 col-12 col-md-6 col-lg-4" *ngFor="let post of pageOfPosts;"
+<div class="container">
+    <div class="row">
+        <app-post-item class="post-item-col" *ngFor="let post of pageOfPosts;"
             [post]="post">
         </app-post-item>
     </div>
-    <div class="row pagination-container">
+    <div class="pagination-container">
         <jw-pagination [items]="posts" [pageSize]="pageSize" [maxPages]="maxPages" [previousLabel]="previousLabel"
             [nextLabel]="nextLabel" [firstLabel]="firstLabel" [lastLabel]="lastLabel" (changePage)="onChangePage($event)">
         </jw-pagination>

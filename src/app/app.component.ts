@@ -4,6 +4,9 @@ import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { SEOService } from './shared/seo.service';
 import { ScriptLoader } from './shared/scriptLoader.service';
 
+import { MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
+
 declare let gtag: Function;
 
 @Component({
@@ -14,7 +17,9 @@ declare let gtag: Function;
 export class AppComponent {
 
   constructor(private activatedRoute: ActivatedRoute, private router: Router, private seoService: SEOService,
-    private scriptLoader: ScriptLoader) { }
+    private scriptLoader: ScriptLoader, private iconRegistry: MatIconRegistry, private sanitizer: DomSanitizer) {
+
+     }
 
   ngOnInit() {
     this.router.events.pipe(
@@ -52,10 +57,16 @@ export class AppComponent {
         });
 
       });
+      this.registerSvgs();
   }
 
   ngAfterViewInit() {
     this.scriptLoader.loadScriptsAndStyles();
   }
-  
+
+  registerSvgs() {
+    this.iconRegistry.addSvgIcon('menu', this.sanitizer.bypassSecurityTrustResourceUrl('assets/icons/menu-24px.svg'));
+    this.iconRegistry.addSvgIcon('filter_menu', this.sanitizer.bypassSecurityTrustResourceUrl('assets/icons/filter_list-24px.svg'));
+    this.iconRegistry.addSvgIcon('search', this.sanitizer.bypassSecurityTrustResourceUrl('assets/icons/search-24px.svg'));
+  }
 }

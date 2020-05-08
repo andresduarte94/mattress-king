@@ -1,18 +1,18 @@
 <!-- Green header for currency, country, blog and contact -->
 <header>
-    <nav class="navbar navbar-expand navbar-dark" id="navbar-grey">
-        <form [formGroup]="globalForm" id="greyNavForm">
-            <ul class="navbar-nav">
-                <li class="grey-item active">
-                    <mat-form-field class="form-field">
+    <nav id="navbar-grey">
+        <form [formGroup]="globalForm">
+            <ul>
+                <li>
+                    <mat-form-field>
                         <mat-select formControlName="languages">
                             <mat-option *ngFor="let language of languagesList, let i = index"
                                 [value]="languagesCodes[i]">{{ language }}</mat-option>
                         </mat-select>
                     </mat-form-field>
                 </li>
-                <li class="grey-item">
-                    <mat-form-field class="form-field">
+                <li>
+                    <mat-form-field>
                         <mat-select formControlName="countries">
                             <mat-option *ngFor="let country of componentWords.countriesList, let i = index"
                                 [value]="countriesCodes[i]">{{ country }}</mat-option>
@@ -23,12 +23,9 @@
         </form>
     </nav>
 </header>
-<!-- End 1rst header -->
-
-<!-- Blue header for logo, search bar, cart and login/account -->
+<!-- Blue header for logo, search bar, home and blog menus -->
 <header>
-    <nav class="navbar navbar-expand-md navbar-dark" id="navbar-blue">
-
+    <nav id="navbar-blue">
         <!-- Logo -->
         <div class="logo-container">
             <a [routerLink]="[language, 'home']" [queryParams]="{gl: country}">
@@ -41,25 +38,26 @@
                 </picture>
             </a>
         </div>
-
         <!-- Burguer button for right-side of header -->
-        <button class="navbar-toggler" type="button" (click)="toggleNavbar()" id="burger-icon">
-            <span class="navbar-toggler-icon"></span>
+        <button mat-icon-button color="primary" (click)="toggleNavbar()" aria-label="Toggler icon">
+            <mat-icon svgIcon="menu"></mat-icon>
         </button>
-
-        <!-- Search bar with button -->
-        <div class="search-div">
-            <form class="search-form" [formGroup]="searchForm">
-                <input class="form-control search-input" type="search" [placeholder]="componentWords.search"
-                    aria-label="Search" name="search" formControlName="search">
+        <!-- Search bar -->
+        <div id="search">
+            <form [formGroup]="searchForm">
+                <div class="search-bar">
+                    <div class="lens-div">
+                        <mat-icon svgIcon="search"></mat-icon>
+                    </div>
+                    <input type="text" placeholder="Search" aria-label="Search" formControlName="search">
+                </div>
             </form>
         </div>
-
-        <!-- Blog and Contact -->
-        <div class="collapse-container collapse navbar-collapse" [ngClass]="{'show': navbarOpen}">
-            <ul class="navbar-nav menu-nav">
+        <!-- Main menu: Main and Blog links -->
+        <div id="main-menu" [ngClass]="{'hide': hideMenu}">
+            <ul>
                 <li>
-                    <a class="menu-item" [routerLink]="[language, 'home']" [queryParams]="{gl: country}">
+                    <a [routerLink]="[language, 'home']" [queryParams]="{gl: country}">
                         <picture>
                             <source srcset="assets/icons/home-icon-medium.webp" type="image/webp">
                             <source srcset="assets/icons/home-icon-medium.png" type="image/png">
@@ -70,7 +68,7 @@
                     </a>
                 </li>
                 <li>
-                    <a class="menu-item" [routerLink]="[language, 'blog']" [queryParams]="{gl: country}">
+                    <a [routerLink]="[language, 'blog']" [queryParams]="{gl: country}">
                         <picture>
                             <source srcset="assets/icons/blog.webp" type="image/webp">
                             <source srcset="assets/icons/blog.png" type="image/png">
@@ -83,18 +81,15 @@
         </div>
     </nav>
 </header>
-<!-- End 2nd header -->
-
 <!-- Light blue header for products and its categories -->
 <header>
-    <nav class="navbar navbar-expand-md" id="navbar-light-blue">
-        <ul class="navbar-nav products-list">
-            <li class="nav-item" *ngFor="let category of productTypes; let i = index">
-                <a class="nav-link" (click)="changeProductType(category)">
+    <nav id="navbar-light-blue">
+        <ul>
+            <li *ngFor="let category of productTypes; let i = index">
+                <a (click)="changeProductType(category)">
                     <h2>{{ componentWords.categories[i] }}</h2>
                 </a>
             </li>
         </ul>
     </nav>
 </header>
-<!-- End 3rd header -->

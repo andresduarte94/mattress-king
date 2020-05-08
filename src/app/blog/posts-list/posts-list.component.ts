@@ -22,17 +22,17 @@ export class PostsListComponent implements OnInit, OnDestroy {
   pageSize = 6;
   maxPages = 5;
   pageOfPosts: Array<any>;
-  previousLabel;
-  nextLabel;
-  firstLabel;
-  lastLabel;
+  previousLabel: string;
+  nextLabel: string;
+  firstLabel: string;
+  lastLabel: string;
   updateLanguageSubscription: Subscription;
 
   constructor(private globalService: GlobalService, private blogService: BlogService) { }
 
   ngOnInit() {
     //Set posts
-    this.updatePosts(this.filter);
+    this.posts = this.blogService.getPosts();
 
     // Initialize translation words and pagination labels
     this.componentWords = this.globalService.getTranslationLanguage().blog;
@@ -49,12 +49,6 @@ export class PostsListComponent implements OnInit, OnDestroy {
       this.firstLabel = componentWords.firstLabel;
       this.lastLabel = componentWords.lastLabel;
     });
-  }
-
-  //Update posts based on new filter
-  updatePosts(filter) {
-    let posts = this.blogService.getPosts(filter);
-    this.posts = posts;
   }
 
   // Update current pagination page of items

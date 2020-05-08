@@ -1,9 +1,9 @@
-<div class="row no-gutters">
-    <app-product-item class="col-12 col-sm-6 col-ml-4 col-lg-3 mb-4 mx-auto" *ngFor="let product of pageOfProducts"
+<div class="row">
+    <app-product-item class="product-item-col" *ngFor="let product of pageOfProducts"
      [id]="product.id" [country]="product.country">
     </app-product-item>
 </div>
-<div class="row pagination-container">
+<div class="pagination-container">
     <jw-pagination [items]="products" [pageSize]="pageSize" [maxPages]="maxPages" [previousLabel]="previousLabel" 
     [nextLabel]="nextLabel" [firstLabel]="firstLabel" [lastLabel]="lastLabel" (changePage)="onChangePage($event)">
     </jw-pagination>

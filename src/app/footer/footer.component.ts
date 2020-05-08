@@ -46,7 +46,7 @@ export class FooterComponent implements OnInit {
         return this.activatedRoute.root.firstChild;
       }),
       switchMap(firstChild => {
-        if (firstChild) {
+        if (firstChild.firstChild) {
           return firstChild.firstChild.params.pipe(map(params => {
             // Update language and translation words
             this.language = params.language;

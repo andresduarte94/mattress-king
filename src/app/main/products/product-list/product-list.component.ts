@@ -13,18 +13,16 @@ export class ProductListComponent implements OnInit {
   // Global variables
   translationWords: any;
   updateLanguageSub: Subscription;
-
   //Product variables
   @Input() products: Product[] = [];
-
   //Pagination variables
-  pageSize = 8;
+  pageSize = 24;
   maxPages = 5;
   pageOfProducts: Array<any>;
-  previousLabel;
-  nextLabel;
-  firstLabel;
-  lastLabel;
+  previousLabel: string;
+  nextLabel: string;
+  firstLabel: string;
+  lastLabel: string;
 
   constructor(private globalService: GlobalService) { }
 
@@ -44,12 +42,10 @@ export class ProductListComponent implements OnInit {
       this.lastLabel = translationWords.blog.lastLabel;
     })
   }
-
   // update current pagination page of items
   onChangePage(pageOfProducts: Array<any>) {
     this.pageOfProducts = pageOfProducts;
   }
-
   ngOnDestroy() {
     if (this.updateLanguageSub) {
       this.updateLanguageSub.unsubscribe();

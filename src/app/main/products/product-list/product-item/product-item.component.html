@@ -8,10 +8,9 @@
         <h2>
             {{ product.name | shorten:60:false }}
         </h2>
-        <hr>
         <div class="price-row">
             <div>
-                <span><strong>{{ discountPrice }} €</strong></span>
+                <span><strong>{{ discountPrice }} {{ currency }}</strong></span>
             </div>
             <div>
                 <span class="discount-span">{{ discountDisplay }}</span>

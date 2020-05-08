@@ -1,21 +1,20 @@
 <footer class="footer">
     <div class="container">
-        <div class="row mt-3">
-            <div class="col-12 col-md-4 mx-auto mb-4">
-                <h6 class="hr">
+        <div class="row">
+            <div class="left-col">
+                <h6>
                     {{ componentWords.companyName }}
                 </h6>
                 <p>
                     {{ componentWords.companyDescription }}
                 </p>
-                <hr class="hr-footer-design">
-                <p>
+                <p class="hr-footer-design">
                     {{ componentWords.desginBy }}
                     <a href="https://www.krowded.agency/" target="_blank" class="krowded">Krowded</a>
                 </p>
             </div>
-            <div class="col-12 col-md-2 mx-auto mb-4">
-                <h6 class="hr">
+            <div class="center-col">
+                <h6>
                     {{ componentWords.productsLabel }}
                 </h6>
                 <p *ngFor="let category of translationWords.header.categories.slice(1); let i = index;">
@@ -24,36 +23,36 @@
                     </a>
                 </p>
             </div>
-            <div class="col-12 col-md-2 mx-auto mb-4">
-                <h6 class="hr">
+            <div class="center-col">
+                <h6>
                     {{ componentWords.usefulLinks[0] }}
                 </h6>
                 <p *ngFor="let usefulLink of componentWords.usefulLinks.slice(1)">
                     <a [routerLink]="[language, 'blog']" [queryParams]="{gl: country}">{{ usefulLink }}</a>
                 </p>
             </div>
-            <div class="col-12 col-md-3 mx-auto mb-md-0 mb-4">
-                <h6 class="hr">
+            <div class="right-col">
+                <h6>
                     {{ componentWords.info[0] }}
                 </h6>
-                <address>
-                    <svg class="icon-home icon-small">
+                <address> 
+                    <svg class="icon">
                         <use xlink:href="#icon-home"></use>
                     </svg> {{ componentWords.info[1] }}
                 </address>
                 <p>
-                    <svg class="icon-envelop icon-small">
+                    <svg class="icon">
                         <use xlink:href="#icon-envelop"></use>
                     </svg>
                     <a href="mailto:mattressking.store@gmail.com" target="_blank">mattressfinder.shop@gmail.com</a>
                 </p>
                 <p>
-                    <svg class="icon-phone icon-small">
+                    <svg class="icon">
                         <use xlink:href="#icon-phone"></use>
                     </svg> + 34 627 608 234
                 </p>
                 <p>
-                    <svg class="icon-phone icon-small">
+                    <svg class="icon">
                         <use xlink:href="#icon-phone"></use>
                     </svg> + 34 627 608 234
                 </p>

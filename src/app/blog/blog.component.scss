@@ -1,73 +1,102 @@
 a {
   text-decoration: none !important;
 }
-
-.contain {
-  margin-right: 7%;
-  margin-left: 7%;
+.container {
+  max-width: 1035px;
+  margin-right: auto;
+  margin-left: auto;
   justify-content: center;
+  margin-bottom: 4%;
 }
-
-.banner-img {
-  width: 100%;
-  max-height: 500px;
-  display: block;
+.row {
+  display: grid;
+  grid-template-columns: repeat(11, 1fr);
+  grid-gap: 0;
+  margin-right: auto;
+  margin-left: auto;
 }
-
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-  height: 50px;
-  width: 50px;
-  outline: black;
-  background-size: 100%, 100%;
-  border-radius: 50%;
-  border: 1px solid black;
-  background-color: black;
+.carousel-col {
+  grid-column: span 8;
 }
-
-ol.carousel-indicators {
-  position: absolute;
-  bottom: 0;
-  margin: 0;
-  left: 0;
-  right: 0;
-  width: auto;
+.carousel-container {
+  height: 450px;
+  width: 750px;
+  padding: 0;
+  margin-right: auto;
+  margin-left: auto;
 }
-  
-ol.carousel-indicators li,
-ol.carousel-indicators li.active {
-  float: left;
-  width: 33.33%;
-  height: 10px;
-  margin: 0;
-  border-radius: 0;
-  border: 0;
-  background: transparent;
+.post-col {
+  grid-column: span 3;
 }
-  
-ol.carousel-indicators li.active {
-  background: #142a58;
+.post-col .mat-card {
+  height: 450px;
+  margin-right: auto;
+  margin-left: auto;
 }
-
 .post-title {
   color: #0F2043;
 }
-
-@media screen and (max-width: 870px) {
-    .contain {
-        margin-right: auto;
-        margin-left: auto;
-    }
-    .container-fluid {
-        padding: 0;
-        margin-right: 0;
-        margin-left: 0;
-    }
+.post-title h1 {
+  margin-top: 0;
 }
-
-@media screen and (max-width: 770px) {
-    .banner {
-        padding-left: 3%;
-        padding-right: 3%;
-    }
+.post-summary {
+  margin-bottom: 10px;
+}
+@media screen and (max-width: 1200px) {
+  .container {
+    max-width: 850px;
+  }
+  .carousel-container {
+    width: 600px;
+    height: 360px;
+  }
+  .post-col .mat-card {
+    height: 360px;
+  }
+  .post-title h1 { 
+    font-size: 1.7em;
+  }
+}
+@media screen and (max-width: 970px) {
+  .container {
+    max-width: 720px;
+  }
+  .carousel-col, .post-col {
+    grid-column: span 11;
+  }
+  .carousel-container {
+    width: 508px;
+    height: 304px;
+  }
+  .post-col .mat-card {
+    width: 508px;
+    height: fit-content;
+  }
+  .post-summary {
+    margin-bottom: 6px;
+  }
+}
+@media screen and (max-width: 576px) {
+  .container {
+    max-width: 340px;
+  }
+  .carousel-container {
+    width: 300px;
+    height: 180px;
+  }
+  .post-col .mat-card {
+    width: 300px;
+  }
+}
+@media screen and (max-width: 350px) {
+  .container {
+    max-width: 300px;
+  }
+  .carousel-container {
+    width: 280px;
+    height: 168px;
+  }
+  .post-col .mat-card {
+    width: 280px;
+  }
 }

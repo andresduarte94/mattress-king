@@ -1,44 +1,39 @@
-<div class="container-fluid px-2">
-    <div class="row no-gutters">
-        <div id="filtersContainer" class="col-16 col-md-5 col-ml-3">
-            <div class="card categories-sidebar my-4 my-md-0">
-                <nav class="navbar navbar-dark">
+<div class="container">
+    <div class="row">
+        <div id="filtersContainer" class="filter-col">
+            <mat-card>
+                <nav>
                     <div class="filters-header">
                         <span class="filters-title">{{ componentWords.filtersLabel }}</span>
-                        <!-- Burguer button for right-side of header -->
-                        <button class="navbar-toggler" type="button" (click)="toggleNavbar()"
-                            [ngClass]="{'hide-icon': innerWidth >= 762}">
-                            <span class="navbar-toggler-icon"></span>
+                        <!-- Filter button for right-side of filter header -->
+                        <button mat-icon-button color="primary" (click)="toggleNavbar()" aria-label="Filter icon">
+                            <mat-icon svgIcon="filter_menu"></mat-icon>
                         </button>
                     </div>
-                    <hr>
-                    <form [formGroup]="filterForm" class="collapse navbar-collapse mx-2"
-                        [ngClass]="{'show': navbarOpen}">
+                    <form [formGroup]="filterForm" [ngClass]="{'hide': navbarOpen}">
                         <!-- Product type -->
-                        <div class="form-group mt-2">
+                        <div class="types-group">
                             <label for="productType" class="title">{{ componentWords.productTypeLabel }}</label>
-                            <select id="productType" class="form-control type" formControlName="productType" required>
-                                <option class="typesOptions"
-                                    *ngFor="let category of translationWords.header.categories; let i = index;"
-                                    [value]="i">
-                                    {{ category }}
-                                </option>
-                            </select>
+                            <mat-form-field>
+                                <mat-select formControlName="productType" required>
+                                    <mat-option
+                                        *ngFor="let category of translationWords.header.categories; let i = index;"
+                                        [value]="i">{{ category }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
                         </div>
-                        <hr>
                         <!-- Price range -->
-                        <div class="form-group mb-4">
-                            <label class="title title-slider">{{ componentWords.priceLabel }}</label>
+                        <div class="price-group">
+                            <label class="title price-title">{{ componentWords.priceLabel }}</label>
                             <nouislider class="nouislider" name="priceSlider" [config]="priceSliderConfig"
                                 formControlName="priceSlider" [tooltips]="[ true, true ]"></nouislider>
                         </div>
-                        <hr>
                         <!-- Scores -->
                         <div class="form-group">
                             <label class="title">{{ componentWords.reviewsLabel }}</label>
                             <div class="review-filter" *ngFor="let score of [1, 2, 3, 4, 5]">
                                 <!-- Stars -->
-                                <a (click)="updateScoreFilter(score)" class="link">
+                                <a (click)="updateScoreFilter(score)">
                                     <span>
                                         <svg class="icon icon-star-full" *ngFor="let item of [].constructor(score)">
                                             <use xlink:href="#icon-star-full"></use>
@@ -54,9 +49,8 @@
                                 </a>
                             </div>
                         </div>
-                        <hr>
                         <!-- Sizes -->
-                        <div class="form-group mb-0" formGroupName="sizes">
+                        <div class="form-group" formGroupName="sizes">
                             <label class="title">{{ componentWords.sizesLabel }}</label>
                             <div class="sizes-options">
                                 <mat-checkbox [formControlName]="size" color="primary"
@@ -64,16 +58,14 @@
                                 </mat-checkbox>
                             </div>
                         </div>
-                        <hr>
                         <!-- Minimum discount -->
-                        <div class="discount-container">
+                        <div class="form-group">
                             <label for="mindiscount" class="title">{{ componentWords.discountLabel }}</label>
-                            <mat-slider class="mat-slider" thumbLabel [displayWith]="formatLabel" color="primary"
+                            <mat-slider thumbLabel [displayWith]="formatLabel" color="primary"
                                 min="0" max="100" formControlName="mindiscount"></mat-slider>
                         </div>
-                        <hr>
                         <!-- Payments -->
-                        <div class="payments-container">
+                        <div class="payments-group">
                             <label for="payments" class="title">{{ componentWords.paymentsLabel }}</label>
                             <mat-radio-group class="payment-group" formControlName="payments">
                                 <mat-radio-button color="primary" value="4" (click)="uncheckRadio($event, 4)">
@@ -86,8 +78,8 @@
                         </div>
                     </form>
                 </nav>
-            </div>
+            </mat-card>
         </div>
-        <app-product-list class="col-16 col-md-11 col-ml-13" [products]="products"></app-product-list>
+        <app-product-list class="products-col" [products]="products"></app-product-list>
     </div>
 </div>
