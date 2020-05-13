@@ -14,7 +14,7 @@
     text-align: center;
 }
 #navbar-grey .mat-form-field {
-    width: 75%;
+    width: 89%;
     max-height: 35px;
 }
 #navbar-grey .mat-select {
@@ -32,10 +32,19 @@
     font-weight: 700;
     margin-left: 5%;
     font-size: 0.95em;
+    vertical-align: middle;
 }
-.mat-option {
+:host::ng-deep [class*="global-logo"] {
+    margin-left: 10px;
+    vertical-align: middle;
+}
+.mat-option {  
     height: 2.5em !important;
     font-size: 0.9em !important;
+}
+.global-logo {
+    margin-left: 5px;
+    vertical-align: middle;
 }
 #navbar-blue {
     display: flex;
@@ -170,7 +179,7 @@
         flex-wrap: wrap;
         align-items: center;
         justify-content: space-between;
-        margin-bottom: 2%;
+        margin-bottom: 4%;
     }
     #navbar-blue [aria-label="Toggler icon"] {
         display: inline;
@@ -190,11 +199,11 @@
     }
     #main-menu li {
         display: block;
-        padding: 6%;
+        padding: 2%;
     }
     #main-menu a {
         display: inline-block;
-        margin-bottom: 4%;
+        margin-bottom: 2%;
         margin-left: 4%;
     }
     #main-menu .menu-item-text {

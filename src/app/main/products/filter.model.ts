@@ -1,8 +1,7 @@
 export class Filter {
         
     constructor(
-        public name?: string, 
-        public description?: string,
+        public search?: string,
         public type?: number,
         public sizes?: string[ ], 
         public country?: string,

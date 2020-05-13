@@ -82,6 +82,24 @@
 }   
 @media screen and (max-width: 576px) {
   .container {
+    max-width: 400px;
+  }
+  .carousel-col .mat-card {
+    width: 370px;
+    height: 222px;
+  }
+}
+@media screen and (max-width: 410px) {
+  .container {
+    max-width: 365px;
+  }
+  .carousel-col .mat-card {
+    width: 340px;
+    height: 204px;
+  }
+}
+@media screen and (max-width: 376px) {
+  .container {
     max-width: 340px;
   }
   .carousel-col .mat-card {

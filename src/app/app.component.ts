@@ -46,8 +46,7 @@ export class AppComponent {
         this.seoService.updateAllMetasForRoute(routeURL, snapshot.params);
 
         // Set canonical relation on page
-        this.seoService.createCanonicalURL();
-
+        this.seoService.createCanonicalURL(routeURL, snapshot.params, snapshot.queryParams);
         // Change lang attribute
         this.seoService.changeLangAttribute(snapshot.params.language);
 

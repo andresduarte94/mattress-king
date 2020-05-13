@@ -78,6 +78,30 @@ a {
 }
 @media screen and (max-width: 576px) {
   .container {
+    max-width: 400px;
+  }
+  .carousel-container {
+    width: 370px;
+    height: 222px;
+  }
+  .post-col .mat-card {
+    width: 370px;
+  }
+}
+@media screen and (max-width: 410px) {
+  .container {
+    max-width: 365px;
+  }
+  .carousel-container {
+    width: 340px;
+    height: 204px;
+  }
+  .post-col .mat-card {
+    width: 340px;
+  }
+}
+@media screen and (max-width: 376px) {
+  .container {
     max-width: 340px;
   }
   .carousel-container {

@@ -5,7 +5,7 @@ import { Subject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class GlobalService {
-  private language: string = 'es';
+  private language: string = 'en';
   private country: string = 'all';
   private translations: any = {};
   updateSubComponentLanguage = new Subject<any>();

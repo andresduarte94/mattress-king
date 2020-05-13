@@ -51,7 +51,7 @@ export class PostComponent implements OnInit {
         const postParam = params.postUrl;
         if (!isNaN(postParam)) {
           this.post = this.blogService.getPostById(postParam);
-          this.location.replaceState(this.language + '/blog/' + this.post.url)
+          this.router.navigateByUrl(this.language + '/blog/' + this.post.url)
         }
         else {
           this.post = this.blogService.getPostByUrl(postParam);
@@ -91,6 +91,8 @@ export class PostComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.breakpointSub.unsubscribe();
+    if(this.breakpointSub) {
+      this.breakpointSub.unsubscribe();
+    }
   }
 }

@@ -7,7 +7,7 @@
                     <mat-form-field>
                         <mat-select formControlName="languages">
                             <mat-option *ngFor="let language of languagesList, let i = index"
-                                [value]="languagesCodes[i]">{{ language }}</mat-option>
+                                [value]="languagesCodes[i]">{{ language }}&nbsp;&nbsp;<img class="global-logo" [src]="languagesLogos[languagesCodes[i]]"></mat-option>
                         </mat-select>
                     </mat-form-field>
                 </li>
@@ -15,7 +15,7 @@
                     <mat-form-field>
                         <mat-select formControlName="countries">
                             <mat-option *ngFor="let country of componentWords.countriesList, let i = index"
-                                [value]="countriesCodes[i]">{{ country }}</mat-option>
+                                [value]="countriesCodes[i]">{{ country }}&nbsp;&nbsp;<img class="global-logo" [src]="countriesLogos[countriesCodes[i]]"></mat-option>
                         </mat-select>
                     </mat-form-field>
                 </li>
@@ -28,7 +28,7 @@
     <nav id="navbar-blue">
         <!-- Logo -->
         <div class="logo-container">
-            <a [routerLink]="[language, 'home']" [queryParams]="{gl: country}">
+            <a (click)="navigateTo('home')">
                 <picture>
                     <source srcset="https://assets.mattressfinder.shop/v2/assets/images/MF-logo-2.webp"
                         type="image/webp">
@@ -54,10 +54,10 @@
             </form>
         </div>
         <!-- Main menu: Main and Blog links -->
-        <div id="main-menu" [ngClass]="{'hide': hideMenu}">
+        <div id="main-menu" [ngClass]="{'hide': hideNavbar}">
             <ul>
                 <li>
-                    <a [routerLink]="[language, 'home']" [queryParams]="{gl: country}">
+                    <a (click)="navigateTo('home')">
                         <picture>
                             <source srcset="assets/icons/home-icon-medium.webp" type="image/webp">
                             <source srcset="assets/icons/home-icon-medium.png" type="image/png">
@@ -68,7 +68,7 @@
                     </a>
                 </li>
                 <li>
-                    <a [routerLink]="[language, 'blog']" [queryParams]="{gl: country}">
+                    <a (click)="navigateTo('blog')">
                         <picture>
                             <source srcset="assets/icons/blog.webp" type="image/webp">
                             <source srcset="assets/icons/blog.png" type="image/png">

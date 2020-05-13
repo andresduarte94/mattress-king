@@ -16,14 +16,13 @@ export class SEOService {
 
     updateAllMetasForRoute(url: any, params: any) {
         let language = params.language;
-
-        // Update HTML language attribute
-        this._document.documentElement.lang = language;
-
+        if(!['es', 'us'].includes(language)){
+            language = 'en';
+        }
         // SEO variables and path
         let path1 = url.split('/')[2];
-        if(!path1) {
-            language = 'es';
+        if (!path1) {
+            language = 'en';
             path1 = 'home';
         }
         let description = this.seoData[language][path1].description;
@@ -53,6 +52,8 @@ export class SEOService {
                 description = description.replace('{{ summary }}', post.summary);
             }
         }
+        // Update HTML language attribute, title and description meta
+        this.changeLangAttribute(language);
         this.updateTitle(pageTitle);
         this.updateDescription(description);
     }
@@ -69,14 +70,30 @@ export class SEOService {
         this._document.documentElement.lang = language;
     }
 
-    createCanonicalURL() {
+    createCanonicalURL(url: string, params: any, queryParams: any) {
+        let canonicalUrl = this._document.URL;
         let canonicalLink = this._document.querySelector('[rel="canonical"]');
         if (canonicalLink == null) {
             canonicalLink = this._document.createElement('link');
             canonicalLink.setAttribute('rel', 'canonical');
             this._document.head.appendChild(canonicalLink);
         }
-        canonicalLink.setAttribute('href', this._document.URL);
+
+        let pathArray = url.split('/').slice(1);
+        if( url == '/en/home' && !queryParams.gl) {
+            canonicalUrl = 'https://www.mattressfinder.shop';
+        }
+        else if( pathArray[1] == 'blog' && params.postUrl) {
+            let postUrl = params.postUrl;
+            if( !isNaN(postUrl) ) {
+                postUrl = this.blogService.getPostById(params.postUrl).url;
+            }
+            canonicalUrl= `https://www.mattressfinder.shop/es/blog/${postUrl}`
+        }
+        else if( pathArray[1] == 'blog' ) {
+            canonicalUrl = `https://www.mattressfinder.shop/${params.language}/blog`;
+        }
+        canonicalLink.setAttribute('href', canonicalUrl);
     }
 
     fetchSEO(): Promise<any> {

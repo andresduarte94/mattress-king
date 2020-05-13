@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, ElementRef } from '@angular/core';
 import { ProductsService } from '../main/products/products.service';
 import { Filter } from '../main/products/filter.model';
 import { FormGroup } from '@angular/forms';
@@ -7,7 +7,6 @@ import { FormControl } from '@angular/forms';
 import { Subscription, Observable, of } from 'rxjs';
 import { GlobalService } from '../shared/global.service';
 import { filter, map, switchMap } from 'rxjs/operators';
-import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-header',
@@ -24,27 +23,35 @@ export class HeaderComponent implements OnInit {
   language: string;
   translationWords: any;
   componentWords: any;
-  isAValidLanguage: boolean;
-
   // Form variables
   countries = new FormControl();
   languages = new FormControl();
   productTypes: string[];
   searchForm: FormGroup;
   globalForm: FormGroup;
-
   // UI variables
-  hideMenu;
-
+  hideNavbar: boolean;
+  public innerWidth: any;
+  countriesLogos;
+  languagesLogos;
   // Routing variables
   navigationEnd: Observable<NavigationEnd>;
   routePathParam: Observable<string>;
   routePathSubscription: Subscription;
 
   constructor(private productsService: ProductsService, private router: Router, private activatedRoute: ActivatedRoute,
-    private globalService: GlobalService, private location: Location) { }
+    private globalService: GlobalService, private elRef: ElementRef) { }
 
   ngOnInit() {
+    this.languagesLogos = {
+      'en': 'assets/icons/english.png',
+      'es': 'assets/icons/spanish.png'
+    };
+    this.countriesLogos = {
+      'all': 'assets/icons/world-small.png',
+      'us': 'assets/icons/usa.png',
+      'es': 'assets/icons/spain.png'
+    };
     // Product variables set-up
     this.productTypes = this.productsService.productTypes.slice();
     // Global variables set-up    
@@ -62,33 +69,27 @@ export class HeaderComponent implements OnInit {
         return this.activatedRoute.root.firstChild;
       }),
       switchMap(firstChild => {
-        if (firstChild.firstChild) {
-          const countryQueryParam = firstChild.firstChild.snapshot.queryParams['gl'];
-          if (countryQueryParam) {
-            this.globalForm.controls['countries'].setValue(countryQueryParam);
-          }
-          
-          if (!firstChild.firstChild.snapshot['_routerState'].url.match(/products/)) {
+        const child = firstChild.firstChild;
+        if (child) {
+          if (!child.snapshot['_routerState'].url.match(/products/)) {
             this.searchForm.controls['search'].setValue('');
           }
 
-          return firstChild.firstChild.params.pipe(map(params => {
-            // Update language and translation words
+          return child.params.pipe(map(params => {
+            const countryQueryParam = child.snapshot.queryParams['gl'];
+
             if (!this.languagesCodes.includes(params.language)) {
-              this.location.replaceState('/' + this.language + '/home');
+              this.router.navigateByUrl('/' + this.language + '/home');
             }
-            else {
+            if (params.language !== this.globalForm.controls['languages'].value) {
               this.language = params.language;
-              this.isAValidLanguage = true;
+              if (countryQueryParam) {
+                this.country = countryQueryParam;
+              }
+              this.globalForm.controls['languages'].setValue(this.language);
             }
-            // Update global variables
-            this.globalService.setLanguage(this.language);
-            this.translationWords = this.globalService.getTranslationLanguage();
-            this.componentWords = this.translationWords['header'];
-            // Update UI variables
-            this.hideMenu = window.innerWidth <= 762;
-            
-            return params;
+
+            return countryQueryParam;
           }));
         }
         else {
@@ -97,15 +98,23 @@ export class HeaderComponent implements OnInit {
       })
     );
     // Update language select based on route
-    this.routePathSubscription = this.routePathParam.subscribe(() => {});
+    this.routePathSubscription = this.routePathParam.subscribe((countryQueryParam) => {
+      if (countryQueryParam && countryQueryParam !== this.globalForm.controls['countries'].value) {
+        this.country = countryQueryParam;
+        this.globalForm.controls['countries'].setValue(countryQueryParam);
+      }
+    });
     // Create, initialize and set subscriptions for header forms
     this.createReactiveHeaderForms();
+    // Update UI variables
+    this.innerWidth = window.innerWidth;
+    this.hideNavbar = this.innerWidth <= 762;
   }
 
   createReactiveHeaderForms() {
     // Create reactive form for country and language
     this.globalForm = new FormGroup({
-      'countries': new FormControl('all'),
+      'countries': new FormControl(this.country),
       'languages': new FormControl(this.language)
     });
     this.searchForm = new FormGroup({
@@ -117,34 +126,37 @@ export class HeaderComponent implements OnInit {
         // Update country
         this.country = country;
         this.globalService.setCountry(this.country);
-        // Create url string with country and navigate to it
-        let activatedRouteURL = this.activatedRoute.snapshot['_routerState'].url;
-        const baseURL = activatedRouteURL.indexOf('?') > -1 ? activatedRouteURL.slice(3, activatedRouteURL.indexOf('?')) : activatedRouteURL.slice(3);
+        // Update country icon
+        let countrySelected = this.elRef.nativeElement.querySelector('.global-logo-country');
+        countrySelected.src = this.countriesLogos[this.country];
+        // Route to update language and country variables
+        const activatedRouteURL = this.activatedRoute.snapshot['_routerState'].url;
+        const baseURL = activatedRouteURL === '/' ? '/home' : activatedRouteURL.indexOf('?') > -1 ? activatedRouteURL.slice(3, activatedRouteURL.indexOf('?')) : activatedRouteURL.slice(3);
         const countryParameter = country == 'all' ? '' : `?gl=${country}`;
-        this.router.navigateByUrl(
-          this.language
-          + baseURL
-          + countryParameter
-        );
+        const newRoute = '/' + this.language + baseURL + countryParameter;
+        if (activatedRouteURL !== newRoute) {
+          this.router.navigateByUrl(newRoute);
+        }
       });
     // Navigating with language parameter change
     this.globalForm.controls['languages'].valueChanges.subscribe(
       (language) => {
-        // Don't update language if route is unknown
-        if (!this.isAValidLanguage) { return; }
         // Update language and translation words
         this.language = language;
         this.globalService.setLanguage(language);
         this.translationWords = this.globalService.getTranslationLanguage();
         this.componentWords = this.translationWords['header'];
-        let activatedRouteURL = this.activatedRoute.snapshot['_routerState'].url;
-        const baseURL = activatedRouteURL.indexOf('?') > -1 ? activatedRouteURL.slice(3, activatedRouteURL.indexOf('?')) : activatedRouteURL.slice(3);
+        // Update language icon
+        let languageSelected = this.elRef.nativeElement.querySelector('.global-logo-language');
+        languageSelected.src = this.languagesLogos[this.language];
+        // Route to update language and country variables
+        const activatedRouteURL = this.activatedRoute.snapshot['_routerState'].url;
+        const baseURL = activatedRouteURL === '/' ? '/home' : activatedRouteURL.indexOf('?') > -1 ? activatedRouteURL.slice(3, activatedRouteURL.indexOf('?')) : activatedRouteURL.slice(3);
         const countryParameter = this.country == 'all' ? '' : `?gl=${this.country}`;
-        this.router.navigateByUrl(
-          this.language
-          + baseURL
-          + countryParameter
-        );
+        const newRoute = '/' + this.language + baseURL + countryParameter;
+        if (activatedRouteURL !== newRoute) {
+          this.router.navigateByUrl(newRoute);
+        }
       });
     // Updating products on search input change
     this.searchForm.controls['search'].valueChanges.subscribe(
@@ -155,15 +167,12 @@ export class HeaderComponent implements OnInit {
   }
 
   onSearchChange() {
-    // Get search bar value and avoid actions if  
     const search = this.searchForm.controls['search'].value;
-
     const activatedRouteURL = this.activatedRoute.snapshot['_routerState'].url;
     if (activatedRouteURL.match(/products/)) {
       // Update name and description filter if routing is within products
       let filter: Filter = {};
-      filter.description = search;
-      filter.name = search;
+      filter.search = search;
       this.productsService.filterUpdateEvent.next(filter);
     }
     else {
@@ -172,28 +181,72 @@ export class HeaderComponent implements OnInit {
         return;
       }
       // Navigate to products path with search params when using search bar outside products
-      this.router.navigate([this.language, 'products', 'all'], {
+      if (this.country == 'all') {
+        this.router.navigate([this.language, 'products', 'all'], {
+          queryParams: {
+            search: search
+          }
+        });
+      }
+      else {
+        this.router.navigate([this.language, 'products', 'all'], {
+          queryParams: {
+            gl: this.country,
+            search: search
+          }
+        });
+      }
+    }
+  }
+
+  changeProductType(category: string) {
+    if (this.country == 'all') {
+      this.router.navigate([this.language, 'products', category.toLowerCase()]);
+    }
+    else {
+      this.router.navigate([this.language, 'products', category.toLowerCase()], { queryParams: { gl: this.country } });
+    }
+  }
+
+  toggleNavbar() {
+    this.hideNavbar = !this.hideNavbar;
+  }
+
+  navigateTo(route: string) {
+    if (this.country == 'all') {
+      this.router.navigate([this.language, route]);
+    }
+    else {
+      this.router.navigate([this.language, route], {
         queryParams: {
-          gl: this.country,
-          search: search
+          gl: this.country
         }
       });
     }
   }
 
-  changeProductType(category: string) {
-    if ( this.country == 'all' ) {
-      this.router.navigate([this.language, 'products', category.toLowerCase()]);
-    }
-    this.router.navigate([this.language, 'products', category.toLowerCase()], { queryParams: { gl: this.country } });
-  }
-
-  toggleNavbar() {
-    this.hideMenu = !this.hideMenu;
-  }
-
   @HostListener('window:resize', ['$event'])
   onResize(event) {
-    this.hideMenu = window.innerWidth <= 762;
+    if (this.innerWidth == window.innerWidth) {
+      return;
+    }
+    this.innerWidth = window.innerWidth;
+    this.hideNavbar = this.innerWidth <= 762;
+  }
+
+  ngAfterContentInit() {
+    const selectedElements = this.elRef.nativeElement.querySelectorAll('.mat-select-value');
+    let languageSelected = selectedElements[0];
+    let countrySelected = selectedElements[1];
+    const languageString = `<img class="global-logo-language" src="${this.languagesLogos[this.language]}">`;
+    const countryString = `<img class="global-logo-country" src="${this.countriesLogos[this.country]}">`;
+    languageSelected.insertAdjacentHTML('beforeend', languageString);
+    countrySelected.insertAdjacentHTML('beforeend', countryString);
+  }
+
+  ngOnDestroy() {
+    if (this.routePathSubscription) {
+      this.routePathSubscription.unsubscribe();
+    }
   }
 }

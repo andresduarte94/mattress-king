@@ -14,7 +14,6 @@
 #filtersContainer {
     display: flex;
     justify-content: center;
-    margin-bottom: 4%;
     padding-right: 0;
 }
 #filtersContainer .mat-card {
@@ -156,6 +155,13 @@
     display: flex;
     flex-direction: column;
     padding-left: 10%;
+    font-size: 0.9em;
+}
+:host::ng-deep .payment-group span {
+    margin-left: 3px;
+}
+:host::ng-deep .mat-radio-label {
+    margin-top: 2%;
 }
 :host::ng-deep .mat-radio-label-content {
     display: flex;
@@ -172,6 +178,8 @@
     #filtersContainer {
         padding-left: 2%;
         padding-right: 2%;
+        margin-top: 2%;
+        margin-bottom: 2%;
     }
     .filters-header [aria-label="Filter icon"] {
         display: inline;

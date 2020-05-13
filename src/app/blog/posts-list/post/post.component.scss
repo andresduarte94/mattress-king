@@ -2,22 +2,20 @@ h1 {
     text-align: center;
     font-size: 32pt;
     color: #142a58;
+    margin-top: 1%;
     margin-bottom: 2%;
 }
-
 hr {
     margin-top: 0.8em;
     margin-bottom: 0.8em;
 }
-
 .link, .link:hover {
     cursor: pointer;
-    font-weight: 700 !important;
-    font-size: 14px!important;
+    font-weight: 700;
+    font-size: 0.9em;
     color: #142a58;
     text-decoration: none;
 }
-
 .article-container {
     max-width: 1030px;
     align-content: center;
@@ -25,17 +23,14 @@ hr {
     margin-right: auto;
     margin-left: auto;
 }
-
 .header-container{
     margin-right: 2%;
     margin-left: 2%;
     padding-top: 1%;
 }
-
 .next-art-div {
     text-align: right;
 }
-
 .post-img {
     display: block;
     border-bottom: 1.5em solid gainsboro;
@@ -45,22 +40,18 @@ hr {
     margin-left: auto;
     margin-right: auto;
 }
-
 .post-container {
     margin-right: 14%;
     margin-left: 14%;
 }
-
 [class^='authorTable'] {
     text-align: left;
 }
-
 .authorTable-top {
     margin-top: 0.5%;
     margin-bottom: 0.5%;
     margin-left: 4%;
 }
-
 .author-image-sm-div {
     width: 60px;
     display: block;
@@ -68,30 +59,42 @@ hr {
     border-radius: 100%;
     padding: 2px;
 }
-  
 .author-image-sm {
     display: block;
     width: 100%;
     border-radius: 100%;
 }
-
 .author-info-top {
     padding-top: 1%;
     padding-left: 5%;
     padding-right: 0;
     min-width: 250px;
 }
-
 .name {
     font-weight: bold;
+    margin-bottom: 1%;
+    margin-top: 1%;
 }
-
-.resume {
-    font-size: 0.87em;
+.post-info {
+    font-size: 0.75em;
     font-weight: bold;
-    color: gray
+    color: gray;
+    margin-top: 2%;    
 }
-
+.duration {
+    margin-left: 2%;
+}
+.author-info-bottom {
+    padding-top: 1%;
+    padding-left: 3%;
+}
+.resume {
+    font-size: 0.9em;
+    font-weight: bold;
+    color: gray;
+    margin-top: 2%;
+    margin-bottom: 1%;
+}
 .author-image-div {
     width: 80px;
     display: block;
@@ -99,13 +102,16 @@ hr {
     border-radius: 100%;
     padding: 2px;
 }
-
 .author-image {
     display: block;
     width:100%;
     border-radius: 100%;
 }
-
+@media (max-width:1200px)  {  
+    .next-art-div {
+        margin-right: 5%;
+    }
+}
 @media (max-width:480px)  { 
     .post-container {
         margin-right: 4%;

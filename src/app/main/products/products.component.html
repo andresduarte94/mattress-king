@@ -10,7 +10,7 @@
                             <mat-icon svgIcon="filter_menu"></mat-icon>
                         </button>
                     </div>
-                    <form [formGroup]="filterForm" [ngClass]="{'hide': navbarOpen}">
+                    <form [formGroup]="filterForm" [ngClass]="{'hide': hideNavbar}">
                         <!-- Product type -->
                         <div class="types-group">
                             <label for="productType" class="title">{{ componentWords.productTypeLabel }}</label>
@@ -61,18 +61,18 @@
                         <!-- Minimum discount -->
                         <div class="form-group">
                             <label for="mindiscount" class="title">{{ componentWords.discountLabel }}</label>
-                            <mat-slider thumbLabel [displayWith]="formatLabel" color="primary"
-                                min="0" max="100" formControlName="mindiscount"></mat-slider>
+                            <mat-slider thumbLabel [displayWith]="formatLabel" color="primary" min="0" max="100"
+                                formControlName="mindiscount"></mat-slider>
                         </div>
                         <!-- Payments -->
                         <div class="payments-group">
                             <label for="payments" class="title">{{ componentWords.paymentsLabel }}</label>
                             <mat-radio-group class="payment-group" formControlName="payments">
                                 <mat-radio-button color="primary" value="4" (click)="uncheckRadio($event, 4)">
-                                    {{ componentWords.paymentsOptions[0] }}
+                                    <span>{{ componentWords.paymentsOptions[0] }}</span>
                                 </mat-radio-button>
                                 <mat-radio-button color="primary" value="10" (click)="uncheckRadio($event, 10)">
-                                    {{ componentWords.paymentsOptions[1] }}
+                                    <span>{{ componentWords.paymentsOptions[1] }}</span>
                                 </mat-radio-button>
                             </mat-radio-group>
                         </div>

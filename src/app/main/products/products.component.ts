@@ -8,7 +8,6 @@ import { Filter } from './filter.model';
 import { Product } from './product.model';
 import { NouisliderComponent } from 'ng2-nouislider/ng2-nouislider.component';
 
-
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
@@ -20,12 +19,10 @@ export class ProductsComponent implements OnInit {
   language: string;
   translationWords: any;
   componentWords: any;
-
   //Product variables
   productTypes: string[];
   filter: Filter;
   products: Product[] = [];
-
   // Filter menu variables
   sizes: string[] = [];
   filterForm: FormGroup;
@@ -35,9 +32,8 @@ export class ProductsComponent implements OnInit {
   @ViewChild('sliderForm', { static: false }) sliderForm: NgForm;
   filterUpdateSub: Subscription;
   isUntouchedFilterForm: boolean = true;
-
   //Ui variables
-  navbarOpen: boolean;
+  hideNavbar: boolean;
   public innerWidth: any;
 
   constructor(private globalService: GlobalService, private activatedRoute: ActivatedRoute, private productsService: ProductsService) { }
@@ -53,10 +49,7 @@ export class ProductsComponent implements OnInit {
     this.sizes = this.productsService.getSizes(1);
     //Ui variables
     this.innerWidth = window.innerWidth;
-    if (this.innerWidth <= 762) {
-      this.navbarOpen = true;
-    }
-
+    this.hideNavbar = this.innerWidth <= 762;
     //Create, initialize and set subscriptions for filter form
     this.createReactiveFilterForm();
 
@@ -230,7 +223,8 @@ export class ProductsComponent implements OnInit {
           this.priceSliderValue[1] = val;
         }
         this.i++;
-        return val + " €";
+        const currency = this.country == 'es'? '€':'$';
+        return val + " " + currency;
       }
     }
   }
@@ -240,7 +234,7 @@ export class ProductsComponent implements OnInit {
 
   // UI functions
   toggleNavbar() {
-    this.navbarOpen = !this.navbarOpen;
+    this.hideNavbar = !this.hideNavbar;
   }
 
   uncheckRadio(event, radio: number) {
@@ -257,7 +251,7 @@ export class ProductsComponent implements OnInit {
       return;
     }
     this.innerWidth = window.innerWidth;
-    this.navbarOpen = this.innerWidth <= 762 ? true : false;
+    this.hideNavbar = this.innerWidth <= 762;
   }
 
   ngOnDestroy() {

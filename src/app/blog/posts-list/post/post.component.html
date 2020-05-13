@@ -7,7 +7,7 @@
         <hr>
         <!-- Next Article -->
         <div class="next-art-div">
-            <a (click)="nextArticle()" class="mb-0 link">{{ componentWords.nextArticle }}</a>
+            <a (click)="nextArticle()" class="link">{{ componentWords.nextArticle }}</a>
         </div>
         <hr>
         <!-- Post image -->
@@ -42,9 +42,9 @@
                 </td>
                 <td class="author-info-top">
                     <h4 class="name">{{ author.name }}</h4>
-                    <div class="resume">
+                    <div class="post-info">
                         <span>{{ postFormattedDate }}&nbsp;&nbsp;•</span>
-                        <span class="ml-2">{{  post.duration }}&nbsp;{{ componentWords.minRead }}</span>
+                        <span class="duration">{{  post.duration }}&nbsp;{{ componentWords.minRead }}</span>
                     </div>
                 </td>
             </tr>
@@ -72,7 +72,7 @@
                         </picture>
                     </div>
                 </td>
-                <td class="pl-4 pt-3">
+                <td class="author-info-bottom">
                     <h4 class="name">{{ author.name }}</h4>
                     <p class="resume" [innerHtml]="author.resume"></p>
                 </td>
