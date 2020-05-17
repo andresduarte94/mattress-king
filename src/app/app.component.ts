@@ -17,9 +17,7 @@ declare let gtag: Function;
 export class AppComponent {
 
   constructor(private activatedRoute: ActivatedRoute, private router: Router, private seoService: SEOService,
-    private scriptLoader: ScriptLoader, private iconRegistry: MatIconRegistry, private sanitizer: DomSanitizer) {
-
-     }
+    private scriptLoader: ScriptLoader, private iconRegistry: MatIconRegistry, private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
     this.router.events.pipe(
@@ -41,22 +39,19 @@ export class AppComponent {
         let routeURL = snapshot['_routerState'].url;
         const lastIndex = routeURL.indexOf('?');
         routeURL = lastIndex > -1 ? routeURL.slice(0, lastIndex) : routeURL.slice(0);
-
         // Update Title and Decription metas according to path
         this.seoService.updateAllMetasForRoute(routeURL, snapshot.params);
-
         // Set canonical relation on page
         this.seoService.createCanonicalURL(routeURL, snapshot.params, snapshot.queryParams);
         // Change lang attribute
         this.seoService.changeLangAttribute(snapshot.params.language);
-
         // Set route path in Google Analitycs configuration
         gtag('config', 'UA-163785252-1', {
           'page_path': routeURL
         });
 
       });
-      this.registerSvgs();
+    this.registerSvgs();
   }
 
   ngAfterViewInit() {

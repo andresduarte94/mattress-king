@@ -1,3 +1,6 @@
+a {
+    cursor: pointer;
+}
 #navbar-grey {
     display: flex;
     background-color: #d6d8d7;
@@ -141,9 +144,6 @@
     list-style-type: none;
     padding: 7px 0;
 }
-#navbar-light-blue a {
-    cursor: pointer;
-}
 #navbar-light-blue h2 {
     font-size: 1em;
     font-weight: 700;
@@ -156,7 +156,8 @@
 
 @media screen and (max-width: 350px) {
     #navbar-grey li {
-        max-width: 130px;
+        max-width: 160px;
+        font-size: 0.85em;
     }
     #navbar-grey ul {
         padding-left: 0;
@@ -164,7 +165,7 @@
 }
 @media screen and (min-width: 350px) and (max-width: 420px) {
     #navbar-grey li {
-        max-width: 150px;
+        max-width: 180px;
     }
 }
 @media screen and (max-width: 761px) {

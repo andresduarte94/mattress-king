@@ -20,7 +20,6 @@ export class ProductsResolverService implements Resolve<Product[]> {
     const products = this.productsService.getProducts();
 
     if (products.length === 0) {
-      console.log(products)
       return this.dataStorageService.fetchProducts();
     } else {
       return products;

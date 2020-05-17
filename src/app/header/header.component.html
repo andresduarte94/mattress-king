@@ -6,16 +6,18 @@
                 <li>
                     <mat-form-field>
                         <mat-select formControlName="languages">
-                            <mat-option *ngFor="let language of languagesList, let i = index"
-                                [value]="languagesCodes[i]">{{ language }}&nbsp;&nbsp;<img class="global-logo" [src]="languagesLogos[languagesCodes[i]]"></mat-option>
+                            <mat-option *ngFor="let language of languagesList, let i = index" [value]="languagesCodes[i]">
+                                {{ language }}<img class="global-logo" [src]="languagesLogos[languagesCodes[i]]">
+                            </mat-option>
                         </mat-select>
                     </mat-form-field>
                 </li>
                 <li>
                     <mat-form-field>
                         <mat-select formControlName="countries">
-                            <mat-option *ngFor="let country of componentWords.countriesList, let i = index"
-                                [value]="countriesCodes[i]">{{ country }}&nbsp;&nbsp;<img class="global-logo" [src]="countriesLogos[countriesCodes[i]]"></mat-option>
+                            <mat-option *ngFor="let country of componentWords.countriesList, let i = index" [value]="countriesCodes[i]">
+                                {{ country }}<img class="global-logo" [src]="countriesLogos[countriesCodes[i]]">
+                            </mat-option>
                         </mat-select>
                     </mat-form-field>
                 </li>

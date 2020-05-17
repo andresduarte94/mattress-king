@@ -19,6 +19,7 @@ import { NouisliderModule } from 'ng2-nouislider';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     HeaderComponent,
     MainComponent,
     ProductsComponent,
-    ProductListComponent
+    ProductListComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -38,6 +39,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatRadioModule,
     MatSliderModule,
     MatCheckboxModule,
+    ScrollingModule
   ],
   bootstrap: [AppComponent],
   providers: [

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-
 import { Product } from './product.model';
 import { Filter } from './filter.model';
 

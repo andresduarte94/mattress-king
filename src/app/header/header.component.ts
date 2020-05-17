@@ -31,9 +31,9 @@ export class HeaderComponent implements OnInit {
   globalForm: FormGroup;
   // UI variables
   hideNavbar: boolean;
-  public innerWidth: any;
-  countriesLogos;
-  languagesLogos;
+  innerWidth: number;
+  countriesLogos: any;
+  languagesLogos: any;
   // Routing variables
   navigationEnd: Observable<NavigationEnd>;
   routePathParam: Observable<string>;
@@ -81,15 +81,18 @@ export class HeaderComponent implements OnInit {
             if (!this.languagesCodes.includes(params.language)) {
               this.router.navigateByUrl('/' + this.language + '/home');
             }
-            if (params.language !== this.globalForm.controls['languages'].value) {
+            else if (params.language !== this.language) {
               this.language = params.language;
               if (countryQueryParam) {
                 this.country = countryQueryParam;
               }
               this.globalForm.controls['languages'].setValue(this.language);
             }
-
-            return countryQueryParam;
+            if (countryQueryParam && countryQueryParam !== this.globalForm.controls['countries'].value) {
+              this.country = countryQueryParam;
+              this.globalForm.controls['countries'].setValue(countryQueryParam);
+            }
+            return null;
           }));
         }
         else {
@@ -98,17 +101,45 @@ export class HeaderComponent implements OnInit {
       })
     );
     // Update language select based on route
-    this.routePathSubscription = this.routePathParam.subscribe((countryQueryParam) => {
-      if (countryQueryParam && countryQueryParam !== this.globalForm.controls['countries'].value) {
-        this.country = countryQueryParam;
-        this.globalForm.controls['countries'].setValue(countryQueryParam);
-      }
-    });
+    this.routePathSubscription = this.routePathParam.subscribe(() => { });
     // Create, initialize and set subscriptions for header forms
     this.createReactiveHeaderForms();
     // Update UI variables
     this.innerWidth = window.innerWidth;
     this.hideNavbar = this.innerWidth <= 762;
+  }
+
+  onSearchChange() {
+    const search = this.searchForm.controls['search'].value;
+    const activatedRouteURL = this.activatedRoute.snapshot['_routerState'].url;
+    if (activatedRouteURL.match(/products/)) {
+      // Update name and description filter if routing is within products
+      let filter: Filter = {};
+      filter.search = search;
+      this.productsService.filterUpdateEvent.next(filter);
+    }
+    else {
+      // Avoid navigating to products if search bar is empty outside products path
+      if (search == '') return;
+      // Navigate to products path with search params when using search bar outside products
+      if (this.country == 'all') {
+        this.router.navigate([this.language, 'products', 'all'], { queryParams: { search: search } });
+      }
+      else {
+        this.router.navigate([this.language, 'products', 'all'], { queryParams: { gl: this.country, search: search } });
+      }
+    }
+  }
+
+  navigateByUrlTo() {
+    // Route to update language and country variables
+    const activatedRouteURL = this.activatedRoute.snapshot['_routerState'].url;
+    const baseURL = activatedRouteURL === '/' ? '/home' : activatedRouteURL.indexOf('?') > -1 ? activatedRouteURL.slice(3, activatedRouteURL.indexOf('?')) : activatedRouteURL.slice(3);
+    const countryParameter = this.country == 'all' ? '' : `?gl=${this.country}`;
+    const newRoute = '/' + this.language + baseURL + countryParameter;
+    if (activatedRouteURL !== newRoute) {
+      this.router.navigateByUrl(newRoute);
+    }
   }
 
   createReactiveHeaderForms() {
@@ -130,13 +161,7 @@ export class HeaderComponent implements OnInit {
         let countrySelected = this.elRef.nativeElement.querySelector('.global-logo-country');
         countrySelected.src = this.countriesLogos[this.country];
         // Route to update language and country variables
-        const activatedRouteURL = this.activatedRoute.snapshot['_routerState'].url;
-        const baseURL = activatedRouteURL === '/' ? '/home' : activatedRouteURL.indexOf('?') > -1 ? activatedRouteURL.slice(3, activatedRouteURL.indexOf('?')) : activatedRouteURL.slice(3);
-        const countryParameter = country == 'all' ? '' : `?gl=${country}`;
-        const newRoute = '/' + this.language + baseURL + countryParameter;
-        if (activatedRouteURL !== newRoute) {
-          this.router.navigateByUrl(newRoute);
-        }
+        this.navigateByUrlTo()
       });
     // Navigating with language parameter change
     this.globalForm.controls['languages'].valueChanges.subscribe(
@@ -149,14 +174,7 @@ export class HeaderComponent implements OnInit {
         // Update language icon
         let languageSelected = this.elRef.nativeElement.querySelector('.global-logo-language');
         languageSelected.src = this.languagesLogos[this.language];
-        // Route to update language and country variables
-        const activatedRouteURL = this.activatedRoute.snapshot['_routerState'].url;
-        const baseURL = activatedRouteURL === '/' ? '/home' : activatedRouteURL.indexOf('?') > -1 ? activatedRouteURL.slice(3, activatedRouteURL.indexOf('?')) : activatedRouteURL.slice(3);
-        const countryParameter = this.country == 'all' ? '' : `?gl=${this.country}`;
-        const newRoute = '/' + this.language + baseURL + countryParameter;
-        if (activatedRouteURL !== newRoute) {
-          this.router.navigateByUrl(newRoute);
-        }
+        this.navigateByUrlTo()
       });
     // Updating products on search input change
     this.searchForm.controls['search'].valueChanges.subscribe(
@@ -166,36 +184,12 @@ export class HeaderComponent implements OnInit {
       });
   }
 
-  onSearchChange() {
-    const search = this.searchForm.controls['search'].value;
-    const activatedRouteURL = this.activatedRoute.snapshot['_routerState'].url;
-    if (activatedRouteURL.match(/products/)) {
-      // Update name and description filter if routing is within products
-      let filter: Filter = {};
-      filter.search = search;
-      this.productsService.filterUpdateEvent.next(filter);
+  navigateTo(route: string) {
+    if (this.country == 'all') {
+      this.router.navigate([this.language, route]);
     }
     else {
-      // Avoid navigating to products if search bar is empty outside products path
-      if (search == '') {
-        return;
-      }
-      // Navigate to products path with search params when using search bar outside products
-      if (this.country == 'all') {
-        this.router.navigate([this.language, 'products', 'all'], {
-          queryParams: {
-            search: search
-          }
-        });
-      }
-      else {
-        this.router.navigate([this.language, 'products', 'all'], {
-          queryParams: {
-            gl: this.country,
-            search: search
-          }
-        });
-      }
+      this.router.navigate([this.language, route], { queryParams: { gl: this.country } });
     }
   }
 
@@ -212,21 +206,8 @@ export class HeaderComponent implements OnInit {
     this.hideNavbar = !this.hideNavbar;
   }
 
-  navigateTo(route: string) {
-    if (this.country == 'all') {
-      this.router.navigate([this.language, route]);
-    }
-    else {
-      this.router.navigate([this.language, route], {
-        queryParams: {
-          gl: this.country
-        }
-      });
-    }
-  }
-
-  @HostListener('window:resize', ['$event'])
-  onResize(event) {
+  @HostListener('window:resize')
+  onResize() {
     if (this.innerWidth == window.innerWidth) {
       return;
     }
