@@ -15,10 +15,6 @@ import { MainComponent } from './main/main.component';
 import { ProductsComponent } from './main/products/products.component';
 import { ProductListComponent } from './main/products/product-list/product-list.component';
 
-import { NouisliderModule } from 'ng2-nouislider';
-import { MatRadioModule } from '@angular/material/radio';
-import { MatSliderModule } from '@angular/material/slider';
-import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @NgModule({
@@ -27,7 +23,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     HeaderComponent,
     MainComponent,
     ProductsComponent,
-    ProductListComponent,
+    ProductListComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -35,10 +31,6 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     AppRoutingModule,
     SharedModule,
     HeroLoaderModule,
-    NouisliderModule,
-    MatRadioModule,
-    MatSliderModule,
-    MatCheckboxModule,
     ScrollingModule
   ],
   bootstrap: [AppComponent],

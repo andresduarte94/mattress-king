@@ -14,7 +14,7 @@ export class ProductListComponent implements OnInit {
   translationWords: any;
   updateLanguageSub: Subscription;
   //Product variables
-  @Input() products: Product[] = [];
+  @Input() products: Product[];
   //Pagination variables
   pageSize = 24;
   maxPages = 5;
@@ -40,8 +40,9 @@ export class ProductListComponent implements OnInit {
       this.nextLabel = translationWords.blog.nextLabel;
       this.firstLabel = translationWords.blog.firstLabel;
       this.lastLabel = translationWords.blog.lastLabel;
-    })
+    });
   }
+
   // update current pagination page of items
   onChangePage(pageOfProducts: Array<any>) {
     this.pageOfProducts = pageOfProducts;

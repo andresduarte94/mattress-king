@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, BehaviorSubject } from 'rxjs';
 import { Product } from './product.model';
 import { Filter } from './filter.model';
 
@@ -7,7 +7,8 @@ import { Filter } from './filter.model';
   providedIn: 'root'
 })
 export class ProductsService {
-  filterUpdateEvent = new Subject<any>();
+  filterUpdateEvent = new BehaviorSubject<Filter>({});
+  productsUpdateEvent = new Subject<Product[]>();
   private products: Product[] = [];
   readonly productTypes: string[] = ['all', 'mattresses', 'beds', 'sheets', 'pillows', 'accessories'];
 

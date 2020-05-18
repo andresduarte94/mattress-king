@@ -16,10 +16,8 @@ export class FooterComponent implements OnInit {
   language: string;
   translationWords: any;
   componentWords: any;
-
   //Product variables
   productTypes: string[];
-
   //Routing variables
   navigationEnd: Observable<NavigationEnd>;
   routePathParam: Observable<string>;

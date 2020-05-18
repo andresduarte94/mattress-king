@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row">
-        <div id="filtersContainer" class="filter-col">
+        <div class="filter-col">
             <mat-card>
                 <nav>
                     <div class="filters-header">
@@ -10,73 +10,7 @@
                             <mat-icon svgIcon="filter_menu"></mat-icon>
                         </button>
                     </div>
-                    <form [formGroup]="filterForm" [ngClass]="{'hide': hideNavbar}">
-                        <!-- Product type -->
-                        <div class="types-group">
-                            <label for="productType" class="title">{{ componentWords.productTypeLabel }}</label>
-                            <mat-form-field>
-                                <mat-select formControlName="productType" required>
-                                    <mat-option
-                                        *ngFor="let category of translationWords.header.categories; let i = index;"
-                                        [value]="i">{{ category }}</mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                        <!-- Price range -->
-                        <div class="price-group">
-                            <label class="title price-title">{{ componentWords.priceLabel }}</label>
-                            <nouislider class="nouislider" name="priceSlider" [config]="priceSliderConfig"
-                                formControlName="priceSlider" [tooltips]="[ true, true ]"></nouislider>
-                        </div>
-                        <!-- Scores -->
-                        <div class="form-group">
-                            <label class="title">{{ componentWords.reviewsLabel }}</label>
-                            <div class="review-filter" *ngFor="let score of [1, 2, 3, 4, 5]">
-                                <!-- Stars -->
-                                <a (click)="updateScoreFilter(score)">
-                                    <span>
-                                        <svg class="icon icon-star-full" *ngFor="let item of [].constructor(score)">
-                                            <use xlink:href="#icon-star-full"></use>
-                                        </svg>
-                                    </span>
-                                    <span>
-                                        <svg class="icon" *ngFor="let item of [].constructor(5-score)">
-                                            <use xlink:href="#icon-star-empty"></use>
-                                        </svg>
-                                        <span
-                                            [ngStyle]="{'visibility': score != 5 ? 'visible' : 'hidden'}">&nbsp;{{ componentWords.moreLabel }}</span>
-                                    </span>
-                                </a>
-                            </div>
-                        </div>
-                        <!-- Sizes -->
-                        <div class="form-group" formGroupName="sizes">
-                            <label class="title">{{ componentWords.sizesLabel }}</label>
-                            <div class="sizes-options">
-                                <mat-checkbox [formControlName]="size" color="primary"
-                                    *ngFor="let size of sizes; let i = index;">{{ size }}
-                                </mat-checkbox>
-                            </div>
-                        </div>
-                        <!-- Minimum discount -->
-                        <div class="form-group">
-                            <label for="mindiscount" class="title">{{ componentWords.discountLabel }}</label>
-                            <mat-slider thumbLabel [displayWith]="formatLabel" color="primary" min="0" max="100"
-                                formControlName="mindiscount"></mat-slider>
-                        </div>
-                        <!-- Payments -->
-                        <div class="payments-group">
-                            <label for="payments" class="title">{{ componentWords.paymentsLabel }}</label>
-                            <mat-radio-group class="payment-group" formControlName="payments">
-                                <mat-radio-button color="primary" value="4" (click)="uncheckRadio($event, 4)">
-                                    <span>{{ componentWords.paymentsOptions[0] }}</span>
-                                </mat-radio-button>
-                                <mat-radio-button color="primary" value="10" (click)="uncheckRadio($event, 10)">
-                                    <span>{{ componentWords.paymentsOptions[1] }}</span>
-                                </mat-radio-button>
-                            </mat-radio-group>
-                        </div>
-                    </form>
+                    <hero-loader *ngIf="!hideFilter" moduleName="src/app/main/products/product-filter/product-filter.module#ProductFilterModule"></hero-loader>
                 </nav>
             </mat-card>
         </div>
