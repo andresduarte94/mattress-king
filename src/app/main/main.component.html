@@ -14,7 +14,7 @@
                         <source srcset="https://assets.mattressfinder.shop/v2/assets/images/product-es-19.jpg"
                             type="image/jpeg">
                         <img src="https://assets.mattressfinder.shop/v2/assets/images/product-es-19.jpg"
-                            class="first-image" [alt]="coverProducts[0].name | shorten:60:true">
+                            class="first-image" loading="lazy" [alt]="coverProducts[0].name | shorten:60:true">
                     </picture>
                 </a>
                 <a [href]="coverProducts[1].amazonLink" target="_blank">
@@ -24,7 +24,7 @@
                         <source srcset="https://assets.mattressfinder.shop/v2/assets/images/product-es-14.jpg"
                             type="image/jpeg">
                         <img src="https://assets.mattressfinder.shop/v2/assets/images/product-es-14.jpg"
-                            class="second-image" [alt]="coverProducts[1].name | shorten:60:true">
+                            class="second-image" loading="lazy" [alt]="coverProducts[1].name | shorten:60:true">
                     </picture>
                 </a>
             </div>

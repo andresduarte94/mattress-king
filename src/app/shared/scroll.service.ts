@@ -10,8 +10,7 @@ export class ScrollService {
 
   scrollToElementById(elementId: string) {
     let filtersContainerEl = this.document.getElementById(elementId);
-
-    const positionY = window.scrollY + filtersContainerEl.getBoundingClientRect().top;
+    const positionY = window.scrollY + filtersContainerEl.getBoundingClientRect().top - 10;
     this.viewportScroller.scrollToPosition([0, positionY]);
   }
 }

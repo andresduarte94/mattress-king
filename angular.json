@@ -55,10 +55,7 @@
               }
             ],
             "scripts": [],
-            "lazyModules": [
-              "src/app/footer/footer.module",
-              "src/app/main/products/product-filter/product-filter.module"
-            ]
+            "lazyModules": []
           },
           "configurations": {
             "production": {

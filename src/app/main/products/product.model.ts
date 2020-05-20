@@ -11,6 +11,7 @@ export class Product {
         public price: number,
         public discount: number,
         public payments: number,
-        public score: number
+        public score: number,
+        public discountPrice?: number
         ) {}
 }

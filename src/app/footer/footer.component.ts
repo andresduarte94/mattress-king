@@ -1,3 +1,6 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { GlobalService } from '../shared/global.service';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
@@ -62,3 +65,12 @@ export class FooterComponent implements OnInit {
     this.routePathParam.subscribe(() => {});
   }
 }
+
+@NgModule({
+  declarations: [FooterComponent],
+  imports: [
+    CommonModule,
+    RouterModule 
+  ]
+})
+class FooterModule {}

@@ -35,7 +35,6 @@ export class JwPaginationComponent implements OnInit, OnChanges {
   @Input() nextLabel = 'Next';
   @Input() firstLabel = 'First';
   @Input() lastLabel = 'Last';
-
   pager: any = {};
 
   constructor(private scrollService: ScrollService) {} 
@@ -59,16 +58,14 @@ export class JwPaginationComponent implements OnInit, OnChanges {
   setPage(page: number) {
     // get new pager object for specified page
     this.pager = paginate(this.items.length, page, this.pageSize, this.maxPages);
-
     // get new page of items from items array
     var pageOfItems = this.items.slice(this.pager.startIndex, this.pager.endIndex + 1);
-
     // call change page function in parent component
     this.changePage.emit(pageOfItems);
   }
 
   scrollTop() {
     // Scroll to the top of filtersContainer element (products display)
-    this.scrollService.scrollToElementById('filtersContainer');
+    this.scrollService.scrollToElementById('filters-header');
   }
 }

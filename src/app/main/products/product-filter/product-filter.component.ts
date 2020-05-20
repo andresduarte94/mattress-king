@@ -1,11 +1,21 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, NgForm } from '@angular/forms';
-import { Subscription } from 'rxjs';
 
 import { ProductsService } from '../products.service';
 import { GlobalService } from 'src/app/shared/global.service';
 import { Filter } from '../filter.model';
 import { NouisliderComponent } from 'ng2-nouislider/ng2-nouislider.component';
+
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+
+import { NouisliderModule } from 'ng2-nouislider';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-product-filter',
@@ -24,10 +34,10 @@ export class ProductFilterComponent implements OnInit {
   sizes: string[] = [];
   filterForm: FormGroup;
   checkedRadioPayment: number = null;
-  public priceSliderValue: number[] = [0, 2000];
-  @ViewChild('priceSlider', { static: false }) priceSlider: NouisliderComponent;
-  @ViewChild('sliderForm', { static: false }) sliderForm: NgForm;
-  filterUpdateSub: Subscription;
+  public priceSliderValue: number[] = [0, 2200];
+  @ViewChild('priceSlider') priceSlider: NouisliderComponent;
+  @ViewChild('sliderForm') sliderForm: NgForm;
+  productFilterUpdateSub: Subscription;
 
   constructor(private productsService: ProductsService, private globalService: GlobalService) { }
 
@@ -45,28 +55,20 @@ export class ProductFilterComponent implements OnInit {
       this.componentWords = translationWords['product-display'];
     });
 
-
-  }
-
-  ngAfterViewInit(){
-    //Update filters from search bar
-    this.filterUpdateSub = this.productsService.filterUpdateEvent.subscribe((filter: Filter) => {
-      if(Object.keys(filter).length === 0) return;
-      Object.keys(filter).forEach((key) => {
-        this.filter[key] = filter[key];
-      });
-      this.updateProducts(this.filter);
-      if(filter.hasOwnProperty('type')) {
-        const poductTypeId = filter.type;
-        this.filterForm.controls['productType'].setValue(this.productTypes[poductTypeId]);
+    this.productFilterUpdateSub = this.productsService.productFilterUpdateEvent.subscribe((info: any) => {
+      if (info.hasOwnProperty('type')) {
+        this.filterForm.controls['productType'].setValue(info.type, { emitEvent: false });
       }
-    } );
+      if (info.hasOwnProperty('country')) {
+        this.country = info.country;
+        this.filterForm.controls['priceSlider'].setValue(null, { emitEvent: false });
+      }
+    })
   }
 
   //Update products based on new filter
-  updateProducts(filter: Filter) {
-    const products = this.productsService.getProducts(filter);
-    this.productsService.productsUpdateEvent.next(products);
+  updateFilter(filter: Filter) {
+    this.productsService.filterUpdateEvent.next(filter);
   }
 
   // Create filters form with all inputs and value changes subscriptions
@@ -87,7 +89,7 @@ export class ProductFilterComponent implements OnInit {
     this.filterForm.controls['productType'].valueChanges.subscribe(
       (productTypeId) => {
         this.filter.type = +productTypeId;
-        this.updateProducts(this.filter);
+        this.updateFilter(this.filter);
       }
     );
     //Min price and Max Price slider filter
@@ -95,7 +97,7 @@ export class ProductFilterComponent implements OnInit {
       (values) => {
         this.filter.minprice = this.priceSliderValue[0];
         this.filter.maxprice = this.priceSliderValue[1];
-        this.updateProducts(this.filter);
+        this.updateFilter(this.filter);
       }
     );
     //Sizes filter
@@ -110,11 +112,11 @@ export class ProductFilterComponent implements OnInit {
 
         if (sizeArrayValues.length == 0) {
           delete this.filter.sizes;
-          this.updateProducts(this.filter);
+          this.updateFilter(this.filter);
         }
         else {
           this.filter.sizes = sizeArrayValues;
-          this.updateProducts(this.filter);
+          this.updateFilter(this.filter);
         }
       }
     );
@@ -122,7 +124,7 @@ export class ProductFilterComponent implements OnInit {
     this.filterForm.controls['mindiscount'].valueChanges.subscribe(
       (mindiscount) => {
         this.filter.mindiscount = mindiscount;
-        this.updateProducts(this.filter);
+        this.updateFilter(this.filter);
       }
     );
     //Payments filter
@@ -130,14 +132,14 @@ export class ProductFilterComponent implements OnInit {
       (payments) => {
         this.checkedRadioPayment = payments;
         this.filter.payments = payments;
-        this.updateProducts(this.filter);
+        this.updateFilter(this.filter);
       }
     );
   }
 
   updateScoreFilter(score: number) {
     this.filter.minscore = score;
-    this.updateProducts(this.filter);
+    this.updateFilter(this.filter);
   }
 
   //Price slider configuration
@@ -176,7 +178,7 @@ export class ProductFilterComponent implements OnInit {
       '60%': 200,
       '80%': 300,
       '95%': 1800,
-      max: 2000
+      max: 2200
     },
     step: 10,
     format: {
@@ -190,13 +192,16 @@ export class ProductFilterComponent implements OnInit {
           this.priceSliderValue[1] = val;
         }
         this.i++;
-        const currency = this.country == 'es' ? '€' : '$';
+        const currency = this.getCurrency();
         return val + " " + currency;
       }
     }
   }
   formatLabel(value: number) {
     return value + '%';
+  }
+  getCurrency() {
+    return this.country == 'es' ? '€' : '$';
   }
 
   uncheckRadio(event, radio: number) {
@@ -208,6 +213,22 @@ export class ProductFilterComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    if (this.filterUpdateSub) this.filterUpdateSub.unsubscribe();
+    if (this.productFilterUpdateSub) {
+      this.productFilterUpdateSub.unsubscribe();
+    }
   }
 }
+
+@NgModule({
+  declarations: [ProductFilterComponent],
+  imports: [
+    CommonModule,
+    RouterModule,
+    NouisliderModule,
+    MatRadioModule,
+    MatSliderModule,
+    MatCheckboxModule,
+    SharedModule
+  ]
+})
+class ProductFilterModule { }

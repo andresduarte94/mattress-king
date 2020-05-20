@@ -4,8 +4,9 @@
             <picture>
                 <source [srcset]="slide.src + '.webp'" type="image/webp">
                 <source [srcset]="slide.src + '.jpg'" type="image/jpeg">
-                <img *ngIf="i === currentSlide" class="slide" @carouselAnimation (@carouselAnimation.done)="onChangePost($event)"
-                    [src]="slide.src + '.jpg'" [id]="i" [alt]="posts[i].imageAlt">
+                <img *ngIf="i === currentSlide" class="slide" loading="lazy" @carouselAnimation
+                    (@carouselAnimation.done)="onChangePost($event)" [src]="slide.src + '.jpg'" [id]="i"
+                    [alt]="posts[i].imageAlt">
             </picture>
         </a>
     </ng-container>

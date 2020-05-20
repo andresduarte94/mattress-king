@@ -7,8 +7,8 @@ import { Filter } from './filter.model';
   providedIn: 'root'
 })
 export class ProductsService {
-  filterUpdateEvent = new BehaviorSubject<Filter>({});
-  productsUpdateEvent = new Subject<Product[]>();
+  filterUpdateEvent = new Subject<Filter>();
+  productFilterUpdateEvent = new BehaviorSubject<any>({});
   private products: Product[] = [];
   readonly productTypes: string[] = ['all', 'mattresses', 'beds', 'sheets', 'pillows', 'accessories'];
 
@@ -23,7 +23,7 @@ export class ProductsService {
     products = products.filter((product) => {
       return (filter.hasOwnProperty('type') ? (product.type == filter.type || filter.type == 0) : true) &&
         (filter.hasOwnProperty('search') ? this.filterSearch(product, filter) : true) &&
-        (filter.hasOwnProperty('minprice') && filter.hasOwnProperty('maxprice') ? (filter.minprice <= product.price && product.price <= filter.maxprice) : true) &&
+        (filter.hasOwnProperty('minprice') && filter.hasOwnProperty('maxprice') ? (filter.minprice <= product.discountPrice && product.discountPrice <= filter.maxprice) : true) &&
         (filter.hasOwnProperty('sizes') ? this.checkSizesFilter(filter, product) : true) &&
         (filter.hasOwnProperty('minscore') ? (product.score >= filter.minscore) : true) &&
         (filter.hasOwnProperty('mindiscount') ? (product.discount >= filter.mindiscount) : true) &&
@@ -47,12 +47,17 @@ export class ProductsService {
   }
 
   getProductById(id: number, country: string) {
-    return this.products.slice().find((product: Product) => {
+    const product = this.products.slice().find((product: Product) => {
       return product.id === id && product.country === country;
-    })
+    });
+    return product;
   }
 
   setProducts(products: Product[]) {
+    products = products.map((product: Product) => {
+      product.discountPrice = Math.round((product.price*(1-product.discount/100) + Number.EPSILON) * 100)/100;
+      return product;
+    })
     this.products = this.shuffle(products);
   }
 

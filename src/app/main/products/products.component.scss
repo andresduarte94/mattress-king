@@ -38,6 +38,9 @@
 .filters-header [aria-label="Filter icon"] {
     display: none;
 }
+.hide {
+    display: none;
+}
 
 @media screen and (max-width: 762px) {
     .filter-col {

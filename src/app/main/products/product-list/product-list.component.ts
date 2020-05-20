@@ -1,7 +1,8 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, ViewChild } from '@angular/core';
 import { Product } from '../product.model';
 import { GlobalService } from 'src/app/shared/global.service';
 import { Subscription } from 'rxjs';
+import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 
 @Component({
   selector: 'app-product-list',
@@ -23,6 +24,7 @@ export class ProductListComponent implements OnInit {
   nextLabel: string;
   firstLabel: string;
   lastLabel: string;
+  @ViewChild(CdkVirtualScrollViewport) virtualScroll: CdkVirtualScrollViewport;
 
   constructor(private globalService: GlobalService) { }
 
@@ -46,7 +48,9 @@ export class ProductListComponent implements OnInit {
   // update current pagination page of items
   onChangePage(pageOfProducts: Array<any>) {
     this.pageOfProducts = pageOfProducts;
+    this.virtualScroll.scrollToIndex(0);
   }
+
   ngOnDestroy() {
     if (this.updateLanguageSub) {
       this.updateLanguageSub.unsubscribe();

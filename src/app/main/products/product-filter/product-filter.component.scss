@@ -63,6 +63,7 @@ form {
   height: 20px !important;
   top: 0 !important;
   right: -10px !important;
+  outline: none;
 }
 :host::ng-deep .noUi-handle:before {
   width: 8px !important;

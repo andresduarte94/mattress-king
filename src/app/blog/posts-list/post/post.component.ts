@@ -24,7 +24,7 @@ export class PostComponent implements OnInit {
   post: Post;
   author: Author;
   postFormattedDate: string;
-  @ViewChild('contentContainer', { static: false, read: ViewContainerRef }) contentContainer: ViewContainerRef;
+  @ViewChild('contentContainer', { read: ViewContainerRef }) contentContainer: ViewContainerRef;
   postImageSize: string;
 
   // Subscriptions

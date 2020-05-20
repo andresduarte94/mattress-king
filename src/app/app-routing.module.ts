@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 import { MainComponent } from './main/main.component';
 import { ProductsResolverService } from './main/products/products-resolver.service';
 import { PostsResolverService } from './blog/posts-resolver.service';
@@ -11,11 +11,11 @@ const appRoutes: Routes = [
     children: [
       {
         path: 'blog',
-        loadChildren: './blog/blog.module#BlogModule'
+        loadChildren: () => import('./blog/blog.module').then(m => m.BlogModule)
       },
       {
         path: 'product',
-        loadChildren: './product/product.module#ProductModule'
+        loadChildren: () => import('./product/product.module').then(m => m.ProductModule)
       },
       {
         path: '',
@@ -42,7 +42,7 @@ const appRoutes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(appRoutes, {scrollPositionRestoration: 'top' }) //,, enableTracing: true   , preloadingStrategy: PreloadAllModules, 
+    RouterModule.forRoot(appRoutes, {scrollPositionRestoration: 'top', preloadingStrategy: PreloadAllModules}) //,, enableTracing: true
   ],
   exports: [RouterModule]
 })

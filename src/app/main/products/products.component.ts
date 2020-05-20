@@ -1,8 +1,11 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, ViewContainerRef, ViewChild, ComponentFactoryResolver, ComponentRef } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { GlobalService } from 'src/app/shared/global.service';
 import { ProductsService } from './products.service';
 import { Product } from './product.model';
+import { ProductFilterComponent } from './product-filter/product-filter.component';
+import { Subscription } from 'rxjs';
+import { Filter } from './filter.model';
 
 @Component({
   selector: 'app-products',
@@ -14,10 +17,15 @@ export class ProductsComponent implements OnInit {
   translationWords: any;
   componentWords: any;
   products: Product[] = [];
+  filter: Filter = {};
   hideFilter: boolean;
   public innerWidth: any;
+  @ViewChild('productFilterElement', { read: ViewContainerRef }) productFilterElement: ViewContainerRef;
+  productFilterRef: ComponentRef<ProductFilterComponent>;
+  filterUpdateSub: Subscription;
 
-  constructor(private globalService: GlobalService, private activatedRoute: ActivatedRoute, private productsService: ProductsService) { }
+  constructor(private globalService: GlobalService, private activatedRoute: ActivatedRoute,
+    private productsService: ProductsService, private resolver: ComponentFactoryResolver) { }
 
   ngOnInit() {
     //Global variables initialization
@@ -38,38 +46,51 @@ export class ProductsComponent implements OnInit {
           this.componentWords = this.translationWords['product-display'];
           this.globalService.updateSubComponentLanguage.next(this.translationWords);
         }
-
         //Update products based on new productType from URL
         if (params.hasOwnProperty('productType')) {
-          console.log('type')
-
           const poductTypeId = this.productsService.getProductTypeId(params.productType);
-          let filter = {};
-          filter['type'] = poductTypeId;
-          //this.productsService.filterUpdateEvent.next(filter);
+          this.filter.type = poductTypeId;
         }
+        else {
+          this.filter.type = 0;
+        }
+        this.updateProducts();
+        this.productsService.productFilterUpdateEvent.next(this.filter);
       }
     );
-
     //QueryParams subscription for change country filter
     this.activatedRoute.queryParams.subscribe((queryParams: Params) => {
-        console.log('query')
-        let filter = {};
-        filter['country'] = queryParams.gl ? queryParams.gl : 'all';;
-        this.productsService.filterUpdateEvent.next(filter);
+      this.filter.country = queryParams.gl ? queryParams.gl : 'all';
+      this.updateProducts();
+      this.productsService.productFilterUpdateEvent.next(this.filter);
     });
 
-    this.productsService.productsUpdateEvent.subscribe((products: Product[]) => {
-      this.products = products;
+    //Update filters from search bar
+    this.filterUpdateSub = this.productsService.filterUpdateEvent.subscribe((filter: Filter) => {
+      if (Object.keys(filter).length === 0) return;
+      Object.keys(filter).forEach((key) => {
+        this.filter[key] = filter[key];
+      });
+      this.updateProducts();
     });
+    this.createFilterComponent();
+  }
+
+  updateProducts() {
+    this.products = this.productsService.getProducts(this.filter);
   }
 
   toggleNavbar() {
     this.hideFilter = !this.hideFilter;
   }
 
-  ngAfterViewChecked(){
-  
+  createFilterComponent() {
+    if (!this.productFilterRef) {
+      import(`src/app/main/products/product-filter/product-filter.component`).then(({ ProductFilterComponent }) => {
+        const factory = this.resolver.resolveComponentFactory(ProductFilterComponent);
+        this.productFilterRef = this.productFilterElement.createComponent(factory);
+      });
+    }
   }
 
   @HostListener('window:resize')
@@ -79,5 +100,9 @@ export class ProductsComponent implements OnInit {
     }
     this.innerWidth = window.innerWidth;
     this.hideFilter = this.innerWidth <= 762;
+  }
+
+  ngOnDestroy() {
+    if (this.filterUpdateSub) this.filterUpdateSub.unsubscribe();
   }
 }

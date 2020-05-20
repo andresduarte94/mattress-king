@@ -9,7 +9,7 @@
                 type="image/jpeg">
             <img mat-card-image
                 [src]="'https://assets.mattressfinder.shop/v2/assets/posts/post-' + post.id + postImageSize + '.jpg'"
-                [alt]="post.imageAlt">
+                loading="lazy" [alt]="post.imageAlt">
         </picture>
         <mat-card-content [innerHtml]="post.summary">
         </mat-card-content>

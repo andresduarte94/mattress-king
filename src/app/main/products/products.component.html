@@ -3,14 +3,16 @@
         <div class="filter-col">
             <mat-card>
                 <nav>
-                    <div class="filters-header">
+                    <div class="filters-header" id="filters-header">
                         <span class="filters-title">{{ componentWords.filtersLabel }}</span>
                         <!-- Filter button for right-side of filter header -->
                         <button mat-icon-button color="primary" (click)="toggleNavbar()" aria-label="Filter icon">
                             <mat-icon svgIcon="filter_menu"></mat-icon>
                         </button>
                     </div>
-                    <hero-loader *ngIf="!hideFilter" moduleName="src/app/main/products/product-filter/product-filter.module#ProductFilterModule"></hero-loader>
+                    <div [ngClass]="{'hide': hideFilter}">
+                        <ng-template #productFilterElement></ng-template>
+                    </div>
                 </nav>
             </mat-card>
         </div>

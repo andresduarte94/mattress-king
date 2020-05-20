@@ -1,93 +1,89 @@
 a {
     text-decoration: none !important;
 }
-
 h2 {
     font-size: 1.05em;
-    font-weight: 600;
+    font-weight: 700;
     color: black;
-    margin-top: 2%;
-    margin-bottom: 0;
-    padding: 4%;
-    padding-bottom: 3%;
+    margin: auto 0;
 }
-
 .mat-card {
     margin-left: auto;
     margin-right: auto;
     position: relative;
     top: 0;
     transition: top ease 0.5s;
-    padding: 0
+    padding: 0;
+    height: 321px;
 }
-
 .mat-card:hover {
     top: -10px;
 }
-
 .mat-card:hover .price-row {
     color: #0F2043;
 }
-
 .product-img {
+    display: block;
     height: 200px;
     width: 100%;
 }
-
+.title-div {
+    display: inline-flex;
+    align-items: center;
+    padding-left: 9px;
+    padding-right: 9px;
+    padding-top: 12px;
+    padding-bottom: 7px;
+    height: 86px;
+}
 .price-row {
     display: flex;
     justify-content: space-between;
     font-size: 1em;
     font-weight: 700;
-    vertical-align: center;
+    vertical-align: middle;
     color: #007bff;
-    padding: 3% 5%;
+    padding: 7px 11.5px;
     border-top: 1px solid rgba(0,0,0,.1);
+    height: 35px;
 }
-
 .discount-span {
     float: right;
     font-weight: 550;
 }
 
 @media screen and (max-width: 330px) {
-    [class="mat-card"] {
+    :host::ng-deep .mat-card {
         width: 235px !important; 
     }
 }
-
 @media screen and (min-width: 330px) and (max-width: 576px) {
-    [class="mat-card"] {
+    :host::ng-deep .mat-card {
         width: 300px !important; 
     }
 }
-
  @media screen and (min-width: 576px) and (max-width: 640px) {
-    [class="mat-card"] {
+    :host::ng-deep .mat-card {
         width: 235px !important;
     }
 }
-
 @media screen and (min-width: 640px) and (max-width: 762px) {
-    [class="mat-card"] {
+    :host::ng-deep .mat-card {
         width: 300px !important; 
     }
 } 
-
 @media screen and (min-width: 762px) and (max-width: 1530px) {
-    [class="mat-card"] {
+    :host::ng-deep .mat-card {
         width: 235px !important;
     }
 }
-
 @media screen and (min-width: 1530px) and (max-width: 1824px) {
-    [class="mat-card"] {
+    :host::ng-deep .mat-card {
         width: 300px !important;
     }
 }
-
 @media screen and (min-width: 1824px) {
-    [class="mat-card"] {
+    :host::ng-deep .mat-card {
         width: 350px !important;
     }
 }

@@ -6,7 +6,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { SharedModule } from './shared/shared.module';
-import { HeroLoaderModule } from '@herodevs/hero-loader';
 
 import { SEOService } from './shared/seo.service';
 import { GlobalService } from './shared/global.service';
@@ -30,7 +29,6 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     HttpClientModule,
     AppRoutingModule,
     SharedModule,
-    HeroLoaderModule,
     ScrollingModule
   ],
   bootstrap: [AppComponent],

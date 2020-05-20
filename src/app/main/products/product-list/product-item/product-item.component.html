@@ -3,14 +3,17 @@
         <picture>
             <source [srcset]="productImage + '.webp'" type="image/webp">
             <source [srcset]="productImage + '.jpg'" type="image/jpeg">
-            <img [src]="productImage + '.jpg'" class="product-img" [alt]="product.name | shorten:60:true">
+            <img class="product-img" loading="lazy" [src]="productImage + '.jpg'"
+                [alt]="product.name | shorten:60:true">
         </picture>
-        <h2>
-            {{ product.name | shorten:60:false }}
-        </h2>
+        <div class="title-div">
+            <h2>
+                {{ product.name | shorten:60:false }}
+            </h2>
+        </div>
         <div class="price-row">
             <div>
-                <span><strong>{{ discountPrice }} {{ currency }}</strong></span>
+                <span><strong>{{ product.discountPrice }} {{ currency }}</strong></span>
             </div>
             <div>
                 <span class="discount-span">{{ discountDisplay }}</span>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Type } from '@angular/core';
 import { filter, map } from 'rxjs/operators';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { SEOService } from './shared/seo.service';
@@ -6,6 +6,9 @@ import { ScriptLoader } from './shared/scriptLoader.service';
 
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
+
+import { Injector } from '@angular/core';
+import { FooterComponent } from './footer/footer.component';
 
 declare let gtag: Function;
 
@@ -15,9 +18,10 @@ declare let gtag: Function;
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  footer: Promise<Type<FooterComponent>>;
 
   constructor(private activatedRoute: ActivatedRoute, private router: Router, private seoService: SEOService,
-    private scriptLoader: ScriptLoader, private iconRegistry: MatIconRegistry, private sanitizer: DomSanitizer) { }
+    private scriptLoader: ScriptLoader, private iconRegistry: MatIconRegistry, private sanitizer: DomSanitizer, private injector: Injector) { }
 
   ngOnInit() {
     this.router.events.pipe(
@@ -51,7 +55,10 @@ export class AppComponent {
         });
 
       });
+
     this.registerSvgs();
+    this.footer = import(`./footer/footer.component`)
+      .then(({ FooterComponent }) => FooterComponent);
   }
 
   ngAfterViewInit() {
