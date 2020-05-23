@@ -42,7 +42,7 @@ const appRoutes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(appRoutes, {scrollPositionRestoration: 'top', preloadingStrategy: PreloadAllModules}) //,, enableTracing: true
+    RouterModule.forRoot(appRoutes, {scrollPositionRestoration: 'top', preloadingStrategy: PreloadAllModules}) //,, enableTracing: true 
   ],
   exports: [RouterModule]
 })

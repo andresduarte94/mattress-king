@@ -1,10 +1,10 @@
-<a href="{{ product.amazonLink }}" target="_blank" id="product-item">
+<a [routerLink]="['/', language, 'product', product.country, product.id]" id="product-item">
     <mat-card>
         <picture>
             <source [srcset]="productImage + '.webp'" type="image/webp">
             <source [srcset]="productImage + '.jpg'" type="image/jpeg">
             <img class="product-img" loading="lazy" [src]="productImage + '.jpg'"
-                [alt]="product.name | shorten:60:true">
+                [alt]="product.name | shorten:100:true">
         </picture>
         <div class="title-div">
             <h2>
@@ -13,7 +13,7 @@
         </div>
         <div class="price-row">
             <div>
-                <span><strong>{{ product.discountPrice }} {{ currency }}</strong></span>
+                <span><strong>{{ product.discountPrice }} {{ product.currency }}</strong></span>
             </div>
             <div>
                 <span class="discount-span">{{ discountDisplay }}</span>

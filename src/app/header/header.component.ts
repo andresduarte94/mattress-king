@@ -171,6 +171,7 @@ export class HeaderComponent implements OnInit {
         this.globalService.setLanguage(language);
         this.translationWords = this.globalService.getTranslationLanguage();
         this.componentWords = this.translationWords['header'];
+        this.globalService.throwUpdateLanguageSubject();
         // Update language icon
         let languageSelected = this.elRef.nativeElement.querySelector('.global-logo-language');
         languageSelected.src = this.languagesLogos[this.language];

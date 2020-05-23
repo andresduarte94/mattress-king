@@ -12,6 +12,7 @@ export class Product {
         public discount: number,
         public payments: number,
         public score: number,
-        public discountPrice?: number
+        public discountPrice?: number,
+        public currency?: string
         ) {}
 }

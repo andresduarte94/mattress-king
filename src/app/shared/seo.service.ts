@@ -16,7 +16,7 @@ export class SEOService {
 
     updateAllMetasForRoute(url: any, params: any) {
         let language = params.language;
-        if(!['es', 'us'].includes(language)){
+        if (!['es', 'us'].includes(language)) {
             language = 'en';
         }
         // SEO variables and path
@@ -25,6 +25,10 @@ export class SEOService {
             language = 'en';
             path1 = 'home';
         }
+        else if (path1 === 'product') {
+            return;
+        }
+
         let description = this.seoData[language][path1].description;
         let pageTitle = this.seoData[language][path1].title;
 
@@ -53,7 +57,6 @@ export class SEOService {
             }
         }
         // Update HTML language attribute, title and description meta
-        this.changeLangAttribute(language);
         this.updateTitle(pageTitle);
         this.updateDescription(description);
     }
@@ -80,17 +83,17 @@ export class SEOService {
         }
 
         let pathArray = url.split('/').slice(1);
-        if( url == '/en/home' && !queryParams.gl) {
+        if (url == '/en/home' && !queryParams.gl) {
             canonicalUrl = 'https://www.mattressfinder.shop';
         }
-        else if( pathArray[1] == 'blog' && params.postUrl) {
+        else if (pathArray[1] == 'blog' && params.postUrl) {
             let postUrl = params.postUrl;
-            if( !isNaN(postUrl) ) {
+            if (!isNaN(postUrl)) {
                 postUrl = this.blogService.getPostById(params.postUrl).url;
             }
-            canonicalUrl= `https://www.mattressfinder.shop/es/blog/${postUrl}`
+            canonicalUrl = `https://www.mattressfinder.shop/es/blog/${postUrl}`
         }
-        else if( pathArray[1] == 'blog' ) {
+        else if (pathArray[1] == 'blog') {
             canonicalUrl = `https://www.mattressfinder.shop/${params.language}/blog`;
         }
         canonicalLink.setAttribute('href', canonicalUrl);

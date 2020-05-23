@@ -55,6 +55,7 @@ export class ProductsService {
 
   setProducts(products: Product[]) {
     products = products.map((product: Product) => {
+      product.currency = product.country == 'us' ? '$' : '€';
       product.discountPrice = Math.round((product.price*(1-product.discount/100) + Number.EPSILON) * 100)/100;
       return product;
     })

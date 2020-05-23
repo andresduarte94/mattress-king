@@ -13,9 +13,8 @@ import { Filter } from './filter.model';
   styleUrls: ['./products.component.scss']
 })
 export class ProductsComponent implements OnInit {
-  language: string;
-  translationWords: any;
   componentWords: any;
+  updateLanguageSub: Subscription;
   products: Product[] = [];
   filter: Filter = {};
   hideFilter: boolean;
@@ -29,23 +28,16 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit() {
     //Global variables initialization
-    this.language = this.globalService.getLanguage();
-    this.translationWords = this.globalService.getTranslationLanguage();
-    this.componentWords = this.translationWords['product-display'];
+    this.componentWords = this.globalService.getTranslationLanguage()['product-display'];
     //Ui variables
     this.innerWidth = window.innerWidth;
     this.hideFilter = this.innerWidth <= 762;
-
+    this.updateLanguageSub = this.globalService.updateLanguage.subscribe((translationWords: any) => {
+      this.componentWords = translationWords['product-display'];
+    });
     //Params subscription for setting language and productType filter
     this.activatedRoute.params.subscribe(
       (params: Params) => {
-        // Update language and translation words
-        if (params.hasOwnProperty('language') && this.language !== params.language) {
-          this.language = params.language;
-          this.translationWords = this.globalService.getTranslationLanguage();
-          this.componentWords = this.translationWords['product-display'];
-          this.globalService.updateSubComponentLanguage.next(this.translationWords);
-        }
         //Update products based on new productType from URL
         if (params.hasOwnProperty('productType')) {
           const poductTypeId = this.productsService.getProductTypeId(params.productType);
@@ -56,8 +48,7 @@ export class ProductsComponent implements OnInit {
         }
         this.updateProducts();
         this.productsService.productFilterUpdateEvent.next(this.filter);
-      }
-    );
+      });
     //QueryParams subscription for change country filter
     this.activatedRoute.queryParams.subscribe((queryParams: Params) => {
       this.filter.country = queryParams.gl ? queryParams.gl : 'all';
@@ -103,6 +94,11 @@ export class ProductsComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    if (this.filterUpdateSub) this.filterUpdateSub.unsubscribe();
+    if (this.filterUpdateSub) {
+      this.filterUpdateSub.unsubscribe();
+    }
+    if (this.updateLanguageSub) {
+      this.updateLanguageSub.unsubscribe();
+    }
   }
 }

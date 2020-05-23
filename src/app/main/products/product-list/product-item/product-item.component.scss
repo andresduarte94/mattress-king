@@ -53,37 +53,27 @@ h2 {
 }
 
 @media screen and (max-width: 330px) {
-    :host::ng-deep .mat-card {
+    .mat-card {
         width: 235px !important; 
     }
 }
-@media screen and (min-width: 330px) and (max-width: 576px) {
-    :host::ng-deep .mat-card {
-        width: 300px !important; 
-    }
-}
- @media screen and (min-width: 576px) and (max-width: 640px) {
-    :host::ng-deep .mat-card {
-        width: 235px !important;
-    }
-}
-@media screen and (min-width: 640px) and (max-width: 762px) {
-    :host::ng-deep .mat-card {
+@media screen and (min-width: 330px) and (max-width: 762px) {
+    .mat-card {
         width: 300px !important; 
     }
 } 
 @media screen and (min-width: 762px) and (max-width: 1530px) {
-    :host::ng-deep .mat-card {
+    .mat-card {
         width: 235px !important;
     }
 }
 @media screen and (min-width: 1530px) and (max-width: 1824px) {
-    :host::ng-deep .mat-card {
+    .mat-card {
         width: 300px !important;
     }
 }
 @media screen and (min-width: 1824px) {
-    :host::ng-deep .mat-card {
+    .mat-card {
         width: 350px !important;
     }
 }

@@ -5,7 +5,7 @@
         <mat-form-field>
             <mat-select formControlName="productType" required>
                 <mat-option
-                    *ngFor="let category of translationWords.header.categories; let i = index;"
+                    *ngFor="let category of componentWords.categories; let i = index;"
                     [value]="i">{{ category }}</mat-option>
             </mat-select>
         </mat-form-field>
