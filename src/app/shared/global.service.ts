@@ -8,7 +8,7 @@ export class GlobalService {
   private language: string = 'en';
   private country: string = 'all';
   private translations: any = {};
-  updateSubComponentLanguage = new Subject<any>();
+  updateLanguage = new Subject<any>();
 
   constructor(private http: HttpClient) { }
 
@@ -18,6 +18,7 @@ export class GlobalService {
 
   setLanguage(language: string) {
     this.language = language;
+    this.translations = this.translations;
   }
 
   getCountry() {
@@ -30,6 +31,10 @@ export class GlobalService {
 
   getTranslationLanguage() {
     return this.translations[this.language];
+  }
+
+  throwUpdateLanguageSubject() {
+    this.updateLanguage.next(this.translations[this.language]);
   }
 
   fetchTranslations(): Promise<any> {

@@ -13,9 +13,10 @@ import { Product } from '../../product.model';
 })
 export class ProductItemComponent implements OnInit {
   // Global variables
-  translationWords: any;
+  language: string;
+  componentWords: any;
   updateLanguageSub: Subscription;
-  //Product variables
+  // Product variables
   @Input('id') productId: number;
   @Input('country') productCountry: string;
   product: Product;
@@ -29,45 +30,41 @@ export class ProductItemComponent implements OnInit {
   constructor(private productsService: ProductsService, public breakpointObserver: BreakpointObserver, private globalService: GlobalService) { }
 
   ngOnInit() {
+    this.language = this.globalService.getLanguage();
+    this.componentWords = this.globalService.getTranslationLanguage()['product-display'];
     // Get product based on ProductId and Product country
     this.product = this.productsService.getProductById(this.productId, this.productCountry);
-    this.currency = this.productCountry == 'us' ? '$' : '€';
     // Get translations for 'off' string
-    this.translationWords = this.globalService.getTranslationLanguage();
+    this.updateLanguageSub = this.globalService.updateLanguage.subscribe((translationWords: any) => {
+      this.componentWords = translationWords['product-display'];
+      this.language = this.globalService.getLanguage();
+    });
     // Set display discount string, empty for 0 discount
     if (this.product.discount === 0) {
       this.discountDisplay = '';
     }
     else {
-      this.discountDisplay = this.product.discount + this.translationWords['product-display'].off;
+      this.discountDisplay = this.product.discount + this.componentWords.off;
     }
-    // Set product responsive images depending on viewport size
     this.breakpointSub = this.createBreakpointsSubscription();
   }
 
   createBreakpointsSubscription() {
     let size: string;
     return this.breakpointObserver
-      .observe(['(max-width: 330px)', '(max-width: 576px)', '(max-width: 640px)', '(max-width: 762px)',
-        '(max-width: 1530px)', '(max-width: 1824px)'])
+      .observe(['(max-width: 330px)', '(max-width: 762px)', '(max-width: 1530px)', '(max-width: 1824px)'])
       .subscribe((state: BreakpointState) => {
-
-        if (state.breakpoints['(max-width: 330px)']) {
+        const booleans = state.breakpoints;
+        if (booleans['(max-width: 330px)']) {
           size = 'small';
         }
-        else if (state.breakpoints['(max-width: 576px)']) {
+        else if (booleans['(max-width: 762px)']) {
           size = 'medium';
         }
-        else if (state.breakpoints['(max-width: 640px)']) {
+        else if (booleans['(max-width: 1530px)']) {
           size = 'small';
         }
-        else if (state.breakpoints['(max-width: 762px)']) {
-          size = 'medium';
-        }
-        else if (state.breakpoints['(max-width: 1530px)']) {
-          size = 'small';
-        }
-        else if (state.breakpoints['(max-width: 1824px)']) {
+        else if (booleans['(max-width: 1824px)']) {
           size = 'medium';
         }
         else {
@@ -81,6 +78,9 @@ export class ProductItemComponent implements OnInit {
   ngOnDestroy() {
     if (this.breakpointSub) {
       this.breakpointSub.unsubscribe();
+    }
+    if (this.updateLanguageSub) {
+      this.updateLanguageSub.unsubscribe();
     }
   }
 }

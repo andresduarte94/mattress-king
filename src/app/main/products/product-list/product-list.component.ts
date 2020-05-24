@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, ViewChild } from '@angular/core';
 import { Product } from '../product.model';
 import { GlobalService } from 'src/app/shared/global.service';
-import { Subscription } from 'rxjs';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 
 @Component({
@@ -11,49 +10,21 @@ import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductListComponent implements OnInit {
-  // Global variables
-  translationWords: any;
-  updateLanguageSub: Subscription;
   //Product variables
   @Input() products: Product[];
   //Pagination variables
   pageSize = 24;
   maxPages = 5;
   pageOfProducts: Array<any>;
-  previousLabel: string;
-  nextLabel: string;
-  firstLabel: string;
-  lastLabel: string;
   @ViewChild(CdkVirtualScrollViewport) virtualScroll: CdkVirtualScrollViewport;
 
   constructor(private globalService: GlobalService) { }
 
-  ngOnInit() {
-    this.translationWords = this.globalService.getTranslationLanguage();
-    this.previousLabel = this.translationWords.blog.previousLabel;
-    this.nextLabel = this.translationWords.blog.nextLabel;
-    this.firstLabel = this.translationWords.blog.firstLabel;
-    this.lastLabel = this.translationWords.blog.lastLabel;
-
-    this.updateLanguageSub = this.globalService.updateSubComponentLanguage.subscribe((translationWords) => {
-      // Set pagination labels
-      this.translationWords = translationWords;
-      this.previousLabel = translationWords.blog.previousLabel;
-      this.nextLabel = translationWords.blog.nextLabel;
-      this.firstLabel = translationWords.blog.firstLabel;
-      this.lastLabel = translationWords.blog.lastLabel;
-    });
-  }
+  ngOnInit() {}
 
   // update current pagination page of items
   onChangePage(pageOfProducts: Array<any>) {
     this.pageOfProducts = pageOfProducts;
     this.virtualScroll.scrollToIndex(0);
-  }
-
-  ngOnDestroy() {
-    if (this.updateLanguageSub) {
-      this.updateLanguageSub.unsubscribe();
-    }
   }
 }

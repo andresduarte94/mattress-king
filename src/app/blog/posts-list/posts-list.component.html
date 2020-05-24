@@ -5,8 +5,7 @@
         </app-post-item>
     </div>
     <div class="pagination-container">
-        <jw-pagination [items]="posts" [pageSize]="pageSize" [maxPages]="maxPages" [previousLabel]="previousLabel"
-            [nextLabel]="nextLabel" [firstLabel]="firstLabel" [lastLabel]="lastLabel" (changePage)="onChangePage($event)">
+        <jw-pagination [items]="posts" [pageSize]="pageSize" [maxPages]="maxPages" (changePage)="onChangePage($event)">
         </jw-pagination>
     </div>
 </div>

@@ -25,8 +25,9 @@ import { Subscription } from 'rxjs';
 export class ProductFilterComponent implements OnInit {
   //Global variables
   country: string;
-  translationWords: any;
+  //translationWords: any;
   componentWords: any;
+  updateLanguageSub: Subscription;
   //Product variables
   productTypes: string[];
   filter: Filter = {};
@@ -42,16 +43,14 @@ export class ProductFilterComponent implements OnInit {
   constructor(private productsService: ProductsService, private globalService: GlobalService) { }
 
   ngOnInit() {
-    this.translationWords = this.globalService.getTranslationLanguage();
-    this.componentWords = this.translationWords['product-display'];
+    this.componentWords = this.globalService.getTranslationLanguage()['product-display'];
     //Product variables initialization
     this.productTypes = this.productsService.productTypes;
     this.sizes = this.productsService.getSizes(1);
     //Create, initialize and set subscriptions for filter form
     this.createReactiveFilterForm();
 
-    this.globalService.updateSubComponentLanguage.subscribe((translationWords) => {
-      this.translationWords = translationWords;
+    this.updateLanguageSub = this.globalService.updateLanguage.subscribe((translationWords: any) => {
       this.componentWords = translationWords['product-display'];
     });
 
@@ -109,7 +108,6 @@ export class ProductFilterComponent implements OnInit {
             sizeArrayValues.push(size);
           }
         }
-
         if (sizeArrayValues.length == 0) {
           delete this.filter.sizes;
           this.updateFilter(this.filter);
@@ -215,6 +213,9 @@ export class ProductFilterComponent implements OnInit {
   ngOnDestroy() {
     if (this.productFilterUpdateSub) {
       this.productFilterUpdateSub.unsubscribe();
+    }
+    if (this.updateLanguageSub) {
+      this.updateLanguageSub.unsubscribe();
     }
   }
 }

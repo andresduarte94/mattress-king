@@ -1,14 +1,14 @@
 <div class="product-list-container">
-<cdk-virtual-scroll-viewport itemSize="80.25" minBufferPx="240.75" maxBufferPx="481.5" style="height:100vh;">
-    <div class="row">
-        <app-product-item class="product-item-col" *cdkVirtualFor="let product of pageOfProducts; templateCacheSize: 0"
-            [id]="product.id" [country]="product.country">
-        </app-product-item>
-    </div>
-</cdk-virtual-scroll-viewport>
+    <cdk-virtual-scroll-viewport itemSize="80.25" minBufferPx="240.75" maxBufferPx="481.5" style="height:100vh;">
+        <div class="row">
+            <app-product-item class="product-item-col"
+                *cdkVirtualFor="let product of pageOfProducts; templateCacheSize: 0" [id]="product.id"
+                [country]="product.country">
+            </app-product-item>
+        </div>
+    </cdk-virtual-scroll-viewport>
 </div>
 <div class="pagination-container">
-    <jw-pagination [items]="products" [pageSize]="pageSize" [maxPages]="maxPages" [previousLabel]="previousLabel"
-        [nextLabel]="nextLabel" [firstLabel]="firstLabel" [lastLabel]="lastLabel" (changePage)="onChangePage($event)">
+    <jw-pagination [items]="products" [pageSize]="pageSize" [maxPages]="maxPages" (changePage)="onChangePage($event)">
     </jw-pagination>
 </div>

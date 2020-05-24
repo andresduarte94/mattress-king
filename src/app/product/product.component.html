@@ -1,22 +1,38 @@
-<!-- <div class="card">
-    <div class="row p-2 my-3">
-        <div class="col-md-4 col-sm-4">
-            <img src="/storage/img_productos/laptop.jpg" class="img-fluid img-thumbnail my-auto">
-            </div>
-        <div class="col-md-5 col-sm-5 pl-5" style="position: relative;">
-            <h1>Laptop</h1>
-            <p style="font-size: 1.3em;">Precio:
-                <span class="font-weight-bold" style="color: rgb(255, 102, 0); font-size: 1.1em;">1000 €</span>
-            </p>
-            <p class="mb-4" style="font-size: 1.1em;">
-                <strong>Descripción</strong>
-                <br>
-                Laptop Toshiba 3.4
-            </p>
-            <a></a>
+<mat-card>
+    <div class="row">
+        <div class="image-col">
+            <picture>
+                <source [srcset]="productImage + '.webp'" type="image/webp">
+                <source [srcset]="productImage + '.jpg'" type="image/jpeg">
+                <img class="product-img" [src]="productImage + '.jpg'"
+                    [alt]="product.name | shorten:100:true">
+            </picture>
         </div>
-        <div class="col-md-3 col-sm-3 mt-3 mt-lg-0"><img src="/storage/estrellas/4.jpg" class="mx-auto d-block">
-            <p class="text-center">Puntuación: 3.6</p>
+        <div class="description-col">
+            <h1>{{ product.name }}</h1>
+            <div class="data-group">
+                <span class="label"> {{ componentWords.score }}: </span>
+                <span class="data"> {{ product.score }} </span>
+            </div>
+            <div class="data-group">
+                <span class="label"> {{ componentWords.price }}: </span>
+                <span class="price"> {{ product.price }} {{ product.currency }} </span>
+            </div>
+            <div class="data-group">
+                <span class="label"> {{ componentWords.discount }}: </span>
+                <span class="data"> {{ product.discount }}%</span>
+            </div>
+            <div class="data-group">
+                <span class="label"> {{ componentWords.payments }}: </span>
+                <span class="data"> {{ product.payments }} {{ componentWords.payment }}(s)</span>
+            </div>
+            <div class="data-group">
+                <span class="label"> {{ componentWords.description }}: </span>
+                <p class="description"> {{ product.description }} </p>
+            </div>
+            <a mat-raised-button class="amazon-button" href="{{ product.amazonLink }}" target="_blank">
+                {{ componentWords.amazonButton }}
+            </a>
         </div>
     </div>
-</div> -->
+</mat-card>

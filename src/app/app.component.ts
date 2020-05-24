@@ -21,7 +21,7 @@ export class AppComponent {
   footer: Promise<Type<FooterComponent>>;
 
   constructor(private activatedRoute: ActivatedRoute, private router: Router, private seoService: SEOService,
-    private scriptLoader: ScriptLoader, private iconRegistry: MatIconRegistry, private sanitizer: DomSanitizer, private injector: Injector) { }
+    private scriptLoader: ScriptLoader, private iconRegistry: MatIconRegistry, private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
     this.router.events.pipe(
@@ -53,7 +53,6 @@ export class AppComponent {
         gtag('config', 'UA-163785252-1', {
           'page_path': routeURL
         });
-
       });
 
     this.registerSvgs();

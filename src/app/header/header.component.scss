@@ -79,12 +79,20 @@ a {
 #search input {
     width: 80%;
     display: inline-block;
-    line-height: 26px;
+    height: 32px;
     vertical-align: middle;
-    box-sizing: content-box;
     border-top-right-radius: 0.25rem;
     border-bottom-right-radius: 0.25rem;
-    padding-left: 1%;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    border-left: none;
+    padding: 0 1%;
+}
+#search input:focus {
+    outline: none;
+    border-top: 1px solid #79cedc;
+    border-bottom: 1px solid #79cedc;
+    box-shadow: 0 0 4px #719ECE;
 }
 #search .lens-div {
     display: inline-block;
